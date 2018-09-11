@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type AppVersion struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewAppVersion(restClient gosdk.RestClientInterface) *AppVersion {
+func NewAppVersion(restClient sdk.RestClientInterface) *AppVersion {
 	return &AppVersion{restClient}
 }
 
 // GET: Queries
 // @param string AppVersionId
-func (t *AppVersion) GetAppVersion(AppVersionId string) (r *http.Response, err error) {
+
+type GetAppVersionParameters struct {
+	AppVersionId string
+}
+
+func (t *AppVersion) GetAppVersion(p *GetAppVersionParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`appVersionId`, AppVersionId)
+	queryParameters.Add(`appVersionId`, p.AppVersionId)
 
 	return t.restClient.Get(
 		`/v2/AppVersion/UseCase/GetAppVersion`,
@@ -35,9 +41,14 @@ func (t *AppVersion) GetAppVersion(AppVersionId string) (r *http.Response, err e
 }
 
 // @param string AppVersionType check-in-ios|check-in-android|ticket-block-mgmt-ios|ticket-block-mgmt-android
-func (t *AppVersion) GetAppVersionByType(AppVersionType string) (r *http.Response, err error) {
+
+type GetAppVersionByTypeParameters struct {
+	AppVersionType string
+}
+
+func (t *AppVersion) GetAppVersionByType(p *GetAppVersionByTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`appVersionType`, AppVersionType)
+	queryParameters.Add(`appVersionType`, p.AppVersionType)
 
 	return t.restClient.Get(
 		`/v2/AppVersion/UseCase/GetAppVersionByType`,
@@ -47,7 +58,10 @@ func (t *AppVersion) GetAppVersionByType(AppVersionType string) (r *http.Respons
 	)
 }
 
-func (t *AppVersion) GetSystemStatus() (r *http.Response, err error) {
+type GetSystemStatusParameters struct {
+}
+
+func (t *AppVersion) GetSystemStatus(p *GetSystemStatusParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Get(
@@ -58,7 +72,10 @@ func (t *AppVersion) GetSystemStatus() (r *http.Response, err error) {
 	)
 }
 
-func (t *AppVersion) ListAppVersions() (r *http.Response, err error) {
+type ListAppVersionsParameters struct {
+}
+
+func (t *AppVersion) ListAppVersions(p *ListAppVersionsParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Get(
@@ -73,11 +90,18 @@ func (t *AppVersion) ListAppVersions() (r *http.Response, err error) {
 // @param string AppVersionType check-in-ios|check-in-android|ticket-block-mgmt-ios|ticket-block-mgmt-android
 // @param string SoftVersion
 // @param string HardVersion
-func (t *AppVersion) SetAppVersionNumberByType(AppVersionType string, SoftVersion string, HardVersion string) (r *http.Response, err error) {
+
+type SetAppVersionNumberByTypeParameters struct {
+	AppVersionType string
+	SoftVersion    string
+	HardVersion    string
+}
+
+func (t *AppVersion) SetAppVersionNumberByType(p *SetAppVersionNumberByTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`appVersionType`, AppVersionType)
-	queryParameters.Add(`softVersion`, SoftVersion)
-	queryParameters.Add(`hardVersion`, HardVersion)
+	queryParameters.Add(`appVersionType`, p.AppVersionType)
+	queryParameters.Add(`softVersion`, p.SoftVersion)
+	queryParameters.Add(`hardVersion`, p.HardVersion)
 
 	return t.restClient.Post(
 		`/v2/AppVersion/UseCase/SetAppVersionNumberByType`,

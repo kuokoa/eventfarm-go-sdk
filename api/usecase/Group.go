@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,22 +14,28 @@ var _ url.Error
 var _ = http.NoBody
 
 type Group struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewGroup(restClient gosdk.RestClientInterface) *Group {
+func NewGroup(restClient sdk.RestClientInterface) *Group {
 	return &Group{restClient}
 }
 
 // GET: Queries
 // @param string GroupId
 // @param array|null WithData totalUsersInGroup|creatorUser
-func (t *Group) GetGroup(GroupId string, WithData *[]string) (r *http.Response, err error) {
+
+type GetGroupParameters struct {
+	GroupId  string
+	WithData *[]string
+}
+
+func (t *Group) GetGroup(p *GetGroupParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`groupId`, GroupId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`groupId`, p.GroupId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
 
@@ -47,24 +54,35 @@ func (t *Group) GetGroup(GroupId string, WithData *[]string) (r *http.Response, 
 // @param int|null ItemsPerPage 1-500
 // @param string|null SortBy
 // @param string|null SortDirection ascending|descending
-func (t *Group) ListGroupMembershipForUser(PoolId string, UserId string, GroupOwnerUserId *string, Page *int, ItemsPerPage *int, SortBy *string, SortDirection *string) (r *http.Response, err error) {
+
+type ListGroupMembershipForUserParameters struct {
+	PoolId           string
+	UserId           string
+	GroupOwnerUserId *string
+	Page             *int
+	ItemsPerPage     *int
+	SortBy           *string
+	SortDirection    *string
+}
+
+func (t *Group) ListGroupMembershipForUser(p *ListGroupMembershipForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`userId`, UserId)
-	if GroupOwnerUserId != nil {
-		queryParameters.Add(`groupOwnerUserId`, *GroupOwnerUserId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.GroupOwnerUserId != nil {
+		queryParameters.Add(`groupOwnerUserId`, *p.GroupOwnerUserId)
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 
 	return t.restClient.Get(
@@ -81,23 +99,33 @@ func (t *Group) ListGroupMembershipForUser(PoolId string, UserId string, GroupOw
 // @param int|null ItemsPerPage 1-500
 // @param string|null SortBy
 // @param string|null SortDirection ascending|descending
-func (t *Group) ListGroupsOwnedByUser(UserId string, Query *string, Page *int, ItemsPerPage *int, SortBy *string, SortDirection *string) (r *http.Response, err error) {
+
+type ListGroupsOwnedByUserParameters struct {
+	UserId        string
+	Query         *string
+	Page          *int
+	ItemsPerPage  *int
+	SortBy        *string
+	SortDirection *string
+}
+
+func (t *Group) ListGroupsOwnedByUser(p *ListGroupsOwnedByUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	if Query != nil {
-		queryParameters.Add(`query`, *Query)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 
 	return t.restClient.Get(
@@ -111,11 +139,17 @@ func (t *Group) ListGroupsOwnedByUser(UserId string, Query *string, Page *int, I
 // POST: Commands
 // @param string GroupId
 // @param array UserIds
-func (t *Group) AddUsersToGroup(GroupId string, UserIds []string) (r *http.Response, err error) {
+
+type AddUsersToGroupParameters struct {
+	GroupId string
+	UserIds []string
+}
+
+func (t *Group) AddUsersToGroup(p *AddUsersToGroupParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`groupId`, GroupId)
-	for i := range UserIds {
-		queryParameters.Add(`userIds[]`, UserIds[i])
+	queryParameters.Add(`groupId`, p.GroupId)
+	for i := range p.UserIds {
+		queryParameters.Add(`userIds[]`, p.UserIds[i])
 	}
 
 	return t.restClient.Post(
@@ -129,12 +163,19 @@ func (t *Group) AddUsersToGroup(GroupId string, UserIds []string) (r *http.Respo
 // @param string UserId
 // @param string GroupName
 // @param string|null GroupId
-func (t *Group) CreateGroupForUser(UserId string, GroupName string, GroupId *string) (r *http.Response, err error) {
+
+type CreateGroupForUserParameters struct {
+	UserId    string
+	GroupName string
+	GroupId   *string
+}
+
+func (t *Group) CreateGroupForUser(p *CreateGroupForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`groupName`, GroupName)
-	if GroupId != nil {
-		queryParameters.Add(`groupId`, *GroupId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`groupName`, p.GroupName)
+	if p.GroupId != nil {
+		queryParameters.Add(`groupId`, *p.GroupId)
 	}
 
 	return t.restClient.Post(
@@ -146,9 +187,14 @@ func (t *Group) CreateGroupForUser(UserId string, GroupName string, GroupId *str
 }
 
 // @param string GroupId
-func (t *Group) DeleteGroup(GroupId string) (r *http.Response, err error) {
+
+type DeleteGroupParameters struct {
+	GroupId string
+}
+
+func (t *Group) DeleteGroup(p *DeleteGroupParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`groupId`, GroupId)
+	queryParameters.Add(`groupId`, p.GroupId)
 
 	return t.restClient.Post(
 		`/v2/Group/UseCase/DeleteGroup`,
@@ -160,11 +206,17 @@ func (t *Group) DeleteGroup(GroupId string) (r *http.Response, err error) {
 
 // @param string DestinationGroupId
 // @param array FromGroupIds
-func (t *Group) MergeGroups(DestinationGroupId string, FromGroupIds []string) (r *http.Response, err error) {
+
+type MergeGroupsParameters struct {
+	DestinationGroupId string
+	FromGroupIds       []string
+}
+
+func (t *Group) MergeGroups(p *MergeGroupsParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`destinationGroupId`, DestinationGroupId)
-	for i := range FromGroupIds {
-		queryParameters.Add(`fromGroupIds[]`, FromGroupIds[i])
+	queryParameters.Add(`destinationGroupId`, p.DestinationGroupId)
+	for i := range p.FromGroupIds {
+		queryParameters.Add(`fromGroupIds[]`, p.FromGroupIds[i])
 	}
 
 	return t.restClient.Post(
@@ -177,11 +229,17 @@ func (t *Group) MergeGroups(DestinationGroupId string, FromGroupIds []string) (r
 
 // @param string GroupId
 // @param array UserIds
-func (t *Group) RemoveUsersFromGroup(GroupId string, UserIds []string) (r *http.Response, err error) {
+
+type RemoveUsersFromGroupParameters struct {
+	GroupId string
+	UserIds []string
+}
+
+func (t *Group) RemoveUsersFromGroup(p *RemoveUsersFromGroupParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`groupId`, GroupId)
-	for i := range UserIds {
-		queryParameters.Add(`userIds[]`, UserIds[i])
+	queryParameters.Add(`groupId`, p.GroupId)
+	for i := range p.UserIds {
+		queryParameters.Add(`userIds[]`, p.UserIds[i])
 	}
 
 	return t.restClient.Post(
@@ -195,11 +253,18 @@ func (t *Group) RemoveUsersFromGroup(GroupId string, UserIds []string) (r *http.
 // @param string GroupId
 // @param string UserId
 // @param string GroupName
-func (t *Group) SetGroupName(GroupId string, UserId string, GroupName string) (r *http.Response, err error) {
+
+type SetGroupNameParameters struct {
+	GroupId   string
+	UserId    string
+	GroupName string
+}
+
+func (t *Group) SetGroupName(p *SetGroupNameParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`groupId`, GroupId)
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`groupName`, GroupName)
+	queryParameters.Add(`groupId`, p.GroupId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`groupName`, p.GroupName)
 
 	return t.restClient.Post(
 		`/v2/Group/UseCase/SetGroupName`,

@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type PoolContract struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewPoolContract(restClient gosdk.RestClientInterface) *PoolContract {
+func NewPoolContract(restClient sdk.RestClientInterface) *PoolContract {
 	return &PoolContract{restClient}
 }
 
 // GET: Queries
 // @param string PoolId
-func (t *PoolContract) CountPoolContractUsers(PoolId string) (r *http.Response, err error) {
+
+type CountPoolContractUsersParameters struct {
+	PoolId string
+}
+
+func (t *PoolContract) CountPoolContractUsers(p *CountPoolContractUsersParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
+	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Get(
 		`/v2/PoolContract/UseCase/CountPoolContractUsers`,
@@ -35,9 +41,14 @@ func (t *PoolContract) CountPoolContractUsers(PoolId string) (r *http.Response, 
 }
 
 // @param string PoolId
-func (t *PoolContract) GetEmailCountsForPoolContract(PoolId string) (r *http.Response, err error) {
+
+type GetEmailCountsForPoolContractParameters struct {
+	PoolId string
+}
+
+func (t *PoolContract) GetEmailCountsForPoolContract(p *GetEmailCountsForPoolContractParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
+	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Get(
 		`/v2/PoolContract/UseCase/GetEmailCountsForPoolContract`,

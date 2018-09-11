@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,10 +14,10 @@ var _ url.Error
 var _ = http.NoBody
 
 type Canvas struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewCanvas(restClient gosdk.RestClientInterface) *Canvas {
+func NewCanvas(restClient sdk.RestClientInterface) *Canvas {
 	return &Canvas{restClient}
 }
 
@@ -24,9 +25,14 @@ func NewCanvas(restClient gosdk.RestClientInterface) *Canvas {
 
 // POST: Commands
 // @param string EventId
-func (t *Canvas) EnableCanvasForEvent(EventId string) (r *http.Response, err error) {
+
+type EnableCanvasForEventParameters struct {
+	EventId string
+}
+
+func (t *Canvas) EnableCanvasForEvent(p *EnableCanvasForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
+	queryParameters.Add(`eventId`, p.EventId)
 
 	return t.restClient.Post(
 		`/v2/Canvas/UseCase/EnableCanvasForEvent`,

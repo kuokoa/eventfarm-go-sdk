@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,10 +14,10 @@ var _ url.Error
 var _ = http.NoBody
 
 type User struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewUser(restClient gosdk.RestClientInterface) *User {
+func NewUser(restClient sdk.RestClientInterface) *User {
 	return &User{restClient}
 }
 
@@ -24,11 +25,18 @@ func NewUser(restClient gosdk.RestClientInterface) *User {
 // @param string RemoveUserId
 // @param string RequestUserId
 // @param string PoolId
-func (t *User) CheckIfUserCanBeRemovedFromPool(RemoveUserId string, RequestUserId string, PoolId string) (r *http.Response, err error) {
+
+type CheckIfUserCanBeRemovedFromPoolParameters struct {
+	RemoveUserId  string
+	RequestUserId string
+	PoolId        string
+}
+
+func (t *User) CheckIfUserCanBeRemovedFromPool(p *CheckIfUserCanBeRemovedFromPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`removeUserId`, RemoveUserId)
-	queryParameters.Add(`requestUserId`, RequestUserId)
-	queryParameters.Add(`poolId`, PoolId)
+	queryParameters.Add(`removeUserId`, p.RemoveUserId)
+	queryParameters.Add(`requestUserId`, p.RequestUserId)
+	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Get(
 		`/v2/User/UseCase/CheckIfUserCanBeRemovedFromPool`,
@@ -41,17 +49,24 @@ func (t *User) CheckIfUserCanBeRemovedFromPool(RemoveUserId string, RequestUserI
 // @param string UserId
 // @param array|null WithData UserName|UserAddress|UserToken|UserIdentifier|isEFAdmin|internalUserName
 // @param array|null WithUserAttributes internal|info|hover|facebook|linked-in|salesforce|twitter|convio|google|custom
-func (t *User) GetUser(UserId string, WithData *[]string, WithUserAttributes *[]string) (r *http.Response, err error) {
+
+type GetUserParameters struct {
+	UserId             string
+	WithData           *[]string
+	WithUserAttributes *[]string
+}
+
+func (t *User) GetUser(p *GetUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`userId`, p.UserId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
-	if WithUserAttributes != nil {
-		for i := range *WithUserAttributes {
-			queryParameters.Add(`withUserAttributes[]`, (*WithUserAttributes)[i])
+	if p.WithUserAttributes != nil {
+		for i := range *p.WithUserAttributes {
+			queryParameters.Add(`withUserAttributes[]`, (*p.WithUserAttributes)[i])
 		}
 	}
 
@@ -67,18 +82,26 @@ func (t *User) GetUser(UserId string, WithData *[]string, WithUserAttributes *[]
 // @param string UserId
 // @param array|null WithData UserName|UserAddress|UserToken|UserIdentifier|isEFAdmin|internalUserName
 // @param array|null WithUserAttributes internal|info|hover|facebook|linked-in|salesforce|twitter|convio|google|custom
-func (t *User) GetUserInPool(PoolId string, UserId string, WithData *[]string, WithUserAttributes *[]string) (r *http.Response, err error) {
+
+type GetUserInPoolParameters struct {
+	PoolId             string
+	UserId             string
+	WithData           *[]string
+	WithUserAttributes *[]string
+}
+
+func (t *User) GetUserInPool(p *GetUserInPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`userId`, UserId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
-	if WithUserAttributes != nil {
-		for i := range *WithUserAttributes {
-			queryParameters.Add(`withUserAttributes[]`, (*WithUserAttributes)[i])
+	if p.WithUserAttributes != nil {
+		for i := range *p.WithUserAttributes {
+			queryParameters.Add(`withUserAttributes[]`, (*p.WithUserAttributes)[i])
 		}
 	}
 
@@ -92,10 +115,16 @@ func (t *User) GetUserInPool(PoolId string, UserId string, WithData *[]string, W
 
 // @param string UserId
 // @param string EventId
-func (t *User) GetUserRolesForEvent(UserId string, EventId string) (r *http.Response, err error) {
+
+type GetUserRolesForEventParameters struct {
+	UserId  string
+	EventId string
+}
+
+func (t *User) GetUserRolesForEvent(p *GetUserRolesForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`eventId`, EventId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`eventId`, p.EventId)
 
 	return t.restClient.Get(
 		`/v2/User/UseCase/GetUserRolesForEvent`,
@@ -107,10 +136,16 @@ func (t *User) GetUserRolesForEvent(UserId string, EventId string) (r *http.Resp
 
 // @param string UserId
 // @param string TicketBlockId
-func (t *User) GetUserRolesForTicketBlock(UserId string, TicketBlockId string) (r *http.Response, err error) {
+
+type GetUserRolesForTicketBlockParameters struct {
+	UserId        string
+	TicketBlockId string
+}
+
+func (t *User) GetUserRolesForTicketBlock(p *GetUserRolesForTicketBlockParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`ticketBlockId`, TicketBlockId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
 
 	return t.restClient.Get(
 		`/v2/User/UseCase/GetUserRolesForTicketBlock`,
@@ -127,30 +162,41 @@ func (t *User) GetUserRolesForTicketBlock(UserId string, TicketBlockId string) (
 // @param string|null SortDirection ascending|descending
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
-func (t *User) ListUsersForPools(PoolIds []string, WithData *[]string, Query *string, SortBy *string, SortDirection *string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListUsersForPoolsParameters struct {
+	PoolIds       []string
+	WithData      *[]string
+	Query         *string
+	SortBy        *string
+	SortDirection *string
+	Page          *int
+	ItemsPerPage  *int
+}
+
+func (t *User) ListUsersForPools(p *ListUsersForPoolsParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	for i := range PoolIds {
-		queryParameters.Add(`poolIds[]`, PoolIds[i])
+	for i := range p.PoolIds {
+		queryParameters.Add(`poolIds[]`, p.PoolIds[i])
 	}
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
-	if Query != nil {
-		queryParameters.Add(`query`, *Query)
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
 	}
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -168,28 +214,39 @@ func (t *User) ListUsersForPools(PoolIds []string, WithData *[]string, Query *st
 // @param string|null SortDirection ascending|descending
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
-func (t *User) ListUsersForTicketBlock(TicketBlockId string, WithData *[]string, Query *string, SortBy *string, SortDirection *string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListUsersForTicketBlockParameters struct {
+	TicketBlockId string
+	WithData      *[]string
+	Query         *string
+	SortBy        *string
+	SortDirection *string
+	Page          *int
+	ItemsPerPage  *int
+}
+
+func (t *User) ListUsersForTicketBlock(p *ListUsersForTicketBlockParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketBlockId`, TicketBlockId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
-	if Query != nil {
-		queryParameters.Add(`query`, *Query)
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
 	}
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -208,29 +265,41 @@ func (t *User) ListUsersForTicketBlock(TicketBlockId string, WithData *[]string,
 // @param string|null SortDirection ascending|descending
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
-func (t *User) ListUsersInGroup(GroupId string, PoolId string, WithData *[]string, Query *string, SortBy *string, SortDirection *string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListUsersInGroupParameters struct {
+	GroupId       string
+	PoolId        string
+	WithData      *[]string
+	Query         *string
+	SortBy        *string
+	SortDirection *string
+	Page          *int
+	ItemsPerPage  *int
+}
+
+func (t *User) ListUsersInGroup(p *ListUsersInGroupParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`groupId`, GroupId)
-	queryParameters.Add(`poolId`, PoolId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`groupId`, p.GroupId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
-	if Query != nil {
-		queryParameters.Add(`query`, *Query)
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
 	}
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -248,28 +317,39 @@ func (t *User) ListUsersInGroup(GroupId string, PoolId string, WithData *[]strin
 // @param string|null SortDirection ascending|descending
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
-func (t *User) ListUsersWithRolesForEvent(EventId string, WithData *[]string, Query *string, SortBy *string, SortDirection *string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListUsersWithRolesForEventParameters struct {
+	EventId       string
+	WithData      *[]string
+	Query         *string
+	SortBy        *string
+	SortDirection *string
+	Page          *int
+	ItemsPerPage  *int
+}
+
+func (t *User) ListUsersWithRolesForEvent(p *ListUsersWithRolesForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
-	if Query != nil {
-		queryParameters.Add(`query`, *Query)
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
 	}
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -283,10 +363,16 @@ func (t *User) ListUsersWithRolesForEvent(EventId string, WithData *[]string, Qu
 // POST: Commands
 // @param string UserId
 // @param string Token
-func (t *User) AccessUserForgotPasswordToken(UserId string, Token string) (r *http.Response, err error) {
+
+type AccessUserForgotPasswordTokenParameters struct {
+	UserId string
+	Token  string
+}
+
+func (t *User) AccessUserForgotPasswordToken(p *AccessUserForgotPasswordTokenParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`token`, Token)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`token`, p.Token)
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/AccessUserForgotPasswordToken`,
@@ -298,10 +384,16 @@ func (t *User) AccessUserForgotPasswordToken(UserId string, Token string) (r *ht
 
 // @param string UserId
 // @param string GroupId
-func (t *User) AddUserAccessToGroup(UserId string, GroupId string) (r *http.Response, err error) {
+
+type AddUserAccessToGroupParameters struct {
+	UserId  string
+	GroupId string
+}
+
+func (t *User) AddUserAccessToGroup(p *AddUserAccessToGroupParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`groupId`, GroupId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`groupId`, p.GroupId)
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/AddUserAccessToGroup`,
@@ -320,34 +412,47 @@ func (t *User) AddUserAccessToGroup(UserId string, GroupId string) (r *http.Resp
 // @param string|null PoolId
 // @param string|null Title
 // @param string|null Other
-func (t *User) CreateAuthUser(Email *string, FirstName *string, LastName *string, Company *string, Position *string, Phone *string, PoolId *string, Title *string, Other *string) (r *http.Response, err error) {
+
+type CreateAuthUserParameters struct {
+	Email     *string
+	FirstName *string
+	LastName  *string
+	Company   *string
+	Position  *string
+	Phone     *string
+	PoolId    *string
+	Title     *string
+	Other     *string
+}
+
+func (t *User) CreateAuthUser(p *CreateAuthUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	if Email != nil {
-		queryParameters.Add(`email`, *Email)
+	if p.Email != nil {
+		queryParameters.Add(`email`, *p.Email)
 	}
-	if FirstName != nil {
-		queryParameters.Add(`firstName`, *FirstName)
+	if p.FirstName != nil {
+		queryParameters.Add(`firstName`, *p.FirstName)
 	}
-	if LastName != nil {
-		queryParameters.Add(`lastName`, *LastName)
+	if p.LastName != nil {
+		queryParameters.Add(`lastName`, *p.LastName)
 	}
-	if Company != nil {
-		queryParameters.Add(`company`, *Company)
+	if p.Company != nil {
+		queryParameters.Add(`company`, *p.Company)
 	}
-	if Position != nil {
-		queryParameters.Add(`position`, *Position)
+	if p.Position != nil {
+		queryParameters.Add(`position`, *p.Position)
 	}
-	if Phone != nil {
-		queryParameters.Add(`phone`, *Phone)
+	if p.Phone != nil {
+		queryParameters.Add(`phone`, *p.Phone)
 	}
-	if PoolId != nil {
-		queryParameters.Add(`poolId`, *PoolId)
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
 	}
-	if Title != nil {
-		queryParameters.Add(`title`, *Title)
+	if p.Title != nil {
+		queryParameters.Add(`title`, *p.Title)
 	}
-	if Other != nil {
-		queryParameters.Add(`other`, *Other)
+	if p.Other != nil {
+		queryParameters.Add(`other`, *p.Other)
 	}
 
 	return t.restClient.Post(
@@ -366,31 +471,43 @@ func (t *User) CreateAuthUser(Email *string, FirstName *string, LastName *string
 // @param string|null Phone
 // @param string|null Title
 // @param string|null Other
-func (t *User) CreateCIOAccount(Email *string, FirstName *string, LastName *string, Company *string, Position *string, Phone *string, Title *string, Other *string) (r *http.Response, err error) {
+
+type CreateCIOAccountParameters struct {
+	Email     *string
+	FirstName *string
+	LastName  *string
+	Company   *string
+	Position  *string
+	Phone     *string
+	Title     *string
+	Other     *string
+}
+
+func (t *User) CreateCIOAccount(p *CreateCIOAccountParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	if Email != nil {
-		queryParameters.Add(`email`, *Email)
+	if p.Email != nil {
+		queryParameters.Add(`email`, *p.Email)
 	}
-	if FirstName != nil {
-		queryParameters.Add(`firstName`, *FirstName)
+	if p.FirstName != nil {
+		queryParameters.Add(`firstName`, *p.FirstName)
 	}
-	if LastName != nil {
-		queryParameters.Add(`lastName`, *LastName)
+	if p.LastName != nil {
+		queryParameters.Add(`lastName`, *p.LastName)
 	}
-	if Company != nil {
-		queryParameters.Add(`company`, *Company)
+	if p.Company != nil {
+		queryParameters.Add(`company`, *p.Company)
 	}
-	if Position != nil {
-		queryParameters.Add(`position`, *Position)
+	if p.Position != nil {
+		queryParameters.Add(`position`, *p.Position)
 	}
-	if Phone != nil {
-		queryParameters.Add(`phone`, *Phone)
+	if p.Phone != nil {
+		queryParameters.Add(`phone`, *p.Phone)
 	}
-	if Title != nil {
-		queryParameters.Add(`title`, *Title)
+	if p.Title != nil {
+		queryParameters.Add(`title`, *p.Title)
 	}
-	if Other != nil {
-		queryParameters.Add(`other`, *Other)
+	if p.Other != nil {
+		queryParameters.Add(`other`, *p.Other)
 	}
 
 	return t.restClient.Post(
@@ -402,9 +519,14 @@ func (t *User) CreateCIOAccount(Email *string, FirstName *string, LastName *stri
 }
 
 // @param string UserId
-func (t *User) CreateForgotPasswordToken(UserId string) (r *http.Response, err error) {
+
+type CreateForgotPasswordTokenParameters struct {
+	UserId string
+}
+
+func (t *User) CreateForgotPasswordToken(p *CreateForgotPasswordTokenParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
+	queryParameters.Add(`userId`, p.UserId)
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/CreateForgotPasswordToken`,
@@ -423,34 +545,47 @@ func (t *User) CreateForgotPasswordToken(UserId string) (r *http.Response, err e
 // @param string|null PoolId
 // @param string|null Title
 // @param string|null Other
-func (t *User) CreateUser(Email *string, FirstName *string, LastName *string, Company *string, Position *string, Phone *string, PoolId *string, Title *string, Other *string) (r *http.Response, err error) {
+
+type CreateUserParameters struct {
+	Email     *string
+	FirstName *string
+	LastName  *string
+	Company   *string
+	Position  *string
+	Phone     *string
+	PoolId    *string
+	Title     *string
+	Other     *string
+}
+
+func (t *User) CreateUser(p *CreateUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	if Email != nil {
-		queryParameters.Add(`email`, *Email)
+	if p.Email != nil {
+		queryParameters.Add(`email`, *p.Email)
 	}
-	if FirstName != nil {
-		queryParameters.Add(`firstName`, *FirstName)
+	if p.FirstName != nil {
+		queryParameters.Add(`firstName`, *p.FirstName)
 	}
-	if LastName != nil {
-		queryParameters.Add(`lastName`, *LastName)
+	if p.LastName != nil {
+		queryParameters.Add(`lastName`, *p.LastName)
 	}
-	if Company != nil {
-		queryParameters.Add(`company`, *Company)
+	if p.Company != nil {
+		queryParameters.Add(`company`, *p.Company)
 	}
-	if Position != nil {
-		queryParameters.Add(`position`, *Position)
+	if p.Position != nil {
+		queryParameters.Add(`position`, *p.Position)
 	}
-	if Phone != nil {
-		queryParameters.Add(`phone`, *Phone)
+	if p.Phone != nil {
+		queryParameters.Add(`phone`, *p.Phone)
 	}
-	if PoolId != nil {
-		queryParameters.Add(`poolId`, *PoolId)
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
 	}
-	if Title != nil {
-		queryParameters.Add(`title`, *Title)
+	if p.Title != nil {
+		queryParameters.Add(`title`, *p.Title)
 	}
-	if Other != nil {
-		queryParameters.Add(`other`, *Other)
+	if p.Other != nil {
+		queryParameters.Add(`other`, *p.Other)
 	}
 
 	return t.restClient.Post(
@@ -465,13 +600,21 @@ func (t *User) CreateUser(Email *string, FirstName *string, LastName *string, Co
 // @param string PoolId
 // @param string Email
 // @param string|null UserContactAgentId
-func (t *User) CreateUserContactAgent(UserId string, PoolId string, Email string, UserContactAgentId *string) (r *http.Response, err error) {
+
+type CreateUserContactAgentParameters struct {
+	UserId             string
+	PoolId             string
+	Email              string
+	UserContactAgentId *string
+}
+
+func (t *User) CreateUserContactAgent(p *CreateUserContactAgentParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`email`, Email)
-	if UserContactAgentId != nil {
-		queryParameters.Add(`userContactAgentId`, *UserContactAgentId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`email`, p.Email)
+	if p.UserContactAgentId != nil {
+		queryParameters.Add(`userContactAgentId`, *p.UserContactAgentId)
 	}
 
 	return t.restClient.Post(
@@ -484,10 +627,16 @@ func (t *User) CreateUserContactAgent(UserId string, PoolId string, Email string
 
 // @param string UserId
 // @param string EventId
-func (t *User) RemoveEventRoleForUser(UserId string, EventId string) (r *http.Response, err error) {
+
+type RemoveEventRoleForUserParameters struct {
+	UserId  string
+	EventId string
+}
+
+func (t *User) RemoveEventRoleForUser(p *RemoveEventRoleForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`eventId`, EventId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`eventId`, p.EventId)
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/RemoveEventRoleForUser`,
@@ -499,10 +648,16 @@ func (t *User) RemoveEventRoleForUser(UserId string, EventId string) (r *http.Re
 
 // @param string UserId
 // @param string GroupId
-func (t *User) RemoveUserAccessToGroup(UserId string, GroupId string) (r *http.Response, err error) {
+
+type RemoveUserAccessToGroupParameters struct {
+	UserId  string
+	GroupId string
+}
+
+func (t *User) RemoveUserAccessToGroup(p *RemoveUserAccessToGroupParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`groupId`, GroupId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`groupId`, p.GroupId)
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/RemoveUserAccessToGroup`,
@@ -513,9 +668,14 @@ func (t *User) RemoveUserAccessToGroup(UserId string, GroupId string) (r *http.R
 }
 
 // @param string UserContactAgentId
-func (t *User) RemoveUserContactAgent(UserContactAgentId string) (r *http.Response, err error) {
+
+type RemoveUserContactAgentParameters struct {
+	UserContactAgentId string
+}
+
+func (t *User) RemoveUserContactAgent(p *RemoveUserContactAgentParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userContactAgentId`, UserContactAgentId)
+	queryParameters.Add(`userContactAgentId`, p.UserContactAgentId)
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/RemoveUserContactAgent`,
@@ -528,13 +688,20 @@ func (t *User) RemoveUserContactAgent(UserContactAgentId string) (r *http.Respon
 // @param array RemoveUserIds
 // @param string RequestUserId
 // @param string PoolId
-func (t *User) RemoveUsersFromPool(RemoveUserIds []string, RequestUserId string, PoolId string) (r *http.Response, err error) {
+
+type RemoveUsersFromPoolParameters struct {
+	RemoveUserIds []string
+	RequestUserId string
+	PoolId        string
+}
+
+func (t *User) RemoveUsersFromPool(p *RemoveUsersFromPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	for i := range RemoveUserIds {
-		queryParameters.Add(`removeUserIds[]`, RemoveUserIds[i])
+	for i := range p.RemoveUserIds {
+		queryParameters.Add(`removeUserIds[]`, p.RemoveUserIds[i])
 	}
-	queryParameters.Add(`requestUserId`, RequestUserId)
-	queryParameters.Add(`poolId`, PoolId)
+	queryParameters.Add(`requestUserId`, p.RequestUserId)
+	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/RemoveUsersFromPool`,
@@ -545,9 +712,14 @@ func (t *User) RemoveUsersFromPool(RemoveUserIds []string, RequestUserId string,
 }
 
 // @param string Email
-func (t *User) SendForgotPasswordEmail(Email string) (r *http.Response, err error) {
+
+type SendForgotPasswordEmailParameters struct {
+	Email string
+}
+
+func (t *User) SendForgotPasswordEmail(p *SendForgotPasswordEmailParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`email`, Email)
+	queryParameters.Add(`email`, p.Email)
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/SendForgotPasswordEmail`,
@@ -558,9 +730,14 @@ func (t *User) SendForgotPasswordEmail(Email string) (r *http.Response, err erro
 }
 
 // @param string Email
-func (t *User) SendVerificationEmail(Email string) (r *http.Response, err error) {
+
+type SendVerificationEmailParameters struct {
+	Email string
+}
+
+func (t *User) SendVerificationEmail(p *SendVerificationEmailParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`email`, Email)
+	queryParameters.Add(`email`, p.Email)
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/SendVerificationEmail`,
@@ -574,12 +751,20 @@ func (t *User) SendVerificationEmail(Email string) (r *http.Response, err error)
 // @param string AuthUserId
 // @param string ChangeUserId
 // @param string Email
-func (t *User) SetEmailForInvitation(InvitationId string, AuthUserId string, ChangeUserId string, Email string) (r *http.Response, err error) {
+
+type SetEmailForInvitationParameters struct {
+	InvitationId string
+	AuthUserId   string
+	ChangeUserId string
+	Email        string
+}
+
+func (t *User) SetEmailForInvitation(p *SetEmailForInvitationParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`invitationId`, InvitationId)
-	queryParameters.Add(`authUserId`, AuthUserId)
-	queryParameters.Add(`changeUserId`, ChangeUserId)
-	queryParameters.Add(`email`, Email)
+	queryParameters.Add(`invitationId`, p.InvitationId)
+	queryParameters.Add(`authUserId`, p.AuthUserId)
+	queryParameters.Add(`changeUserId`, p.ChangeUserId)
+	queryParameters.Add(`email`, p.Email)
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/SetEmailForInvitation`,
@@ -593,12 +778,20 @@ func (t *User) SetEmailForInvitation(InvitationId string, AuthUserId string, Cha
 // @param string EventId
 // @param string EventRole organizer|assistant|support|check-in-staff|read-only
 // @param string AuthenticatedUserId
-func (t *User) SetEventRoleForUser(UserId string, EventId string, EventRole string, AuthenticatedUserId string) (r *http.Response, err error) {
+
+type SetEventRoleForUserParameters struct {
+	UserId              string
+	EventId             string
+	EventRole           string
+	AuthenticatedUserId string
+}
+
+func (t *User) SetEventRoleForUser(p *SetEventRoleForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`eventId`, EventId)
-	queryParameters.Add(`eventRole`, EventRole)
-	queryParameters.Add(`authenticatedUserId`, AuthenticatedUserId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`eventRole`, p.EventRole)
+	queryParameters.Add(`authenticatedUserId`, p.AuthenticatedUserId)
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/SetEventRoleForUser`,
@@ -610,10 +803,16 @@ func (t *User) SetEventRoleForUser(UserId string, EventId string, EventRole stri
 
 // @param string UserContactAgentId
 // @param string Email
-func (t *User) UpdateUserContactAgent(UserContactAgentId string, Email string) (r *http.Response, err error) {
+
+type UpdateUserContactAgentParameters struct {
+	UserContactAgentId string
+	Email              string
+}
+
+func (t *User) UpdateUserContactAgent(p *UpdateUserContactAgentParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userContactAgentId`, UserContactAgentId)
-	queryParameters.Add(`email`, Email)
+	queryParameters.Add(`userContactAgentId`, p.UserContactAgentId)
+	queryParameters.Add(`email`, p.Email)
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/UpdateUserContactAgent`,

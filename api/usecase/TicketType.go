@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,21 +14,27 @@ var _ url.Error
 var _ = http.NoBody
 
 type TicketType struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewTicketType(restClient gosdk.RestClientInterface) *TicketType {
+func NewTicketType(restClient sdk.RestClientInterface) *TicketType {
 	return &TicketType{restClient}
 }
 
 // GET: Queries
 // @param string EventId
 // @param bool|null ShouldHideDeleted true|false
-func (t *TicketType) ListTicketTypesForEvent(EventId string, ShouldHideDeleted *bool) (r *http.Response, err error) {
+
+type ListTicketTypesForEventParameters struct {
+	EventId           string
+	ShouldHideDeleted *bool
+}
+
+func (t *TicketType) ListTicketTypesForEvent(p *ListTicketTypesForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	if ShouldHideDeleted != nil {
-		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*ShouldHideDeleted))
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.ShouldHideDeleted != nil {
+		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*p.ShouldHideDeleted))
 	}
 
 	return t.restClient.Get(
@@ -47,21 +54,33 @@ func (t *TicketType) ListTicketTypesForEvent(EventId string, ShouldHideDeleted *
 // @param bool|null IsDeleted true|false
 // @param string|null Description
 // @param string|null TicketTypeId
-func (t *TicketType) CreateTicketType(EventId string, Name string, Code string, Quantity int, SortOrder int, IsDeleted *bool, Description *string, TicketTypeId *string) (r *http.Response, err error) {
+
+type CreateTicketTypeParameters struct {
+	EventId      string
+	Name         string
+	Code         string
+	Quantity     int
+	SortOrder    int
+	IsDeleted    *bool
+	Description  *string
+	TicketTypeId *string
+}
+
+func (t *TicketType) CreateTicketType(p *CreateTicketTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	queryParameters.Add(`name`, Name)
-	queryParameters.Add(`code`, Code)
-	queryParameters.Add(`quantity`, strconv.Itoa(Quantity))
-	queryParameters.Add(`sortOrder`, strconv.Itoa(SortOrder))
-	if IsDeleted != nil {
-		queryParameters.Add(`isDeleted`, strconv.FormatBool(*IsDeleted))
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`name`, p.Name)
+	queryParameters.Add(`code`, p.Code)
+	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
+	queryParameters.Add(`sortOrder`, strconv.Itoa(p.SortOrder))
+	if p.IsDeleted != nil {
+		queryParameters.Add(`isDeleted`, strconv.FormatBool(*p.IsDeleted))
 	}
-	if Description != nil {
-		queryParameters.Add(`description`, *Description)
+	if p.Description != nil {
+		queryParameters.Add(`description`, *p.Description)
 	}
-	if TicketTypeId != nil {
-		queryParameters.Add(`ticketTypeId`, *TicketTypeId)
+	if p.TicketTypeId != nil {
+		queryParameters.Add(`ticketTypeId`, *p.TicketTypeId)
 	}
 
 	return t.restClient.Post(
@@ -73,9 +92,14 @@ func (t *TicketType) CreateTicketType(EventId string, Name string, Code string, 
 }
 
 // @param string TicketTypeId
-func (t *TicketType) DeleteTicketType(TicketTypeId string) (r *http.Response, err error) {
+
+type DeleteTicketTypeParameters struct {
+	TicketTypeId string
+}
+
+func (t *TicketType) DeleteTicketType(p *DeleteTicketTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketTypeId`, TicketTypeId)
+	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
 
 	return t.restClient.Post(
 		`/v2/TicketType/UseCase/DeleteTicketType`,
@@ -87,10 +111,16 @@ func (t *TicketType) DeleteTicketType(TicketTypeId string) (r *http.Response, er
 
 // @param string TicketTypeId
 // @param string Description
-func (t *TicketType) SetDescriptionForTicketType(TicketTypeId string, Description string) (r *http.Response, err error) {
+
+type SetDescriptionForTicketTypeParameters struct {
+	TicketTypeId string
+	Description  string
+}
+
+func (t *TicketType) SetDescriptionForTicketType(p *SetDescriptionForTicketTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketTypeId`, TicketTypeId)
-	queryParameters.Add(`description`, Description)
+	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
+	queryParameters.Add(`description`, p.Description)
 
 	return t.restClient.Post(
 		`/v2/TicketType/UseCase/SetDescriptionForTicketType`,
@@ -102,10 +132,16 @@ func (t *TicketType) SetDescriptionForTicketType(TicketTypeId string, Descriptio
 
 // @param string TicketTypeId
 // @param int DisplayOrder
-func (t *TicketType) SetDisplayOrderForTicketType(TicketTypeId string, DisplayOrder int) (r *http.Response, err error) {
+
+type SetDisplayOrderForTicketTypeParameters struct {
+	TicketTypeId string
+	DisplayOrder int
+}
+
+func (t *TicketType) SetDisplayOrderForTicketType(p *SetDisplayOrderForTicketTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketTypeId`, TicketTypeId)
-	queryParameters.Add(`displayOrder`, strconv.Itoa(DisplayOrder))
+	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
+	queryParameters.Add(`displayOrder`, strconv.Itoa(p.DisplayOrder))
 
 	return t.restClient.Post(
 		`/v2/TicketType/UseCase/SetDisplayOrderForTicketType`,
@@ -117,10 +153,16 @@ func (t *TicketType) SetDisplayOrderForTicketType(TicketTypeId string, DisplayOr
 
 // @param string TicketTypeId
 // @param string Name
-func (t *TicketType) SetNameForTicketType(TicketTypeId string, Name string) (r *http.Response, err error) {
+
+type SetNameForTicketTypeParameters struct {
+	TicketTypeId string
+	Name         string
+}
+
+func (t *TicketType) SetNameForTicketType(p *SetNameForTicketTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketTypeId`, TicketTypeId)
-	queryParameters.Add(`name`, Name)
+	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
+	queryParameters.Add(`name`, p.Name)
 
 	return t.restClient.Post(
 		`/v2/TicketType/UseCase/SetNameForTicketType`,
@@ -132,10 +174,16 @@ func (t *TicketType) SetNameForTicketType(TicketTypeId string, Name string) (r *
 
 // @param string TicketTypeId
 // @param int Quantity
-func (t *TicketType) SetQuantityForTicketType(TicketTypeId string, Quantity int) (r *http.Response, err error) {
+
+type SetQuantityForTicketTypeParameters struct {
+	TicketTypeId string
+	Quantity     int
+}
+
+func (t *TicketType) SetQuantityForTicketType(p *SetQuantityForTicketTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketTypeId`, TicketTypeId)
-	queryParameters.Add(`quantity`, strconv.Itoa(Quantity))
+	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
+	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
 
 	return t.restClient.Post(
 		`/v2/TicketType/UseCase/SetQuantityForTicketType`,

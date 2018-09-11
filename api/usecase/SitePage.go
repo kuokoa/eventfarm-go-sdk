@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type SitePage struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewSitePage(restClient gosdk.RestClientInterface) *SitePage {
+func NewSitePage(restClient sdk.RestClientInterface) *SitePage {
 	return &SitePage{restClient}
 }
 
 // GET: Queries
 // @param string SitePageId
-func (t *SitePage) GetSitePage(SitePageId string) (r *http.Response, err error) {
+
+type GetSitePageParameters struct {
+	SitePageId string
+}
+
+func (t *SitePage) GetSitePage(p *GetSitePageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`sitePageId`, SitePageId)
+	queryParameters.Add(`sitePageId`, p.SitePageId)
 
 	return t.restClient.Get(
 		`/v2/SitePage/UseCase/GetSitePage`,
@@ -37,14 +43,21 @@ func (t *SitePage) GetSitePage(SitePageId string) (r *http.Response, err error) 
 // @param string EventId
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
-func (t *SitePage) ListSitePagesForEvent(EventId string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListSitePagesForEventParameters struct {
+	EventId      string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *SitePage) ListSitePagesForEvent(p *ListSitePagesForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -59,17 +72,25 @@ func (t *SitePage) ListSitePagesForEvent(EventId string, Page *int, ItemsPerPage
 // @param bool|null ShouldIncludeSharedTemplates true|false
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-500
-func (t *SitePage) ListTemplatesForPool(PoolId string, ShouldIncludeSharedTemplates *bool, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListTemplatesForPoolParameters struct {
+	PoolId                       string
+	ShouldIncludeSharedTemplates *bool
+	Page                         *int
+	ItemsPerPage                 *int
+}
+
+func (t *SitePage) ListTemplatesForPool(p *ListTemplatesForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	if ShouldIncludeSharedTemplates != nil {
-		queryParameters.Add(`shouldIncludeSharedTemplates`, strconv.FormatBool(*ShouldIncludeSharedTemplates))
+	queryParameters.Add(`poolId`, p.PoolId)
+	if p.ShouldIncludeSharedTemplates != nil {
+		queryParameters.Add(`shouldIncludeSharedTemplates`, strconv.FormatBool(*p.ShouldIncludeSharedTemplates))
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -89,25 +110,37 @@ func (t *SitePage) ListTemplatesForPool(PoolId string, ShouldIncludeSharedTempla
 // @param string|null Styles
 // @param string|null Scripts
 // @param string|null SourceTemplateId
-func (t *SitePage) CreateSitePage(EventId string, Title string, Content string, DisplayOrder *int, SitePageId *string, Styles *string, Scripts *string, SourceTemplateId *string) (r *http.Response, err error) {
+
+type CreateSitePageParameters struct {
+	EventId          string
+	Title            string
+	Content          string
+	DisplayOrder     *int
+	SitePageId       *string
+	Styles           *string
+	Scripts          *string
+	SourceTemplateId *string
+}
+
+func (t *SitePage) CreateSitePage(p *CreateSitePageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	queryParameters.Add(`title`, Title)
-	queryParameters.Add(`content`, Content)
-	if DisplayOrder != nil {
-		queryParameters.Add(`displayOrder`, strconv.Itoa(*DisplayOrder))
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`title`, p.Title)
+	queryParameters.Add(`content`, p.Content)
+	if p.DisplayOrder != nil {
+		queryParameters.Add(`displayOrder`, strconv.Itoa(*p.DisplayOrder))
 	}
-	if SitePageId != nil {
-		queryParameters.Add(`sitePageId`, *SitePageId)
+	if p.SitePageId != nil {
+		queryParameters.Add(`sitePageId`, *p.SitePageId)
 	}
-	if Styles != nil {
-		queryParameters.Add(`styles`, *Styles)
+	if p.Styles != nil {
+		queryParameters.Add(`styles`, *p.Styles)
 	}
-	if Scripts != nil {
-		queryParameters.Add(`scripts`, *Scripts)
+	if p.Scripts != nil {
+		queryParameters.Add(`scripts`, *p.Scripts)
 	}
-	if SourceTemplateId != nil {
-		queryParameters.Add(`sourceTemplateId`, *SourceTemplateId)
+	if p.SourceTemplateId != nil {
+		queryParameters.Add(`sourceTemplateId`, *p.SourceTemplateId)
 	}
 
 	return t.restClient.Post(
@@ -126,25 +159,37 @@ func (t *SitePage) CreateSitePage(EventId string, Title string, Content string, 
 // @param string|null Scripts
 // @param string|null Description
 // @param string|null TemplateId
-func (t *SitePage) CreateTemplate(Name string, Content string, Difficulty string, PoolId *string, Styles *string, Scripts *string, Description *string, TemplateId *string) (r *http.Response, err error) {
+
+type CreateTemplateParameters struct {
+	Name        string
+	Content     string
+	Difficulty  string
+	PoolId      *string
+	Styles      *string
+	Scripts     *string
+	Description *string
+	TemplateId  *string
+}
+
+func (t *SitePage) CreateTemplate(p *CreateTemplateParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`name`, Name)
-	queryParameters.Add(`content`, Content)
-	queryParameters.Add(`difficulty`, Difficulty)
-	if PoolId != nil {
-		queryParameters.Add(`poolId`, *PoolId)
+	queryParameters.Add(`name`, p.Name)
+	queryParameters.Add(`content`, p.Content)
+	queryParameters.Add(`difficulty`, p.Difficulty)
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
 	}
-	if Styles != nil {
-		queryParameters.Add(`styles`, *Styles)
+	if p.Styles != nil {
+		queryParameters.Add(`styles`, *p.Styles)
 	}
-	if Scripts != nil {
-		queryParameters.Add(`scripts`, *Scripts)
+	if p.Scripts != nil {
+		queryParameters.Add(`scripts`, *p.Scripts)
 	}
-	if Description != nil {
-		queryParameters.Add(`description`, *Description)
+	if p.Description != nil {
+		queryParameters.Add(`description`, *p.Description)
 	}
-	if TemplateId != nil {
-		queryParameters.Add(`templateId`, *TemplateId)
+	if p.TemplateId != nil {
+		queryParameters.Add(`templateId`, *p.TemplateId)
 	}
 
 	return t.restClient.Post(
@@ -158,14 +203,21 @@ func (t *SitePage) CreateTemplate(Name string, Content string, Difficulty string
 // @param string SitePageId
 // @param string|null NewSitePageId
 // @param string|null ToEventId
-func (t *SitePage) DuplicateSitePage(SitePageId string, NewSitePageId *string, ToEventId *string) (r *http.Response, err error) {
+
+type DuplicateSitePageParameters struct {
+	SitePageId    string
+	NewSitePageId *string
+	ToEventId     *string
+}
+
+func (t *SitePage) DuplicateSitePage(p *DuplicateSitePageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`sitePageId`, SitePageId)
-	if NewSitePageId != nil {
-		queryParameters.Add(`newSitePageId`, *NewSitePageId)
+	queryParameters.Add(`sitePageId`, p.SitePageId)
+	if p.NewSitePageId != nil {
+		queryParameters.Add(`newSitePageId`, *p.NewSitePageId)
 	}
-	if ToEventId != nil {
-		queryParameters.Add(`toEventId`, *ToEventId)
+	if p.ToEventId != nil {
+		queryParameters.Add(`toEventId`, *p.ToEventId)
 	}
 
 	return t.restClient.Post(
@@ -179,14 +231,21 @@ func (t *SitePage) DuplicateSitePage(SitePageId string, NewSitePageId *string, T
 // @param string TemplateId
 // @param string|null NewTemplateId
 // @param string|null ToPoolId
-func (t *SitePage) DuplicateTemplate(TemplateId string, NewTemplateId *string, ToPoolId *string) (r *http.Response, err error) {
+
+type DuplicateTemplateParameters struct {
+	TemplateId    string
+	NewTemplateId *string
+	ToPoolId      *string
+}
+
+func (t *SitePage) DuplicateTemplate(p *DuplicateTemplateParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`templateId`, TemplateId)
-	if NewTemplateId != nil {
-		queryParameters.Add(`newTemplateId`, *NewTemplateId)
+	queryParameters.Add(`templateId`, p.TemplateId)
+	if p.NewTemplateId != nil {
+		queryParameters.Add(`newTemplateId`, *p.NewTemplateId)
 	}
-	if ToPoolId != nil {
-		queryParameters.Add(`toPoolId`, *ToPoolId)
+	if p.ToPoolId != nil {
+		queryParameters.Add(`toPoolId`, *p.ToPoolId)
 	}
 
 	return t.restClient.Post(
@@ -197,7 +256,10 @@ func (t *SitePage) DuplicateTemplate(TemplateId string, NewTemplateId *string, T
 	)
 }
 
-func (t *SitePage) GenerateSitePageTemplates() (r *http.Response, err error) {
+type GenerateSitePageTemplatesParameters struct {
+}
+
+func (t *SitePage) GenerateSitePageTemplates(p *GenerateSitePageTemplatesParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Post(
@@ -209,9 +271,14 @@ func (t *SitePage) GenerateSitePageTemplates() (r *http.Response, err error) {
 }
 
 // @param string SitePageId
-func (t *SitePage) RemoveSitePage(SitePageId string) (r *http.Response, err error) {
+
+type RemoveSitePageParameters struct {
+	SitePageId string
+}
+
+func (t *SitePage) RemoveSitePage(p *RemoveSitePageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`sitePageId`, SitePageId)
+	queryParameters.Add(`sitePageId`, p.SitePageId)
 
 	return t.restClient.Post(
 		`/v2/SitePage/UseCase/RemoveSitePage`,
@@ -222,9 +289,14 @@ func (t *SitePage) RemoveSitePage(SitePageId string) (r *http.Response, err erro
 }
 
 // @param string SitePageTemplateId
-func (t *SitePage) RemoveTemplate(SitePageTemplateId string) (r *http.Response, err error) {
+
+type RemoveTemplateParameters struct {
+	SitePageTemplateId string
+}
+
+func (t *SitePage) RemoveTemplate(p *RemoveTemplateParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`sitePageTemplateId`, SitePageTemplateId)
+	queryParameters.Add(`sitePageTemplateId`, p.SitePageTemplateId)
 
 	return t.restClient.Post(
 		`/v2/SitePage/UseCase/RemoveTemplate`,
@@ -238,15 +310,23 @@ func (t *SitePage) RemoveTemplate(SitePageTemplateId string) (r *http.Response, 
 // @param string Content
 // @param string|null Styles
 // @param string|null Scripts
-func (t *SitePage) SetContentForSitePage(SitePageId string, Content string, Styles *string, Scripts *string) (r *http.Response, err error) {
+
+type SetContentForSitePageParameters struct {
+	SitePageId string
+	Content    string
+	Styles     *string
+	Scripts    *string
+}
+
+func (t *SitePage) SetContentForSitePage(p *SetContentForSitePageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`sitePageId`, SitePageId)
-	queryParameters.Add(`content`, Content)
-	if Styles != nil {
-		queryParameters.Add(`styles`, *Styles)
+	queryParameters.Add(`sitePageId`, p.SitePageId)
+	queryParameters.Add(`content`, p.Content)
+	if p.Styles != nil {
+		queryParameters.Add(`styles`, *p.Styles)
 	}
-	if Scripts != nil {
-		queryParameters.Add(`scripts`, *Scripts)
+	if p.Scripts != nil {
+		queryParameters.Add(`scripts`, *p.Scripts)
 	}
 
 	return t.restClient.Post(
@@ -259,10 +339,16 @@ func (t *SitePage) SetContentForSitePage(SitePageId string, Content string, Styl
 
 // @param string SitePageId
 // @param string DisplayOrder
-func (t *SitePage) SetDisplayOrderForSitePage(SitePageId string, DisplayOrder string) (r *http.Response, err error) {
+
+type SetDisplayOrderForSitePageParameters struct {
+	SitePageId   string
+	DisplayOrder string
+}
+
+func (t *SitePage) SetDisplayOrderForSitePage(p *SetDisplayOrderForSitePageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`sitePageId`, SitePageId)
-	queryParameters.Add(`displayOrder`, DisplayOrder)
+	queryParameters.Add(`sitePageId`, p.SitePageId)
+	queryParameters.Add(`displayOrder`, p.DisplayOrder)
 
 	return t.restClient.Post(
 		`/v2/SitePage/UseCase/SetDisplayOrderForSitePage`,
@@ -278,23 +364,33 @@ func (t *SitePage) SetDisplayOrderForSitePage(SitePageId string, DisplayOrder st
 // @param string|null Keywords
 // @param string|null ImageUrl
 // @param string|null Name
-func (t *SitePage) SetMetaInfoForSitePage(SitePageId string, Title *string, Description *string, Keywords *string, ImageUrl *string, Name *string) (r *http.Response, err error) {
+
+type SetMetaInfoForSitePageParameters struct {
+	SitePageId  string
+	Title       *string
+	Description *string
+	Keywords    *string
+	ImageUrl    *string
+	Name        *string
+}
+
+func (t *SitePage) SetMetaInfoForSitePage(p *SetMetaInfoForSitePageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`sitePageId`, SitePageId)
-	if Title != nil {
-		queryParameters.Add(`title`, *Title)
+	queryParameters.Add(`sitePageId`, p.SitePageId)
+	if p.Title != nil {
+		queryParameters.Add(`title`, *p.Title)
 	}
-	if Description != nil {
-		queryParameters.Add(`description`, *Description)
+	if p.Description != nil {
+		queryParameters.Add(`description`, *p.Description)
 	}
-	if Keywords != nil {
-		queryParameters.Add(`keywords`, *Keywords)
+	if p.Keywords != nil {
+		queryParameters.Add(`keywords`, *p.Keywords)
 	}
-	if ImageUrl != nil {
-		queryParameters.Add(`imageUrl`, *ImageUrl)
+	if p.ImageUrl != nil {
+		queryParameters.Add(`imageUrl`, *p.ImageUrl)
 	}
-	if Name != nil {
-		queryParameters.Add(`name`, *Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
 	}
 
 	return t.restClient.Post(
@@ -307,10 +403,16 @@ func (t *SitePage) SetMetaInfoForSitePage(SitePageId string, Title *string, Desc
 
 // @param string SitePageId
 // @param string Title
-func (t *SitePage) SetTitleForSitePage(SitePageId string, Title string) (r *http.Response, err error) {
+
+type SetTitleForSitePageParameters struct {
+	SitePageId string
+	Title      string
+}
+
+func (t *SitePage) SetTitleForSitePage(p *SetTitleForSitePageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`sitePageId`, SitePageId)
-	queryParameters.Add(`title`, Title)
+	queryParameters.Add(`sitePageId`, p.SitePageId)
+	queryParameters.Add(`title`, p.Title)
 
 	return t.restClient.Post(
 		`/v2/SitePage/UseCase/SetTitleForSitePage`,
@@ -325,14 +427,23 @@ func (t *SitePage) SetTitleForSitePage(SitePageId string, Title string) (r *http
 // @param string Title
 // @param string Content
 // @param int|null DisplayOrder
-func (t *SitePage) UpdateSitePage(SitePageId string, EventId string, Title string, Content string, DisplayOrder *int) (r *http.Response, err error) {
+
+type UpdateSitePageParameters struct {
+	SitePageId   string
+	EventId      string
+	Title        string
+	Content      string
+	DisplayOrder *int
+}
+
+func (t *SitePage) UpdateSitePage(p *UpdateSitePageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`sitePageId`, SitePageId)
-	queryParameters.Add(`eventId`, EventId)
-	queryParameters.Add(`title`, Title)
-	queryParameters.Add(`content`, Content)
-	if DisplayOrder != nil {
-		queryParameters.Add(`displayOrder`, strconv.Itoa(*DisplayOrder))
+	queryParameters.Add(`sitePageId`, p.SitePageId)
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`title`, p.Title)
+	queryParameters.Add(`content`, p.Content)
+	if p.DisplayOrder != nil {
+		queryParameters.Add(`displayOrder`, strconv.Itoa(*p.DisplayOrder))
 	}
 
 	return t.restClient.Post(
@@ -349,23 +460,33 @@ func (t *SitePage) UpdateSitePage(SitePageId string, EventId string, Title strin
 // @param string|null PoolId
 // @param string|null Styles
 // @param string|null Scripts
-func (t *SitePage) UpdateTemplate(TemplateId string, Name *string, Content *string, PoolId *string, Styles *string, Scripts *string) (r *http.Response, err error) {
+
+type UpdateTemplateParameters struct {
+	TemplateId string
+	Name       *string
+	Content    *string
+	PoolId     *string
+	Styles     *string
+	Scripts    *string
+}
+
+func (t *SitePage) UpdateTemplate(p *UpdateTemplateParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`templateId`, TemplateId)
-	if Name != nil {
-		queryParameters.Add(`name`, *Name)
+	queryParameters.Add(`templateId`, p.TemplateId)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
 	}
-	if Content != nil {
-		queryParameters.Add(`content`, *Content)
+	if p.Content != nil {
+		queryParameters.Add(`content`, *p.Content)
 	}
-	if PoolId != nil {
-		queryParameters.Add(`poolId`, *PoolId)
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
 	}
-	if Styles != nil {
-		queryParameters.Add(`styles`, *Styles)
+	if p.Styles != nil {
+		queryParameters.Add(`styles`, *p.Styles)
 	}
-	if Scripts != nil {
-		queryParameters.Add(`scripts`, *Scripts)
+	if p.Scripts != nil {
+		queryParameters.Add(`scripts`, *p.Scripts)
 	}
 
 	return t.restClient.Post(

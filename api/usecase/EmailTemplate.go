@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type EmailTemplate struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewEmailTemplate(restClient gosdk.RestClientInterface) *EmailTemplate {
+func NewEmailTemplate(restClient sdk.RestClientInterface) *EmailTemplate {
 	return &EmailTemplate{restClient}
 }
 
 // GET: Queries
 // @param string EmailTemplateType simple-template|simple-header|simple-template-border|default-invite|full-width-header
-func (t *EmailTemplate) GetEmailTemplateByType(EmailTemplateType string) (r *http.Response, err error) {
+
+type GetEmailTemplateByTypeParameters struct {
+	EmailTemplateType string
+}
+
+func (t *EmailTemplate) GetEmailTemplateByType(p *GetEmailTemplateByTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`emailTemplateType`, EmailTemplateType)
+	queryParameters.Add(`emailTemplateType`, p.EmailTemplateType)
 
 	return t.restClient.Get(
 		`/v2/EmailTemplate/UseCase/GetEmailTemplateByType`,

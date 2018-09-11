@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type Pool struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewPool(restClient gosdk.RestClientInterface) *Pool {
+func NewPool(restClient sdk.RestClientInterface) *Pool {
 	return &Pool{restClient}
 }
 
 // GET: Queries
 // @param string PoolId
-func (t *Pool) GetPool(PoolId string) (r *http.Response, err error) {
+
+type GetPoolParameters struct {
+	PoolId string
+}
+
+func (t *Pool) GetPool(p *GetPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
+	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Get(
 		`/v2/Pool/UseCase/GetPool`,
@@ -35,9 +41,14 @@ func (t *Pool) GetPool(PoolId string) (r *http.Response, err error) {
 }
 
 // @param string PoolId
-func (t *Pool) GetPoolContract(PoolId string) (r *http.Response, err error) {
+
+type GetPoolContractParameters struct {
+	PoolId string
+}
+
+func (t *Pool) GetPoolContract(p *GetPoolContractParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
+	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Get(
 		`/v2/Pool/UseCase/GetPoolContract`,
@@ -52,20 +63,29 @@ func (t *Pool) GetPoolContract(PoolId string) (r *http.Response, err error) {
 // @param int|null ItemsPerPage 1-500
 // @param string|null SortBy
 // @param string|null SortDirection ascending|descending
-func (t *Pool) ListAccessiblePoolsForUser(UserId string, Page *int, ItemsPerPage *int, SortBy *string, SortDirection *string) (r *http.Response, err error) {
+
+type ListAccessiblePoolsForUserParameters struct {
+	UserId        string
+	Page          *int
+	ItemsPerPage  *int
+	SortBy        *string
+	SortDirection *string
+}
+
+func (t *Pool) ListAccessiblePoolsForUser(p *ListAccessiblePoolsForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	queryParameters.Add(`userId`, p.UserId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 
 	return t.restClient.Get(
@@ -81,20 +101,29 @@ func (t *Pool) ListAccessiblePoolsForUser(UserId string, Page *int, ItemsPerPage
 // @param string|null SortDirection ascending|descending
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
-func (t *Pool) ListPoolAllotmentsForPool(PoolId string, SortBy *string, SortDirection *string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListPoolAllotmentsForPoolParameters struct {
+	PoolId        string
+	SortBy        *string
+	SortDirection *string
+	Page          *int
+	ItemsPerPage  *int
+}
+
+func (t *Pool) ListPoolAllotmentsForPool(p *ListPoolAllotmentsForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	queryParameters.Add(`poolId`, p.PoolId)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -108,14 +137,21 @@ func (t *Pool) ListPoolAllotmentsForPool(PoolId string, SortBy *string, SortDire
 // @param string PoolId
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-500
-func (t *Pool) ListPoolContactsByPoolId(PoolId string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListPoolContactsByPoolIdParameters struct {
+	PoolId       string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *Pool) ListPoolContactsByPoolId(p *ListPoolContactsByPoolIdParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	queryParameters.Add(`poolId`, p.PoolId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -131,22 +167,31 @@ func (t *Pool) ListPoolContactsByPoolId(PoolId string, Page *int, ItemsPerPage *
 // @param string|null SortDirection ascending|descending
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
-func (t *Pool) ListPools(Name *string, SortBy *string, SortDirection *string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListPoolsParameters struct {
+	Name          *string
+	SortBy        *string
+	SortDirection *string
+	Page          *int
+	ItemsPerPage  *int
+}
+
+func (t *Pool) ListPools(p *ListPoolsParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	if Name != nil {
-		queryParameters.Add(`name`, *Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
 	}
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -162,20 +207,29 @@ func (t *Pool) ListPools(Name *string, SortBy *string, SortDirection *string, Pa
 // @param string|null SortDirection ascending|descending
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-500
-func (t *Pool) ListTagsForPool(PoolId string, SortBy *string, SortDirection *string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListTagsForPoolParameters struct {
+	PoolId        string
+	SortBy        *string
+	SortDirection *string
+	Page          *int
+	ItemsPerPage  *int
+}
+
+func (t *Pool) ListTagsForPool(p *ListTagsForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	queryParameters.Add(`poolId`, p.PoolId)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -192,14 +246,23 @@ func (t *Pool) ListTagsForPool(PoolId string, SortBy *string, SortDirection *str
 // @param int StartDate
 // @param int EndDate
 // @param string|null PoolContractId
-func (t *Pool) CreatePoolContract(PoolId string, PoolContractType string, StartDate int, EndDate int, PoolContractId *string) (r *http.Response, err error) {
+
+type CreatePoolContractParameters struct {
+	PoolId           string
+	PoolContractType string
+	StartDate        int
+	EndDate          int
+	PoolContractId   *string
+}
+
+func (t *Pool) CreatePoolContract(p *CreatePoolContractParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`poolContractType`, PoolContractType)
-	queryParameters.Add(`startDate`, strconv.Itoa(StartDate))
-	queryParameters.Add(`endDate`, strconv.Itoa(EndDate))
-	if PoolContractId != nil {
-		queryParameters.Add(`poolContractId`, *PoolContractId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`poolContractType`, p.PoolContractType)
+	queryParameters.Add(`startDate`, strconv.Itoa(p.StartDate))
+	queryParameters.Add(`endDate`, strconv.Itoa(p.EndDate))
+	if p.PoolContractId != nil {
+		queryParameters.Add(`poolContractId`, *p.PoolContractId)
 	}
 
 	return t.restClient.Post(
@@ -213,11 +276,18 @@ func (t *Pool) CreatePoolContract(PoolId string, PoolContractType string, StartD
 // @param string PoolId
 // @param string PoolWebhookType
 // @param string Url
-func (t *Pool) CreatePoolWebhook(PoolId string, PoolWebhookType string, Url string) (r *http.Response, err error) {
+
+type CreatePoolWebhookParameters struct {
+	PoolId          string
+	PoolWebhookType string
+	Url             string
+}
+
+func (t *Pool) CreatePoolWebhook(p *CreatePoolWebhookParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`poolWebhookType`, PoolWebhookType)
-	queryParameters.Add(`url`, Url)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`poolWebhookType`, p.PoolWebhookType)
+	queryParameters.Add(`url`, p.Url)
 
 	return t.restClient.Post(
 		`/v2/Pool/UseCase/CreatePoolWebhook`,
@@ -228,9 +298,14 @@ func (t *Pool) CreatePoolWebhook(PoolId string, PoolWebhookType string, Url stri
 }
 
 // @param string PoolId
-func (t *Pool) RemoveCustomerDisplayNameForPool(PoolId string) (r *http.Response, err error) {
+
+type RemoveCustomerDisplayNameForPoolParameters struct {
+	PoolId string
+}
+
+func (t *Pool) RemoveCustomerDisplayNameForPool(p *RemoveCustomerDisplayNameForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
+	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Post(
 		`/v2/Pool/UseCase/RemoveCustomerDisplayNameForPool`,
@@ -241,9 +316,14 @@ func (t *Pool) RemoveCustomerDisplayNameForPool(PoolId string) (r *http.Response
 }
 
 // @param string PoolId
-func (t *Pool) RemovePrivacyPolicyLinkForPool(PoolId string) (r *http.Response, err error) {
+
+type RemovePrivacyPolicyLinkForPoolParameters struct {
+	PoolId string
+}
+
+func (t *Pool) RemovePrivacyPolicyLinkForPool(p *RemovePrivacyPolicyLinkForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
+	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Post(
 		`/v2/Pool/UseCase/RemovePrivacyPolicyLinkForPool`,
@@ -258,20 +338,29 @@ func (t *Pool) RemovePrivacyPolicyLinkForPool(PoolId string) (r *http.Response, 
 // @param string|null SlackUserId
 // @param array|null RequestedFeatureSlugs
 // @param string|null Other
-func (t *Pool) SendUpgradeRequestToCsm(PoolId string, UserId string, SlackUserId *string, RequestedFeatureSlugs *[]string, Other *string) (r *http.Response, err error) {
+
+type SendUpgradeRequestToCsmParameters struct {
+	PoolId                string
+	UserId                string
+	SlackUserId           *string
+	RequestedFeatureSlugs *[]string
+	Other                 *string
+}
+
+func (t *Pool) SendUpgradeRequestToCsm(p *SendUpgradeRequestToCsmParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`userId`, UserId)
-	if SlackUserId != nil {
-		queryParameters.Add(`slackUserId`, *SlackUserId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.SlackUserId != nil {
+		queryParameters.Add(`slackUserId`, *p.SlackUserId)
 	}
-	if RequestedFeatureSlugs != nil {
-		for i := range *RequestedFeatureSlugs {
-			queryParameters.Add(`requestedFeatureSlugs[]`, (*RequestedFeatureSlugs)[i])
+	if p.RequestedFeatureSlugs != nil {
+		for i := range *p.RequestedFeatureSlugs {
+			queryParameters.Add(`requestedFeatureSlugs[]`, (*p.RequestedFeatureSlugs)[i])
 		}
 	}
-	if Other != nil {
-		queryParameters.Add(`other`, *Other)
+	if p.Other != nil {
+		queryParameters.Add(`other`, *p.Other)
 	}
 
 	return t.restClient.Post(
@@ -284,10 +373,16 @@ func (t *Pool) SendUpgradeRequestToCsm(PoolId string, UserId string, SlackUserId
 
 // @param string PoolId
 // @param string CustomerDisplayName
-func (t *Pool) SetCustomerDisplayNameForPool(PoolId string, CustomerDisplayName string) (r *http.Response, err error) {
+
+type SetCustomerDisplayNameForPoolParameters struct {
+	PoolId              string
+	CustomerDisplayName string
+}
+
+func (t *Pool) SetCustomerDisplayNameForPool(p *SetCustomerDisplayNameForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`customerDisplayName`, CustomerDisplayName)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`customerDisplayName`, p.CustomerDisplayName)
 
 	return t.restClient.Post(
 		`/v2/Pool/UseCase/SetCustomerDisplayNameForPool`,
@@ -299,10 +394,16 @@ func (t *Pool) SetCustomerDisplayNameForPool(PoolId string, CustomerDisplayName 
 
 // @param string PoolId
 // @param string PrivacyPolicyLink
-func (t *Pool) SetPrivacyPolicyLinkForPool(PoolId string, PrivacyPolicyLink string) (r *http.Response, err error) {
+
+type SetPrivacyPolicyLinkForPoolParameters struct {
+	PoolId            string
+	PrivacyPolicyLink string
+}
+
+func (t *Pool) SetPrivacyPolicyLinkForPool(p *SetPrivacyPolicyLinkForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`privacyPolicyLink`, PrivacyPolicyLink)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`privacyPolicyLink`, p.PrivacyPolicyLink)
 
 	return t.restClient.Post(
 		`/v2/Pool/UseCase/SetPrivacyPolicyLinkForPool`,
@@ -316,17 +417,25 @@ func (t *Pool) SetPrivacyPolicyLinkForPool(PoolId string, PrivacyPolicyLink stri
 // @param string|null PoolContractType intro|pro|premier|premierPlus|custom
 // @param int|null StartDate
 // @param int|null EndDate
-func (t *Pool) UpdatePoolContract(PoolContractId string, PoolContractType *string, StartDate *int, EndDate *int) (r *http.Response, err error) {
+
+type UpdatePoolContractParameters struct {
+	PoolContractId   string
+	PoolContractType *string
+	StartDate        *int
+	EndDate          *int
+}
+
+func (t *Pool) UpdatePoolContract(p *UpdatePoolContractParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolContractId`, PoolContractId)
-	if PoolContractType != nil {
-		queryParameters.Add(`poolContractType`, *PoolContractType)
+	queryParameters.Add(`poolContractId`, p.PoolContractId)
+	if p.PoolContractType != nil {
+		queryParameters.Add(`poolContractType`, *p.PoolContractType)
 	}
-	if StartDate != nil {
-		queryParameters.Add(`startDate`, strconv.Itoa(*StartDate))
+	if p.StartDate != nil {
+		queryParameters.Add(`startDate`, strconv.Itoa(*p.StartDate))
 	}
-	if EndDate != nil {
-		queryParameters.Add(`endDate`, strconv.Itoa(*EndDate))
+	if p.EndDate != nil {
+		queryParameters.Add(`endDate`, strconv.Itoa(*p.EndDate))
 	}
 
 	return t.restClient.Post(

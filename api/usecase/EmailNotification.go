@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type EmailNotification struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewEmailNotification(restClient gosdk.RestClientInterface) *EmailNotification {
+func NewEmailNotification(restClient sdk.RestClientInterface) *EmailNotification {
 	return &EmailNotification{restClient}
 }
 
 // GET: Queries
 // @param string EventId
-func (t *EmailNotification) GetOpenActionsForEventOverLastMonth(EventId string) (r *http.Response, err error) {
+
+type GetOpenActionsForEventOverLastMonthParameters struct {
+	EventId string
+}
+
+func (t *EmailNotification) GetOpenActionsForEventOverLastMonth(p *GetOpenActionsForEventOverLastMonthParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
+	queryParameters.Add(`eventId`, p.EventId)
 
 	return t.restClient.Get(
 		`/v2/EmailNotification/UseCase/GetOpenActionsForEventOverLastMonth`,
@@ -40,16 +46,25 @@ func (t *EmailNotification) GetOpenActionsForEventOverLastMonth(EventId string) 
 // @param int CreatedAt
 // @param string|null EventId
 // @param string|null EmailNotificationId
-func (t *EmailNotification) CreateSparkpostNotification(EmailMessageId string, Type string, CreatedAt int, EventId *string, EmailNotificationId *string) (r *http.Response, err error) {
+
+type CreateSparkpostNotificationParameters struct {
+	EmailMessageId      string
+	Type                string
+	CreatedAt           int
+	EventId             *string
+	EmailNotificationId *string
+}
+
+func (t *EmailNotification) CreateSparkpostNotification(p *CreateSparkpostNotificationParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`emailMessageId`, EmailMessageId)
-	queryParameters.Add(`type`, Type)
-	queryParameters.Add(`createdAt`, strconv.Itoa(CreatedAt))
-	if EventId != nil {
-		queryParameters.Add(`eventId`, *EventId)
+	queryParameters.Add(`emailMessageId`, p.EmailMessageId)
+	queryParameters.Add(`type`, p.Type)
+	queryParameters.Add(`createdAt`, strconv.Itoa(p.CreatedAt))
+	if p.EventId != nil {
+		queryParameters.Add(`eventId`, *p.EventId)
 	}
-	if EmailNotificationId != nil {
-		queryParameters.Add(`emailNotificationId`, *EmailNotificationId)
+	if p.EmailNotificationId != nil {
+		queryParameters.Add(`emailNotificationId`, *p.EmailNotificationId)
 	}
 
 	return t.restClient.Post(
@@ -62,11 +77,17 @@ func (t *EmailNotification) CreateSparkpostNotification(EmailMessageId string, T
 
 // @param string EventId
 // @param int|null TotalRecords
-func (t *EmailNotification) SimulateEmailNotificationsForEvent(EventId string, TotalRecords *int) (r *http.Response, err error) {
+
+type SimulateEmailNotificationsForEventParameters struct {
+	EventId      string
+	TotalRecords *int
+}
+
+func (t *EmailNotification) SimulateEmailNotificationsForEvent(p *SimulateEmailNotificationsForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	if TotalRecords != nil {
-		queryParameters.Add(`totalRecords`, strconv.Itoa(*TotalRecords))
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.TotalRecords != nil {
+		queryParameters.Add(`totalRecords`, strconv.Itoa(*p.TotalRecords))
 	}
 
 	return t.restClient.Post(

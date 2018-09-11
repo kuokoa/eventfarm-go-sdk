@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,10 +14,10 @@ var _ url.Error
 var _ = http.NoBody
 
 type Interaction struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewInteraction(restClient gosdk.RestClientInterface) *Interaction {
+func NewInteraction(restClient sdk.RestClientInterface) *Interaction {
 	return &Interaction{restClient}
 }
 
@@ -25,19 +26,27 @@ func NewInteraction(restClient gosdk.RestClientInterface) *Interaction {
 // @param array|null WithData Event|Stack
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-500
-func (t *Interaction) ListInteractionsForInvitation(InvitationId string, WithData *[]string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListInteractionsForInvitationParameters struct {
+	InvitationId string
+	WithData     *[]string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *Interaction) ListInteractionsForInvitation(p *ListInteractionsForInvitationParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`invitationId`, InvitationId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`invitationId`, p.InvitationId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -52,19 +61,27 @@ func (t *Interaction) ListInteractionsForInvitation(InvitationId string, WithDat
 // @param array|null WithData Event|Stack
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-500
-func (t *Interaction) ListInteractionsForTag(TagId string, WithData *[]string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListInteractionsForTagParameters struct {
+	TagId        string
+	WithData     *[]string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *Interaction) ListInteractionsForTag(p *ListInteractionsForTagParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`tagId`, TagId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`tagId`, p.TagId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -81,14 +98,23 @@ func (t *Interaction) ListInteractionsForTag(TagId string, WithData *[]string, P
 // @param string TagId
 // @param string Type
 // @param string|null InteractionId
-func (t *Interaction) CreateInteraction(InvitationId string, BodyContent string, TagId string, Type string, InteractionId *string) (r *http.Response, err error) {
+
+type CreateInteractionParameters struct {
+	InvitationId  string
+	BodyContent   string
+	TagId         string
+	Type          string
+	InteractionId *string
+}
+
+func (t *Interaction) CreateInteraction(p *CreateInteractionParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`invitationId`, InvitationId)
-	queryParameters.Add(`bodyContent`, BodyContent)
-	queryParameters.Add(`tagId`, TagId)
-	queryParameters.Add(`type`, Type)
-	if InteractionId != nil {
-		queryParameters.Add(`interactionId`, *InteractionId)
+	queryParameters.Add(`invitationId`, p.InvitationId)
+	queryParameters.Add(`bodyContent`, p.BodyContent)
+	queryParameters.Add(`tagId`, p.TagId)
+	queryParameters.Add(`type`, p.Type)
+	if p.InteractionId != nil {
+		queryParameters.Add(`interactionId`, *p.InteractionId)
 	}
 
 	return t.restClient.Post(

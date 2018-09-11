@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,15 +14,19 @@ var _ url.Error
 var _ = http.NoBody
 
 type Queue struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewQueue(restClient gosdk.RestClientInterface) *Queue {
+func NewQueue(restClient sdk.RestClientInterface) *Queue {
 	return &Queue{restClient}
 }
 
 // GET: Queries
-func (t *Queue) GetAllJobs() (r *http.Response, err error) {
+
+type GetAllJobsParameters struct {
+}
+
+func (t *Queue) GetAllJobs(p *GetAllJobsParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Get(
@@ -33,9 +38,14 @@ func (t *Queue) GetAllJobs() (r *http.Response, err error) {
 }
 
 // @param string JobId
-func (t *Queue) GetJob(JobId string) (r *http.Response, err error) {
+
+type GetJobParameters struct {
+	JobId string
+}
+
+func (t *Queue) GetJob(p *GetJobParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`jobId`, JobId)
+	queryParameters.Add(`jobId`, p.JobId)
 
 	return t.restClient.Get(
 		`/v2/Queue/UseCase/GetJob`,
@@ -47,12 +57,18 @@ func (t *Queue) GetJob(JobId string) (r *http.Response, err error) {
 
 // @param string CommandId
 // @param array|null WithData QueueCommandErrors|QueueCommandMessages
-func (t *Queue) GetQueueCommand(CommandId string, WithData *[]string) (r *http.Response, err error) {
+
+type GetQueueCommandParameters struct {
+	CommandId string
+	WithData  *[]string
+}
+
+func (t *Queue) GetQueueCommand(p *GetQueueCommandParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`commandId`, CommandId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`commandId`, p.CommandId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
 
@@ -66,12 +82,18 @@ func (t *Queue) GetQueueCommand(CommandId string, WithData *[]string) (r *http.R
 
 // @param string QueueTaskId
 // @param array|null WithData QueueTaskErrors|QueueTaskMessages
-func (t *Queue) GetQueueTask(QueueTaskId string, WithData *[]string) (r *http.Response, err error) {
+
+type GetQueueTaskParameters struct {
+	QueueTaskId string
+	WithData    *[]string
+}
+
+func (t *Queue) GetQueueTask(p *GetQueueTaskParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`queueTaskId`, QueueTaskId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`queueTaskId`, p.QueueTaskId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
 
@@ -88,20 +110,29 @@ func (t *Queue) GetQueueTask(QueueTaskId string, WithData *[]string) (r *http.Re
 // @param int|null ItemsPerPage 1-100
 // @param bool|null IsFinished true|false
 // @param bool|null IsSuccess true|false
-func (t *Queue) ListQueueCommandsForUser(UserId string, Page *int, ItemsPerPage *int, IsFinished *bool, IsSuccess *bool) (r *http.Response, err error) {
+
+type ListQueueCommandsForUserParameters struct {
+	UserId       string
+	Page         *int
+	ItemsPerPage *int
+	IsFinished   *bool
+	IsSuccess    *bool
+}
+
+func (t *Queue) ListQueueCommandsForUser(p *ListQueueCommandsForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	queryParameters.Add(`userId`, p.UserId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
-	if IsFinished != nil {
-		queryParameters.Add(`isFinished`, strconv.FormatBool(*IsFinished))
+	if p.IsFinished != nil {
+		queryParameters.Add(`isFinished`, strconv.FormatBool(*p.IsFinished))
 	}
-	if IsSuccess != nil {
-		queryParameters.Add(`isSuccess`, strconv.FormatBool(*IsSuccess))
+	if p.IsSuccess != nil {
+		queryParameters.Add(`isSuccess`, strconv.FormatBool(*p.IsSuccess))
 	}
 
 	return t.restClient.Get(
@@ -114,9 +145,14 @@ func (t *Queue) ListQueueCommandsForUser(UserId string, Page *int, ItemsPerPage 
 
 // POST: Commands
 // @param string JobId
-func (t *Queue) DeleteJob(JobId string) (r *http.Response, err error) {
+
+type DeleteJobParameters struct {
+	JobId string
+}
+
+func (t *Queue) DeleteJob(p *DeleteJobParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`jobId`, JobId)
+	queryParameters.Add(`jobId`, p.JobId)
 
 	return t.restClient.Post(
 		`/v2/Queue/UseCase/DeleteJob`,

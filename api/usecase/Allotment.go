@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,10 +14,10 @@ var _ url.Error
 var _ = http.NoBody
 
 type Allotment struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewAllotment(restClient gosdk.RestClientInterface) *Allotment {
+func NewAllotment(restClient sdk.RestClientInterface) *Allotment {
 	return &Allotment{restClient}
 }
 
@@ -24,14 +25,21 @@ func NewAllotment(restClient gosdk.RestClientInterface) *Allotment {
 // @param string StackId
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
-func (t *Allotment) ListAllotmentsForStack(StackId string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListAllotmentsForStackParameters struct {
+	StackId      string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *Allotment) ListAllotmentsForStack(p *ListAllotmentsForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	queryParameters.Add(`stackId`, p.StackId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -47,13 +55,21 @@ func (t *Allotment) ListAllotmentsForStack(StackId string, Page *int, ItemsPerPa
 // @param string StackId
 // @param int Quantity
 // @param string|null AllotmentId
-func (t *Allotment) CreateAllotment(TicketBlockId string, StackId string, Quantity int, AllotmentId *string) (r *http.Response, err error) {
+
+type CreateAllotmentParameters struct {
+	TicketBlockId string
+	StackId       string
+	Quantity      int
+	AllotmentId   *string
+}
+
+func (t *Allotment) CreateAllotment(p *CreateAllotmentParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketBlockId`, TicketBlockId)
-	queryParameters.Add(`stackId`, StackId)
-	queryParameters.Add(`quantity`, strconv.Itoa(Quantity))
-	if AllotmentId != nil {
-		queryParameters.Add(`allotmentId`, *AllotmentId)
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
+	if p.AllotmentId != nil {
+		queryParameters.Add(`allotmentId`, *p.AllotmentId)
 	}
 
 	return t.restClient.Post(
@@ -65,9 +81,14 @@ func (t *Allotment) CreateAllotment(TicketBlockId string, StackId string, Quanti
 }
 
 // @param string AllotmentId
-func (t *Allotment) DeleteAllotment(AllotmentId string) (r *http.Response, err error) {
+
+type DeleteAllotmentParameters struct {
+	AllotmentId string
+}
+
+func (t *Allotment) DeleteAllotment(p *DeleteAllotmentParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`allotmentId`, AllotmentId)
+	queryParameters.Add(`allotmentId`, p.AllotmentId)
 
 	return t.restClient.Post(
 		`/v2/Allotment/UseCase/DeleteAllotment`,
@@ -79,10 +100,16 @@ func (t *Allotment) DeleteAllotment(AllotmentId string) (r *http.Response, err e
 
 // @param string AllotmentId
 // @param int Quantity >= 1
-func (t *Allotment) SetAllotmentQuantity(AllotmentId string, Quantity int) (r *http.Response, err error) {
+
+type SetAllotmentQuantityParameters struct {
+	AllotmentId string
+	Quantity    int
+}
+
+func (t *Allotment) SetAllotmentQuantity(p *SetAllotmentQuantityParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`allotmentId`, AllotmentId)
-	queryParameters.Add(`quantity`, strconv.Itoa(Quantity))
+	queryParameters.Add(`allotmentId`, p.AllotmentId)
+	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
 
 	return t.restClient.Post(
 		`/v2/Allotment/UseCase/SetAllotmentQuantity`,

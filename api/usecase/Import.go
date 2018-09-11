@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,22 +14,28 @@ var _ url.Error
 var _ = http.NoBody
 
 type Import struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewImport(restClient gosdk.RestClientInterface) *Import {
+func NewImport(restClient sdk.RestClientInterface) *Import {
 	return &Import{restClient}
 }
 
 // GET: Queries
 // @param string UserImportId
 // @param array|null WithData GoodRecords|DuplicateRecords|ErrorRecords|ImportFailureRecords
-func (t *Import) GetUserImport(UserImportId string, WithData *[]string) (r *http.Response, err error) {
+
+type GetUserImportParameters struct {
+	UserImportId string
+	WithData     *[]string
+}
+
+func (t *Import) GetUserImport(p *GetUserImportParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userImportId`, UserImportId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`userImportId`, p.UserImportId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
 
@@ -42,10 +49,16 @@ func (t *Import) GetUserImport(UserImportId string, WithData *[]string) (r *http
 
 // @param string UserImportId
 // @param string FileId
-func (t *Import) GetUserImportFile(UserImportId string, FileId string) (r *http.Response, err error) {
+
+type GetUserImportFileParameters struct {
+	UserImportId string
+	FileId       string
+}
+
+func (t *Import) GetUserImportFile(p *GetUserImportFileParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userImportId`, UserImportId)
-	queryParameters.Add(`fileId`, FileId)
+	queryParameters.Add(`userImportId`, p.UserImportId)
+	queryParameters.Add(`fileId`, p.FileId)
 
 	return t.restClient.Get(
 		`/v2/Import/UseCase/GetUserImportFile`,
@@ -64,27 +77,39 @@ func (t *Import) GetUserImportFile(UserImportId string, FileId string) (r *http.
 // @param string|null GroupName
 // @param string|null GroupId
 // @param string|null RedirectUrl
-func (t *Import) PostProcessAndImportInvitations(UserImportId string, EventId string, StackId *string, GuestsPerInvitation *int, InvitationCreationType *string, GroupName *string, GroupId *string, RedirectUrl *string) (r *http.Response, err error) {
+
+type PostProcessAndImportInvitationsParameters struct {
+	UserImportId           string
+	EventId                string
+	StackId                *string
+	GuestsPerInvitation    *int
+	InvitationCreationType *string
+	GroupName              *string
+	GroupId                *string
+	RedirectUrl            *string
+}
+
+func (t *Import) PostProcessAndImportInvitations(p *PostProcessAndImportInvitationsParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userImportId`, UserImportId)
-	queryParameters.Add(`eventId`, EventId)
-	if StackId != nil {
-		queryParameters.Add(`stackId`, *StackId)
+	queryParameters.Add(`userImportId`, p.UserImportId)
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.StackId != nil {
+		queryParameters.Add(`stackId`, *p.StackId)
 	}
-	if GuestsPerInvitation != nil {
-		queryParameters.Add(`guestsPerInvitation`, strconv.Itoa(*GuestsPerInvitation))
+	if p.GuestsPerInvitation != nil {
+		queryParameters.Add(`guestsPerInvitation`, strconv.Itoa(*p.GuestsPerInvitation))
 	}
-	if InvitationCreationType != nil {
-		queryParameters.Add(`invitationCreationType`, *InvitationCreationType)
+	if p.InvitationCreationType != nil {
+		queryParameters.Add(`invitationCreationType`, *p.InvitationCreationType)
 	}
-	if GroupName != nil {
-		queryParameters.Add(`groupName`, *GroupName)
+	if p.GroupName != nil {
+		queryParameters.Add(`groupName`, *p.GroupName)
 	}
-	if GroupId != nil {
-		queryParameters.Add(`groupId`, *GroupId)
+	if p.GroupId != nil {
+		queryParameters.Add(`groupId`, *p.GroupId)
 	}
-	if RedirectUrl != nil {
-		queryParameters.Add(`redirectUrl`, *RedirectUrl)
+	if p.RedirectUrl != nil {
+		queryParameters.Add(`redirectUrl`, *p.RedirectUrl)
 	}
 
 	return t.restClient.Post(
@@ -99,17 +124,25 @@ func (t *Import) PostProcessAndImportInvitations(UserImportId string, EventId st
 // @param string|null GroupName
 // @param string|null GroupId
 // @param string|null RedirectUrl
-func (t *Import) PostProcessAndImportUsers(UserImportId string, GroupName *string, GroupId *string, RedirectUrl *string) (r *http.Response, err error) {
+
+type PostProcessAndImportUsersParameters struct {
+	UserImportId string
+	GroupName    *string
+	GroupId      *string
+	RedirectUrl  *string
+}
+
+func (t *Import) PostProcessAndImportUsers(p *PostProcessAndImportUsersParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userImportId`, UserImportId)
-	if GroupName != nil {
-		queryParameters.Add(`groupName`, *GroupName)
+	queryParameters.Add(`userImportId`, p.UserImportId)
+	if p.GroupName != nil {
+		queryParameters.Add(`groupName`, *p.GroupName)
 	}
-	if GroupId != nil {
-		queryParameters.Add(`groupId`, *GroupId)
+	if p.GroupId != nil {
+		queryParameters.Add(`groupId`, *p.GroupId)
 	}
-	if RedirectUrl != nil {
-		queryParameters.Add(`redirectUrl`, *RedirectUrl)
+	if p.RedirectUrl != nil {
+		queryParameters.Add(`redirectUrl`, *p.RedirectUrl)
 	}
 
 	return t.restClient.Post(
@@ -123,7 +156,14 @@ func (t *Import) PostProcessAndImportUsers(UserImportId string, GroupName *strin
 // @param string UserId
 // @param string PoolId
 // @param string Spreadsheet
-func (t *Import) PreProcessSpreadsheetForUserImport(UserId string, PoolId string, Spreadsheet string) (r *http.Response, err error) {
+
+type PreProcessSpreadsheetForUserImportParameters struct {
+	UserId      string
+	PoolId      string
+	Spreadsheet string
+}
+
+func (t *Import) PreProcessSpreadsheetForUserImport(p *PreProcessSpreadsheetForUserImportParameters) (r *http.Response, err error) {
 	// TODO
 	return
 }

@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type OAuth struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewOAuth(restClient gosdk.RestClientInterface) *OAuth {
+func NewOAuth(restClient sdk.RestClientInterface) *OAuth {
 	return &OAuth{restClient}
 }
 
 // GET: Queries
 // @param string OauthAccessTokenId
-func (t *OAuth) GetOAuthAccessToken(OauthAccessTokenId string) (r *http.Response, err error) {
+
+type GetOAuthAccessTokenParameters struct {
+	OauthAccessTokenId string
+}
+
+func (t *OAuth) GetOAuthAccessToken(p *GetOAuthAccessTokenParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`oauthAccessTokenId`, OauthAccessTokenId)
+	queryParameters.Add(`oauthAccessTokenId`, p.OauthAccessTokenId)
 
 	return t.restClient.Get(
 		`/v2/OAuth/UseCase/GetOAuthAccessToken`,
@@ -36,9 +42,14 @@ func (t *OAuth) GetOAuthAccessToken(OauthAccessTokenId string) (r *http.Response
 
 // POST: Commands
 // @param string Email
-func (t *OAuth) CreateGhostAccessToken(Email string) (r *http.Response, err error) {
+
+type CreateGhostAccessTokenParameters struct {
+	Email string
+}
+
+func (t *OAuth) CreateGhostAccessToken(p *CreateGhostAccessTokenParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`email`, Email)
+	queryParameters.Add(`email`, p.Email)
 
 	return t.restClient.Post(
 		`/v2/OAuth/UseCase/CreateGhostAccessToken`,
@@ -52,17 +63,25 @@ func (t *OAuth) CreateGhostAccessToken(Email string) (r *http.Response, err erro
 // @param array RedirectUrls
 // @param string|null Identifier
 // @param string|null Secret
-func (t *OAuth) CreateOAuthClient(Name string, RedirectUrls []string, Identifier *string, Secret *string) (r *http.Response, err error) {
+
+type CreateOAuthClientParameters struct {
+	Name         string
+	RedirectUrls []string
+	Identifier   *string
+	Secret       *string
+}
+
+func (t *OAuth) CreateOAuthClient(p *CreateOAuthClientParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`name`, Name)
-	for i := range RedirectUrls {
-		queryParameters.Add(`redirectUrls[]`, RedirectUrls[i])
+	queryParameters.Add(`name`, p.Name)
+	for i := range p.RedirectUrls {
+		queryParameters.Add(`redirectUrls[]`, p.RedirectUrls[i])
 	}
-	if Identifier != nil {
-		queryParameters.Add(`identifier`, *Identifier)
+	if p.Identifier != nil {
+		queryParameters.Add(`identifier`, *p.Identifier)
 	}
-	if Secret != nil {
-		queryParameters.Add(`secret`, *Secret)
+	if p.Secret != nil {
+		queryParameters.Add(`secret`, *p.Secret)
 	}
 
 	return t.restClient.Post(
@@ -74,9 +93,14 @@ func (t *OAuth) CreateOAuthClient(Name string, RedirectUrls []string, Identifier
 }
 
 // @param string Identifier
-func (t *OAuth) RevokeAccessToken(Identifier string) (r *http.Response, err error) {
+
+type RevokeAccessTokenParameters struct {
+	Identifier string
+}
+
+func (t *OAuth) RevokeAccessToken(p *RevokeAccessTokenParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`identifier`, Identifier)
+	queryParameters.Add(`identifier`, p.Identifier)
 
 	return t.restClient.Post(
 		`/v2/OAuth/UseCase/RevokeAccessToken`,
@@ -88,11 +112,17 @@ func (t *OAuth) RevokeAccessToken(Identifier string) (r *http.Response, err erro
 
 // @param string Identifier
 // @param array RedirectUrls
-func (t *OAuth) SetRedirectUrlsForOAuthClient(Identifier string, RedirectUrls []string) (r *http.Response, err error) {
+
+type SetRedirectUrlsForOAuthClientParameters struct {
+	Identifier   string
+	RedirectUrls []string
+}
+
+func (t *OAuth) SetRedirectUrlsForOAuthClient(p *SetRedirectUrlsForOAuthClientParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`identifier`, Identifier)
-	for i := range RedirectUrls {
-		queryParameters.Add(`redirectUrls[]`, RedirectUrls[i])
+	queryParameters.Add(`identifier`, p.Identifier)
+	for i := range p.RedirectUrls {
+		queryParameters.Add(`redirectUrls[]`, p.RedirectUrls[i])
 	}
 
 	return t.restClient.Post(

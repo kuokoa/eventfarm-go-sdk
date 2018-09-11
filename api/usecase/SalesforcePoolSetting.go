@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type SalesforcePoolSetting struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewSalesforcePoolSetting(restClient gosdk.RestClientInterface) *SalesforcePoolSetting {
+func NewSalesforcePoolSetting(restClient sdk.RestClientInterface) *SalesforcePoolSetting {
 	return &SalesforcePoolSetting{restClient}
 }
 
 // GET: Queries
 // @param string PoolId
-func (t *SalesforcePoolSetting) GetSalesforcePoolSetting(PoolId string) (r *http.Response, err error) {
+
+type GetSalesforcePoolSettingParameters struct {
+	PoolId string
+}
+
+func (t *SalesforcePoolSetting) GetSalesforcePoolSetting(p *GetSalesforcePoolSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
+	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Get(
 		`/v2/SalesforcePoolSetting/UseCase/GetSalesforcePoolSetting`,
@@ -39,17 +45,25 @@ func (t *SalesforcePoolSetting) GetSalesforcePoolSetting(PoolId string) (r *http
 // @param string|null SyncUserId
 // @param string|null DefaultLeadCompany
 // @param string|null DefaultLeadSource
-func (t *SalesforcePoolSetting) CreateSalesforcePoolSetting(PoolId string, SyncUserId *string, DefaultLeadCompany *string, DefaultLeadSource *string) (r *http.Response, err error) {
+
+type CreateSalesforcePoolSettingParameters struct {
+	PoolId             string
+	SyncUserId         *string
+	DefaultLeadCompany *string
+	DefaultLeadSource  *string
+}
+
+func (t *SalesforcePoolSetting) CreateSalesforcePoolSetting(p *CreateSalesforcePoolSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	if SyncUserId != nil {
-		queryParameters.Add(`syncUserId`, *SyncUserId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	if p.SyncUserId != nil {
+		queryParameters.Add(`syncUserId`, *p.SyncUserId)
 	}
-	if DefaultLeadCompany != nil {
-		queryParameters.Add(`defaultLeadCompany`, *DefaultLeadCompany)
+	if p.DefaultLeadCompany != nil {
+		queryParameters.Add(`defaultLeadCompany`, *p.DefaultLeadCompany)
 	}
-	if DefaultLeadSource != nil {
-		queryParameters.Add(`defaultLeadSource`, *DefaultLeadSource)
+	if p.DefaultLeadSource != nil {
+		queryParameters.Add(`defaultLeadSource`, *p.DefaultLeadSource)
 	}
 
 	return t.restClient.Post(
@@ -61,9 +75,14 @@ func (t *SalesforcePoolSetting) CreateSalesforcePoolSetting(PoolId string, SyncU
 }
 
 // @param string PoolId
-func (t *SalesforcePoolSetting) RemoveSyncUserForPool(PoolId string) (r *http.Response, err error) {
+
+type RemoveSyncUserForPoolParameters struct {
+	PoolId string
+}
+
+func (t *SalesforcePoolSetting) RemoveSyncUserForPool(p *RemoveSyncUserForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
+	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Post(
 		`/v2/SalesforcePoolSetting/UseCase/RemoveSyncUserForPool`,
@@ -75,10 +94,16 @@ func (t *SalesforcePoolSetting) RemoveSyncUserForPool(PoolId string) (r *http.Re
 
 // @param string PoolId
 // @param string LeadCompany
-func (t *SalesforcePoolSetting) SetLeadCompanyForPool(PoolId string, LeadCompany string) (r *http.Response, err error) {
+
+type SetLeadCompanyForPoolParameters struct {
+	PoolId      string
+	LeadCompany string
+}
+
+func (t *SalesforcePoolSetting) SetLeadCompanyForPool(p *SetLeadCompanyForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`leadCompany`, LeadCompany)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`leadCompany`, p.LeadCompany)
 
 	return t.restClient.Post(
 		`/v2/SalesforcePoolSetting/UseCase/SetLeadCompanyForPool`,
@@ -90,10 +115,16 @@ func (t *SalesforcePoolSetting) SetLeadCompanyForPool(PoolId string, LeadCompany
 
 // @param string PoolId
 // @param string LeadSource
-func (t *SalesforcePoolSetting) SetLeadSourceForPool(PoolId string, LeadSource string) (r *http.Response, err error) {
+
+type SetLeadSourceForPoolParameters struct {
+	PoolId     string
+	LeadSource string
+}
+
+func (t *SalesforcePoolSetting) SetLeadSourceForPool(p *SetLeadSourceForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`leadSource`, LeadSource)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`leadSource`, p.LeadSource)
 
 	return t.restClient.Post(
 		`/v2/SalesforcePoolSetting/UseCase/SetLeadSourceForPool`,
@@ -105,10 +136,16 @@ func (t *SalesforcePoolSetting) SetLeadSourceForPool(PoolId string, LeadSource s
 
 // @param string PoolId
 // @param string SyncUserId
-func (t *SalesforcePoolSetting) SetSyncUserForPool(PoolId string, SyncUserId string) (r *http.Response, err error) {
+
+type SetSyncUserForPoolParameters struct {
+	PoolId     string
+	SyncUserId string
+}
+
+func (t *SalesforcePoolSetting) SetSyncUserForPool(p *SetSyncUserForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`syncUserId`, SyncUserId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`syncUserId`, p.SyncUserId)
 
 	return t.restClient.Post(
 		`/v2/SalesforcePoolSetting/UseCase/SetSyncUserForPool`,

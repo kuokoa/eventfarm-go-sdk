@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,10 +14,10 @@ var _ url.Error
 var _ = http.NoBody
 
 type UserIdentifier struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewUserIdentifier(restClient gosdk.RestClientInterface) *UserIdentifier {
+func NewUserIdentifier(restClient sdk.RestClientInterface) *UserIdentifier {
 	return &UserIdentifier{restClient}
 }
 
@@ -26,12 +27,19 @@ func NewUserIdentifier(restClient gosdk.RestClientInterface) *UserIdentifier {
 // @param string UserIdentifierId
 // @param string Identifier
 // @param string|null PoolId
-func (t *UserIdentifier) SetUserIdentifier(UserIdentifierId string, Identifier string, PoolId *string) (r *http.Response, err error) {
+
+type SetUserIdentifierParameters struct {
+	UserIdentifierId string
+	Identifier       string
+	PoolId           *string
+}
+
+func (t *UserIdentifier) SetUserIdentifier(p *SetUserIdentifierParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userIdentifierId`, UserIdentifierId)
-	queryParameters.Add(`identifier`, Identifier)
-	if PoolId != nil {
-		queryParameters.Add(`poolId`, *PoolId)
+	queryParameters.Add(`userIdentifierId`, p.UserIdentifierId)
+	queryParameters.Add(`identifier`, p.Identifier)
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
 	}
 
 	return t.restClient.Post(

@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,10 +14,10 @@ var _ url.Error
 var _ = http.NoBody
 
 type Region struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewRegion(restClient gosdk.RestClientInterface) *Region {
+func NewRegion(restClient sdk.RestClientInterface) *Region {
 	return &Region{restClient}
 }
 
@@ -24,14 +25,21 @@ func NewRegion(restClient gosdk.RestClientInterface) *Region {
 // @param string Query
 // @param int|null Page
 // @param int|null ItemsPerPage 1-200
-func (t *Region) ListTimezonesForRegion(Query string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListTimezonesForRegionParameters struct {
+	Query        string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *Region) ListTimezonesForRegion(p *ListTimezonesForRegionParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`query`, Query)
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	queryParameters.Add(`query`, p.Query)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(

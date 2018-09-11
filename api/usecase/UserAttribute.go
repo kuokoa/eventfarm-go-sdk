@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,10 +14,10 @@ var _ url.Error
 var _ = http.NoBody
 
 type UserAttribute struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewUserAttribute(restClient gosdk.RestClientInterface) *UserAttribute {
+func NewUserAttribute(restClient sdk.RestClientInterface) *UserAttribute {
 	return &UserAttribute{restClient}
 }
 
@@ -25,15 +26,23 @@ func NewUserAttribute(restClient gosdk.RestClientInterface) *UserAttribute {
 // @param string UserId
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
-func (t *UserAttribute) ListCustomAttributesForUser(PoolId string, UserId string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListCustomAttributesForUserParameters struct {
+	PoolId       string
+	UserId       string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *UserAttribute) ListCustomAttributesForUser(p *ListCustomAttributesForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`userId`, UserId)
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -48,15 +57,23 @@ func (t *UserAttribute) ListCustomAttributesForUser(PoolId string, UserId string
 // @param string UserId
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
-func (t *UserAttribute) ListInfoAttributesForUser(PoolId string, UserId string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListInfoAttributesForUserParameters struct {
+	PoolId       string
+	UserId       string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *UserAttribute) ListInfoAttributesForUser(p *ListInfoAttributesForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`userId`, UserId)
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -69,9 +86,14 @@ func (t *UserAttribute) ListInfoAttributesForUser(PoolId string, UserId string, 
 
 // POST: Commands
 // @param string UserAttributeId
-func (t *UserAttribute) RemoveUserAttribute(UserAttributeId string) (r *http.Response, err error) {
+
+type RemoveUserAttributeParameters struct {
+	UserAttributeId string
+}
+
+func (t *UserAttribute) RemoveUserAttribute(p *RemoveUserAttributeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userAttributeId`, UserAttributeId)
+	queryParameters.Add(`userAttributeId`, p.UserAttributeId)
 
 	return t.restClient.Post(
 		`/v2/UserAttribute/UseCase/RemoveUserAttribute`,
@@ -85,12 +107,20 @@ func (t *UserAttribute) RemoveUserAttribute(UserAttributeId string) (r *http.Res
 // @param string UserId
 // @param string AttributeKey
 // @param string AttributeValue
-func (t *UserAttribute) SetCustomUserAttribute(PoolId string, UserId string, AttributeKey string, AttributeValue string) (r *http.Response, err error) {
+
+type SetCustomUserAttributeParameters struct {
+	PoolId         string
+	UserId         string
+	AttributeKey   string
+	AttributeValue string
+}
+
+func (t *UserAttribute) SetCustomUserAttribute(p *SetCustomUserAttributeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`attributeKey`, AttributeKey)
-	queryParameters.Add(`attributeValue`, AttributeValue)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`attributeKey`, p.AttributeKey)
+	queryParameters.Add(`attributeValue`, p.AttributeValue)
 
 	return t.restClient.Post(
 		`/v2/UserAttribute/UseCase/SetCustomUserAttribute`,
@@ -104,12 +134,20 @@ func (t *UserAttribute) SetCustomUserAttribute(PoolId string, UserId string, Att
 // @param string UserId
 // @param string AttributeKey company|position|title|telephone
 // @param string AttributeValue
-func (t *UserAttribute) SetInfoUserAttribute(PoolId string, UserId string, AttributeKey string, AttributeValue string) (r *http.Response, err error) {
+
+type SetInfoUserAttributeParameters struct {
+	PoolId         string
+	UserId         string
+	AttributeKey   string
+	AttributeValue string
+}
+
+func (t *UserAttribute) SetInfoUserAttribute(p *SetInfoUserAttributeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`attributeKey`, AttributeKey)
-	queryParameters.Add(`attributeValue`, AttributeValue)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`attributeKey`, p.AttributeKey)
+	queryParameters.Add(`attributeValue`, p.AttributeValue)
 
 	return t.restClient.Post(
 		`/v2/UserAttribute/UseCase/SetInfoUserAttribute`,

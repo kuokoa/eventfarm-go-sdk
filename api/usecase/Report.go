@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,20 +14,26 @@ var _ url.Error
 var _ = http.NoBody
 
 type Report struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewReport(restClient gosdk.RestClientInterface) *Report {
+func NewReport(restClient sdk.RestClientInterface) *Report {
 	return &Report{restClient}
 }
 
 // GET: Queries
 // @param int StartTime
 // @param int EndTime
-func (t *Report) ReportTotalEventsRunningBetweenDates(StartTime int, EndTime int) (r *http.Response, err error) {
+
+type ReportTotalEventsRunningBetweenDatesParameters struct {
+	StartTime int
+	EndTime   int
+}
+
+func (t *Report) ReportTotalEventsRunningBetweenDates(p *ReportTotalEventsRunningBetweenDatesParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`startTime`, strconv.Itoa(StartTime))
-	queryParameters.Add(`endTime`, strconv.Itoa(EndTime))
+	queryParameters.Add(`startTime`, strconv.Itoa(p.StartTime))
+	queryParameters.Add(`endTime`, strconv.Itoa(p.EndTime))
 
 	return t.restClient.Get(
 		`/v2/Report/UseCase/ReportTotalEventsRunningBetweenDates`,
@@ -40,11 +47,18 @@ func (t *Report) ReportTotalEventsRunningBetweenDates(StartTime int, EndTime int
 // @param string EventId
 // @param string OwnerUserId
 // @param string TicketBlockId
-func (t *Report) CreateTicketBlockSummaryReport(EventId string, OwnerUserId string, TicketBlockId string) (r *http.Response, err error) {
+
+type CreateTicketBlockSummaryReportParameters struct {
+	EventId       string
+	OwnerUserId   string
+	TicketBlockId string
+}
+
+func (t *Report) CreateTicketBlockSummaryReport(p *CreateTicketBlockSummaryReportParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	queryParameters.Add(`ownerUserId`, OwnerUserId)
-	queryParameters.Add(`ticketBlockId`, TicketBlockId)
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateTicketBlockSummaryReport`,

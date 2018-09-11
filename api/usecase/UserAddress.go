@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,10 +14,10 @@ var _ url.Error
 var _ = http.NoBody
 
 type UserAddress struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewUserAddress(restClient gosdk.RestClientInterface) *UserAddress {
+func NewUserAddress(restClient sdk.RestClientInterface) *UserAddress {
 	return &UserAddress{restClient}
 }
 
@@ -25,15 +26,23 @@ func NewUserAddress(restClient gosdk.RestClientInterface) *UserAddress {
 // @param string UserId
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
-func (t *UserAddress) ListAddressesForUser(PoolId string, UserId string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListAddressesForUserParameters struct {
+	PoolId       string
+	UserId       string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *UserAddress) ListAddressesForUser(p *ListAddressesForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`userId`, UserId)
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -54,30 +63,43 @@ func (t *UserAddress) ListAddressesForUser(PoolId string, UserId string, Page *i
 // @param string|null Country
 // @param string|null Address2
 // @param string|null UserAddressId
-func (t *UserAddress) AddUserAddress(PoolId string, UserId string, Address1 *string, City *string, State *string, PostalCode *string, Country *string, Address2 *string, UserAddressId *string) (r *http.Response, err error) {
+
+type AddUserAddressParameters struct {
+	PoolId        string
+	UserId        string
+	Address1      *string
+	City          *string
+	State         *string
+	PostalCode    *string
+	Country       *string
+	Address2      *string
+	UserAddressId *string
+}
+
+func (t *UserAddress) AddUserAddress(p *AddUserAddressParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`userId`, UserId)
-	if Address1 != nil {
-		queryParameters.Add(`address1`, *Address1)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.Address1 != nil {
+		queryParameters.Add(`address1`, *p.Address1)
 	}
-	if City != nil {
-		queryParameters.Add(`city`, *City)
+	if p.City != nil {
+		queryParameters.Add(`city`, *p.City)
 	}
-	if State != nil {
-		queryParameters.Add(`state`, *State)
+	if p.State != nil {
+		queryParameters.Add(`state`, *p.State)
 	}
-	if PostalCode != nil {
-		queryParameters.Add(`postalCode`, *PostalCode)
+	if p.PostalCode != nil {
+		queryParameters.Add(`postalCode`, *p.PostalCode)
 	}
-	if Country != nil {
-		queryParameters.Add(`country`, *Country)
+	if p.Country != nil {
+		queryParameters.Add(`country`, *p.Country)
 	}
-	if Address2 != nil {
-		queryParameters.Add(`address2`, *Address2)
+	if p.Address2 != nil {
+		queryParameters.Add(`address2`, *p.Address2)
 	}
-	if UserAddressId != nil {
-		queryParameters.Add(`userAddressId`, *UserAddressId)
+	if p.UserAddressId != nil {
+		queryParameters.Add(`userAddressId`, *p.UserAddressId)
 	}
 
 	return t.restClient.Post(
@@ -89,9 +111,14 @@ func (t *UserAddress) AddUserAddress(PoolId string, UserId string, Address1 *str
 }
 
 // @param string UserAddressId
-func (t *UserAddress) RemoveUserAddress(UserAddressId string) (r *http.Response, err error) {
+
+type RemoveUserAddressParameters struct {
+	UserAddressId string
+}
+
+func (t *UserAddress) RemoveUserAddress(p *RemoveUserAddressParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userAddressId`, UserAddressId)
+	queryParameters.Add(`userAddressId`, p.UserAddressId)
 
 	return t.restClient.Post(
 		`/v2/UserAddress/UseCase/RemoveUserAddress`,
@@ -108,26 +135,37 @@ func (t *UserAddress) RemoveUserAddress(UserAddressId string) (r *http.Response,
 // @param string|null PostalCode
 // @param string|null Country
 // @param string|null Address2
-func (t *UserAddress) SetUserAddress(UserAddressId string, Address1 *string, City *string, State *string, PostalCode *string, Country *string, Address2 *string) (r *http.Response, err error) {
+
+type SetUserAddressParameters struct {
+	UserAddressId string
+	Address1      *string
+	City          *string
+	State         *string
+	PostalCode    *string
+	Country       *string
+	Address2      *string
+}
+
+func (t *UserAddress) SetUserAddress(p *SetUserAddressParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userAddressId`, UserAddressId)
-	if Address1 != nil {
-		queryParameters.Add(`address1`, *Address1)
+	queryParameters.Add(`userAddressId`, p.UserAddressId)
+	if p.Address1 != nil {
+		queryParameters.Add(`address1`, *p.Address1)
 	}
-	if City != nil {
-		queryParameters.Add(`city`, *City)
+	if p.City != nil {
+		queryParameters.Add(`city`, *p.City)
 	}
-	if State != nil {
-		queryParameters.Add(`state`, *State)
+	if p.State != nil {
+		queryParameters.Add(`state`, *p.State)
 	}
-	if PostalCode != nil {
-		queryParameters.Add(`postalCode`, *PostalCode)
+	if p.PostalCode != nil {
+		queryParameters.Add(`postalCode`, *p.PostalCode)
 	}
-	if Country != nil {
-		queryParameters.Add(`country`, *Country)
+	if p.Country != nil {
+		queryParameters.Add(`country`, *p.Country)
 	}
-	if Address2 != nil {
-		queryParameters.Add(`address2`, *Address2)
+	if p.Address2 != nil {
+		queryParameters.Add(`address2`, *p.Address2)
 	}
 
 	return t.restClient.Post(

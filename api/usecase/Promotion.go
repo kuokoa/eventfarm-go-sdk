@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,10 +14,10 @@ var _ url.Error
 var _ = http.NoBody
 
 type Promotion struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewPromotion(restClient gosdk.RestClientInterface) *Promotion {
+func NewPromotion(restClient sdk.RestClientInterface) *Promotion {
 	return &Promotion{restClient}
 }
 
@@ -34,22 +35,37 @@ func NewPromotion(restClient gosdk.RestClientInterface) *Promotion {
 // @param string Message
 // @param bool|null IsEnabled true|false
 // @param string|null PromotionId
-func (t *Promotion) CreatePromotion(EventId string, PromotionType string, Code string, StartTime int, EndTime int, Amount float, Used int, Maximum int, Message string, IsEnabled *bool, PromotionId *string) (r *http.Response, err error) {
+
+type CreatePromotionParameters struct {
+	EventId       string
+	PromotionType string
+	Code          string
+	StartTime     int
+	EndTime       int
+	Amount        string
+	Used          int
+	Maximum       int
+	Message       string
+	IsEnabled     *bool
+	PromotionId   *string
+}
+
+func (t *Promotion) CreatePromotion(p *CreatePromotionParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	queryParameters.Add(`promotionType`, PromotionType)
-	queryParameters.Add(`code`, Code)
-	queryParameters.Add(`startTime`, strconv.Itoa(StartTime))
-	queryParameters.Add(`endTime`, strconv.Itoa(EndTime))
-	queryParameters.Add(`amount`, Amount)
-	queryParameters.Add(`used`, strconv.Itoa(Used))
-	queryParameters.Add(`maximum`, strconv.Itoa(Maximum))
-	queryParameters.Add(`message`, Message)
-	if IsEnabled != nil {
-		queryParameters.Add(`isEnabled`, strconv.FormatBool(*IsEnabled))
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`promotionType`, p.PromotionType)
+	queryParameters.Add(`code`, p.Code)
+	queryParameters.Add(`startTime`, strconv.Itoa(p.StartTime))
+	queryParameters.Add(`endTime`, strconv.Itoa(p.EndTime))
+	queryParameters.Add(`amount`, p.Amount)
+	queryParameters.Add(`used`, strconv.Itoa(p.Used))
+	queryParameters.Add(`maximum`, strconv.Itoa(p.Maximum))
+	queryParameters.Add(`message`, p.Message)
+	if p.IsEnabled != nil {
+		queryParameters.Add(`isEnabled`, strconv.FormatBool(*p.IsEnabled))
 	}
-	if PromotionId != nil {
-		queryParameters.Add(`promotionId`, *PromotionId)
+	if p.PromotionId != nil {
+		queryParameters.Add(`promotionId`, *p.PromotionId)
 	}
 
 	return t.restClient.Post(
@@ -61,9 +77,14 @@ func (t *Promotion) CreatePromotion(EventId string, PromotionType string, Code s
 }
 
 // @param string PromotionId
-func (t *Promotion) DisablePromotion(PromotionId string) (r *http.Response, err error) {
+
+type DisablePromotionParameters struct {
+	PromotionId string
+}
+
+func (t *Promotion) DisablePromotion(p *DisablePromotionParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
+	queryParameters.Add(`promotionId`, p.PromotionId)
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/DisablePromotion`,
@@ -74,9 +95,14 @@ func (t *Promotion) DisablePromotion(PromotionId string) (r *http.Response, err 
 }
 
 // @param string PromotionId
-func (t *Promotion) EnablePromotion(PromotionId string) (r *http.Response, err error) {
+
+type EnablePromotionParameters struct {
+	PromotionId string
+}
+
+func (t *Promotion) EnablePromotion(p *EnablePromotionParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
+	queryParameters.Add(`promotionId`, p.PromotionId)
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/EnablePromotion`,
@@ -87,9 +113,14 @@ func (t *Promotion) EnablePromotion(PromotionId string) (r *http.Response, err e
 }
 
 // @param string PromotionId
-func (t *Promotion) RemovePromotion(PromotionId string) (r *http.Response, err error) {
+
+type RemovePromotionParameters struct {
+	PromotionId string
+}
+
+func (t *Promotion) RemovePromotion(p *RemovePromotionParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
+	queryParameters.Add(`promotionId`, p.PromotionId)
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/RemovePromotion`,
@@ -101,10 +132,16 @@ func (t *Promotion) RemovePromotion(PromotionId string) (r *http.Response, err e
 
 // @param string PromotionId
 // @param float Amount
-func (t *Promotion) SetAmount(PromotionId string, Amount float) (r *http.Response, err error) {
+
+type SetAmountParameters struct {
+	PromotionId string
+	Amount      string
+}
+
+func (t *Promotion) SetAmount(p *SetAmountParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
-	queryParameters.Add(`amount`, Amount)
+	queryParameters.Add(`promotionId`, p.PromotionId)
+	queryParameters.Add(`amount`, p.Amount)
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetAmount`,
@@ -116,10 +153,16 @@ func (t *Promotion) SetAmount(PromotionId string, Amount float) (r *http.Respons
 
 // @param string PromotionId
 // @param string Code
-func (t *Promotion) SetCode(PromotionId string, Code string) (r *http.Response, err error) {
+
+type SetCodeParameters struct {
+	PromotionId string
+	Code        string
+}
+
+func (t *Promotion) SetCode(p *SetCodeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
-	queryParameters.Add(`code`, Code)
+	queryParameters.Add(`promotionId`, p.PromotionId)
+	queryParameters.Add(`code`, p.Code)
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetCode`,
@@ -131,10 +174,16 @@ func (t *Promotion) SetCode(PromotionId string, Code string) (r *http.Response, 
 
 // @param string PromotionId
 // @param int EndTime
-func (t *Promotion) SetEndTime(PromotionId string, EndTime int) (r *http.Response, err error) {
+
+type SetEndTimeParameters struct {
+	PromotionId string
+	EndTime     int
+}
+
+func (t *Promotion) SetEndTime(p *SetEndTimeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
-	queryParameters.Add(`endTime`, strconv.Itoa(EndTime))
+	queryParameters.Add(`promotionId`, p.PromotionId)
+	queryParameters.Add(`endTime`, strconv.Itoa(p.EndTime))
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetEndTime`,
@@ -146,10 +195,16 @@ func (t *Promotion) SetEndTime(PromotionId string, EndTime int) (r *http.Respons
 
 // @param string PromotionId
 // @param int Maximum
-func (t *Promotion) SetMaximum(PromotionId string, Maximum int) (r *http.Response, err error) {
+
+type SetMaximumParameters struct {
+	PromotionId string
+	Maximum     int
+}
+
+func (t *Promotion) SetMaximum(p *SetMaximumParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
-	queryParameters.Add(`maximum`, strconv.Itoa(Maximum))
+	queryParameters.Add(`promotionId`, p.PromotionId)
+	queryParameters.Add(`maximum`, strconv.Itoa(p.Maximum))
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetMaximum`,
@@ -161,10 +216,16 @@ func (t *Promotion) SetMaximum(PromotionId string, Maximum int) (r *http.Respons
 
 // @param string PromotionId
 // @param string Message
-func (t *Promotion) SetMessage(PromotionId string, Message string) (r *http.Response, err error) {
+
+type SetMessageParameters struct {
+	PromotionId string
+	Message     string
+}
+
+func (t *Promotion) SetMessage(p *SetMessageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
-	queryParameters.Add(`message`, Message)
+	queryParameters.Add(`promotionId`, p.PromotionId)
+	queryParameters.Add(`message`, p.Message)
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetMessage`,
@@ -176,10 +237,16 @@ func (t *Promotion) SetMessage(PromotionId string, Message string) (r *http.Resp
 
 // @param string PromotionId
 // @param string PromotionType
-func (t *Promotion) SetPromotionType(PromotionId string, PromotionType string) (r *http.Response, err error) {
+
+type SetPromotionTypeParameters struct {
+	PromotionId   string
+	PromotionType string
+}
+
+func (t *Promotion) SetPromotionType(p *SetPromotionTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
-	queryParameters.Add(`promotionType`, PromotionType)
+	queryParameters.Add(`promotionId`, p.PromotionId)
+	queryParameters.Add(`promotionType`, p.PromotionType)
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetPromotionType`,
@@ -191,10 +258,16 @@ func (t *Promotion) SetPromotionType(PromotionId string, PromotionType string) (
 
 // @param string PromotionId
 // @param int StartTime
-func (t *Promotion) SetStartTime(PromotionId string, StartTime int) (r *http.Response, err error) {
+
+type SetStartTimeParameters struct {
+	PromotionId string
+	StartTime   int
+}
+
+func (t *Promotion) SetStartTime(p *SetStartTimeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
-	queryParameters.Add(`startTime`, strconv.Itoa(StartTime))
+	queryParameters.Add(`promotionId`, p.PromotionId)
+	queryParameters.Add(`startTime`, strconv.Itoa(p.StartTime))
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetStartTime`,

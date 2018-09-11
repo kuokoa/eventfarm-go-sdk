@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,15 +14,19 @@ var _ url.Error
 var _ = http.NoBody
 
 type Feature struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewFeature(restClient gosdk.RestClientInterface) *Feature {
+func NewFeature(restClient sdk.RestClientInterface) *Feature {
 	return &Feature{restClient}
 }
 
 // GET: Queries
-func (t *Feature) ListFeatures() (r *http.Response, err error) {
+
+type ListFeaturesParameters struct {
+}
+
+func (t *Feature) ListFeatures(p *ListFeaturesParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Get(

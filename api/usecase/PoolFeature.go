@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type PoolFeature struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewPoolFeature(restClient gosdk.RestClientInterface) *PoolFeature {
+func NewPoolFeature(restClient sdk.RestClientInterface) *PoolFeature {
 	return &PoolFeature{restClient}
 }
 
 // GET: Queries
 // @param string PoolId
-func (t *PoolFeature) ListFeaturesForPool(PoolId string) (r *http.Response, err error) {
+
+type ListFeaturesForPoolParameters struct {
+	PoolId string
+}
+
+func (t *PoolFeature) ListFeaturesForPool(p *ListFeaturesForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
+	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Get(
 		`/v2/PoolFeature/UseCase/ListFeaturesForPool`,
@@ -38,12 +44,19 @@ func (t *PoolFeature) ListFeaturesForPool(PoolId string) (r *http.Response, err 
 // @param string PoolId
 // @param string FeatureId
 // @param bool|null Enabled true|false
-func (t *PoolFeature) AddFeatureForPool(PoolId string, FeatureId string, Enabled *bool) (r *http.Response, err error) {
+
+type AddFeatureForPoolParameters struct {
+	PoolId    string
+	FeatureId string
+	Enabled   *bool
+}
+
+func (t *PoolFeature) AddFeatureForPool(p *AddFeatureForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`featureId`, FeatureId)
-	if Enabled != nil {
-		queryParameters.Add(`enabled`, strconv.FormatBool(*Enabled))
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`featureId`, p.FeatureId)
+	if p.Enabled != nil {
+		queryParameters.Add(`enabled`, strconv.FormatBool(*p.Enabled))
 	}
 
 	return t.restClient.Post(
@@ -56,10 +69,16 @@ func (t *PoolFeature) AddFeatureForPool(PoolId string, FeatureId string, Enabled
 
 // @param string PoolId
 // @param string FeatureId
-func (t *PoolFeature) DisableFeatureForPool(PoolId string, FeatureId string) (r *http.Response, err error) {
+
+type DisableFeatureForPoolParameters struct {
+	PoolId    string
+	FeatureId string
+}
+
+func (t *PoolFeature) DisableFeatureForPool(p *DisableFeatureForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`featureId`, FeatureId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`featureId`, p.FeatureId)
 
 	return t.restClient.Post(
 		`/v2/PoolFeature/UseCase/DisableFeatureForPool`,
@@ -71,10 +90,16 @@ func (t *PoolFeature) DisableFeatureForPool(PoolId string, FeatureId string) (r 
 
 // @param string PoolId
 // @param string FeatureId
-func (t *PoolFeature) EnableFeatureForPool(PoolId string, FeatureId string) (r *http.Response, err error) {
+
+type EnableFeatureForPoolParameters struct {
+	PoolId    string
+	FeatureId string
+}
+
+func (t *PoolFeature) EnableFeatureForPool(p *EnableFeatureForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`featureId`, FeatureId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`featureId`, p.FeatureId)
 
 	return t.restClient.Post(
 		`/v2/PoolFeature/UseCase/EnableFeatureForPool`,
@@ -86,10 +111,16 @@ func (t *PoolFeature) EnableFeatureForPool(PoolId string, FeatureId string) (r *
 
 // @param string PoolId
 // @param string FeatureId
-func (t *PoolFeature) RemoveFeatureForPool(PoolId string, FeatureId string) (r *http.Response, err error) {
+
+type RemoveFeatureForPoolParameters struct {
+	PoolId    string
+	FeatureId string
+}
+
+func (t *PoolFeature) RemoveFeatureForPool(p *RemoveFeatureForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`featureId`, FeatureId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`featureId`, p.FeatureId)
 
 	return t.restClient.Post(
 		`/v2/PoolFeature/UseCase/RemoveFeatureForPool`,

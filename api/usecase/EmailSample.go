@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type EmailSample struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewEmailSample(restClient gosdk.RestClientInterface) *EmailSample {
+func NewEmailSample(restClient sdk.RestClientInterface) *EmailSample {
 	return &EmailSample{restClient}
 }
 
 // GET: Queries
 // @param string EmailDesignId
-func (t *EmailSample) GetEmailThumbnailUrl(EmailDesignId string) (r *http.Response, err error) {
+
+type GetEmailThumbnailUrlParameters struct {
+	EmailDesignId string
+}
+
+func (t *EmailSample) GetEmailThumbnailUrl(p *GetEmailThumbnailUrlParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`emailDesignId`, EmailDesignId)
+	queryParameters.Add(`emailDesignId`, p.EmailDesignId)
 
 	return t.restClient.Get(
 		`/v2/EmailSample/UseCase/GetEmailThumbnailUrl`,
@@ -36,12 +42,18 @@ func (t *EmailSample) GetEmailThumbnailUrl(EmailDesignId string) (r *http.Respon
 
 // @param string EmailDesignId
 // @param array|null WithData EmailPreview|EmailSpamResult
-func (t *EmailSample) GetLatestEmailSampleForDesign(EmailDesignId string, WithData *[]string) (r *http.Response, err error) {
+
+type GetLatestEmailSampleForDesignParameters struct {
+	EmailDesignId string
+	WithData      *[]string
+}
+
+func (t *EmailSample) GetLatestEmailSampleForDesign(p *GetLatestEmailSampleForDesignParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`emailDesignId`, EmailDesignId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`emailDesignId`, p.EmailDesignId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
 
@@ -61,16 +73,27 @@ func (t *EmailSample) GetLatestEmailSampleForDesign(EmailDesignId string, WithDa
 // @param string ThumbnailUrl
 // @param string EmailSampleId
 // @param string|null EmailPreviewId
-func (t *EmailSample) CreateEmailPreview(PreviewUrl string, PreviewClient string, OperatingSystem string, DisplayName string, ThumbnailUrl string, EmailSampleId string, EmailPreviewId *string) (r *http.Response, err error) {
+
+type CreateEmailPreviewParameters struct {
+	PreviewUrl      string
+	PreviewClient   string
+	OperatingSystem string
+	DisplayName     string
+	ThumbnailUrl    string
+	EmailSampleId   string
+	EmailPreviewId  *string
+}
+
+func (t *EmailSample) CreateEmailPreview(p *CreateEmailPreviewParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`previewUrl`, PreviewUrl)
-	queryParameters.Add(`previewClient`, PreviewClient)
-	queryParameters.Add(`operatingSystem`, OperatingSystem)
-	queryParameters.Add(`displayName`, DisplayName)
-	queryParameters.Add(`thumbnailUrl`, ThumbnailUrl)
-	queryParameters.Add(`emailSampleId`, EmailSampleId)
-	if EmailPreviewId != nil {
-		queryParameters.Add(`emailPreviewId`, *EmailPreviewId)
+	queryParameters.Add(`previewUrl`, p.PreviewUrl)
+	queryParameters.Add(`previewClient`, p.PreviewClient)
+	queryParameters.Add(`operatingSystem`, p.OperatingSystem)
+	queryParameters.Add(`displayName`, p.DisplayName)
+	queryParameters.Add(`thumbnailUrl`, p.ThumbnailUrl)
+	queryParameters.Add(`emailSampleId`, p.EmailSampleId)
+	if p.EmailPreviewId != nil {
+		queryParameters.Add(`emailPreviewId`, *p.EmailPreviewId)
 	}
 
 	return t.restClient.Post(
@@ -85,13 +108,21 @@ func (t *EmailSample) CreateEmailPreview(PreviewUrl string, PreviewClient string
 // @param string EmailDesignId
 // @param bool OverrideMinimumInterval true|false
 // @param string|null EmailSampleId
-func (t *EmailSample) CreateEmailSample(HtmlContent string, EmailDesignId string, OverrideMinimumInterval bool, EmailSampleId *string) (r *http.Response, err error) {
+
+type CreateEmailSampleParameters struct {
+	HtmlContent             string
+	EmailDesignId           string
+	OverrideMinimumInterval bool
+	EmailSampleId           *string
+}
+
+func (t *EmailSample) CreateEmailSample(p *CreateEmailSampleParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`htmlContent`, HtmlContent)
-	queryParameters.Add(`emailDesignId`, EmailDesignId)
-	queryParameters.Add(`overrideMinimumInterval`, strconv.FormatBool(OverrideMinimumInterval))
-	if EmailSampleId != nil {
-		queryParameters.Add(`emailSampleId`, *EmailSampleId)
+	queryParameters.Add(`htmlContent`, p.HtmlContent)
+	queryParameters.Add(`emailDesignId`, p.EmailDesignId)
+	queryParameters.Add(`overrideMinimumInterval`, strconv.FormatBool(p.OverrideMinimumInterval))
+	if p.EmailSampleId != nil {
+		queryParameters.Add(`emailSampleId`, *p.EmailSampleId)
 	}
 
 	return t.restClient.Post(
@@ -108,15 +139,25 @@ func (t *EmailSample) CreateEmailSample(HtmlContent string, EmailDesignId string
 // @param int IsSpam
 // @param string EmailSampleId
 // @param string|null EmailSpamResultId
-func (t *EmailSample) CreateEmailSpamResult(SpamClient string, TestType string, TestDetails string, IsSpam int, EmailSampleId string, EmailSpamResultId *string) (r *http.Response, err error) {
+
+type CreateEmailSpamResultParameters struct {
+	SpamClient        string
+	TestType          string
+	TestDetails       string
+	IsSpam            int
+	EmailSampleId     string
+	EmailSpamResultId *string
+}
+
+func (t *EmailSample) CreateEmailSpamResult(p *CreateEmailSpamResultParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`spamClient`, SpamClient)
-	queryParameters.Add(`testType`, TestType)
-	queryParameters.Add(`testDetails`, TestDetails)
-	queryParameters.Add(`isSpam`, strconv.Itoa(IsSpam))
-	queryParameters.Add(`emailSampleId`, EmailSampleId)
-	if EmailSpamResultId != nil {
-		queryParameters.Add(`emailSpamResultId`, *EmailSpamResultId)
+	queryParameters.Add(`spamClient`, p.SpamClient)
+	queryParameters.Add(`testType`, p.TestType)
+	queryParameters.Add(`testDetails`, p.TestDetails)
+	queryParameters.Add(`isSpam`, strconv.Itoa(p.IsSpam))
+	queryParameters.Add(`emailSampleId`, p.EmailSampleId)
+	if p.EmailSpamResultId != nil {
+		queryParameters.Add(`emailSpamResultId`, *p.EmailSpamResultId)
 	}
 
 	return t.restClient.Post(

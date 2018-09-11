@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,10 +14,10 @@ var _ url.Error
 var _ = http.NoBody
 
 type UserName struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewUserName(restClient gosdk.RestClientInterface) *UserName {
+func NewUserName(restClient sdk.RestClientInterface) *UserName {
 	return &UserName{restClient}
 }
 
@@ -25,15 +26,23 @@ func NewUserName(restClient gosdk.RestClientInterface) *UserName {
 // @param string UserId
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
-func (t *UserName) ListNamesForUser(PoolId string, UserId string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListNamesForUserParameters struct {
+	PoolId       string
+	UserId       string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *UserName) ListNamesForUser(p *ListNamesForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`userId`, UserId)
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -50,18 +59,27 @@ func (t *UserName) ListNamesForUser(PoolId string, UserId string, Page *int, Ite
 // @param string|null FirstName
 // @param string|null LastName
 // @param string|null UserNameId
-func (t *UserName) AddUserName(PoolId string, UserId string, FirstName *string, LastName *string, UserNameId *string) (r *http.Response, err error) {
+
+type AddUserNameParameters struct {
+	PoolId     string
+	UserId     string
+	FirstName  *string
+	LastName   *string
+	UserNameId *string
+}
+
+func (t *UserName) AddUserName(p *AddUserNameParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`userId`, UserId)
-	if FirstName != nil {
-		queryParameters.Add(`firstName`, *FirstName)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.FirstName != nil {
+		queryParameters.Add(`firstName`, *p.FirstName)
 	}
-	if LastName != nil {
-		queryParameters.Add(`lastName`, *LastName)
+	if p.LastName != nil {
+		queryParameters.Add(`lastName`, *p.LastName)
 	}
-	if UserNameId != nil {
-		queryParameters.Add(`userNameId`, *UserNameId)
+	if p.UserNameId != nil {
+		queryParameters.Add(`userNameId`, *p.UserNameId)
 	}
 
 	return t.restClient.Post(
@@ -73,9 +91,14 @@ func (t *UserName) AddUserName(PoolId string, UserId string, FirstName *string, 
 }
 
 // @param string UserNameId
-func (t *UserName) RemoveUserName(UserNameId string) (r *http.Response, err error) {
+
+type RemoveUserNameParameters struct {
+	UserNameId string
+}
+
+func (t *UserName) RemoveUserName(p *RemoveUserNameParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userNameId`, UserNameId)
+	queryParameters.Add(`userNameId`, p.UserNameId)
 
 	return t.restClient.Post(
 		`/v2/UserName/UseCase/RemoveUserName`,
@@ -88,14 +111,21 @@ func (t *UserName) RemoveUserName(UserNameId string) (r *http.Response, err erro
 // @param string UserNameId
 // @param string|null FirstName
 // @param string|null LastName
-func (t *UserName) SetUserName(UserNameId string, FirstName *string, LastName *string) (r *http.Response, err error) {
+
+type SetUserNameParameters struct {
+	UserNameId string
+	FirstName  *string
+	LastName   *string
+}
+
+func (t *UserName) SetUserName(p *SetUserNameParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userNameId`, UserNameId)
-	if FirstName != nil {
-		queryParameters.Add(`firstName`, *FirstName)
+	queryParameters.Add(`userNameId`, p.UserNameId)
+	if p.FirstName != nil {
+		queryParameters.Add(`firstName`, *p.FirstName)
 	}
-	if LastName != nil {
-		queryParameters.Add(`lastName`, *LastName)
+	if p.LastName != nil {
+		queryParameters.Add(`lastName`, *p.LastName)
 	}
 
 	return t.restClient.Post(

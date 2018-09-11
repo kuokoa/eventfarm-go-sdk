@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type SalesforceEventSetting struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewSalesforceEventSetting(restClient gosdk.RestClientInterface) *SalesforceEventSetting {
+func NewSalesforceEventSetting(restClient sdk.RestClientInterface) *SalesforceEventSetting {
 	return &SalesforceEventSetting{restClient}
 }
 
 // GET: Queries
 // @param string SalesforceEventSettingId
-func (t *SalesforceEventSetting) GetSalesforceEventSetting(SalesforceEventSettingId string) (r *http.Response, err error) {
+
+type GetSalesforceEventSettingParameters struct {
+	SalesforceEventSettingId string
+}
+
+func (t *SalesforceEventSetting) GetSalesforceEventSetting(p *GetSalesforceEventSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`salesforceEventSettingId`, SalesforceEventSettingId)
+	queryParameters.Add(`salesforceEventSettingId`, p.SalesforceEventSettingId)
 
 	return t.restClient.Get(
 		`/v2/SalesforceEventSetting/UseCase/GetSalesforceEventSetting`,
@@ -35,9 +41,14 @@ func (t *SalesforceEventSetting) GetSalesforceEventSetting(SalesforceEventSettin
 }
 
 // @param string EventId
-func (t *SalesforceEventSetting) ListSalesforceEventSettingsForEvent(EventId string) (r *http.Response, err error) {
+
+type ListSalesforceEventSettingsForEventParameters struct {
+	EventId string
+}
+
+func (t *SalesforceEventSetting) ListSalesforceEventSettingsForEvent(p *ListSalesforceEventSettingsForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
+	queryParameters.Add(`eventId`, p.EventId)
 
 	return t.restClient.Get(
 		`/v2/SalesforceEventSetting/UseCase/ListSalesforceEventSettingsForEvent`,
@@ -49,9 +60,14 @@ func (t *SalesforceEventSetting) ListSalesforceEventSettingsForEvent(EventId str
 
 // POST: Commands
 // @param string SalesforceEventSettingId
-func (t *SalesforceEventSetting) DisableExportForSalesforceEventSetting(SalesforceEventSettingId string) (r *http.Response, err error) {
+
+type DisableExportForSalesforceEventSettingParameters struct {
+	SalesforceEventSettingId string
+}
+
+func (t *SalesforceEventSetting) DisableExportForSalesforceEventSetting(p *DisableExportForSalesforceEventSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`salesforceEventSettingId`, SalesforceEventSettingId)
+	queryParameters.Add(`salesforceEventSettingId`, p.SalesforceEventSettingId)
 
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/DisableExportForSalesforceEventSetting`,
@@ -62,9 +78,14 @@ func (t *SalesforceEventSetting) DisableExportForSalesforceEventSetting(Salesfor
 }
 
 // @param string SalesforceEventSettingId
-func (t *SalesforceEventSetting) DisableImportForSalesforceEventSetting(SalesforceEventSettingId string) (r *http.Response, err error) {
+
+type DisableImportForSalesforceEventSettingParameters struct {
+	SalesforceEventSettingId string
+}
+
+func (t *SalesforceEventSetting) DisableImportForSalesforceEventSetting(p *DisableImportForSalesforceEventSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`salesforceEventSettingId`, SalesforceEventSettingId)
+	queryParameters.Add(`salesforceEventSettingId`, p.SalesforceEventSettingId)
 
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/DisableImportForSalesforceEventSetting`,
@@ -75,9 +96,14 @@ func (t *SalesforceEventSetting) DisableImportForSalesforceEventSetting(Salesfor
 }
 
 // @param string SalesforceEventSettingId
-func (t *SalesforceEventSetting) EnableExportForSalesforceEventSetting(SalesforceEventSettingId string) (r *http.Response, err error) {
+
+type EnableExportForSalesforceEventSettingParameters struct {
+	SalesforceEventSettingId string
+}
+
+func (t *SalesforceEventSetting) EnableExportForSalesforceEventSetting(p *EnableExportForSalesforceEventSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`salesforceEventSettingId`, SalesforceEventSettingId)
+	queryParameters.Add(`salesforceEventSettingId`, p.SalesforceEventSettingId)
 
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/EnableExportForSalesforceEventSetting`,
@@ -88,9 +114,14 @@ func (t *SalesforceEventSetting) EnableExportForSalesforceEventSetting(Salesforc
 }
 
 // @param string SalesforceEventSettingId
-func (t *SalesforceEventSetting) EnableImportForSalesforceEventSetting(SalesforceEventSettingId string) (r *http.Response, err error) {
+
+type EnableImportForSalesforceEventSettingParameters struct {
+	SalesforceEventSettingId string
+}
+
+func (t *SalesforceEventSetting) EnableImportForSalesforceEventSetting(p *EnableImportForSalesforceEventSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`salesforceEventSettingId`, SalesforceEventSettingId)
+	queryParameters.Add(`salesforceEventSettingId`, p.SalesforceEventSettingId)
 
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/EnableImportForSalesforceEventSetting`,
@@ -103,11 +134,18 @@ func (t *SalesforceEventSetting) EnableImportForSalesforceEventSetting(Salesforc
 // @param string SalesforceEventSettingId
 // @param string CampaignId
 // @param string CampaignName
-func (t *SalesforceEventSetting) SetCampaignForSalesforceEventSetting(SalesforceEventSettingId string, CampaignId string, CampaignName string) (r *http.Response, err error) {
+
+type SetCampaignForSalesforceEventSettingParameters struct {
+	SalesforceEventSettingId string
+	CampaignId               string
+	CampaignName             string
+}
+
+func (t *SalesforceEventSetting) SetCampaignForSalesforceEventSetting(p *SetCampaignForSalesforceEventSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`salesforceEventSettingId`, SalesforceEventSettingId)
-	queryParameters.Add(`campaignId`, CampaignId)
-	queryParameters.Add(`campaignName`, CampaignName)
+	queryParameters.Add(`salesforceEventSettingId`, p.SalesforceEventSettingId)
+	queryParameters.Add(`campaignId`, p.CampaignId)
+	queryParameters.Add(`campaignName`, p.CampaignName)
 
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/SetCampaignForSalesforceEventSetting`,
@@ -119,10 +157,16 @@ func (t *SalesforceEventSetting) SetCampaignForSalesforceEventSetting(Salesforce
 
 // @param string SalesforceEventSettingId
 // @param int InvitationCount 1-100
-func (t *SalesforceEventSetting) SetInvitationCountForSalesforceEventSetting(SalesforceEventSettingId string, InvitationCount int) (r *http.Response, err error) {
+
+type SetInvitationCountForSalesforceEventSettingParameters struct {
+	SalesforceEventSettingId string
+	InvitationCount          int
+}
+
+func (t *SalesforceEventSetting) SetInvitationCountForSalesforceEventSetting(p *SetInvitationCountForSalesforceEventSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`salesforceEventSettingId`, SalesforceEventSettingId)
-	queryParameters.Add(`invitationCount`, strconv.Itoa(InvitationCount))
+	queryParameters.Add(`salesforceEventSettingId`, p.SalesforceEventSettingId)
+	queryParameters.Add(`invitationCount`, strconv.Itoa(p.InvitationCount))
 
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/SetInvitationCountForSalesforceEventSetting`,
@@ -134,10 +178,16 @@ func (t *SalesforceEventSetting) SetInvitationCountForSalesforceEventSetting(Sal
 
 // @param string SalesforceEventSettingId
 // @param string InvitationCreationType unconfirmed-no-email|confirmed-no-email
-func (t *SalesforceEventSetting) SetInvitationCreationTypeForSalesforceEventSetting(SalesforceEventSettingId string, InvitationCreationType string) (r *http.Response, err error) {
+
+type SetInvitationCreationTypeForSalesforceEventSettingParameters struct {
+	SalesforceEventSettingId string
+	InvitationCreationType   string
+}
+
+func (t *SalesforceEventSetting) SetInvitationCreationTypeForSalesforceEventSetting(p *SetInvitationCreationTypeForSalesforceEventSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`salesforceEventSettingId`, SalesforceEventSettingId)
-	queryParameters.Add(`invitationCreationType`, InvitationCreationType)
+	queryParameters.Add(`salesforceEventSettingId`, p.SalesforceEventSettingId)
+	queryParameters.Add(`invitationCreationType`, p.InvitationCreationType)
 
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/SetInvitationCreationTypeForSalesforceEventSetting`,
@@ -149,10 +199,16 @@ func (t *SalesforceEventSetting) SetInvitationCreationTypeForSalesforceEventSett
 
 // @param string SalesforceEventSettingId
 // @param string NewContactRule do-nothing|create-contact|create-lead
-func (t *SalesforceEventSetting) SetNewContactRuleForSalesforceEventSetting(SalesforceEventSettingId string, NewContactRule string) (r *http.Response, err error) {
+
+type SetNewContactRuleForSalesforceEventSettingParameters struct {
+	SalesforceEventSettingId string
+	NewContactRule           string
+}
+
+func (t *SalesforceEventSetting) SetNewContactRuleForSalesforceEventSetting(p *SetNewContactRuleForSalesforceEventSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`salesforceEventSettingId`, SalesforceEventSettingId)
-	queryParameters.Add(`newContactRule`, NewContactRule)
+	queryParameters.Add(`salesforceEventSettingId`, p.SalesforceEventSettingId)
+	queryParameters.Add(`newContactRule`, p.NewContactRule)
 
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/SetNewContactRuleForSalesforceEventSetting`,
@@ -164,10 +220,16 @@ func (t *SalesforceEventSetting) SetNewContactRuleForSalesforceEventSetting(Sale
 
 // @param string SalesforceEventSettingId
 // @param string StackId
-func (t *SalesforceEventSetting) SetStackForSalesforceEventSetting(SalesforceEventSettingId string, StackId string) (r *http.Response, err error) {
+
+type SetStackForSalesforceEventSettingParameters struct {
+	SalesforceEventSettingId string
+	StackId                  string
+}
+
+func (t *SalesforceEventSetting) SetStackForSalesforceEventSetting(p *SetStackForSalesforceEventSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`salesforceEventSettingId`, SalesforceEventSettingId)
-	queryParameters.Add(`stackId`, StackId)
+	queryParameters.Add(`salesforceEventSettingId`, p.SalesforceEventSettingId)
+	queryParameters.Add(`stackId`, p.StackId)
 
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/SetStackForSalesforceEventSetting`,

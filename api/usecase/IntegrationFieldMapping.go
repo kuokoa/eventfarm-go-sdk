@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type IntegrationFieldMapping struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewIntegrationFieldMapping(restClient gosdk.RestClientInterface) *IntegrationFieldMapping {
+func NewIntegrationFieldMapping(restClient sdk.RestClientInterface) *IntegrationFieldMapping {
 	return &IntegrationFieldMapping{restClient}
 }
 
 // GET: Queries
 // @param string IntegrationFieldMappingId
-func (t *IntegrationFieldMapping) GetIntegrationFieldMapping(IntegrationFieldMappingId string) (r *http.Response, err error) {
+
+type GetIntegrationFieldMappingParameters struct {
+	IntegrationFieldMappingId string
+}
+
+func (t *IntegrationFieldMapping) GetIntegrationFieldMapping(p *GetIntegrationFieldMappingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`integrationFieldMappingId`, IntegrationFieldMappingId)
+	queryParameters.Add(`integrationFieldMappingId`, p.IntegrationFieldMappingId)
 
 	return t.restClient.Get(
 		`/v2/IntegrationFieldMapping/UseCase/GetIntegrationFieldMapping`,
@@ -36,11 +42,17 @@ func (t *IntegrationFieldMapping) GetIntegrationFieldMapping(IntegrationFieldMap
 
 // @param string SalesforceEventSettingId
 // @param string|null FieldMappingType
-func (t *IntegrationFieldMapping) ListFieldMappingsForSalesforceEventSetting(SalesforceEventSettingId string, FieldMappingType *string) (r *http.Response, err error) {
+
+type ListFieldMappingsForSalesforceEventSettingParameters struct {
+	SalesforceEventSettingId string
+	FieldMappingType         *string
+}
+
+func (t *IntegrationFieldMapping) ListFieldMappingsForSalesforceEventSetting(p *ListFieldMappingsForSalesforceEventSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`salesforceEventSettingId`, SalesforceEventSettingId)
-	if FieldMappingType != nil {
-		queryParameters.Add(`fieldMappingType`, *FieldMappingType)
+	queryParameters.Add(`salesforceEventSettingId`, p.SalesforceEventSettingId)
+	if p.FieldMappingType != nil {
+		queryParameters.Add(`fieldMappingType`, *p.FieldMappingType)
 	}
 
 	return t.restClient.Get(
@@ -63,22 +75,37 @@ func (t *IntegrationFieldMapping) ListFieldMappingsForSalesforceEventSetting(Sal
 // @param bool CanDeleteMapping true|false
 // @param string|null UpdateRule never|different|blank
 // @param string|null FieldName
-func (t *IntegrationFieldMapping) CreateIntegrationFieldMapping(FieldMappingType string, IntegrationSettingType string, IntegrationSettingId string, FieldType string, FieldId string, IntegrationFieldValue string, CanUpdateEventFarmField bool, CanUpdateIntegrationField bool, CanDeleteMapping bool, UpdateRule *string, FieldName *string) (r *http.Response, err error) {
+
+type CreateIntegrationFieldMappingParameters struct {
+	FieldMappingType          string
+	IntegrationSettingType    string
+	IntegrationSettingId      string
+	FieldType                 string
+	FieldId                   string
+	IntegrationFieldValue     string
+	CanUpdateEventFarmField   bool
+	CanUpdateIntegrationField bool
+	CanDeleteMapping          bool
+	UpdateRule                *string
+	FieldName                 *string
+}
+
+func (t *IntegrationFieldMapping) CreateIntegrationFieldMapping(p *CreateIntegrationFieldMappingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`fieldMappingType`, FieldMappingType)
-	queryParameters.Add(`integrationSettingType`, IntegrationSettingType)
-	queryParameters.Add(`integrationSettingId`, IntegrationSettingId)
-	queryParameters.Add(`fieldType`, FieldType)
-	queryParameters.Add(`fieldId`, FieldId)
-	queryParameters.Add(`integrationFieldValue`, IntegrationFieldValue)
-	queryParameters.Add(`canUpdateEventFarmField`, strconv.FormatBool(CanUpdateEventFarmField))
-	queryParameters.Add(`canUpdateIntegrationField`, strconv.FormatBool(CanUpdateIntegrationField))
-	queryParameters.Add(`canDeleteMapping`, strconv.FormatBool(CanDeleteMapping))
-	if UpdateRule != nil {
-		queryParameters.Add(`updateRule`, *UpdateRule)
+	queryParameters.Add(`fieldMappingType`, p.FieldMappingType)
+	queryParameters.Add(`integrationSettingType`, p.IntegrationSettingType)
+	queryParameters.Add(`integrationSettingId`, p.IntegrationSettingId)
+	queryParameters.Add(`fieldType`, p.FieldType)
+	queryParameters.Add(`fieldId`, p.FieldId)
+	queryParameters.Add(`integrationFieldValue`, p.IntegrationFieldValue)
+	queryParameters.Add(`canUpdateEventFarmField`, strconv.FormatBool(p.CanUpdateEventFarmField))
+	queryParameters.Add(`canUpdateIntegrationField`, strconv.FormatBool(p.CanUpdateIntegrationField))
+	queryParameters.Add(`canDeleteMapping`, strconv.FormatBool(p.CanDeleteMapping))
+	if p.UpdateRule != nil {
+		queryParameters.Add(`updateRule`, *p.UpdateRule)
 	}
-	if FieldName != nil {
-		queryParameters.Add(`fieldName`, *FieldName)
+	if p.FieldName != nil {
+		queryParameters.Add(`fieldName`, *p.FieldName)
 	}
 
 	return t.restClient.Post(
@@ -90,9 +117,14 @@ func (t *IntegrationFieldMapping) CreateIntegrationFieldMapping(FieldMappingType
 }
 
 // @param string IntegrationFieldMappingId
-func (t *IntegrationFieldMapping) DeleteIntegrationFieldMapping(IntegrationFieldMappingId string) (r *http.Response, err error) {
+
+type DeleteIntegrationFieldMappingParameters struct {
+	IntegrationFieldMappingId string
+}
+
+func (t *IntegrationFieldMapping) DeleteIntegrationFieldMapping(p *DeleteIntegrationFieldMappingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`integrationFieldMappingId`, IntegrationFieldMappingId)
+	queryParameters.Add(`integrationFieldMappingId`, p.IntegrationFieldMappingId)
 
 	return t.restClient.Post(
 		`/v2/IntegrationFieldMapping/UseCase/DeleteIntegrationFieldMapping`,
@@ -106,13 +138,21 @@ func (t *IntegrationFieldMapping) DeleteIntegrationFieldMapping(IntegrationField
 // @param string FieldType question|user-attribute|user-name|user-identifier
 // @param string FieldId
 // @param string|null FieldName
-func (t *IntegrationFieldMapping) SetIntegrationFieldMappingFields(IntegrationFieldMappingId string, FieldType string, FieldId string, FieldName *string) (r *http.Response, err error) {
+
+type SetIntegrationFieldMappingFieldsParameters struct {
+	IntegrationFieldMappingId string
+	FieldType                 string
+	FieldId                   string
+	FieldName                 *string
+}
+
+func (t *IntegrationFieldMapping) SetIntegrationFieldMappingFields(p *SetIntegrationFieldMappingFieldsParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`integrationFieldMappingId`, IntegrationFieldMappingId)
-	queryParameters.Add(`fieldType`, FieldType)
-	queryParameters.Add(`fieldId`, FieldId)
-	if FieldName != nil {
-		queryParameters.Add(`fieldName`, *FieldName)
+	queryParameters.Add(`integrationFieldMappingId`, p.IntegrationFieldMappingId)
+	queryParameters.Add(`fieldType`, p.FieldType)
+	queryParameters.Add(`fieldId`, p.FieldId)
+	if p.FieldName != nil {
+		queryParameters.Add(`fieldName`, *p.FieldName)
 	}
 
 	return t.restClient.Post(
@@ -125,10 +165,16 @@ func (t *IntegrationFieldMapping) SetIntegrationFieldMappingFields(IntegrationFi
 
 // @param string IntegrationFieldMappingId
 // @param string IntegrationFieldName
-func (t *IntegrationFieldMapping) SetIntegrationFieldMappingName(IntegrationFieldMappingId string, IntegrationFieldName string) (r *http.Response, err error) {
+
+type SetIntegrationFieldMappingNameParameters struct {
+	IntegrationFieldMappingId string
+	IntegrationFieldName      string
+}
+
+func (t *IntegrationFieldMapping) SetIntegrationFieldMappingName(p *SetIntegrationFieldMappingNameParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`integrationFieldMappingId`, IntegrationFieldMappingId)
-	queryParameters.Add(`integrationFieldName`, IntegrationFieldName)
+	queryParameters.Add(`integrationFieldMappingId`, p.IntegrationFieldMappingId)
+	queryParameters.Add(`integrationFieldName`, p.IntegrationFieldName)
 
 	return t.restClient.Post(
 		`/v2/IntegrationFieldMapping/UseCase/SetIntegrationFieldMappingName`,
@@ -140,10 +186,16 @@ func (t *IntegrationFieldMapping) SetIntegrationFieldMappingName(IntegrationFiel
 
 // @param string IntegrationFieldMappingId
 // @param string UpdateRule never|different|blank
-func (t *IntegrationFieldMapping) SetIntegrationFieldMappingUpdateRule(IntegrationFieldMappingId string, UpdateRule string) (r *http.Response, err error) {
+
+type SetIntegrationFieldMappingUpdateRuleParameters struct {
+	IntegrationFieldMappingId string
+	UpdateRule                string
+}
+
+func (t *IntegrationFieldMapping) SetIntegrationFieldMappingUpdateRule(p *SetIntegrationFieldMappingUpdateRuleParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`integrationFieldMappingId`, IntegrationFieldMappingId)
-	queryParameters.Add(`updateRule`, UpdateRule)
+	queryParameters.Add(`integrationFieldMappingId`, p.IntegrationFieldMappingId)
+	queryParameters.Add(`updateRule`, p.UpdateRule)
 
 	return t.restClient.Post(
 		`/v2/IntegrationFieldMapping/UseCase/SetIntegrationFieldMappingUpdateRule`,

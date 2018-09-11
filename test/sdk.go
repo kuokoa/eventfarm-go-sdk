@@ -84,28 +84,13 @@ func testType() {
 	log.Printf("%+v", typeFactory.GetInvitationDomainModel().GetInvitationStatusType()[0])
 }
 
-func getEventFarmRestClient() *sdk.EventFarmRestClient {
-	apiRestClient := sdk.NewHttpRestClient(os.Getenv(`API2_BASE_URI`))
-	accessTokenRestClient := sdk.NewHttpRestClient(os.Getenv(`LOGIN_BASE_URI`))
-
-	apiRestClient.EnableLogging = true
-	accessTokenRestClient.EnableLogging = true
-
-	eventFarmRestClient := sdk.NewEventFarmRestClient(
-		apiRestClient,
-		accessTokenRestClient,
-		os.Getenv(`EF_ADMIN_CLIENT_ID`),
-		os.Getenv(`EF_ADMIN_CLIENT_SECRET`),
-		nil,
-	)
-
-	return eventFarmRestClient
-}
-
 func testUseCase() {
-	eventFarmRestClient := getEventFarmRestClient()
-
-	useCaseFactory := usecase.NewUseCaseFactory(eventFarmRestClient)
+	c := sdk.NewEventFarmRestClientForStage(
+		os.Getenv(`EF_STAGE`),
+		os.Getenv(`EF_CLIENT_ID`),
+		os.Getenv(`EF_CLIENT_SECRET`),
+	)
+	uc := usecase.NewUseCaseFactory(c)
 
 	page := 1
 	itemsPerPage := 20
@@ -120,20 +105,14 @@ func testUseCase() {
 		`TicketBlocks`,
 		`QuestionsAndAnswers`,
 	}
-	resp, err := useCaseFactory.GetEventDomainModel().ListEventsForUser(
-		`7fff1483-0000-4578-ad31-f6114a033eb7`,
-		nil,
-		nil,
-		nil,
-		&withData,
-		nil,
-		&page,
-		&itemsPerPage,
-		&sortBy,
-		&sortDirection,
-		nil,
-		nil,
-	)
+	resp, err := uc.Event().ListEventsForUser(&usecase.ListEventsForUserParameters{
+		UserId: `7fff1483-0000-4578-ad31-f6114a033eb7`,
+		WithData: &withData,
+		Page: &page,
+		ItemsPerPage: &itemsPerPage,
+		SortBy: &sortBy,
+		SortDirection: &sortDirection,
+	})
 	if err != nil {
 		logError(err)
 		return

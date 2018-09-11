@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type EmailDesign struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewEmailDesign(restClient gosdk.RestClientInterface) *EmailDesign {
+func NewEmailDesign(restClient sdk.RestClientInterface) *EmailDesign {
 	return &EmailDesign{restClient}
 }
 
 // GET: Queries
 // @param string EmailDesignId
-func (t *EmailDesign) GetEmailDesign(EmailDesignId string) (r *http.Response, err error) {
+
+type GetEmailDesignParameters struct {
+	EmailDesignId string
+}
+
+func (t *EmailDesign) GetEmailDesign(p *GetEmailDesignParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`emailDesignId`, EmailDesignId)
+	queryParameters.Add(`emailDesignId`, p.EmailDesignId)
 
 	return t.restClient.Get(
 		`/v2/EmailDesign/UseCase/GetEmailDesign`,
@@ -35,9 +41,14 @@ func (t *EmailDesign) GetEmailDesign(EmailDesignId string) (r *http.Response, er
 }
 
 // @param string EmailDesignImageId
-func (t *EmailDesign) GetEmailDesignImage(EmailDesignImageId string) (r *http.Response, err error) {
+
+type GetEmailDesignImageParameters struct {
+	EmailDesignImageId string
+}
+
+func (t *EmailDesign) GetEmailDesignImage(p *GetEmailDesignImageParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`emailDesignImageId`, EmailDesignImageId)
+	queryParameters.Add(`emailDesignImageId`, p.EmailDesignImageId)
 
 	return t.restClient.Get(
 		`/v2/EmailDesign/UseCase/GetEmailDesignImage`,
@@ -50,14 +61,21 @@ func (t *EmailDesign) GetEmailDesignImage(EmailDesignImageId string) (r *http.Re
 // @param string EventId
 // @param int|null Page
 // @param int|null ItemsPerPage
-func (t *EmailDesign) ListEmailDesignsByEvent(EventId string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListEmailDesignsByEventParameters struct {
+	EventId      string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *EmailDesign) ListEmailDesignsByEvent(p *ListEmailDesignsByEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -84,40 +102,59 @@ func (t *EmailDesign) ListEmailDesignsByEvent(EventId string, Page *int, ItemsPe
 // @param string|null DomainMaskId
 // @param string|null DomainMaskEmail
 // @param string|null EmailDesignId
-func (t *EmailDesign) CreateEmailDesign(Name string, Layout string, FromName string, Subject string, Content string, BackgroundColor string, EmailDesignTypeId string, EventId string, FromEmail *string, ReplyEmail *string, CcEmail *[]string, BccEmail *[]string, DomainMaskId *string, DomainMaskEmail *string, EmailDesignId *string) (r *http.Response, err error) {
+
+type CreateEmailDesignParameters struct {
+	Name              string
+	Layout            string
+	FromName          string
+	Subject           string
+	Content           string
+	BackgroundColor   string
+	EmailDesignTypeId string
+	EventId           string
+	FromEmail         *string
+	ReplyEmail        *string
+	CcEmail           *[]string
+	BccEmail          *[]string
+	DomainMaskId      *string
+	DomainMaskEmail   *string
+	EmailDesignId     *string
+}
+
+func (t *EmailDesign) CreateEmailDesign(p *CreateEmailDesignParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`name`, Name)
-	queryParameters.Add(`layout`, Layout)
-	queryParameters.Add(`fromName`, FromName)
-	queryParameters.Add(`subject`, Subject)
-	queryParameters.Add(`content`, Content)
-	queryParameters.Add(`backgroundColor`, BackgroundColor)
-	queryParameters.Add(`emailDesignTypeId`, EmailDesignTypeId)
-	queryParameters.Add(`eventId`, EventId)
-	if FromEmail != nil {
-		queryParameters.Add(`fromEmail`, *FromEmail)
+	queryParameters.Add(`name`, p.Name)
+	queryParameters.Add(`layout`, p.Layout)
+	queryParameters.Add(`fromName`, p.FromName)
+	queryParameters.Add(`subject`, p.Subject)
+	queryParameters.Add(`content`, p.Content)
+	queryParameters.Add(`backgroundColor`, p.BackgroundColor)
+	queryParameters.Add(`emailDesignTypeId`, p.EmailDesignTypeId)
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.FromEmail != nil {
+		queryParameters.Add(`fromEmail`, *p.FromEmail)
 	}
-	if ReplyEmail != nil {
-		queryParameters.Add(`replyEmail`, *ReplyEmail)
+	if p.ReplyEmail != nil {
+		queryParameters.Add(`replyEmail`, *p.ReplyEmail)
 	}
-	if CcEmail != nil {
-		for i := range *CcEmail {
-			queryParameters.Add(`ccEmail[]`, (*CcEmail)[i])
+	if p.CcEmail != nil {
+		for i := range *p.CcEmail {
+			queryParameters.Add(`ccEmail[]`, (*p.CcEmail)[i])
 		}
 	}
-	if BccEmail != nil {
-		for i := range *BccEmail {
-			queryParameters.Add(`bccEmail[]`, (*BccEmail)[i])
+	if p.BccEmail != nil {
+		for i := range *p.BccEmail {
+			queryParameters.Add(`bccEmail[]`, (*p.BccEmail)[i])
 		}
 	}
-	if DomainMaskId != nil {
-		queryParameters.Add(`domainMaskId`, *DomainMaskId)
+	if p.DomainMaskId != nil {
+		queryParameters.Add(`domainMaskId`, *p.DomainMaskId)
 	}
-	if DomainMaskEmail != nil {
-		queryParameters.Add(`domainMaskEmail`, *DomainMaskEmail)
+	if p.DomainMaskEmail != nil {
+		queryParameters.Add(`domainMaskEmail`, *p.DomainMaskEmail)
 	}
-	if EmailDesignId != nil {
-		queryParameters.Add(`emailDesignId`, *EmailDesignId)
+	if p.EmailDesignId != nil {
+		queryParameters.Add(`emailDesignId`, *p.EmailDesignId)
 	}
 
 	return t.restClient.Post(
@@ -143,40 +180,59 @@ func (t *EmailDesign) CreateEmailDesign(Name string, Layout string, FromName str
 // @param string|null DomainMaskId
 // @param string|null DomainMaskEmail
 // @param string|null EmailDesignId
-func (t *EmailDesign) CreateEmailDesignFromTemplate(Name string, Layout string, FromName string, Subject string, BackgroundColor string, EmailDesignTypeId string, EventId string, EmailTemplateType string, FromEmail *string, ReplyEmail *string, CcEmails *[]string, BccEmails *[]string, DomainMaskId *string, DomainMaskEmail *string, EmailDesignId *string) (r *http.Response, err error) {
+
+type CreateEmailDesignFromTemplateParameters struct {
+	Name              string
+	Layout            string
+	FromName          string
+	Subject           string
+	BackgroundColor   string
+	EmailDesignTypeId string
+	EventId           string
+	EmailTemplateType string
+	FromEmail         *string
+	ReplyEmail        *string
+	CcEmails          *[]string
+	BccEmails         *[]string
+	DomainMaskId      *string
+	DomainMaskEmail   *string
+	EmailDesignId     *string
+}
+
+func (t *EmailDesign) CreateEmailDesignFromTemplate(p *CreateEmailDesignFromTemplateParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`name`, Name)
-	queryParameters.Add(`layout`, Layout)
-	queryParameters.Add(`fromName`, FromName)
-	queryParameters.Add(`subject`, Subject)
-	queryParameters.Add(`backgroundColor`, BackgroundColor)
-	queryParameters.Add(`emailDesignTypeId`, EmailDesignTypeId)
-	queryParameters.Add(`eventId`, EventId)
-	queryParameters.Add(`emailTemplateType`, EmailTemplateType)
-	if FromEmail != nil {
-		queryParameters.Add(`fromEmail`, *FromEmail)
+	queryParameters.Add(`name`, p.Name)
+	queryParameters.Add(`layout`, p.Layout)
+	queryParameters.Add(`fromName`, p.FromName)
+	queryParameters.Add(`subject`, p.Subject)
+	queryParameters.Add(`backgroundColor`, p.BackgroundColor)
+	queryParameters.Add(`emailDesignTypeId`, p.EmailDesignTypeId)
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`emailTemplateType`, p.EmailTemplateType)
+	if p.FromEmail != nil {
+		queryParameters.Add(`fromEmail`, *p.FromEmail)
 	}
-	if ReplyEmail != nil {
-		queryParameters.Add(`replyEmail`, *ReplyEmail)
+	if p.ReplyEmail != nil {
+		queryParameters.Add(`replyEmail`, *p.ReplyEmail)
 	}
-	if CcEmails != nil {
-		for i := range *CcEmails {
-			queryParameters.Add(`ccEmails[]`, (*CcEmails)[i])
+	if p.CcEmails != nil {
+		for i := range *p.CcEmails {
+			queryParameters.Add(`ccEmails[]`, (*p.CcEmails)[i])
 		}
 	}
-	if BccEmails != nil {
-		for i := range *BccEmails {
-			queryParameters.Add(`bccEmails[]`, (*BccEmails)[i])
+	if p.BccEmails != nil {
+		for i := range *p.BccEmails {
+			queryParameters.Add(`bccEmails[]`, (*p.BccEmails)[i])
 		}
 	}
-	if DomainMaskId != nil {
-		queryParameters.Add(`domainMaskId`, *DomainMaskId)
+	if p.DomainMaskId != nil {
+		queryParameters.Add(`domainMaskId`, *p.DomainMaskId)
 	}
-	if DomainMaskEmail != nil {
-		queryParameters.Add(`domainMaskEmail`, *DomainMaskEmail)
+	if p.DomainMaskEmail != nil {
+		queryParameters.Add(`domainMaskEmail`, *p.DomainMaskEmail)
 	}
-	if EmailDesignId != nil {
-		queryParameters.Add(`emailDesignId`, *EmailDesignId)
+	if p.EmailDesignId != nil {
+		queryParameters.Add(`emailDesignId`, *p.EmailDesignId)
 	}
 
 	return t.restClient.Post(
@@ -190,7 +246,14 @@ func (t *EmailDesign) CreateEmailDesignFromTemplate(Name string, Layout string, 
 // @param string EventId
 // @param string Image image/jpeg|image/png
 // @param string|null EmailDesignImageId
-func (t *EmailDesign) CreateEmailDesignImage(EventId string, Image string, EmailDesignImageId *string) (r *http.Response, err error) {
+
+type CreateEmailDesignImageParameters struct {
+	EventId            string
+	Image              string
+	EmailDesignImageId *string
+}
+
+func (t *EmailDesign) CreateEmailDesignImage(p *CreateEmailDesignImageParameters) (r *http.Response, err error) {
 	// TODO
 	return
 }
@@ -198,14 +261,21 @@ func (t *EmailDesign) CreateEmailDesignImage(EventId string, Image string, Email
 // @param string OriginalEmailDesignId
 // @param string|null DuplicateEventId
 // @param string|null DuplicateEmailDesignId
-func (t *EmailDesign) DuplicateEmailDesign(OriginalEmailDesignId string, DuplicateEventId *string, DuplicateEmailDesignId *string) (r *http.Response, err error) {
+
+type DuplicateEmailDesignParameters struct {
+	OriginalEmailDesignId  string
+	DuplicateEventId       *string
+	DuplicateEmailDesignId *string
+}
+
+func (t *EmailDesign) DuplicateEmailDesign(p *DuplicateEmailDesignParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`originalEmailDesignId`, OriginalEmailDesignId)
-	if DuplicateEventId != nil {
-		queryParameters.Add(`duplicateEventId`, *DuplicateEventId)
+	queryParameters.Add(`originalEmailDesignId`, p.OriginalEmailDesignId)
+	if p.DuplicateEventId != nil {
+		queryParameters.Add(`duplicateEventId`, *p.DuplicateEventId)
 	}
-	if DuplicateEmailDesignId != nil {
-		queryParameters.Add(`duplicateEmailDesignId`, *DuplicateEmailDesignId)
+	if p.DuplicateEmailDesignId != nil {
+		queryParameters.Add(`duplicateEmailDesignId`, *p.DuplicateEmailDesignId)
 	}
 
 	return t.restClient.Post(
@@ -217,9 +287,14 @@ func (t *EmailDesign) DuplicateEmailDesign(OriginalEmailDesignId string, Duplica
 }
 
 // @param string EmailDesignId
-func (t *EmailDesign) RemoveEmailDesign(EmailDesignId string) (r *http.Response, err error) {
+
+type RemoveEmailDesignParameters struct {
+	EmailDesignId string
+}
+
+func (t *EmailDesign) RemoveEmailDesign(p *RemoveEmailDesignParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`emailDesignId`, EmailDesignId)
+	queryParameters.Add(`emailDesignId`, p.EmailDesignId)
 
 	return t.restClient.Post(
 		`/v2/EmailDesign/UseCase/RemoveEmailDesign`,
@@ -244,38 +319,57 @@ func (t *EmailDesign) RemoveEmailDesign(EmailDesignId string) (r *http.Response,
 // @param array|null BccEmail
 // @param string|null DomainMaskId
 // @param string|null DomainMaskEmail
-func (t *EmailDesign) UpdateEmailDesign(EmailDesignId string, Name string, Layout string, FromName string, Subject string, Content string, BackgroundColor string, EmailDesignTypeId string, EventId string, FromEmail *string, ReplyEmail *string, CcEmail *[]string, BccEmail *[]string, DomainMaskId *string, DomainMaskEmail *string) (r *http.Response, err error) {
+
+type UpdateEmailDesignParameters struct {
+	EmailDesignId     string
+	Name              string
+	Layout            string
+	FromName          string
+	Subject           string
+	Content           string
+	BackgroundColor   string
+	EmailDesignTypeId string
+	EventId           string
+	FromEmail         *string
+	ReplyEmail        *string
+	CcEmail           *[]string
+	BccEmail          *[]string
+	DomainMaskId      *string
+	DomainMaskEmail   *string
+}
+
+func (t *EmailDesign) UpdateEmailDesign(p *UpdateEmailDesignParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`emailDesignId`, EmailDesignId)
-	queryParameters.Add(`name`, Name)
-	queryParameters.Add(`layout`, Layout)
-	queryParameters.Add(`fromName`, FromName)
-	queryParameters.Add(`subject`, Subject)
-	queryParameters.Add(`content`, Content)
-	queryParameters.Add(`backgroundColor`, BackgroundColor)
-	queryParameters.Add(`emailDesignTypeId`, EmailDesignTypeId)
-	queryParameters.Add(`eventId`, EventId)
-	if FromEmail != nil {
-		queryParameters.Add(`fromEmail`, *FromEmail)
+	queryParameters.Add(`emailDesignId`, p.EmailDesignId)
+	queryParameters.Add(`name`, p.Name)
+	queryParameters.Add(`layout`, p.Layout)
+	queryParameters.Add(`fromName`, p.FromName)
+	queryParameters.Add(`subject`, p.Subject)
+	queryParameters.Add(`content`, p.Content)
+	queryParameters.Add(`backgroundColor`, p.BackgroundColor)
+	queryParameters.Add(`emailDesignTypeId`, p.EmailDesignTypeId)
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.FromEmail != nil {
+		queryParameters.Add(`fromEmail`, *p.FromEmail)
 	}
-	if ReplyEmail != nil {
-		queryParameters.Add(`replyEmail`, *ReplyEmail)
+	if p.ReplyEmail != nil {
+		queryParameters.Add(`replyEmail`, *p.ReplyEmail)
 	}
-	if CcEmail != nil {
-		for i := range *CcEmail {
-			queryParameters.Add(`ccEmail[]`, (*CcEmail)[i])
+	if p.CcEmail != nil {
+		for i := range *p.CcEmail {
+			queryParameters.Add(`ccEmail[]`, (*p.CcEmail)[i])
 		}
 	}
-	if BccEmail != nil {
-		for i := range *BccEmail {
-			queryParameters.Add(`bccEmail[]`, (*BccEmail)[i])
+	if p.BccEmail != nil {
+		for i := range *p.BccEmail {
+			queryParameters.Add(`bccEmail[]`, (*p.BccEmail)[i])
 		}
 	}
-	if DomainMaskId != nil {
-		queryParameters.Add(`domainMaskId`, *DomainMaskId)
+	if p.DomainMaskId != nil {
+		queryParameters.Add(`domainMaskId`, *p.DomainMaskId)
 	}
-	if DomainMaskEmail != nil {
-		queryParameters.Add(`domainMaskEmail`, *DomainMaskEmail)
+	if p.DomainMaskEmail != nil {
+		queryParameters.Add(`domainMaskEmail`, *p.DomainMaskEmail)
 	}
 
 	return t.restClient.Post(

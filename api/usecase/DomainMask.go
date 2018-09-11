@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,18 +14,23 @@ var _ url.Error
 var _ = http.NoBody
 
 type DomainMask struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewDomainMask(restClient gosdk.RestClientInterface) *DomainMask {
+func NewDomainMask(restClient sdk.RestClientInterface) *DomainMask {
 	return &DomainMask{restClient}
 }
 
 // GET: Queries
 // @param string PoolId
-func (t *DomainMask) GetAllDomainMasksByPool(PoolId string) (r *http.Response, err error) {
+
+type GetAllDomainMasksByPoolParameters struct {
+	PoolId string
+}
+
+func (t *DomainMask) GetAllDomainMasksByPool(p *GetAllDomainMasksByPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
+	queryParameters.Add(`poolId`, p.PoolId)
 
 	return t.restClient.Get(
 		`/v2/DomainMask/UseCase/GetAllDomainMasksByPool`,
@@ -35,9 +41,14 @@ func (t *DomainMask) GetAllDomainMasksByPool(PoolId string) (r *http.Response, e
 }
 
 // @param string DomainMaskId
-func (t *DomainMask) GetDomainMask(DomainMaskId string) (r *http.Response, err error) {
+
+type GetDomainMaskParameters struct {
+	DomainMaskId string
+}
+
+func (t *DomainMask) GetDomainMask(p *GetDomainMaskParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`domainMaskId`, DomainMaskId)
+	queryParameters.Add(`domainMaskId`, p.DomainMaskId)
 
 	return t.restClient.Get(
 		`/v2/DomainMask/UseCase/GetDomainMask`,
@@ -50,10 +61,16 @@ func (t *DomainMask) GetDomainMask(DomainMaskId string) (r *http.Response, err e
 // POST: Commands
 // @param string PoolId
 // @param string Domain
-func (t *DomainMask) CreateDomainMask(PoolId string, Domain string) (r *http.Response, err error) {
+
+type CreateDomainMaskParameters struct {
+	PoolId string
+	Domain string
+}
+
+func (t *DomainMask) CreateDomainMask(p *CreateDomainMaskParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`poolId`, PoolId)
-	queryParameters.Add(`domain`, Domain)
+	queryParameters.Add(`poolId`, p.PoolId)
+	queryParameters.Add(`domain`, p.Domain)
 
 	return t.restClient.Post(
 		`/v2/DomainMask/UseCase/CreateDomainMask`,
@@ -64,9 +81,14 @@ func (t *DomainMask) CreateDomainMask(PoolId string, Domain string) (r *http.Res
 }
 
 // @param string DomainMaskId
-func (t *DomainMask) RemoveDomainMask(DomainMaskId string) (r *http.Response, err error) {
+
+type RemoveDomainMaskParameters struct {
+	DomainMaskId string
+}
+
+func (t *DomainMask) RemoveDomainMask(p *RemoveDomainMaskParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`domainMaskId`, DomainMaskId)
+	queryParameters.Add(`domainMaskId`, p.DomainMaskId)
 
 	return t.restClient.Post(
 		`/v2/DomainMask/UseCase/RemoveDomainMask`,

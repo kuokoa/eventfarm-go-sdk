@@ -1,183 +1,183 @@
 package usecase
 
-import "gosdk"
+import "bitbucket.ef.network/go/sdk"
 
 type Factory struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewUseCaseFactory(restClient gosdk.RestClientInterface) *Factory {
+func NewUseCaseFactory(restClient sdk.RestClientInterface) *Factory {
 	return &Factory{restClient}
 }
 
-func (f *Factory) GetAllotmentDomainModel() *Allotment {
+func (f *Factory) Allotment() *Allotment {
 	return NewAllotment(f.restClient)
 }
 
-func (f *Factory) GetAppVersionDomainModel() *AppVersion {
+func (f *Factory) AppVersion() *AppVersion {
 	return NewAppVersion(f.restClient)
 }
 
-func (f *Factory) GetBugReportDomainModel() *BugReport {
+func (f *Factory) BugReport() *BugReport {
 	return NewBugReport(f.restClient)
 }
 
-func (f *Factory) GetCanvasDomainModel() *Canvas {
+func (f *Factory) Canvas() *Canvas {
 	return NewCanvas(f.restClient)
 }
 
-func (f *Factory) GetDomainMaskDomainModel() *DomainMask {
+func (f *Factory) DomainMask() *DomainMask {
 	return NewDomainMask(f.restClient)
 }
 
-func (f *Factory) GetEmailDesignDomainModel() *EmailDesign {
+func (f *Factory) EmailDesign() *EmailDesign {
 	return NewEmailDesign(f.restClient)
 }
 
-func (f *Factory) GetEmailDesignTypeDomainModel() *EmailDesignType {
+func (f *Factory) EmailDesignType() *EmailDesignType {
 	return NewEmailDesignType(f.restClient)
 }
 
-func (f *Factory) GetEmailMessageDomainModel() *EmailMessage {
+func (f *Factory) EmailMessage() *EmailMessage {
 	return NewEmailMessage(f.restClient)
 }
 
-func (f *Factory) GetEmailNotificationDomainModel() *EmailNotification {
+func (f *Factory) EmailNotification() *EmailNotification {
 	return NewEmailNotification(f.restClient)
 }
 
-func (f *Factory) GetEmailSampleDomainModel() *EmailSample {
+func (f *Factory) EmailSample() *EmailSample {
 	return NewEmailSample(f.restClient)
 }
 
-func (f *Factory) GetEmailTemplateDomainModel() *EmailTemplate {
+func (f *Factory) EmailTemplate() *EmailTemplate {
 	return NewEmailTemplate(f.restClient)
 }
 
-func (f *Factory) GetEventDomainModel() *Event {
+func (f *Factory) Event() *Event {
 	return NewEvent(f.restClient)
 }
 
-func (f *Factory) GetFeatureDomainModel() *Feature {
+func (f *Factory) Feature() *Feature {
 	return NewFeature(f.restClient)
 }
 
-func (f *Factory) GetFeatureToggleDomainModel() *FeatureToggle {
+func (f *Factory) FeatureToggle() *FeatureToggle {
 	return NewFeatureToggle(f.restClient)
 }
 
-func (f *Factory) GetGroupDomainModel() *Group {
+func (f *Factory) Group() *Group {
 	return NewGroup(f.restClient)
 }
 
-func (f *Factory) GetImportDomainModel() *Import {
+func (f *Factory) Import() *Import {
 	return NewImport(f.restClient)
 }
 
-func (f *Factory) GetIntegrationDomainModel() *Integration {
+func (f *Factory) Integration() *Integration {
 	return NewIntegration(f.restClient)
 }
 
-func (f *Factory) GetIntegrationFieldMappingDomainModel() *IntegrationFieldMapping {
+func (f *Factory) IntegrationFieldMapping() *IntegrationFieldMapping {
 	return NewIntegrationFieldMapping(f.restClient)
 }
 
-func (f *Factory) GetIntegrationStatusMappingDomainModel() *IntegrationStatusMapping {
+func (f *Factory) IntegrationStatusMapping() *IntegrationStatusMapping {
 	return NewIntegrationStatusMapping(f.restClient)
 }
 
-func (f *Factory) GetInteractionDomainModel() *Interaction {
+func (f *Factory) Interaction() *Interaction {
 	return NewInteraction(f.restClient)
 }
 
-func (f *Factory) GetInvitationDomainModel() *Invitation {
+func (f *Factory) Invitation() *Invitation {
 	return NewInvitation(f.restClient)
 }
 
-func (f *Factory) GetOAuthDomainModel() *OAuth {
+func (f *Factory) OAuth() *OAuth {
 	return NewOAuth(f.restClient)
 }
 
-func (f *Factory) GetPoolDomainModel() *Pool {
+func (f *Factory) Pool() *Pool {
 	return NewPool(f.restClient)
 }
 
-func (f *Factory) GetPoolContactDomainModel() *PoolContact {
+func (f *Factory) PoolContact() *PoolContact {
 	return NewPoolContact(f.restClient)
 }
 
-func (f *Factory) GetPoolContractDomainModel() *PoolContract {
+func (f *Factory) PoolContract() *PoolContract {
 	return NewPoolContract(f.restClient)
 }
 
-func (f *Factory) GetPoolFeatureDomainModel() *PoolFeature {
+func (f *Factory) PoolFeature() *PoolFeature {
 	return NewPoolFeature(f.restClient)
 }
 
-func (f *Factory) GetPromotionDomainModel() *Promotion {
+func (f *Factory) Promotion() *Promotion {
 	return NewPromotion(f.restClient)
 }
 
-func (f *Factory) GetQueueDomainModel() *Queue {
+func (f *Factory) Queue() *Queue {
 	return NewQueue(f.restClient)
 }
 
-func (f *Factory) GetRegionDomainModel() *Region {
+func (f *Factory) Region() *Region {
 	return NewRegion(f.restClient)
 }
 
-func (f *Factory) GetReportDomainModel() *Report {
+func (f *Factory) Report() *Report {
 	return NewReport(f.restClient)
 }
 
-func (f *Factory) GetSalesforceDomainModel() *Salesforce {
+func (f *Factory) Salesforce() *Salesforce {
 	return NewSalesforce(f.restClient)
 }
 
-func (f *Factory) GetSalesforceEventSettingDomainModel() *SalesforceEventSetting {
+func (f *Factory) SalesforceEventSetting() *SalesforceEventSetting {
 	return NewSalesforceEventSetting(f.restClient)
 }
 
-func (f *Factory) GetSalesforcePoolSettingDomainModel() *SalesforcePoolSetting {
+func (f *Factory) SalesforcePoolSetting() *SalesforcePoolSetting {
 	return NewSalesforcePoolSetting(f.restClient)
 }
 
-func (f *Factory) GetSalutationDomainModel() *Salutation {
+func (f *Factory) Salutation() *Salutation {
 	return NewSalutation(f.restClient)
 }
 
-func (f *Factory) GetSitePageDomainModel() *SitePage {
+func (f *Factory) SitePage() *SitePage {
 	return NewSitePage(f.restClient)
 }
 
-func (f *Factory) GetStackDomainModel() *Stack {
+func (f *Factory) Stack() *Stack {
 	return NewStack(f.restClient)
 }
 
-func (f *Factory) GetTicketBlockDomainModel() *TicketBlock {
+func (f *Factory) TicketBlock() *TicketBlock {
 	return NewTicketBlock(f.restClient)
 }
 
-func (f *Factory) GetTicketTypeDomainModel() *TicketType {
+func (f *Factory) TicketType() *TicketType {
 	return NewTicketType(f.restClient)
 }
 
-func (f *Factory) GetUserDomainModel() *User {
+func (f *Factory) User() *User {
 	return NewUser(f.restClient)
 }
 
-func (f *Factory) GetUserAddressDomainModel() *UserAddress {
+func (f *Factory) UserAddress() *UserAddress {
 	return NewUserAddress(f.restClient)
 }
 
-func (f *Factory) GetUserAttributeDomainModel() *UserAttribute {
+func (f *Factory) UserAttribute() *UserAttribute {
 	return NewUserAttribute(f.restClient)
 }
 
-func (f *Factory) GetUserIdentifierDomainModel() *UserIdentifier {
+func (f *Factory) UserIdentifier() *UserIdentifier {
 	return NewUserIdentifier(f.restClient)
 }
 
-func (f *Factory) GetUserNameDomainModel() *UserName {
+func (f *Factory) UserName() *UserName {
 	return NewUserName(f.restClient)
 }

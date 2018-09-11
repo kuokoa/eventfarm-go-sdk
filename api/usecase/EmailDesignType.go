@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,15 +14,19 @@ var _ url.Error
 var _ = http.NoBody
 
 type EmailDesignType struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewEmailDesignType(restClient gosdk.RestClientInterface) *EmailDesignType {
+func NewEmailDesignType(restClient sdk.RestClientInterface) *EmailDesignType {
 	return &EmailDesignType{restClient}
 }
 
 // GET: Queries
-func (t *EmailDesignType) GetAllEmailDesignTypes() (r *http.Response, err error) {
+
+type GetAllEmailDesignTypesParameters struct {
+}
+
+func (t *EmailDesignType) GetAllEmailDesignTypes(p *GetAllEmailDesignTypesParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Get(

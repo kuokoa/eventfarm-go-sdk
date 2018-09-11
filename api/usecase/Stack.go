@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,22 +14,28 @@ var _ url.Error
 var _ = http.NoBody
 
 type Stack struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewStack(restClient gosdk.RestClientInterface) *Stack {
+func NewStack(restClient sdk.RestClientInterface) *Stack {
 	return &Stack{restClient}
 }
 
 // GET: Queries
 // @param string StackId
 // @param array|null WithData Event|TicketType|AvailabilityCounts
-func (t *Stack) GetStack(StackId string, WithData *[]string) (r *http.Response, err error) {
+
+type GetStackParameters struct {
+	StackId  string
+	WithData *[]string
+}
+
+func (t *Stack) GetStack(p *GetStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`stackId`, p.StackId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
 
@@ -49,36 +56,49 @@ func (t *Stack) GetStack(StackId string, WithData *[]string) (r *http.Response, 
 // @param string|null SortDirection
 // @param int|null Page
 // @param int|null ItemsPerPage
-func (t *Stack) ListStacksForEvent(EventId string, WithData *[]string, ExcludeStackMethodFilter *[]string, ShouldHideDeleted *bool, Query *string, SortBy *string, SortDirection *string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListStacksForEventParameters struct {
+	EventId                  string
+	WithData                 *[]string
+	ExcludeStackMethodFilter *[]string
+	ShouldHideDeleted        *bool
+	Query                    *string
+	SortBy                   *string
+	SortDirection            *string
+	Page                     *int
+	ItemsPerPage             *int
+}
+
+func (t *Stack) ListStacksForEvent(p *ListStacksForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
-	if ExcludeStackMethodFilter != nil {
-		for i := range *ExcludeStackMethodFilter {
-			queryParameters.Add(`excludeStackMethodFilter[]`, (*ExcludeStackMethodFilter)[i])
+	if p.ExcludeStackMethodFilter != nil {
+		for i := range *p.ExcludeStackMethodFilter {
+			queryParameters.Add(`excludeStackMethodFilter[]`, (*p.ExcludeStackMethodFilter)[i])
 		}
 	}
-	if ShouldHideDeleted != nil {
-		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*ShouldHideDeleted))
+	if p.ShouldHideDeleted != nil {
+		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*p.ShouldHideDeleted))
 	}
-	if Query != nil {
-		queryParameters.Add(`query`, *Query)
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
 	}
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -98,36 +118,49 @@ func (t *Stack) ListStacksForEvent(EventId string, WithData *[]string, ExcludeSt
 // @param string|null SortDirection
 // @param int|null Page
 // @param int|null ItemsPerPage
-func (t *Stack) ListStacksForPromotion(PromotionId string, WithData *[]string, ExcludeStackMethodFilter *[]string, ShouldHideDeleted *bool, Query *string, SortBy *string, SortDirection *string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListStacksForPromotionParameters struct {
+	PromotionId              string
+	WithData                 *[]string
+	ExcludeStackMethodFilter *[]string
+	ShouldHideDeleted        *bool
+	Query                    *string
+	SortBy                   *string
+	SortDirection            *string
+	Page                     *int
+	ItemsPerPage             *int
+}
+
+func (t *Stack) ListStacksForPromotion(p *ListStacksForPromotionParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`promotionId`, p.PromotionId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
-	if ExcludeStackMethodFilter != nil {
-		for i := range *ExcludeStackMethodFilter {
-			queryParameters.Add(`excludeStackMethodFilter[]`, (*ExcludeStackMethodFilter)[i])
+	if p.ExcludeStackMethodFilter != nil {
+		for i := range *p.ExcludeStackMethodFilter {
+			queryParameters.Add(`excludeStackMethodFilter[]`, (*p.ExcludeStackMethodFilter)[i])
 		}
 	}
-	if ShouldHideDeleted != nil {
-		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*ShouldHideDeleted))
+	if p.ShouldHideDeleted != nil {
+		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*p.ShouldHideDeleted))
 	}
-	if Query != nil {
-		queryParameters.Add(`query`, *Query)
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
 	}
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -141,14 +174,21 @@ func (t *Stack) ListStacksForPromotion(PromotionId string, WithData *[]string, E
 // @param string TicketTypeId
 // @param int|null Page
 // @param int|null ItemsPerPage
-func (t *Stack) ListStacksForTicketType(TicketTypeId string, Page *int, ItemsPerPage *int) (r *http.Response, err error) {
+
+type ListStacksForTicketTypeParameters struct {
+	TicketTypeId string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *Stack) ListStacksForTicketType(p *ListStacksForTicketTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketTypeId`, TicketTypeId)
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
 
 	return t.restClient.Get(
@@ -162,11 +202,17 @@ func (t *Stack) ListStacksForTicketType(TicketTypeId string, Page *int, ItemsPer
 // POST: Commands
 // @param string PromotionId
 // @param array StackIds
-func (t *Stack) AddPromotionToStacks(PromotionId string, StackIds []string) (r *http.Response, err error) {
+
+type AddPromotionToStacksParameters struct {
+	PromotionId string
+	StackIds    []string
+}
+
+func (t *Stack) AddPromotionToStacks(p *AddPromotionToStacksParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
-	for i := range StackIds {
-		queryParameters.Add(`stackIds[]`, StackIds[i])
+	queryParameters.Add(`promotionId`, p.PromotionId)
+	for i := range p.StackIds {
+		queryParameters.Add(`stackIds[]`, p.StackIds[i])
 	}
 
 	return t.restClient.Post(
@@ -191,39 +237,57 @@ func (t *Stack) AddPromotionToStacks(PromotionId string, StackIds []string) (r *
 // @param string|null ConfirmDesignId
 // @param string|null DeclineDesignId
 // @param string|null StackId
-func (t *Stack) CreateStack(EventId string, TicketTypeId string, MethodId string, Quantity int, MaxQty int, Price *float, ServiceFee *float, OpeningTime *int, ClosingTime *int, Transferable *bool, InviteDesignId *string, ConfirmDesignId *string, DeclineDesignId *string, StackId *string) (r *http.Response, err error) {
+
+type CreateStackParameters struct {
+	EventId         string
+	TicketTypeId    string
+	MethodId        string
+	Quantity        int
+	MaxQty          int
+	Price           *string
+	ServiceFee      *string
+	OpeningTime     *int
+	ClosingTime     *int
+	Transferable    *bool
+	InviteDesignId  *string
+	ConfirmDesignId *string
+	DeclineDesignId *string
+	StackId         *string
+}
+
+func (t *Stack) CreateStack(p *CreateStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	queryParameters.Add(`ticketTypeId`, TicketTypeId)
-	queryParameters.Add(`methodId`, MethodId)
-	queryParameters.Add(`quantity`, strconv.Itoa(Quantity))
-	queryParameters.Add(`maxQty`, strconv.Itoa(MaxQty))
-	if Price != nil {
-		queryParameters.Add(`price`, *Price)
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
+	queryParameters.Add(`methodId`, p.MethodId)
+	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
+	queryParameters.Add(`maxQty`, strconv.Itoa(p.MaxQty))
+	if p.Price != nil {
+		queryParameters.Add(`price`, *p.Price)
 	}
-	if ServiceFee != nil {
-		queryParameters.Add(`serviceFee`, *ServiceFee)
+	if p.ServiceFee != nil {
+		queryParameters.Add(`serviceFee`, *p.ServiceFee)
 	}
-	if OpeningTime != nil {
-		queryParameters.Add(`openingTime`, strconv.Itoa(*OpeningTime))
+	if p.OpeningTime != nil {
+		queryParameters.Add(`openingTime`, strconv.Itoa(*p.OpeningTime))
 	}
-	if ClosingTime != nil {
-		queryParameters.Add(`closingTime`, strconv.Itoa(*ClosingTime))
+	if p.ClosingTime != nil {
+		queryParameters.Add(`closingTime`, strconv.Itoa(*p.ClosingTime))
 	}
-	if Transferable != nil {
-		queryParameters.Add(`transferable`, strconv.FormatBool(*Transferable))
+	if p.Transferable != nil {
+		queryParameters.Add(`transferable`, strconv.FormatBool(*p.Transferable))
 	}
-	if InviteDesignId != nil {
-		queryParameters.Add(`inviteDesignId`, *InviteDesignId)
+	if p.InviteDesignId != nil {
+		queryParameters.Add(`inviteDesignId`, *p.InviteDesignId)
 	}
-	if ConfirmDesignId != nil {
-		queryParameters.Add(`confirmDesignId`, *ConfirmDesignId)
+	if p.ConfirmDesignId != nil {
+		queryParameters.Add(`confirmDesignId`, *p.ConfirmDesignId)
 	}
-	if DeclineDesignId != nil {
-		queryParameters.Add(`declineDesignId`, *DeclineDesignId)
+	if p.DeclineDesignId != nil {
+		queryParameters.Add(`declineDesignId`, *p.DeclineDesignId)
 	}
-	if StackId != nil {
-		queryParameters.Add(`stackId`, *StackId)
+	if p.StackId != nil {
+		queryParameters.Add(`stackId`, *p.StackId)
 	}
 
 	return t.restClient.Post(
@@ -235,9 +299,14 @@ func (t *Stack) CreateStack(EventId string, TicketTypeId string, MethodId string
 }
 
 // @param string StackId
-func (t *Stack) DeleteStack(StackId string) (r *http.Response, err error) {
+
+type DeleteStackParameters struct {
+	StackId string
+}
+
+func (t *Stack) DeleteStack(p *DeleteStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
+	queryParameters.Add(`stackId`, p.StackId)
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/DeleteStack`,
@@ -249,11 +318,17 @@ func (t *Stack) DeleteStack(StackId string) (r *http.Response, err error) {
 
 // @param string PromotionId
 // @param array StackIds
-func (t *Stack) RemovePromotionFromStacks(PromotionId string, StackIds []string) (r *http.Response, err error) {
+
+type RemovePromotionFromStacksParameters struct {
+	PromotionId string
+	StackIds    []string
+}
+
+func (t *Stack) RemovePromotionFromStacks(p *RemovePromotionFromStacksParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`promotionId`, PromotionId)
-	for i := range StackIds {
-		queryParameters.Add(`stackIds[]`, StackIds[i])
+	queryParameters.Add(`promotionId`, p.PromotionId)
+	for i := range p.StackIds {
+		queryParameters.Add(`stackIds[]`, p.StackIds[i])
 	}
 
 	return t.restClient.Post(
@@ -266,10 +341,16 @@ func (t *Stack) RemovePromotionFromStacks(PromotionId string, StackIds []string)
 
 // @param string StackId
 // @param int ClosingTime
-func (t *Stack) SetClosingTimeForStack(StackId string, ClosingTime int) (r *http.Response, err error) {
+
+type SetClosingTimeForStackParameters struct {
+	StackId     string
+	ClosingTime int
+}
+
+func (t *Stack) SetClosingTimeForStack(p *SetClosingTimeForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	queryParameters.Add(`closingTime`, strconv.Itoa(ClosingTime))
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`closingTime`, strconv.Itoa(p.ClosingTime))
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetClosingTimeForStack`,
@@ -281,10 +362,16 @@ func (t *Stack) SetClosingTimeForStack(StackId string, ClosingTime int) (r *http
 
 // @param string StackId
 // @param string ConfirmDesignId
-func (t *Stack) SetConfirmDesignForStack(StackId string, ConfirmDesignId string) (r *http.Response, err error) {
+
+type SetConfirmDesignForStackParameters struct {
+	StackId         string
+	ConfirmDesignId string
+}
+
+func (t *Stack) SetConfirmDesignForStack(p *SetConfirmDesignForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	queryParameters.Add(`confirmDesignId`, ConfirmDesignId)
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`confirmDesignId`, p.ConfirmDesignId)
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetConfirmDesignForStack`,
@@ -296,10 +383,16 @@ func (t *Stack) SetConfirmDesignForStack(StackId string, ConfirmDesignId string)
 
 // @param string StackId
 // @param string DeclineDesignId
-func (t *Stack) SetDeclineDesignForStack(StackId string, DeclineDesignId string) (r *http.Response, err error) {
+
+type SetDeclineDesignForStackParameters struct {
+	StackId         string
+	DeclineDesignId string
+}
+
+func (t *Stack) SetDeclineDesignForStack(p *SetDeclineDesignForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	queryParameters.Add(`declineDesignId`, DeclineDesignId)
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`declineDesignId`, p.DeclineDesignId)
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetDeclineDesignForStack`,
@@ -311,10 +404,16 @@ func (t *Stack) SetDeclineDesignForStack(StackId string, DeclineDesignId string)
 
 // @param string StackId
 // @param string InviteDesignId
-func (t *Stack) SetInviteDesignForStack(StackId string, InviteDesignId string) (r *http.Response, err error) {
+
+type SetInviteDesignForStackParameters struct {
+	StackId        string
+	InviteDesignId string
+}
+
+func (t *Stack) SetInviteDesignForStack(p *SetInviteDesignForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	queryParameters.Add(`inviteDesignId`, InviteDesignId)
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`inviteDesignId`, p.InviteDesignId)
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetInviteDesignForStack`,
@@ -326,10 +425,16 @@ func (t *Stack) SetInviteDesignForStack(StackId string, InviteDesignId string) (
 
 // @param string StackId
 // @param int MaxQuantity
-func (t *Stack) SetMaxQuantityForStack(StackId string, MaxQuantity int) (r *http.Response, err error) {
+
+type SetMaxQuantityForStackParameters struct {
+	StackId     string
+	MaxQuantity int
+}
+
+func (t *Stack) SetMaxQuantityForStack(p *SetMaxQuantityForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	queryParameters.Add(`maxQuantity`, strconv.Itoa(MaxQuantity))
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`maxQuantity`, strconv.Itoa(p.MaxQuantity))
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetMaxQuantityForStack`,
@@ -341,10 +446,16 @@ func (t *Stack) SetMaxQuantityForStack(StackId string, MaxQuantity int) (r *http
 
 // @param string StackId
 // @param string MethodSlug
-func (t *Stack) SetMethodForStack(StackId string, MethodSlug string) (r *http.Response, err error) {
+
+type SetMethodForStackParameters struct {
+	StackId    string
+	MethodSlug string
+}
+
+func (t *Stack) SetMethodForStack(p *SetMethodForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	queryParameters.Add(`methodSlug`, MethodSlug)
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`methodSlug`, p.MethodSlug)
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetMethodForStack`,
@@ -356,10 +467,16 @@ func (t *Stack) SetMethodForStack(StackId string, MethodSlug string) (r *http.Re
 
 // @param string StackId
 // @param int OpeningTime
-func (t *Stack) SetOpeningTimeForStack(StackId string, OpeningTime int) (r *http.Response, err error) {
+
+type SetOpeningTimeForStackParameters struct {
+	StackId     string
+	OpeningTime int
+}
+
+func (t *Stack) SetOpeningTimeForStack(p *SetOpeningTimeForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	queryParameters.Add(`openingTime`, strconv.Itoa(OpeningTime))
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`openingTime`, strconv.Itoa(p.OpeningTime))
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetOpeningTimeForStack`,
@@ -371,10 +488,16 @@ func (t *Stack) SetOpeningTimeForStack(StackId string, OpeningTime int) (r *http
 
 // @param string StackId
 // @param float Price
-func (t *Stack) SetPriceForStack(StackId string, Price float) (r *http.Response, err error) {
+
+type SetPriceForStackParameters struct {
+	StackId string
+	Price   string
+}
+
+func (t *Stack) SetPriceForStack(p *SetPriceForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	queryParameters.Add(`price`, Price)
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`price`, p.Price)
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetPriceForStack`,
@@ -386,10 +509,16 @@ func (t *Stack) SetPriceForStack(StackId string, Price float) (r *http.Response,
 
 // @param string StackId
 // @param int Quantity
-func (t *Stack) SetQuantityForStack(StackId string, Quantity int) (r *http.Response, err error) {
+
+type SetQuantityForStackParameters struct {
+	StackId  string
+	Quantity int
+}
+
+func (t *Stack) SetQuantityForStack(p *SetQuantityForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	queryParameters.Add(`quantity`, strconv.Itoa(Quantity))
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetQuantityForStack`,
@@ -401,10 +530,16 @@ func (t *Stack) SetQuantityForStack(StackId string, Quantity int) (r *http.Respo
 
 // @param string StackId
 // @param float ServiceFee
-func (t *Stack) SetServiceFeeForStack(StackId string, ServiceFee float) (r *http.Response, err error) {
+
+type SetServiceFeeForStackParameters struct {
+	StackId    string
+	ServiceFee string
+}
+
+func (t *Stack) SetServiceFeeForStack(p *SetServiceFeeForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	queryParameters.Add(`serviceFee`, ServiceFee)
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`serviceFee`, p.ServiceFee)
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetServiceFeeForStack`,
@@ -416,10 +551,16 @@ func (t *Stack) SetServiceFeeForStack(StackId string, ServiceFee float) (r *http
 
 // @param string StackId
 // @param bool Transferable true|false
-func (t *Stack) SetTransferableForStack(StackId string, Transferable bool) (r *http.Response, err error) {
+
+type SetTransferableForStackParameters struct {
+	StackId      string
+	Transferable bool
+}
+
+func (t *Stack) SetTransferableForStack(p *SetTransferableForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, StackId)
-	queryParameters.Add(`transferable`, strconv.FormatBool(Transferable))
+	queryParameters.Add(`stackId`, p.StackId)
+	queryParameters.Add(`transferable`, strconv.FormatBool(p.Transferable))
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetTransferableForStack`,

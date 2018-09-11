@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,22 +14,28 @@ var _ url.Error
 var _ = http.NoBody
 
 type TicketBlock struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewTicketBlock(restClient gosdk.RestClientInterface) *TicketBlock {
+func NewTicketBlock(restClient sdk.RestClientInterface) *TicketBlock {
 	return &TicketBlock{restClient}
 }
 
 // GET: Queries
 // @param string TicketBlockId
 // @param array|null WithData Event|Allotments|AllotmentsAndStack|AllotmentCounts
-func (t *TicketBlock) GetTicketBlock(TicketBlockId string, WithData *[]string) (r *http.Response, err error) {
+
+type GetTicketBlockParameters struct {
+	TicketBlockId string
+	WithData      *[]string
+}
+
+func (t *TicketBlock) GetTicketBlock(p *GetTicketBlockParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketBlockId`, TicketBlockId)
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
 
@@ -49,34 +56,47 @@ func (t *TicketBlock) GetTicketBlock(TicketBlockId string, WithData *[]string) (
 // @param string|null SortDirection ascending|descending
 // @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
 // @param bool|null ShouldHideDeleted true|false
-func (t *TicketBlock) ListTicketBlocksForEvent(EventId string, Query *string, WithData *[]string, Page *int, ItemsPerPage *int, SortBy *string, SortDirection *string, EventDateFilterType *string, ShouldHideDeleted *bool) (r *http.Response, err error) {
+
+type ListTicketBlocksForEventParameters struct {
+	EventId             string
+	Query               *string
+	WithData            *[]string
+	Page                *int
+	ItemsPerPage        *int
+	SortBy              *string
+	SortDirection       *string
+	EventDateFilterType *string
+	ShouldHideDeleted   *bool
+}
+
+func (t *TicketBlock) ListTicketBlocksForEvent(p *ListTicketBlocksForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	if Query != nil {
-		queryParameters.Add(`query`, *Query)
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
 	}
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
-	if EventDateFilterType != nil {
-		queryParameters.Add(`eventDateFilterType`, *EventDateFilterType)
+	if p.EventDateFilterType != nil {
+		queryParameters.Add(`eventDateFilterType`, *p.EventDateFilterType)
 	}
-	if ShouldHideDeleted != nil {
-		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*ShouldHideDeleted))
+	if p.ShouldHideDeleted != nil {
+		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*p.ShouldHideDeleted))
 	}
 
 	return t.restClient.Get(
@@ -96,34 +116,47 @@ func (t *TicketBlock) ListTicketBlocksForEvent(EventId string, Query *string, Wi
 // @param string|null SortDirection ascending|descending
 // @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
 // @param string|null PoolId
-func (t *TicketBlock) ListTicketBlocksForUser(UserId string, Query *string, WithData *[]string, Page *int, ItemsPerPage *int, SortBy *string, SortDirection *string, EventDateFilterType *string, PoolId *string) (r *http.Response, err error) {
+
+type ListTicketBlocksForUserParameters struct {
+	UserId              string
+	Query               *string
+	WithData            *[]string
+	Page                *int
+	ItemsPerPage        *int
+	SortBy              *string
+	SortDirection       *string
+	EventDateFilterType *string
+	PoolId              *string
+}
+
+func (t *TicketBlock) ListTicketBlocksForUser(p *ListTicketBlocksForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	if Query != nil {
-		queryParameters.Add(`query`, *Query)
+	queryParameters.Add(`userId`, p.UserId)
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
 	}
-	if WithData != nil {
-		for i := range *WithData {
-			queryParameters.Add(`withData[]`, (*WithData)[i])
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
 		}
 	}
-	if Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*Page))
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
-	if ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*ItemsPerPage))
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
 	}
-	if SortBy != nil {
-		queryParameters.Add(`sortBy`, *SortBy)
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
 	}
-	if SortDirection != nil {
-		queryParameters.Add(`sortDirection`, *SortDirection)
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
-	if EventDateFilterType != nil {
-		queryParameters.Add(`eventDateFilterType`, *EventDateFilterType)
+	if p.EventDateFilterType != nil {
+		queryParameters.Add(`eventDateFilterType`, *p.EventDateFilterType)
 	}
-	if PoolId != nil {
-		queryParameters.Add(`poolId`, *PoolId)
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
 	}
 
 	return t.restClient.Get(
@@ -140,14 +173,23 @@ func (t *TicketBlock) ListTicketBlocksForUser(UserId string, Query *string, With
 // @param string FirstName
 // @param string LastName
 // @param string|null AuthenticatedUserId
-func (t *TicketBlock) AddUserRoleToTicketBlock(TicketBlockId string, Email string, FirstName string, LastName string, AuthenticatedUserId *string) (r *http.Response, err error) {
+
+type AddUserRoleToTicketBlockParameters struct {
+	TicketBlockId       string
+	Email               string
+	FirstName           string
+	LastName            string
+	AuthenticatedUserId *string
+}
+
+func (t *TicketBlock) AddUserRoleToTicketBlock(p *AddUserRoleToTicketBlockParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketBlockId`, TicketBlockId)
-	queryParameters.Add(`email`, Email)
-	queryParameters.Add(`firstName`, FirstName)
-	queryParameters.Add(`lastName`, LastName)
-	if AuthenticatedUserId != nil {
-		queryParameters.Add(`authenticatedUserId`, *AuthenticatedUserId)
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
+	queryParameters.Add(`email`, p.Email)
+	queryParameters.Add(`firstName`, p.FirstName)
+	queryParameters.Add(`lastName`, p.LastName)
+	if p.AuthenticatedUserId != nil {
+		queryParameters.Add(`authenticatedUserId`, *p.AuthenticatedUserId)
 	}
 
 	return t.restClient.Post(
@@ -163,18 +205,27 @@ func (t *TicketBlock) AddUserRoleToTicketBlock(TicketBlockId string, Email strin
 // @param bool|null IsBlacklistEnabled true|false
 // @param string|null EmailText
 // @param string|null TicketBlockId
-func (t *TicketBlock) CreateTicketBlock(EventId string, Name string, IsBlacklistEnabled *bool, EmailText *string, TicketBlockId *string) (r *http.Response, err error) {
+
+type CreateTicketBlockParameters struct {
+	EventId            string
+	Name               string
+	IsBlacklistEnabled *bool
+	EmailText          *string
+	TicketBlockId      *string
+}
+
+func (t *TicketBlock) CreateTicketBlock(p *CreateTicketBlockParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
-	queryParameters.Add(`name`, Name)
-	if IsBlacklistEnabled != nil {
-		queryParameters.Add(`isBlacklistEnabled`, strconv.FormatBool(*IsBlacklistEnabled))
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`name`, p.Name)
+	if p.IsBlacklistEnabled != nil {
+		queryParameters.Add(`isBlacklistEnabled`, strconv.FormatBool(*p.IsBlacklistEnabled))
 	}
-	if EmailText != nil {
-		queryParameters.Add(`emailText`, *EmailText)
+	if p.EmailText != nil {
+		queryParameters.Add(`emailText`, *p.EmailText)
 	}
-	if TicketBlockId != nil {
-		queryParameters.Add(`ticketBlockId`, *TicketBlockId)
+	if p.TicketBlockId != nil {
+		queryParameters.Add(`ticketBlockId`, *p.TicketBlockId)
 	}
 
 	return t.restClient.Post(
@@ -186,9 +237,14 @@ func (t *TicketBlock) CreateTicketBlock(EventId string, Name string, IsBlacklist
 }
 
 // @param string TicketBlockId
-func (t *TicketBlock) DisableTicketBlockBlacklist(TicketBlockId string) (r *http.Response, err error) {
+
+type DisableTicketBlockBlacklistParameters struct {
+	TicketBlockId string
+}
+
+func (t *TicketBlock) DisableTicketBlockBlacklist(p *DisableTicketBlockBlacklistParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketBlockId`, TicketBlockId)
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
 
 	return t.restClient.Post(
 		`/v2/TicketBlock/UseCase/DisableTicketBlockBlacklist`,
@@ -199,9 +255,14 @@ func (t *TicketBlock) DisableTicketBlockBlacklist(TicketBlockId string) (r *http
 }
 
 // @param string TicketBlockId
-func (t *TicketBlock) EnableTicketBlockBlacklist(TicketBlockId string) (r *http.Response, err error) {
+
+type EnableTicketBlockBlacklistParameters struct {
+	TicketBlockId string
+}
+
+func (t *TicketBlock) EnableTicketBlockBlacklist(p *EnableTicketBlockBlacklistParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketBlockId`, TicketBlockId)
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
 
 	return t.restClient.Post(
 		`/v2/TicketBlock/UseCase/EnableTicketBlockBlacklist`,
@@ -213,10 +274,16 @@ func (t *TicketBlock) EnableTicketBlockBlacklist(TicketBlockId string) (r *http.
 
 // @param string UserId
 // @param string TicketBlockId
-func (t *TicketBlock) RemoveAllUserRolesFromTicketBlock(UserId string, TicketBlockId string) (r *http.Response, err error) {
+
+type RemoveAllUserRolesFromTicketBlockParameters struct {
+	UserId        string
+	TicketBlockId string
+}
+
+func (t *TicketBlock) RemoveAllUserRolesFromTicketBlock(p *RemoveAllUserRolesFromTicketBlockParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`userId`, UserId)
-	queryParameters.Add(`ticketBlockId`, TicketBlockId)
+	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
 
 	return t.restClient.Post(
 		`/v2/TicketBlock/UseCase/RemoveAllUserRolesFromTicketBlock`,
@@ -227,9 +294,14 @@ func (t *TicketBlock) RemoveAllUserRolesFromTicketBlock(UserId string, TicketBlo
 }
 
 // @param string TicketBlockId
-func (t *TicketBlock) RemoveTicketBlock(TicketBlockId string) (r *http.Response, err error) {
+
+type RemoveTicketBlockParameters struct {
+	TicketBlockId string
+}
+
+func (t *TicketBlock) RemoveTicketBlock(p *RemoveTicketBlockParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketBlockId`, TicketBlockId)
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
 
 	return t.restClient.Post(
 		`/v2/TicketBlock/UseCase/RemoveTicketBlock`,
@@ -241,10 +313,16 @@ func (t *TicketBlock) RemoveTicketBlock(TicketBlockId string) (r *http.Response,
 
 // @param string TicketBlockId
 // @param string EmailText
-func (t *TicketBlock) SetTicketBlockEmailText(TicketBlockId string, EmailText string) (r *http.Response, err error) {
+
+type SetTicketBlockEmailTextParameters struct {
+	TicketBlockId string
+	EmailText     string
+}
+
+func (t *TicketBlock) SetTicketBlockEmailText(p *SetTicketBlockEmailTextParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketBlockId`, TicketBlockId)
-	queryParameters.Add(`emailText`, EmailText)
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
+	queryParameters.Add(`emailText`, p.EmailText)
 
 	return t.restClient.Post(
 		`/v2/TicketBlock/UseCase/SetTicketBlockEmailText`,
@@ -256,10 +334,16 @@ func (t *TicketBlock) SetTicketBlockEmailText(TicketBlockId string, EmailText st
 
 // @param string TicketBlockId
 // @param string Name
-func (t *TicketBlock) SetTicketBlockName(TicketBlockId string, Name string) (r *http.Response, err error) {
+
+type SetTicketBlockNameParameters struct {
+	TicketBlockId string
+	Name          string
+}
+
+func (t *TicketBlock) SetTicketBlockName(p *SetTicketBlockNameParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`ticketBlockId`, TicketBlockId)
-	queryParameters.Add(`name`, Name)
+	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
+	queryParameters.Add(`name`, p.Name)
 
 	return t.restClient.Post(
 		`/v2/TicketBlock/UseCase/SetTicketBlockName`,

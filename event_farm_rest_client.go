@@ -1,4 +1,4 @@
-package gosdk
+package sdk
 
 import (
 	"net/http"
@@ -8,12 +8,56 @@ import (
 
 const version = `6.4.x`
 
+var Stages = map[string]*Stage{
+	"prelive": &Stage{
+		AccessTokenURL:    "https://login.prelive-eventfarm.com/oauth/token.json",
+		APIURL:            "https://prelive-eventfarm.com/api",
+	},
+	"production": &Stage{
+		AccessTokenURL:    "https://login.eventfarm.com/oauth/token.json",
+		APIURL:           "https://eventfarm.com/api",
+	},
+}
+
+type Stage struct {
+	AccessTokenURL string
+	APIURL         string
+}
+
 type EventFarmRestClient struct {
 	restClient            RestClientInterface
 	accessTokenRestClient RestClientInterface
 	clientId              string
 	clientSecret          string
 	oAuthAccessToken      *OAuthAccessToken
+}
+
+func NewEventFarmRestClientForStage(stage, clientId, clientSecret string) *EventFarmRestClient {
+	env := Stages["prelive"]
+	enableLogging := true
+
+	if stage != "" {
+		if specified, valid := Stages[stage]; valid {
+			env = specified
+		}
+		if stage == "production" {
+			enableLogging = false
+		}
+	}
+
+	restClient := NewHttpRestClient(env.APIURL)
+	restClient.EnableLogging = enableLogging
+
+	accessTokenRestClient := NewHttpRestClient(env.AccessTokenURL)
+	accessTokenRestClient.EnableLogging = enableLogging
+
+	return NewEventFarmRestClient(
+		restClient,
+		accessTokenRestClient,
+		clientId,
+		clientSecret,
+		nil,
+	)
 }
 
 func NewEventFarmRestClient(
@@ -23,6 +67,7 @@ func NewEventFarmRestClient(
 	clientSecret string,
 	oAuthAccessToken *OAuthAccessToken,
 ) *EventFarmRestClient {
+
 	return &EventFarmRestClient{
 		restClient:            restClient,
 		accessTokenRestClient: accessTokenRestClient,

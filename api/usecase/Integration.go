@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"gosdk"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -13,10 +14,10 @@ var _ url.Error
 var _ = http.NoBody
 
 type Integration struct {
-	restClient gosdk.RestClientInterface
+	restClient sdk.RestClientInterface
 }
 
-func NewIntegration(restClient gosdk.RestClientInterface) *Integration {
+func NewIntegration(restClient sdk.RestClientInterface) *Integration {
 	return &Integration{restClient}
 }
 
@@ -24,9 +25,14 @@ func NewIntegration(restClient gosdk.RestClientInterface) *Integration {
 
 // POST: Commands
 // @param string EventId
-func (t *Integration) InitializeSalesforceIntegrationsForEvent(EventId string) (r *http.Response, err error) {
+
+type InitializeSalesforceIntegrationsForEventParameters struct {
+	EventId string
+}
+
+func (t *Integration) InitializeSalesforceIntegrationsForEvent(p *InitializeSalesforceIntegrationsForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, EventId)
+	queryParameters.Add(`eventId`, p.EventId)
 
 	return t.restClient.Post(
 		`/v2/Integration/UseCase/InitializeSalesforceIntegrationsForEvent`,
