@@ -6,16 +6,16 @@ import (
 	"time"
 )
 
-const version = `6.4.x`
+const version = `7.1.4`
 
 var Stages = map[string]*Stage{
 	"prelive": &Stage{
 		AccessTokenURL:    "https://login.prelive-eventfarm.com/oauth/token.json",
-		APIURL:            "https://prelive-eventfarm.com/api",
+		APIURL:            "https://app.prelive-eventfarm.com/api",
 	},
 	"production": &Stage{
 		AccessTokenURL:    "https://login.eventfarm.com/oauth/token.json",
-		APIURL:           "https://eventfarm.com/api",
+		APIURL:           "https://app.eventfarm.com/api",
 	},
 }
 
