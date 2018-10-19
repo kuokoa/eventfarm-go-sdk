@@ -34,7 +34,7 @@ type StatusMappingType struct {
 	IsSalesforceCampaignMember bool
 }
 
-func (f *IntegrationStatusMapping) GetStatusIdType() []StatusIdType {
+func (f *IntegrationStatusMapping) ListStatusIdTypes() []StatusIdType {
 	return []StatusIdType{
 		{
 			Slug:                  `assigned`,
@@ -267,7 +267,7 @@ func (f *IntegrationStatusMapping) GetStatusIdType() []StatusIdType {
 	}
 }
 
-func (f *IntegrationStatusMapping) GetStatusMappingType() []StatusMappingType {
+func (f *IntegrationStatusMapping) ListStatusMappingTypes() []StatusMappingType {
 	return []StatusMappingType{
 		{
 			Slug:                       `salesforce-campaign-member`,

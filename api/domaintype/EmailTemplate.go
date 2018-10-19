@@ -18,7 +18,7 @@ type EmailTemplateType struct {
 	IsFullWidthHeader  bool
 }
 
-func (f *EmailTemplate) GetEmailTemplateType() []EmailTemplateType {
+func (f *EmailTemplate) ListEmailTemplateTypes() []EmailTemplateType {
 	return []EmailTemplateType{
 		{
 			Slug:               `simple-template`,

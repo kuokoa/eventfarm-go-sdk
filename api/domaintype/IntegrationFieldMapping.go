@@ -37,7 +37,7 @@ type UpdateRuleType struct {
 	IsBlank     bool
 }
 
-func (f *IntegrationFieldMapping) GetFieldMappingType() []FieldMappingType {
+func (f *IntegrationFieldMapping) ListFieldMappingTypes() []FieldMappingType {
 	return []FieldMappingType{
 		{
 			Slug:                      `salesforce-import-lead`,
@@ -92,7 +92,7 @@ func (f *IntegrationFieldMapping) GetFieldMappingType() []FieldMappingType {
 	}
 }
 
-func (f *IntegrationFieldMapping) GetFieldType() []FieldType {
+func (f *IntegrationFieldMapping) ListFieldTypes() []FieldType {
 	return []FieldType{
 		{
 			Slug:             `question`,
@@ -133,7 +133,7 @@ func (f *IntegrationFieldMapping) GetFieldType() []FieldType {
 	}
 }
 
-func (f *IntegrationFieldMapping) GetUpdateRuleType() []UpdateRuleType {
+func (f *IntegrationFieldMapping) ListUpdateRuleTypes() []UpdateRuleType {
 	return []UpdateRuleType{
 		{
 			Slug:        `never`,

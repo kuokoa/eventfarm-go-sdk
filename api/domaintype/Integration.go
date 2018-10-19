@@ -29,7 +29,7 @@ type UserAttributeInfoFieldType struct {
 	Description string
 }
 
-func (f *Integration) GetIntegrationInvitationCreationType() []IntegrationInvitationCreationType {
+func (f *Integration) ListIntegrationInvitationCreationTypes() []IntegrationInvitationCreationType {
 	return []IntegrationInvitationCreationType{
 		{
 			Slug:                 `unconfirmed-no-email`,
@@ -48,7 +48,7 @@ func (f *Integration) GetIntegrationInvitationCreationType() []IntegrationInvita
 	}
 }
 
-func (f *Integration) GetIntegrationSettingType() []IntegrationSettingType {
+func (f *Integration) ListIntegrationSettingTypes() []IntegrationSettingType {
 	return []IntegrationSettingType{
 		{
 			Slug:         `salesforce`,
@@ -67,7 +67,7 @@ func (f *Integration) GetIntegrationSettingType() []IntegrationSettingType {
 	}
 }
 
-func (f *Integration) GetUserAttributeInfoFieldType() []UserAttributeInfoFieldType {
+func (f *Integration) ListUserAttributeInfoFieldTypes() []UserAttributeInfoFieldType {
 	return []UserAttributeInfoFieldType{
 		{
 			Slug:        `company`,

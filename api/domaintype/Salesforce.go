@@ -24,7 +24,7 @@ type NewContactRuleType struct {
 	IsCreateLead    bool
 }
 
-func (f *Salesforce) GetCampaignMemberType() []CampaignMemberType {
+func (f *Salesforce) ListCampaignMemberTypes() []CampaignMemberType {
 	return []CampaignMemberType{
 		{
 			Slug:        `contact`,
@@ -43,7 +43,7 @@ func (f *Salesforce) GetCampaignMemberType() []CampaignMemberType {
 	}
 }
 
-func (f *Salesforce) GetNewContactRuleType() []NewContactRuleType {
+func (f *Salesforce) ListNewContactRuleTypes() []NewContactRuleType {
 	return []NewContactRuleType{
 		{
 			Slug:            `do-nothing`,

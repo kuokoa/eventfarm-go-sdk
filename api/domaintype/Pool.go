@@ -56,7 +56,7 @@ type PoolWebhookType struct {
 	IsCheckin   bool
 }
 
-func (f *Pool) GetFeatureType() []FeatureType {
+func (f *Pool) ListFeatureTypes() []FeatureType {
 	return []FeatureType{
 		{
 			Slug:            `salesforce`,
@@ -165,7 +165,7 @@ func (f *Pool) GetFeatureType() []FeatureType {
 	}
 }
 
-func (f *Pool) GetPoolAllotmentType() []PoolAllotmentType {
+func (f *Pool) ListPoolAllotmentTypes() []PoolAllotmentType {
 	return []PoolAllotmentType{
 		{
 			Slug:        `listly`,
@@ -194,7 +194,7 @@ func (f *Pool) GetPoolAllotmentType() []PoolAllotmentType {
 	}
 }
 
-func (f *Pool) GetPoolContactType() []PoolContactType {
+func (f *Pool) ListPoolContactTypes() []PoolContactType {
 	return []PoolContactType{
 		{
 			Slug:        `full`,
@@ -213,7 +213,7 @@ func (f *Pool) GetPoolContactType() []PoolContactType {
 	}
 }
 
-func (f *Pool) GetPoolContractType() []PoolContractType {
+func (f *Pool) ListPoolContractTypes() []PoolContractType {
 	return []PoolContractType{
 		{
 			Slug:          `intro`,
@@ -268,7 +268,7 @@ func (f *Pool) GetPoolContractType() []PoolContractType {
 	}
 }
 
-func (f *Pool) GetPoolWebhookType() []PoolWebhookType {
+func (f *Pool) ListPoolWebhookTypes() []PoolWebhookType {
 	return []PoolWebhookType{
 		{
 			Slug:        `checkin`,

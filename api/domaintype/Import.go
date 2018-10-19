@@ -34,7 +34,7 @@ type ImportColumnHeaderType struct {
 	IsTitle           bool
 }
 
-func (f *Import) GetImportColumnHeaderType() []ImportColumnHeaderType {
+func (f *Import) ListImportColumnHeaderTypes() []ImportColumnHeaderType {
 	return []ImportColumnHeaderType{
 		{
 			Slug:              `address1`,

@@ -20,7 +20,7 @@ type RegionType struct {
 	IsSouthAmerica bool
 }
 
-func (f *Region) GetRegionType() []RegionType {
+func (f *Region) ListRegionTypes() []RegionType {
 	return []RegionType{
 		{
 			Slug:           `africa`,

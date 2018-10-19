@@ -18,7 +18,7 @@ type SitePageTemplateDifficultyType struct {
 	IsExpert       bool
 }
 
-func (f *SitePage) GetSitePageTemplateDifficultyType() []SitePageTemplateDifficultyType {
+func (f *SitePage) ListSitePageTemplateDifficultyTypes() []SitePageTemplateDifficultyType {
 	return []SitePageTemplateDifficultyType{
 		{
 			Slug:           `custom`,

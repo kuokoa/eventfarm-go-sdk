@@ -51,7 +51,7 @@ type EmailMessageType struct {
 	IsSendGroupMessage bool
 }
 
-func (f *EmailMessage) GetEmailArchiveCategoryType() []EmailArchiveCategoryType {
+func (f *EmailMessage) ListEmailArchiveCategoryTypes() []EmailArchiveCategoryType {
 	return []EmailArchiveCategoryType{
 		{
 			Slug:                    `alert`,
@@ -290,7 +290,7 @@ func (f *EmailMessage) GetEmailArchiveCategoryType() []EmailArchiveCategoryType 
 	}
 }
 
-func (f *EmailMessage) GetEmailArchiveSubCategoryType() []EmailArchiveSubCategoryType {
+func (f *EmailMessage) ListEmailArchiveSubCategoryTypes() []EmailArchiveSubCategoryType {
 	return []EmailArchiveSubCategoryType{
 		{
 			Slug:             `ticketblock`,
@@ -399,7 +399,7 @@ func (f *EmailMessage) GetEmailArchiveSubCategoryType() []EmailArchiveSubCategor
 	}
 }
 
-func (f *EmailMessage) GetEmailMessageType() []EmailMessageType {
+func (f *EmailMessage) ListEmailMessageTypes() []EmailMessageType {
 	return []EmailMessageType{
 		{
 			Slug:               `confirmation`,

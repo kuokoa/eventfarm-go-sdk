@@ -26,7 +26,7 @@ type StackMethodType struct {
 	IsAnyInviteToRSVP      bool
 }
 
-func (f *Stack) GetStackMethodType() []StackMethodType {
+func (f *Stack) ListStackMethodTypes() []StackMethodType {
 	return []StackMethodType{
 		{
 			Slug:                   `public-registration`,

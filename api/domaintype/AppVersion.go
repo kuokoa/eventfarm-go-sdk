@@ -17,7 +17,7 @@ type AppVersionType struct {
 	IsTicketBlockManagementAndroid bool
 }
 
-func (f *AppVersion) GetAppVersionType() []AppVersionType {
+func (f *AppVersion) ListAppVersionTypes() []AppVersionType {
 	return []AppVersionType{
 		{
 			Slug:                           `check-in-ios`,

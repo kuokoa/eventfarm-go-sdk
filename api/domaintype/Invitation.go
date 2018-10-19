@@ -100,7 +100,7 @@ type WebhookType struct {
 	IsCreatedSMS     bool
 }
 
-func (f *Invitation) GetInvitationActionType() []InvitationActionType {
+func (f *Invitation) ListInvitationActionTypes() []InvitationActionType {
 	return []InvitationActionType{
 		{
 			Slug:           `none`,
@@ -371,7 +371,7 @@ func (f *Invitation) GetInvitationActionType() []InvitationActionType {
 	}
 }
 
-func (f *Invitation) GetInvitationCreationType() []InvitationCreationType {
+func (f *Invitation) ListInvitationCreationTypes() []InvitationCreationType {
 	return []InvitationCreationType{
 		{
 			Slug:                 `unconfirmed-no-email`,
@@ -403,7 +403,7 @@ func (f *Invitation) GetInvitationCreationType() []InvitationCreationType {
 	}
 }
 
-func (f *Invitation) GetInvitationStatusType() []InvitationStatusType {
+func (f *Invitation) ListInvitationStatusTypes() []InvitationStatusType {
 	return []InvitationStatusType{
 		{
 			Slug:                                 `assigned`,
@@ -650,7 +650,7 @@ func (f *Invitation) GetInvitationStatusType() []InvitationStatusType {
 	}
 }
 
-func (f *Invitation) GetInviteSourceType() []InviteSourceType {
+func (f *Invitation) ListInviteSourceTypes() []InviteSourceType {
 	return []InviteSourceType{
 		{
 			Slug:                `direct-invite`,
@@ -955,7 +955,7 @@ func (f *Invitation) GetInviteSourceType() []InviteSourceType {
 	}
 }
 
-func (f *Invitation) GetWebhookType() []WebhookType {
+func (f *Invitation) ListWebhookTypes() []WebhookType {
 	return []WebhookType{
 		{
 			Slug:             `affirmative`,

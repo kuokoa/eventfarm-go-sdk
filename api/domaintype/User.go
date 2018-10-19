@@ -110,7 +110,7 @@ type UserRoleType struct {
 	IsPools        bool
 }
 
-func (f *User) GetEventRoleType() []EventRoleType {
+func (f *User) ListEventRoleTypes() []EventRoleType {
 	return []EventRoleType{
 		{
 			Slug:           `organizer`,
@@ -165,7 +165,7 @@ func (f *User) GetEventRoleType() []EventRoleType {
 	}
 }
 
-func (f *User) GetProviderType() []ProviderType {
+func (f *User) ListProviderTypes() []ProviderType {
 	return []ProviderType{
 		{
 			Slug:         `google`,
@@ -206,7 +206,7 @@ func (f *User) GetProviderType() []ProviderType {
 	}
 }
 
-func (f *User) GetRoleType() []RoleType {
+func (f *User) ListRoleTypes() []RoleType {
 	return []RoleType{
 		{
 			Slug:               `none`,
@@ -907,7 +907,7 @@ func (f *User) GetRoleType() []RoleType {
 	}
 }
 
-func (f *User) GetTokenStateType() []TokenStateType {
+func (f *User) ListTokenStateTypes() []TokenStateType {
 	return []TokenStateType{
 		{
 			Slug:        `success`,
@@ -936,7 +936,7 @@ func (f *User) GetTokenStateType() []TokenStateType {
 	}
 }
 
-func (f *User) GetUserAttributeNamespaceType() []UserAttributeNamespaceType {
+func (f *User) ListUserAttributeNamespaceTypes() []UserAttributeNamespaceType {
 	return []UserAttributeNamespaceType{
 		{
 			Slug:         `internal`,
@@ -1091,7 +1091,7 @@ func (f *User) GetUserAttributeNamespaceType() []UserAttributeNamespaceType {
 	}
 }
 
-func (f *User) GetUserIdentifierType() []UserIdentifierType {
+func (f *User) ListUserIdentifierTypes() []UserIdentifierType {
 	return []UserIdentifierType{
 		{
 			Slug:        `email`,
@@ -1132,7 +1132,7 @@ func (f *User) GetUserIdentifierType() []UserIdentifierType {
 	}
 }
 
-func (f *User) GetUserPermissionType() []UserPermissionType {
+func (f *User) ListUserPermissionTypes() []UserPermissionType {
 	return []UserPermissionType{
 		{
 			Slug:        `group`,
@@ -1143,7 +1143,7 @@ func (f *User) GetUserPermissionType() []UserPermissionType {
 	}
 }
 
-func (f *User) GetUserRoleType() []UserRoleType {
+func (f *User) ListUserRoleTypes() []UserRoleType {
 	return []UserRoleType{
 		{
 			Slug:           `global`,

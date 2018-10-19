@@ -18,7 +18,7 @@ type PromotionType struct {
 	IsShipping   bool
 }
 
-func (f *Promotion) GetPromotionType() []PromotionType {
+func (f *Promotion) ListPromotionTypes() []PromotionType {
 	return []PromotionType{
 		{
 			Slug:         `discount`,

@@ -24,7 +24,7 @@ type ReportType struct {
 	IsInvitation bool
 }
 
-func (f *Report) GetReportFormatType() []ReportFormatType {
+func (f *Report) ListReportFormatTypes() []ReportFormatType {
 	return []ReportFormatType{
 		{
 			Slug:        `csv`,
@@ -65,7 +65,7 @@ func (f *Report) GetReportFormatType() []ReportFormatType {
 	}
 }
 
-func (f *Report) GetReportType() []ReportType {
+func (f *Report) ListReportTypes() []ReportType {
 	return []ReportType{
 		{
 			Slug:         `invitation`,

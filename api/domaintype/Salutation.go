@@ -27,7 +27,7 @@ type SalutationLocaleType struct {
 	IsKorean              bool
 }
 
-func (f *Salutation) GetSalutationLocaleType() []SalutationLocaleType {
+func (f *Salutation) ListSalutationLocaleTypes() []SalutationLocaleType {
 	return []SalutationLocaleType{
 		{
 			Slug:                  `english`,

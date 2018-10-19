@@ -15,7 +15,7 @@ type EmailDesignLayoutType struct {
 	IsAltEmailLayout bool
 }
 
-func (f *EmailDesign) GetEmailDesignLayoutType() []EmailDesignLayoutType {
+func (f *EmailDesign) ListEmailDesignLayoutTypes() []EmailDesignLayoutType {
 	return []EmailDesignLayoutType{
 		{
 			Slug:             `blank`,

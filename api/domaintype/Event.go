@@ -95,7 +95,7 @@ type QuestionType struct {
 	IsWaiver    bool
 }
 
-func (f *Event) GetCIOMarketingEventCountType() []CIOMarketingEventCountType {
+func (f *Event) ListCIOMarketingEventCountTypes() []CIOMarketingEventCountType {
 	return []CIOMarketingEventCountType{
 		{
 			Slug:                   `fewer-than-5`,
@@ -124,7 +124,7 @@ func (f *Event) GetCIOMarketingEventCountType() []CIOMarketingEventCountType {
 	}
 }
 
-func (f *Event) GetCIOMarketingEventType() []CIOMarketingEventType {
+func (f *Event) ListCIOMarketingEventTypes() []CIOMarketingEventType {
 	return []CIOMarketingEventType{
 		{
 			Slug:                   `brand-awareness-events`,
@@ -213,7 +213,7 @@ func (f *Event) GetCIOMarketingEventType() []CIOMarketingEventType {
 	}
 }
 
-func (f *Event) GetCIOMarketingIndustryType() []CIOMarketingIndustryType {
+func (f *Event) ListCIOMarketingIndustryTypes() []CIOMarketingIndustryType {
 	return []CIOMarketingIndustryType{
 		{
 			Slug:                     `consumer-goods`,
@@ -295,7 +295,7 @@ func (f *Event) GetCIOMarketingIndustryType() []CIOMarketingIndustryType {
 	}
 }
 
-func (f *Event) GetEventDateFilterType() []EventDateFilterType {
+func (f *Event) ListEventDateFilterTypes() []EventDateFilterType {
 	return []EventDateFilterType{
 		{
 			Slug:                   `current-future`,
@@ -350,7 +350,7 @@ func (f *Event) GetEventDateFilterType() []EventDateFilterType {
 	}
 }
 
-func (f *Event) GetEventType() []EventType {
+func (f *Event) ListEventTypes() []EventType {
 	return []EventType{
 		{
 			Slug:        `eventfarm`,
@@ -439,7 +439,7 @@ func (f *Event) GetEventType() []EventType {
 	}
 }
 
-func (f *Event) GetMapSourceType() []MapSourceType {
+func (f *Event) ListMapSourceTypes() []MapSourceType {
 	return []MapSourceType{
 		{
 			Slug:        `google`,
@@ -468,7 +468,7 @@ func (f *Event) GetMapSourceType() []MapSourceType {
 	}
 }
 
-func (f *Event) GetQuestionContextType() []QuestionContextType {
+func (f *Event) ListQuestionContextTypes() []QuestionContextType {
 	return []QuestionContextType{
 		{
 			Slug:           `registration`,
@@ -487,7 +487,7 @@ func (f *Event) GetQuestionContextType() []QuestionContextType {
 	}
 }
 
-func (f *Event) GetQuestionType() []QuestionType {
+func (f *Event) ListQuestionTypes() []QuestionType {
 	return []QuestionType{
 		{
 			Slug:        `checkbox`,

@@ -25,7 +25,7 @@ type QueueTaskMessageLevelType struct {
 	IsInfo      bool
 }
 
-func (f *Queue) GetQueueCommandMessageLevelType() []QueueCommandMessageLevelType {
+func (f *Queue) ListQueueCommandMessageLevelTypes() []QueueCommandMessageLevelType {
 	return []QueueCommandMessageLevelType{
 		{
 			Slug:        `error`,
@@ -54,7 +54,7 @@ func (f *Queue) GetQueueCommandMessageLevelType() []QueueCommandMessageLevelType
 	}
 }
 
-func (f *Queue) GetQueueTaskMessageLevelType() []QueueTaskMessageLevelType {
+func (f *Queue) ListQueueTaskMessageLevelTypes() []QueueTaskMessageLevelType {
 	return []QueueTaskMessageLevelType{
 		{
 			Slug:        `error`,
