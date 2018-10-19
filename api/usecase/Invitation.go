@@ -1,11 +1,10 @@
 package usecase
 
 import (
+	"bitbucket.ef.network/go/sdk"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -452,7 +451,7 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 type ListInvitationsForUserParameters struct {
 	UserId              string
 	PoolId              string
-	EventId             *string
+	EventId             string
 	Page                *int
 	ItemsPerPage        *int
 	EventDateFilterType *string
@@ -465,9 +464,7 @@ func (t *Invitation) ListInvitationsForUser(p *ListInvitationsForUserParameters)
 	queryParameters := url.Values{}
 	queryParameters.Add(`userId`, p.UserId)
 	queryParameters.Add(`poolId`, p.PoolId)
-	if p.EventId != nil {
-		queryParameters.Add(`eventId`, *p.EventId)
-	}
+	queryParameters.Add(`eventId`, p.EventId)
 	if p.Page != nil {
 		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
@@ -1316,6 +1313,7 @@ func (t *Invitation) UndoCheckIn(p *UndoCheckInParameters) (r *http.Response, er
 // @param string|null FirstName
 // @param string|null LastName
 // @param string|null Other
+// @param string|null Telephone
 
 type UpdateInvitationParameters struct {
 	InvitationId     string
@@ -1327,6 +1325,7 @@ type UpdateInvitationParameters struct {
 	FirstName        *string
 	LastName         *string
 	Other            *string
+	Telephone        *string
 }
 
 func (t *Invitation) UpdateInvitation(p *UpdateInvitationParameters) (r *http.Response, err error) {
@@ -1351,6 +1350,9 @@ func (t *Invitation) UpdateInvitation(p *UpdateInvitationParameters) (r *http.Re
 	}
 	if p.Other != nil {
 		queryParameters.Add(`other`, *p.Other)
+	}
+	if p.Telephone != nil {
+		queryParameters.Add(`telephone`, *p.Telephone)
 	}
 
 	return t.restClient.Post(

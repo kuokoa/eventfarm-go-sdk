@@ -1,11 +1,10 @@
 package usecase
 
 import (
+	"bitbucket.ef.network/go/sdk"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error

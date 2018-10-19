@@ -1,11 +1,10 @@
 package usecase
 
 import (
+	"bitbucket.ef.network/go/sdk"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -277,8 +276,8 @@ func (t *Event) ListChildrenForEventForUser(p *ListChildrenForEventForUserParame
 
 // @param string UserId
 // @param string|null Query
-// @param array|null AttributesFilter distribute|donate|fee|editname|reveal|allow-notes|duplicate-emails|navigation|social-media|social-media-bar|map-location|show-description|ipad-purchase|simple-layout|label-print|skip-event-allocate-display|geo-restrict|visa-checkout|archived|guest-can-change-response|efx-enabled
-// @param array|null AttributesExcludeFilter distribute|donate|fee|editname|reveal|allow-notes|duplicate-emails|navigation|social-media|social-media-bar|map-location|show-description|ipad-purchase|simple-layout|label-print|skip-event-allocate-display|geo-restrict|visa-checkout|archived|guest-can-change-response|efx-enabled
+// @param array|null AttributesFilter distribute|donate|fee|editname|reveal|allow-notes|duplicate-emails|navigation|social-media|social-media-bar|map-location|show-description|ipad-purchase|simple-layout|label-print|skip-event-allocate-display|geo-restrict|visa-checkout|archived|guest-can-change-response|efx-enabled|show-calendar
+// @param array|null AttributesExcludeFilter distribute|donate|fee|editname|reveal|allow-notes|duplicate-emails|navigation|social-media|social-media-bar|map-location|show-description|ipad-purchase|simple-layout|label-print|skip-event-allocate-display|geo-restrict|visa-checkout|archived|guest-can-change-response|efx-enabled|show-calendar
 // @param array|null WithData Pool|Stacks|Tags|TicketTypes|TicketBlocks|QuestionsAndAnswers|ThumbnailUrl
 // @param int|null LastModifiedTimestamp
 // @param int|null Page >= 1

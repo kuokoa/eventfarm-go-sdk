@@ -1,11 +1,10 @@
 package usecase
 
 import (
+	"bitbucket.ef.network/go/sdk"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -712,14 +711,19 @@ func (t *User) RemoveUsersFromPool(p *RemoveUsersFromPoolParameters) (r *http.Re
 }
 
 // @param string Email
+// @param string|null AppName
 
 type SendForgotPasswordEmailParameters struct {
-	Email string
+	Email   string
+	AppName *string
 }
 
 func (t *User) SendForgotPasswordEmail(p *SendForgotPasswordEmailParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`email`, p.Email)
+	if p.AppName != nil {
+		queryParameters.Add(`appName`, *p.AppName)
+	}
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/SendForgotPasswordEmail`,
@@ -730,14 +734,19 @@ func (t *User) SendForgotPasswordEmail(p *SendForgotPasswordEmailParameters) (r 
 }
 
 // @param string Email
+// @param string|null AppName
 
 type SendVerificationEmailParameters struct {
-	Email string
+	Email   string
+	AppName *string
 }
 
 func (t *User) SendVerificationEmail(p *SendVerificationEmailParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`email`, p.Email)
+	if p.AppName != nil {
+		queryParameters.Add(`appName`, *p.AppName)
+	}
 
 	return t.restClient.Post(
 		`/v2/User/UseCase/SendVerificationEmail`,

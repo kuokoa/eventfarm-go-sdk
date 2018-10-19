@@ -1,11 +1,10 @@
 package usecase
 
 import (
+	"bitbucket.ef.network/go/sdk"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -244,8 +243,8 @@ type CreateStackParameters struct {
 	MethodId        string
 	Quantity        int
 	MaxQty          int
-	Price           *string
-	ServiceFee      *string
+	Price           *float
+	ServiceFee      *float
 	OpeningTime     *int
 	ClosingTime     *int
 	Transferable    *bool
@@ -491,7 +490,7 @@ func (t *Stack) SetOpeningTimeForStack(p *SetOpeningTimeForStackParameters) (r *
 
 type SetPriceForStackParameters struct {
 	StackId string
-	Price   string
+	Price   float
 }
 
 func (t *Stack) SetPriceForStack(p *SetPriceForStackParameters) (r *http.Response, err error) {
@@ -533,7 +532,7 @@ func (t *Stack) SetQuantityForStack(p *SetQuantityForStackParameters) (r *http.R
 
 type SetServiceFeeForStackParameters struct {
 	StackId    string
-	ServiceFee string
+	ServiceFee float
 }
 
 func (t *Stack) SetServiceFeeForStack(p *SetServiceFeeForStackParameters) (r *http.Response, err error) {

@@ -98,6 +98,10 @@ func (f *Factory) OAuth() *OAuth {
 	return NewOAuth(f.restClient)
 }
 
+func (f *Factory) OAuth2() *OAuth2 {
+	return NewOAuth2(f.restClient)
+}
+
 func (f *Factory) Pool() *Pool {
 	return NewPool(f.restClient)
 }

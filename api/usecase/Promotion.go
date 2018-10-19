@@ -1,11 +1,10 @@
 package usecase
 
 import (
+	"bitbucket.ef.network/go/sdk"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"bitbucket.ef.network/go/sdk"
 )
 
 // Disable unused import error
@@ -42,7 +41,7 @@ type CreatePromotionParameters struct {
 	Code          string
 	StartTime     int
 	EndTime       int
-	Amount        string
+	Amount        float
 	Used          int
 	Maximum       int
 	Message       string
@@ -135,7 +134,7 @@ func (t *Promotion) RemovePromotion(p *RemovePromotionParameters) (r *http.Respo
 
 type SetAmountParameters struct {
 	PromotionId string
-	Amount      string
+	Amount      float
 }
 
 func (t *Promotion) SetAmount(p *SetAmountParameters) (r *http.Response, err error) {
