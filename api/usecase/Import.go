@@ -1,18 +1,12 @@
 package usecase
 
 import (
-	"bitbucket.ef.network/go/sdk"
-	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
-)
 
-// Disable unused import error
-var _ = strconv.IntSize
-var _ url.Error
-var _ = fmt.Sprint("Foo")
-var _ = http.NoBody
+	"bitbucket.ef.network/go/sdk"
+)
 
 type Import struct {
 	restClient sdk.RestClientInterface
