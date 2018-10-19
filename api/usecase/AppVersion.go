@@ -59,10 +59,7 @@ func (t *AppVersion) GetAppVersionByType(p *GetAppVersionByTypeParameters) (r *h
 	)
 }
 
-type GetSystemStatusParameters struct {
-}
-
-func (t *AppVersion) GetSystemStatus(p *GetSystemStatusParameters) (r *http.Response, err error) {
+func (t *AppVersion) GetSystemStatus() (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Get(
@@ -73,10 +70,7 @@ func (t *AppVersion) GetSystemStatus(p *GetSystemStatusParameters) (r *http.Resp
 	)
 }
 
-type ListAppVersionsParameters struct {
-}
-
-func (t *AppVersion) ListAppVersions(p *ListAppVersionsParameters) (r *http.Response, err error) {
+func (t *AppVersion) ListAppVersions() (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Get(

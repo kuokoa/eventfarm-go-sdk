@@ -24,10 +24,7 @@ func NewEmailDesignType(restClient sdk.RestClientInterface) *EmailDesignType {
 
 // GET: Queries
 
-type GetAllEmailDesignTypesParameters struct {
-}
-
-func (t *EmailDesignType) GetAllEmailDesignTypes(p *GetAllEmailDesignTypesParameters) (r *http.Response, err error) {
+func (t *EmailDesignType) GetAllEmailDesignTypes() (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Get(

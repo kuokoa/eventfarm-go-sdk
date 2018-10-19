@@ -24,10 +24,7 @@ func NewFeature(restClient sdk.RestClientInterface) *Feature {
 
 // GET: Queries
 
-type ListFeaturesParameters struct {
-}
-
-func (t *Feature) ListFeatures(p *ListFeaturesParameters) (r *http.Response, err error) {
+func (t *Feature) ListFeatures() (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Get(

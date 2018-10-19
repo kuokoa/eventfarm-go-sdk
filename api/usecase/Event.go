@@ -1394,10 +1394,7 @@ func (t *Event) RemoveParentFromEvent(p *RemoveParentFromEventParameters) (r *ht
 	)
 }
 
-type SendMessageToGuestListParameters struct {
-}
-
-func (t *Event) SendMessageToGuestList(p *SendMessageToGuestListParameters) (r *http.Response, err error) {
+func (t *Event) SendMessageToGuestList() (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Post(

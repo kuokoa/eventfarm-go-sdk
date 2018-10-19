@@ -24,10 +24,7 @@ func NewQueue(restClient sdk.RestClientInterface) *Queue {
 
 // GET: Queries
 
-type GetAllJobsParameters struct {
-}
-
-func (t *Queue) GetAllJobs(p *GetAllJobsParameters) (r *http.Response, err error) {
+func (t *Queue) GetAllJobs() (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Get(

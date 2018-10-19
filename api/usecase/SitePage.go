@@ -257,10 +257,7 @@ func (t *SitePage) DuplicateTemplate(p *DuplicateTemplateParameters) (r *http.Re
 	)
 }
 
-type GenerateSitePageTemplatesParameters struct {
-}
-
-func (t *SitePage) GenerateSitePageTemplates(p *GenerateSitePageTemplatesParameters) (r *http.Response, err error) {
+func (t *SitePage) GenerateSitePageTemplates() (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Post(
