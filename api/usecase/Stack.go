@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"bitbucket.ef.network/go/sdk"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -10,6 +11,7 @@ import (
 // Disable unused import error
 var _ = strconv.IntSize
 var _ url.Error
+var _ = fmt.Sprint("Foo")
 var _ = http.NoBody
 
 type Stack struct {
@@ -243,8 +245,8 @@ type CreateStackParameters struct {
 	MethodId        string
 	Quantity        int
 	MaxQty          int
-	Price           *float
-	ServiceFee      *float
+	Price           *float64
+	ServiceFee      *float64
 	OpeningTime     *int
 	ClosingTime     *int
 	Transferable    *bool
@@ -262,10 +264,10 @@ func (t *Stack) CreateStack(p *CreateStackParameters) (r *http.Response, err err
 	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
 	queryParameters.Add(`maxQty`, strconv.Itoa(p.MaxQty))
 	if p.Price != nil {
-		queryParameters.Add(`price`, *p.Price)
+		queryParameters.Add(`price`, fmt.Sprintf("%f", *p.Price))
 	}
 	if p.ServiceFee != nil {
-		queryParameters.Add(`serviceFee`, *p.ServiceFee)
+		queryParameters.Add(`serviceFee`, fmt.Sprintf("%f", *p.ServiceFee))
 	}
 	if p.OpeningTime != nil {
 		queryParameters.Add(`openingTime`, strconv.Itoa(*p.OpeningTime))
@@ -490,13 +492,13 @@ func (t *Stack) SetOpeningTimeForStack(p *SetOpeningTimeForStackParameters) (r *
 
 type SetPriceForStackParameters struct {
 	StackId string
-	Price   float
+	Price   float64
 }
 
 func (t *Stack) SetPriceForStack(p *SetPriceForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`stackId`, p.StackId)
-	queryParameters.Add(`price`, p.Price)
+	queryParameters.Add(`price`, fmt.Sprintf("%f", p.Price))
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetPriceForStack`,
@@ -532,13 +534,13 @@ func (t *Stack) SetQuantityForStack(p *SetQuantityForStackParameters) (r *http.R
 
 type SetServiceFeeForStackParameters struct {
 	StackId    string
-	ServiceFee float
+	ServiceFee float64
 }
 
 func (t *Stack) SetServiceFeeForStack(p *SetServiceFeeForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`stackId`, p.StackId)
-	queryParameters.Add(`serviceFee`, p.ServiceFee)
+	queryParameters.Add(`serviceFee`, fmt.Sprintf("%f", p.ServiceFee))
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetServiceFeeForStack`,

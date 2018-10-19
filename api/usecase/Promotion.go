@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"bitbucket.ef.network/go/sdk"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -10,6 +11,7 @@ import (
 // Disable unused import error
 var _ = strconv.IntSize
 var _ url.Error
+var _ = fmt.Sprint("Foo")
 var _ = http.NoBody
 
 type Promotion struct {
@@ -41,7 +43,7 @@ type CreatePromotionParameters struct {
 	Code          string
 	StartTime     int
 	EndTime       int
-	Amount        float
+	Amount        float64
 	Used          int
 	Maximum       int
 	Message       string
@@ -56,7 +58,7 @@ func (t *Promotion) CreatePromotion(p *CreatePromotionParameters) (r *http.Respo
 	queryParameters.Add(`code`, p.Code)
 	queryParameters.Add(`startTime`, strconv.Itoa(p.StartTime))
 	queryParameters.Add(`endTime`, strconv.Itoa(p.EndTime))
-	queryParameters.Add(`amount`, p.Amount)
+	queryParameters.Add(`amount`, fmt.Sprintf("%f", p.Amount))
 	queryParameters.Add(`used`, strconv.Itoa(p.Used))
 	queryParameters.Add(`maximum`, strconv.Itoa(p.Maximum))
 	queryParameters.Add(`message`, p.Message)
@@ -134,13 +136,13 @@ func (t *Promotion) RemovePromotion(p *RemovePromotionParameters) (r *http.Respo
 
 type SetAmountParameters struct {
 	PromotionId string
-	Amount      float
+	Amount      float64
 }
 
 func (t *Promotion) SetAmount(p *SetAmountParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`promotionId`, p.PromotionId)
-	queryParameters.Add(`amount`, p.Amount)
+	queryParameters.Add(`amount`, fmt.Sprintf("%f", p.Amount))
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetAmount`,
