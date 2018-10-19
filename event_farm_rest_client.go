@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const version = `7.1.4`
+const version = `7.2.4`
 
 var Stages = map[string]*Stage{
 	"prelive": &Stage{
