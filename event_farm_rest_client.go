@@ -8,20 +8,9 @@ import (
 
 const version = `7.2.4`
 
-var Stages = map[string]*Stage{
-	"prelive": &Stage{
-		AccessTokenURL:    "https://login.prelive-eventfarm.com/oauth/token.json",
-		APIURL:            "https://app.prelive-eventfarm.com/api",
-	},
-	"production": &Stage{
-		AccessTokenURL:    "https://login.eventfarm.com/oauth/token.json",
-		APIURL:           "https://app.eventfarm.com/api",
-	},
-}
-
-type Stage struct {
-	AccessTokenURL string
-	APIURL         string
+type EventFarmRestConnection struct {
+	LoginUrl string
+	ApiUrl   string
 }
 
 type EventFarmRestClient struct {
@@ -29,35 +18,9 @@ type EventFarmRestClient struct {
 	accessTokenRestClient RestClientInterface
 	clientId              string
 	clientSecret          string
+	username              string
+	password              string
 	oAuthAccessToken      *OAuthAccessToken
-}
-
-func NewEventFarmRestClientForStage(stage, clientId, clientSecret string) *EventFarmRestClient {
-	env := Stages["prelive"]
-	enableLogging := true
-
-	if stage != "" {
-		if specified, valid := Stages[stage]; valid {
-			env = specified
-		}
-		if stage == "production" {
-			enableLogging = false
-		}
-	}
-
-	restClient := NewHttpRestClient(env.APIURL)
-	restClient.EnableLogging = enableLogging
-
-	accessTokenRestClient := NewHttpRestClient(env.AccessTokenURL)
-	accessTokenRestClient.EnableLogging = enableLogging
-
-	return NewEventFarmRestClient(
-		restClient,
-		accessTokenRestClient,
-		clientId,
-		clientSecret,
-		nil,
-	)
 }
 
 func NewEventFarmRestClient(
@@ -65,6 +28,8 @@ func NewEventFarmRestClient(
 	accessTokenRestClient RestClientInterface,
 	clientId string,
 	clientSecret string,
+	username string,
+	password string,
 	oAuthAccessToken *OAuthAccessToken,
 ) *EventFarmRestClient {
 
@@ -73,6 +38,8 @@ func NewEventFarmRestClient(
 		accessTokenRestClient: accessTokenRestClient,
 		clientId:              clientId,
 		clientSecret:          clientSecret,
+		username:              username,
+		password:              password,
 		oAuthAccessToken:      oAuthAccessToken,
 	}
 }
@@ -156,7 +123,7 @@ func (t *EventFarmRestClient) getAuthorizationHeader(headers map[string]string) 
 
 func (t *EventFarmRestClient) getOAuthAccessToken() (oAuthAccessToken *OAuthAccessToken, err error) {
 	if t.oAuthAccessToken == nil {
-		t.oAuthAccessToken, err = t.getClientCredentialsAccessToken()
+		t.oAuthAccessToken, err = t.getPasswordGrantAccessToken()
 		if err != nil {
 			return
 		}
@@ -166,13 +133,13 @@ func (t *EventFarmRestClient) getOAuthAccessToken() (oAuthAccessToken *OAuthAcce
 		if t.oAuthAccessToken.refreshToken != `` {
 			t.oAuthAccessToken, err = t.getRefreshToken(t.oAuthAccessToken.refreshToken)
 			if err != nil {
-				oAuthAccessToken, err = t.getClientCredentialsAccessToken()
+				oAuthAccessToken, err = t.getPasswordGrantAccessToken()
 				if err != nil {
 					return
 				}
 			}
 		} else {
-			t.oAuthAccessToken, err = t.getClientCredentialsAccessToken()
+			t.oAuthAccessToken, err = t.getPasswordGrantAccessToken()
 			if err != nil {
 				return
 			}
@@ -191,7 +158,7 @@ func (t *EventFarmRestClient) getRefreshToken(refreshToken string) (oAuthAccessT
 	values.Add(`client_secret`, t.clientSecret)
 
 	resp, err := t.accessTokenRestClient.Post(
-		`/oauth/token.json`,
+		`/oauth2/token`,
 		&values,
 		nil,
 		nil,
@@ -209,14 +176,16 @@ func (t *EventFarmRestClient) getRefreshToken(refreshToken string) (oAuthAccessT
 	return
 }
 
-func (t *EventFarmRestClient) getClientCredentialsAccessToken() (oAuthAccessToken *OAuthAccessToken, err error) {
+func (t *EventFarmRestClient) getPasswordGrantAccessToken() (oAuthAccessToken *OAuthAccessToken, err error) {
 	values := url.Values{}
-	values.Add(`grant_type`, `client_credentials`)
+	values.Add(`grant_type`, `password`)
 	values.Add(`client_id`, t.clientId)
 	values.Add(`client_secret`, t.clientSecret)
+	values.Add(`username`, t.username)
+	values.Add(`password`, t.password)
 
 	resp, err := t.accessTokenRestClient.Post(
-		`/oauth/token.json`,
+		`/oauth2/token`,
 		&values,
 		nil,
 		nil,
