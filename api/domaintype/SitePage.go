@@ -1,3 +1,7 @@
+/**
+ *  This file was auto generated, please do not edit it directly.
+**/
+
 package domaintype
 
 type SitePage struct {
