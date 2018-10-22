@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"bitbucket.ef.network/go/sdk"
+	"github.com/eventfarm/go-sdk"
 )
 
 type UserIdentifier struct {

@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"bitbucket.ef.network/go/sdk"
+	"github.com/eventfarm/go-sdk"
 )
 
 type Promotion struct {

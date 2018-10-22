@@ -4,7 +4,7 @@
 
 package usecase
 
-import "bitbucket.ef.network/go/sdk"
+import "github.com/eventfarm/go-sdk"
 
 type Factory struct {
 	restClient sdk.RestClientInterface
