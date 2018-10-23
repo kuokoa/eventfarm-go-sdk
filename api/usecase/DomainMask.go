@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type DomainMask struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewDomainMask(restClient sdk.RestClientInterface) *DomainMask {
+func NewDomainMask(restClient rest.RestClientInterface) *DomainMask {
 	return &DomainMask{restClient}
 }
 

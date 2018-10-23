@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Integration struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewIntegration(restClient sdk.RestClientInterface) *Integration {
+func NewIntegration(restClient rest.RestClientInterface) *Integration {
 	return &Integration{restClient}
 }
 

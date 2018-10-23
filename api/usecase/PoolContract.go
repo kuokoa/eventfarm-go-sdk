@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type PoolContract struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewPoolContract(restClient sdk.RestClientInterface) *PoolContract {
+func NewPoolContract(restClient rest.RestClientInterface) *PoolContract {
 	return &PoolContract{restClient}
 }
 

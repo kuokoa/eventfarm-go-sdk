@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type UserIdentifier struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewUserIdentifier(restClient sdk.RestClientInterface) *UserIdentifier {
+func NewUserIdentifier(restClient rest.RestClientInterface) *UserIdentifier {
 	return &UserIdentifier{restClient}
 }
 

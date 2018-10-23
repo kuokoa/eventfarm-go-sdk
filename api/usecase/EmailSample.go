@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type EmailSample struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewEmailSample(restClient sdk.RestClientInterface) *EmailSample {
+func NewEmailSample(restClient rest.RestClientInterface) *EmailSample {
 	return &EmailSample{restClient}
 }
 

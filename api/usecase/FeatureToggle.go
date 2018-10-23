@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type FeatureToggle struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewFeatureToggle(restClient sdk.RestClientInterface) *FeatureToggle {
+func NewFeatureToggle(restClient rest.RestClientInterface) *FeatureToggle {
 	return &FeatureToggle{restClient}
 }
 

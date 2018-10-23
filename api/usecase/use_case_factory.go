@@ -4,13 +4,13 @@
 
 package usecase
 
-import "github.com/eventfarm/go-sdk"
+import "github.com/eventfarm/go-sdk/rest"
 
 type Factory struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewUseCaseFactory(restClient sdk.RestClientInterface) *Factory {
+func NewUseCaseFactory(restClient rest.RestClientInterface) *Factory {
 	return &Factory{restClient}
 }
 

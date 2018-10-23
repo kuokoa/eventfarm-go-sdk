@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Invitation struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewInvitation(restClient sdk.RestClientInterface) *Invitation {
+func NewInvitation(restClient rest.RestClientInterface) *Invitation {
 	return &Invitation{restClient}
 }
 

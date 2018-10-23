@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Salutation struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewSalutation(restClient sdk.RestClientInterface) *Salutation {
+func NewSalutation(restClient rest.RestClientInterface) *Salutation {
 	return &Salutation{restClient}
 }
 

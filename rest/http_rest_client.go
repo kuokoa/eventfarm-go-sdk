@@ -1,4 +1,4 @@
-package sdk
+package rest
 
 import (
 	"bytes"

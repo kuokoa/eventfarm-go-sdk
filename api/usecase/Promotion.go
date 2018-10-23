@@ -10,14 +10,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Promotion struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewPromotion(restClient sdk.RestClientInterface) *Promotion {
+func NewPromotion(restClient rest.RestClientInterface) *Promotion {
 	return &Promotion{restClient}
 }
 

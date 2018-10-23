@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type OAuth2 struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewOAuth2(restClient sdk.RestClientInterface) *OAuth2 {
+func NewOAuth2(restClient rest.RestClientInterface) *OAuth2 {
 	return &OAuth2{restClient}
 }
 

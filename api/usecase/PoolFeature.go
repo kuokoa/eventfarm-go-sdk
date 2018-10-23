@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type PoolFeature struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewPoolFeature(restClient sdk.RestClientInterface) *PoolFeature {
+func NewPoolFeature(restClient rest.RestClientInterface) *PoolFeature {
 	return &PoolFeature{restClient}
 }
 

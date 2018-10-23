@@ -1,14 +1,13 @@
 package main
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"log"
 	"os"
 
-	"bitbucket.ef.network/go/sdk"
-	"bitbucket.ef.network/go/sdk/api/domaintype"
-	"bitbucket.ef.network/go/sdk/api/usecase"
-	"encoding/json"
-	"io/ioutil"
+	"github.com/eventfarm/go-sdk/api/usecase"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type EventAttributes struct {
@@ -75,22 +74,28 @@ type EventsResponse struct {
 
 func main() {
 	testUseCase()
-	testType()
-}
-
-func testType() {
-	typeFactory := domaintype.NewDomainTypeFactory()
-
-	log.Printf("%+v", typeFactory.GetInvitationDomainModel().GetInvitationStatusType()[0])
 }
 
 func testUseCase() {
-	c := sdk.NewEventFarmRestClientForStage(
-		os.Getenv(`EF_STAGE`),
+	apiDomain := os.Getenv(`EF_API_DOMAIN`)
+	restClient := rest.NewHttpRestClient(apiDomain)
+	restClient.EnableLogging = true
+
+	authDomain := os.Getenv(`EF_AUTH_DOMAIN`)
+	accessTokenRestClient := rest.NewHttpRestClient(authDomain)
+	accessTokenRestClient.EnableLogging = true
+
+	c := *rest.NewEventFarmRestClient(
+		restClient,
+		accessTokenRestClient,
 		os.Getenv(`EF_CLIENT_ID`),
 		os.Getenv(`EF_CLIENT_SECRET`),
+		os.Getenv(`EF_USER`),
+		os.Getenv(`EF_PASSWORD`),
+		nil,
 	)
-	uc := usecase.NewUseCaseFactory(c)
+
+	uc := usecase.NewUseCaseFactory(&c)
 
 	page := 1
 	itemsPerPage := 20
@@ -106,11 +111,11 @@ func testUseCase() {
 		`QuestionsAndAnswers`,
 	}
 	resp, err := uc.Event().ListEventsForUser(&usecase.ListEventsForUserParameters{
-		UserId: `7fff1483-0000-4578-ad31-f6114a033eb7`,
-		WithData: &withData,
-		Page: &page,
-		ItemsPerPage: &itemsPerPage,
-		SortBy: &sortBy,
+		UserId:        `7fff1483-0000-4578-ad31-f6114a033eb7`,
+		WithData:      &withData,
+		Page:          &page,
+		ItemsPerPage:  &itemsPerPage,
+		SortBy:        &sortBy,
 		SortDirection: &sortDirection,
 	})
 	if err != nil {

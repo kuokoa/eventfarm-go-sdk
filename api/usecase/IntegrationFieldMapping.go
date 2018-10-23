@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type IntegrationFieldMapping struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewIntegrationFieldMapping(restClient sdk.RestClientInterface) *IntegrationFieldMapping {
+func NewIntegrationFieldMapping(restClient rest.RestClientInterface) *IntegrationFieldMapping {
 	return &IntegrationFieldMapping{restClient}
 }
 

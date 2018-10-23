@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type SalesforcePoolSetting struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewSalesforcePoolSetting(restClient sdk.RestClientInterface) *SalesforcePoolSetting {
+func NewSalesforcePoolSetting(restClient rest.RestClientInterface) *SalesforcePoolSetting {
 	return &SalesforcePoolSetting{restClient}
 }
 

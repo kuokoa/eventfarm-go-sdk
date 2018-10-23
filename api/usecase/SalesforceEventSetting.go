@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type SalesforceEventSetting struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewSalesforceEventSetting(restClient sdk.RestClientInterface) *SalesforceEventSetting {
+func NewSalesforceEventSetting(restClient rest.RestClientInterface) *SalesforceEventSetting {
 	return &SalesforceEventSetting{restClient}
 }
 

@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Group struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewGroup(restClient sdk.RestClientInterface) *Group {
+func NewGroup(restClient rest.RestClientInterface) *Group {
 	return &Group{restClient}
 }
 

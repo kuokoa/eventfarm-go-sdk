@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type SitePage struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewSitePage(restClient sdk.RestClientInterface) *SitePage {
+func NewSitePage(restClient rest.RestClientInterface) *SitePage {
 	return &SitePage{restClient}
 }
 

@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Canvas struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewCanvas(restClient sdk.RestClientInterface) *Canvas {
+func NewCanvas(restClient rest.RestClientInterface) *Canvas {
 	return &Canvas{restClient}
 }
 

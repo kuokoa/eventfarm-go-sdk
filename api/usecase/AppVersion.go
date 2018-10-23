@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type AppVersion struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewAppVersion(restClient sdk.RestClientInterface) *AppVersion {
+func NewAppVersion(restClient rest.RestClientInterface) *AppVersion {
 	return &AppVersion{restClient}
 }
 

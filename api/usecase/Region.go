@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Region struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewRegion(restClient sdk.RestClientInterface) *Region {
+func NewRegion(restClient rest.RestClientInterface) *Region {
 	return &Region{restClient}
 }
 

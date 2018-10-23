@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Salesforce struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewSalesforce(restClient sdk.RestClientInterface) *Salesforce {
+func NewSalesforce(restClient rest.RestClientInterface) *Salesforce {
 	return &Salesforce{restClient}
 }
 

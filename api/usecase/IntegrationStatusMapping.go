@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type IntegrationStatusMapping struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewIntegrationStatusMapping(restClient sdk.RestClientInterface) *IntegrationStatusMapping {
+func NewIntegrationStatusMapping(restClient rest.RestClientInterface) *IntegrationStatusMapping {
 	return &IntegrationStatusMapping{restClient}
 }
 

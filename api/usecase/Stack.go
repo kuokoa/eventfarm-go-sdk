@@ -10,14 +10,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Stack struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewStack(restClient sdk.RestClientInterface) *Stack {
+func NewStack(restClient rest.RestClientInterface) *Stack {
 	return &Stack{restClient}
 }
 

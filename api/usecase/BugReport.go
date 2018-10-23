@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type BugReport struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewBugReport(restClient sdk.RestClientInterface) *BugReport {
+func NewBugReport(restClient rest.RestClientInterface) *BugReport {
 	return &BugReport{restClient}
 }
 

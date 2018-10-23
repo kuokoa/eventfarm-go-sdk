@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type TicketBlock struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewTicketBlock(restClient sdk.RestClientInterface) *TicketBlock {
+func NewTicketBlock(restClient rest.RestClientInterface) *TicketBlock {
 	return &TicketBlock{restClient}
 }
 

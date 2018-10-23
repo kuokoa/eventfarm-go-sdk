@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type User struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewUser(restClient sdk.RestClientInterface) *User {
+func NewUser(restClient rest.RestClientInterface) *User {
 	return &User{restClient}
 }
 

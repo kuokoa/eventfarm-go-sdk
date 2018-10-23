@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type EmailTemplate struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewEmailTemplate(restClient sdk.RestClientInterface) *EmailTemplate {
+func NewEmailTemplate(restClient rest.RestClientInterface) *EmailTemplate {
 	return &EmailTemplate{restClient}
 }
 

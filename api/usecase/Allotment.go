@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Allotment struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewAllotment(restClient sdk.RestClientInterface) *Allotment {
+func NewAllotment(restClient rest.RestClientInterface) *Allotment {
 	return &Allotment{restClient}
 }
 

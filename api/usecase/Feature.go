@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Feature struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewFeature(restClient sdk.RestClientInterface) *Feature {
+func NewFeature(restClient rest.RestClientInterface) *Feature {
 	return &Feature{restClient}
 }
 

@@ -9,14 +9,14 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk"
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Queue struct {
-	restClient sdk.RestClientInterface
+	restClient rest.RestClientInterface
 }
 
-func NewQueue(restClient sdk.RestClientInterface) *Queue {
+func NewQueue(restClient rest.RestClientInterface) *Queue {
 	return &Queue{restClient}
 }
 
