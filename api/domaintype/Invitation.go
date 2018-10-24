@@ -1107,7 +1107,7 @@ func (f *Invitation) ListWebhookTypes() []WebhookType {
 		},
 		{
 			Slug:             `removed`,
-			Name:             `Updated`,
+			Name:             `Removed`,
 			Description:      ``,
 			IsAffirmative:    false,
 			IsAssigned:       false,

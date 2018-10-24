@@ -440,7 +440,7 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 
 // @param string UserId
 // @param string PoolId
-// @param string EventId
+// @param string|null EventId
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-250
 // @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
@@ -451,7 +451,7 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 type ListInvitationsForUserParameters struct {
 	UserId              string
 	PoolId              string
-	EventId             string
+	EventId             *string
 	Page                *int
 	ItemsPerPage        *int
 	EventDateFilterType *string
@@ -463,6 +463,66 @@ type ListInvitationsForUserParameters struct {
 func (t *Invitation) ListInvitationsForUser(p *ListInvitationsForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`userId`, p.UserId)
+	queryParameters.Add(`poolId`, p.PoolId)
+	if p.EventId != nil {
+		queryParameters.Add(`eventId`, *p.EventId)
+	}
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+	}
+	if p.EventDateFilterType != nil {
+		queryParameters.Add(`eventDateFilterType`, *p.EventDateFilterType)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.StatusFilter != nil {
+		for i := range *p.StatusFilter {
+			queryParameters.Add(`statusFilter[]`, (*p.StatusFilter)[i])
+		}
+	}
+
+	return t.restClient.Get(
+		`/v2/Invitation/UseCase/ListInvitationsForUser`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+// @param string Email
+// @param string PoolId
+// @param string EventId
+// @param int|null Page >= 1
+// @param int|null ItemsPerPage 1-250
+// @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
+// @param string|null SortDirection
+// @param array|null WithData Event|Stack
+// @param array|null StatusFilter
+
+type ListInvitationsForUserByEmailParameters struct {
+	Email               string
+	PoolId              string
+	EventId             string
+	Page                *int
+	ItemsPerPage        *int
+	EventDateFilterType *string
+	SortDirection       *string
+	WithData            *[]string
+	StatusFilter        *[]string
+}
+
+func (t *Invitation) ListInvitationsForUserByEmail(p *ListInvitationsForUserByEmailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`email`, p.Email)
 	queryParameters.Add(`poolId`, p.PoolId)
 	queryParameters.Add(`eventId`, p.EventId)
 	if p.Page != nil {
@@ -489,7 +549,7 @@ func (t *Invitation) ListInvitationsForUser(p *ListInvitationsForUserParameters)
 	}
 
 	return t.restClient.Get(
-		`/v2/Invitation/UseCase/ListInvitationsForUser`,
+		`/v2/Invitation/UseCase/ListInvitationsForUserByEmail`,
 		&queryParameters,
 		nil,
 		nil,

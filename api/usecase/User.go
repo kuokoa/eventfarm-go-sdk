@@ -77,6 +77,38 @@ func (t *User) GetUser(p *GetUserParameters) (r *http.Response, err error) {
 	)
 }
 
+// @param string Email
+// @param array|null WithData UserName|UserAddress|UserToken|isEFAdmin|internalUserName
+// @param array|null WithUserAttributes internal|info|hover|facebook|linked-in|salesforce|twitter|convio|google|custom
+
+type GetUserByEmailParameters struct {
+	Email              string
+	WithData           *[]string
+	WithUserAttributes *[]string
+}
+
+func (t *User) GetUserByEmail(p *GetUserByEmailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`email`, p.Email)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.WithUserAttributes != nil {
+		for i := range *p.WithUserAttributes {
+			queryParameters.Add(`withUserAttributes[]`, (*p.WithUserAttributes)[i])
+		}
+	}
+
+	return t.restClient.Get(
+		`/v2/User/UseCase/GetUserByEmail`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 // @param string PoolId
 // @param string UserId
 // @param array|null WithData UserName|UserAddress|UserToken|UserIdentifier|isEFAdmin|internalUserName

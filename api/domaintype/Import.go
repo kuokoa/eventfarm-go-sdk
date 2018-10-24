@@ -484,7 +484,7 @@ func (f *Import) ListImportColumnHeaderTypes() []ImportColumnHeaderType {
 		},
 		{
 			Slug:              `telephone`,
-			Name:              `Telephone`,
+			Name:              `Mobile Phone`,
 			Description:       ``,
 			IsAddress1:        false,
 			IsAddress2:        false,
