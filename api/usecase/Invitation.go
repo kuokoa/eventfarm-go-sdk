@@ -439,7 +439,7 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 }
 
 // @param string UserId
-// @param string PoolId
+// @param string|null PoolId
 // @param string|null EventId
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-250
@@ -450,7 +450,7 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 
 type ListInvitationsForUserParameters struct {
 	UserId              string
-	PoolId              string
+	PoolId              *string
 	EventId             *string
 	Page                *int
 	ItemsPerPage        *int
@@ -463,7 +463,9 @@ type ListInvitationsForUserParameters struct {
 func (t *Invitation) ListInvitationsForUser(p *ListInvitationsForUserParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`userId`, p.UserId)
-	queryParameters.Add(`poolId`, p.PoolId)
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
+	}
 	if p.EventId != nil {
 		queryParameters.Add(`eventId`, *p.EventId)
 	}
@@ -499,7 +501,7 @@ func (t *Invitation) ListInvitationsForUser(p *ListInvitationsForUserParameters)
 }
 
 // @param string Email
-// @param string PoolId
+// @param string|null PoolId
 // @param string|null EventId
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-250
@@ -510,7 +512,7 @@ func (t *Invitation) ListInvitationsForUser(p *ListInvitationsForUserParameters)
 
 type ListInvitationsForUserByEmailParameters struct {
 	Email               string
-	PoolId              string
+	PoolId              *string
 	EventId             *string
 	Page                *int
 	ItemsPerPage        *int
@@ -523,7 +525,9 @@ type ListInvitationsForUserByEmailParameters struct {
 func (t *Invitation) ListInvitationsForUserByEmail(p *ListInvitationsForUserByEmailParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`email`, p.Email)
-	queryParameters.Add(`poolId`, p.PoolId)
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
+	}
 	if p.EventId != nil {
 		queryParameters.Add(`eventId`, *p.EventId)
 	}
@@ -560,7 +564,7 @@ func (t *Invitation) ListInvitationsForUserByEmail(p *ListInvitationsForUserByEm
 
 // @param string UserId
 // @param string ParentEventId
-// @param string PoolId
+// @param string|null PoolId
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
 // @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
@@ -571,7 +575,7 @@ func (t *Invitation) ListInvitationsForUserByEmail(p *ListInvitationsForUserByEm
 type ListInvitationsForUserForParentParameters struct {
 	UserId              string
 	ParentEventId       string
-	PoolId              string
+	PoolId              *string
 	Page                *int
 	ItemsPerPage        *int
 	EventDateFilterType *string
@@ -584,7 +588,9 @@ func (t *Invitation) ListInvitationsForUserForParent(p *ListInvitationsForUserFo
 	queryParameters := url.Values{}
 	queryParameters.Add(`userId`, p.UserId)
 	queryParameters.Add(`parentEventId`, p.ParentEventId)
-	queryParameters.Add(`poolId`, p.PoolId)
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
+	}
 	if p.Page != nil {
 		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
 	}
