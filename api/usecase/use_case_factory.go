@@ -126,6 +126,10 @@ func (f *Factory) Promotion() *Promotion {
 	return NewPromotion(f.restClient)
 }
 
+func (f *Factory) Question() *Question {
+	return NewQuestion(f.restClient)
+}
+
 func (f *Factory) Queue() *Queue {
 	return NewQueue(f.restClient)
 }
