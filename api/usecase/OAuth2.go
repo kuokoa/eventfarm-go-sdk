@@ -56,6 +56,24 @@ func (t *OAuth2) CreateOAuthClient(p *CreateOAuthClientParameters) (r *http.Resp
 }
 
 // @param string Identifier
+
+type RevokeAccessTokenParameters struct {
+	Identifier string
+}
+
+func (t *OAuth2) RevokeAccessToken(p *RevokeAccessTokenParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`identifier`, p.Identifier)
+
+	return t.restClient.Post(
+		`/v2/OAuth2/UseCase/RevokeAccessToken`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+// @param string Identifier
 // @param array RedirectUrls
 
 type SetRedirectUrlsForOAuthClientParameters struct {

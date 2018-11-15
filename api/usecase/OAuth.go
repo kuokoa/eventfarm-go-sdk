@@ -56,21 +56,3 @@ func (t *OAuth) CreateGhostAccessToken(p *CreateGhostAccessTokenParameters) (r *
 		nil,
 	)
 }
-
-// @param string Identifier
-
-type RevokeAccessTokenParameters struct {
-	Identifier string
-}
-
-func (t *OAuth) RevokeAccessToken(p *RevokeAccessTokenParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`identifier`, p.Identifier)
-
-	return t.restClient.Post(
-		`/v2/OAuth/UseCase/RevokeAccessToken`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}

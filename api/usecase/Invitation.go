@@ -445,7 +445,7 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 // @param int|null ItemsPerPage 1-250
 // @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
 // @param string|null SortDirection
-// @param array|null WithData Event|Stack
+// @param array|null WithData Event|Stack|StackAndTicketType
 // @param array|null StatusFilter
 
 type ListInvitationsForUserParameters struct {
@@ -507,7 +507,7 @@ func (t *Invitation) ListInvitationsForUser(p *ListInvitationsForUserParameters)
 // @param int|null ItemsPerPage 1-250
 // @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
 // @param string|null SortDirection
-// @param array|null WithData Event|Stack
+// @param array|null WithData Event|Stack|StackAndTicketType
 // @param array|null StatusFilter
 
 type ListInvitationsForUserByEmailParameters struct {

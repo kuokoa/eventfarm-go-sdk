@@ -46,7 +46,9 @@ type PoolContractType struct {
 	Slug          string
 	Name          string
 	Description   string
+	IsCIO         bool
 	IsIntro       bool
+	IsTrial       bool
 	IsPro         bool
 	IsPremier     bool
 	IsPremierPlus bool
@@ -220,10 +222,36 @@ func (f *Pool) ListPoolContactTypes() []PoolContactType {
 func (f *Pool) ListPoolContractTypes() []PoolContractType {
 	return []PoolContractType{
 		{
+			Slug:          `cio`,
+			Name:          `CIO`,
+			Description:   ``,
+			IsCIO:         true,
+			IsIntro:       false,
+			IsTrial:       false,
+			IsPro:         false,
+			IsPremier:     false,
+			IsPremierPlus: false,
+			IsCustom:      false,
+		},
+		{
 			Slug:          `intro`,
 			Name:          `Intro`,
 			Description:   ``,
+			IsCIO:         false,
 			IsIntro:       true,
+			IsTrial:       false,
+			IsPro:         false,
+			IsPremier:     false,
+			IsPremierPlus: false,
+			IsCustom:      false,
+		},
+		{
+			Slug:          `trial`,
+			Name:          `Trial`,
+			Description:   ``,
+			IsCIO:         false,
+			IsIntro:       false,
+			IsTrial:       true,
 			IsPro:         false,
 			IsPremier:     false,
 			IsPremierPlus: false,
@@ -233,7 +261,9 @@ func (f *Pool) ListPoolContractTypes() []PoolContractType {
 			Slug:          `pro`,
 			Name:          `Pro`,
 			Description:   ``,
+			IsCIO:         false,
 			IsIntro:       false,
+			IsTrial:       false,
 			IsPro:         true,
 			IsPremier:     false,
 			IsPremierPlus: false,
@@ -243,7 +273,9 @@ func (f *Pool) ListPoolContractTypes() []PoolContractType {
 			Slug:          `premier`,
 			Name:          `Premier`,
 			Description:   ``,
+			IsCIO:         false,
 			IsIntro:       false,
+			IsTrial:       false,
 			IsPro:         false,
 			IsPremier:     true,
 			IsPremierPlus: false,
@@ -253,7 +285,9 @@ func (f *Pool) ListPoolContractTypes() []PoolContractType {
 			Slug:          `premierPlus`,
 			Name:          `Premier Plus`,
 			Description:   ``,
+			IsCIO:         false,
 			IsIntro:       false,
+			IsTrial:       false,
 			IsPro:         false,
 			IsPremier:     false,
 			IsPremierPlus: true,
@@ -263,7 +297,9 @@ func (f *Pool) ListPoolContractTypes() []PoolContractType {
 			Slug:          `custom`,
 			Name:          `Custom`,
 			Description:   ``,
+			IsCIO:         false,
 			IsIntro:       false,
+			IsTrial:       false,
 			IsPro:         false,
 			IsPremier:     false,
 			IsPremierPlus: false,

@@ -48,11 +48,13 @@ func (t *User) CheckIfUserCanBeRemovedFromPool(p *CheckIfUserCanBeRemovedFromPoo
 // @param string UserId
 // @param array|null WithData UserName|UserAddress|UserToken|UserIdentifier|isEFAdmin|internalUserName
 // @param array|null WithUserAttributes internal|info|hover|facebook|linked-in|salesforce|twitter|convio|google|custom
+// @param string|null PoolId
 
 type GetUserParameters struct {
 	UserId             string
 	WithData           *[]string
 	WithUserAttributes *[]string
+	PoolId             *string
 }
 
 func (t *User) GetUser(p *GetUserParameters) (r *http.Response, err error) {
@@ -68,6 +70,9 @@ func (t *User) GetUser(p *GetUserParameters) (r *http.Response, err error) {
 			queryParameters.Add(`withUserAttributes[]`, (*p.WithUserAttributes)[i])
 		}
 	}
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
+	}
 
 	return t.restClient.Get(
 		`/v2/User/UseCase/GetUser`,
@@ -80,11 +85,13 @@ func (t *User) GetUser(p *GetUserParameters) (r *http.Response, err error) {
 // @param string Email
 // @param array|null WithData UserName|UserAddress|UserToken|isEFAdmin|internalUserName
 // @param array|null WithUserAttributes internal|info|hover|facebook|linked-in|salesforce|twitter|convio|google|custom
+// @param string|null PoolId
 
 type GetUserByEmailParameters struct {
 	Email              string
 	WithData           *[]string
 	WithUserAttributes *[]string
+	PoolId             *string
 }
 
 func (t *User) GetUserByEmail(p *GetUserByEmailParameters) (r *http.Response, err error) {
@@ -99,6 +106,9 @@ func (t *User) GetUserByEmail(p *GetUserByEmailParameters) (r *http.Response, er
 		for i := range *p.WithUserAttributes {
 			queryParameters.Add(`withUserAttributes[]`, (*p.WithUserAttributes)[i])
 		}
+	}
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
 	}
 
 	return t.restClient.Get(
