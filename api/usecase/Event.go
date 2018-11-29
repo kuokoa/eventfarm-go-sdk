@@ -65,7 +65,7 @@ func (t *Event) GetAllQuestionsForEvent(p *GetAllQuestionsForEventParameters) (r
 }
 
 // @param string EventId
-// @param array|null WithData Pool|Stacks|StacksWithAvailabilityCounts|Tags|EventTexts|TicketTypes|TicketBlocks|TicketBlocksWithAllotmentCounts|QuestionsAndAnswers|QuestionContext|AllQuestions
+// @param array|null WithData Pool|Stacks|StacksWithAvailabilityCounts|Tags|EventTexts|TicketTypes|TicketBlocks|TicketBlocksWithAllotmentCounts|QuestionsAndAnswers|QuestionContext|AllQuestions|ParentEvent
 
 type GetEventParameters struct {
 	EventId  string
@@ -139,7 +139,7 @@ func (t *Event) GetQuestion(p *GetQuestionParameters) (r *http.Response, err err
 
 // @param string ParentEventId
 // @param string|null Query
-// @param array|null WithData Pool|Stacks|Tags|TicketTypes|TicketBlocks|QuestionsAndAnswers|ThumbnailUrl
+// @param array|null WithData Pool|Stacks|Tags|TicketTypes|TicketBlocks|EventTexts|QuestionsAndAnswers|ThumbnailUrl
 // @param int|null Page >= 1
 // @param int|null ItemsPerPage 1-100
 // @param string|null SortBy event-start|event-end|name|event-created

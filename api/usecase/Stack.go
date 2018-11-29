@@ -48,7 +48,7 @@ func (t *Stack) GetStack(p *GetStackParameters) (r *http.Response, err error) {
 }
 
 // @param string EventId
-// @param array|null WithData TicketType|Event
+// @param array|null WithData TicketType|Event|availibilityCounts
 // @param array|null ExcludeStackMethodFilter
 // @param bool|null ShouldHideDeleted true|false
 // @param string|null Query
@@ -292,6 +292,84 @@ func (t *Stack) CreateStack(p *CreateStackParameters) (r *http.Response, err err
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/CreateStack`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+// @param string EventId
+// @param string TicketTypeId
+// @param bool PrivateInvite true|false
+// @param bool Fcfs true|false
+// @param int Quantity
+// @param int MaxQty
+// @param float|null Price
+// @param float|null ServiceFee
+// @param int|null OpeningTime
+// @param int|null ClosingTime
+// @param bool|null Transferable true|false
+// @param string|null InviteDesignId
+// @param string|null ConfirmDesignId
+// @param string|null DeclineDesignId
+// @param string|null StackId
+
+type CreateStackFromSettingsParameters struct {
+	EventId         string
+	TicketTypeId    string
+	PrivateInvite   bool
+	Fcfs            bool
+	Quantity        int
+	MaxQty          int
+	Price           *float64
+	ServiceFee      *float64
+	OpeningTime     *int
+	ClosingTime     *int
+	Transferable    *bool
+	InviteDesignId  *string
+	ConfirmDesignId *string
+	DeclineDesignId *string
+	StackId         *string
+}
+
+func (t *Stack) CreateStackFromSettings(p *CreateStackFromSettingsParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
+	queryParameters.Add(`privateInvite`, strconv.FormatBool(p.PrivateInvite))
+	queryParameters.Add(`fcfs`, strconv.FormatBool(p.Fcfs))
+	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
+	queryParameters.Add(`maxQty`, strconv.Itoa(p.MaxQty))
+	if p.Price != nil {
+		queryParameters.Add(`price`, fmt.Sprintf("%f", *p.Price))
+	}
+	if p.ServiceFee != nil {
+		queryParameters.Add(`serviceFee`, fmt.Sprintf("%f", *p.ServiceFee))
+	}
+	if p.OpeningTime != nil {
+		queryParameters.Add(`openingTime`, strconv.Itoa(*p.OpeningTime))
+	}
+	if p.ClosingTime != nil {
+		queryParameters.Add(`closingTime`, strconv.Itoa(*p.ClosingTime))
+	}
+	if p.Transferable != nil {
+		queryParameters.Add(`transferable`, strconv.FormatBool(*p.Transferable))
+	}
+	if p.InviteDesignId != nil {
+		queryParameters.Add(`inviteDesignId`, *p.InviteDesignId)
+	}
+	if p.ConfirmDesignId != nil {
+		queryParameters.Add(`confirmDesignId`, *p.ConfirmDesignId)
+	}
+	if p.DeclineDesignId != nil {
+		queryParameters.Add(`declineDesignId`, *p.DeclineDesignId)
+	}
+	if p.StackId != nil {
+		queryParameters.Add(`stackId`, *p.StackId)
+	}
+
+	return t.restClient.Post(
+		`/v2/Stack/UseCase/CreateStackFromSettings`,
 		&queryParameters,
 		nil,
 		nil,
@@ -564,6 +642,94 @@ func (t *Stack) SetTransferableForStack(p *SetTransferableForStackParameters) (r
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetTransferableForStack`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+// @param string StackId
+// @param string|null EventId
+// @param string|null TicketTypeId
+// @param bool|null PrivateInvite true|false
+// @param bool|null Fcfs true|false
+// @param int|null Quantity
+// @param int|null MaxQty
+// @param float|null Price
+// @param float|null ServiceFee
+// @param int|null OpeningTime
+// @param int|null ClosingTime
+// @param bool|null Transferable true|false
+// @param string|null InviteDesignId
+// @param string|null ConfirmDesignId
+// @param string|null DeclineDesignId
+
+type UpdateStackFromSettingsParameters struct {
+	StackId         string
+	EventId         *string
+	TicketTypeId    *string
+	PrivateInvite   *bool
+	Fcfs            *bool
+	Quantity        *int
+	MaxQty          *int
+	Price           *float64
+	ServiceFee      *float64
+	OpeningTime     *int
+	ClosingTime     *int
+	Transferable    *bool
+	InviteDesignId  *string
+	ConfirmDesignId *string
+	DeclineDesignId *string
+}
+
+func (t *Stack) UpdateStackFromSettings(p *UpdateStackFromSettingsParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`stackId`, p.StackId)
+	if p.EventId != nil {
+		queryParameters.Add(`eventId`, *p.EventId)
+	}
+	if p.TicketTypeId != nil {
+		queryParameters.Add(`ticketTypeId`, *p.TicketTypeId)
+	}
+	if p.PrivateInvite != nil {
+		queryParameters.Add(`privateInvite`, strconv.FormatBool(*p.PrivateInvite))
+	}
+	if p.Fcfs != nil {
+		queryParameters.Add(`fcfs`, strconv.FormatBool(*p.Fcfs))
+	}
+	if p.Quantity != nil {
+		queryParameters.Add(`quantity`, strconv.Itoa(*p.Quantity))
+	}
+	if p.MaxQty != nil {
+		queryParameters.Add(`maxQty`, strconv.Itoa(*p.MaxQty))
+	}
+	if p.Price != nil {
+		queryParameters.Add(`price`, fmt.Sprintf("%f", *p.Price))
+	}
+	if p.ServiceFee != nil {
+		queryParameters.Add(`serviceFee`, fmt.Sprintf("%f", *p.ServiceFee))
+	}
+	if p.OpeningTime != nil {
+		queryParameters.Add(`openingTime`, strconv.Itoa(*p.OpeningTime))
+	}
+	if p.ClosingTime != nil {
+		queryParameters.Add(`closingTime`, strconv.Itoa(*p.ClosingTime))
+	}
+	if p.Transferable != nil {
+		queryParameters.Add(`transferable`, strconv.FormatBool(*p.Transferable))
+	}
+	if p.InviteDesignId != nil {
+		queryParameters.Add(`inviteDesignId`, *p.InviteDesignId)
+	}
+	if p.ConfirmDesignId != nil {
+		queryParameters.Add(`confirmDesignId`, *p.ConfirmDesignId)
+	}
+	if p.DeclineDesignId != nil {
+		queryParameters.Add(`declineDesignId`, *p.DeclineDesignId)
+	}
+
+	return t.restClient.Post(
+		`/v2/Stack/UseCase/UpdateStackFromSettings`,
 		&queryParameters,
 		nil,
 		nil,

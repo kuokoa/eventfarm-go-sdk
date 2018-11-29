@@ -241,7 +241,7 @@ func (t *Pool) ListTagsForPool(p *ListTagsForPoolParameters) (r *http.Response, 
 
 // POST: Commands
 // @param string PoolId
-// @param string PoolContractType cio|intro|trial|pro|premier|premierPlus|custom
+// @param string PoolContractType cio|intro|trial|pro|premier|premierPlus|custom|internal
 // @param int StartDate
 // @param int EndDate
 // @param string|null PoolContractId
@@ -413,7 +413,7 @@ func (t *Pool) SetPrivacyPolicyLinkForPool(p *SetPrivacyPolicyLinkForPoolParamet
 }
 
 // @param string PoolContractId
-// @param string|null PoolContractType cio|intro|trial|pro|premier|premierPlus|custom
+// @param string|null PoolContractType cio|intro|trial|pro|premier|premierPlus|custom|internal
 // @param int|null StartDate
 // @param int|null EndDate
 

@@ -1,0 +1,181 @@
+/**
+ *  This file was auto generated, please do not edit it directly.
+**/
+
+package usecase
+
+import (
+	"net/http"
+	"net/url"
+	"strconv"
+
+	"github.com/eventfarm/go-sdk/rest"
+)
+
+type ActivityLog struct {
+	restClient rest.RestClientInterface
+}
+
+func NewActivityLog(restClient rest.RestClientInterface) *ActivityLog {
+	return &ActivityLog{restClient}
+}
+
+// GET: Queries
+// @param string EventId
+// @param int|null Page >= 1
+// @param int|null ItemsPerPage 1-100
+
+type ListEntriesForEventParameters struct {
+	EventId      string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *ActivityLog) ListEntriesForEvent(p *ListEntriesForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+	}
+
+	return t.restClient.Get(
+		`/v2/ActivityLog/UseCase/ListEntriesForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+// @param string InvitationId
+// @param int|null Page >= 1
+// @param int|null ItemsPerPage 1-100
+
+type ListEntriesForInvitationParameters struct {
+	InvitationId string
+	Page         *int
+	ItemsPerPage *int
+}
+
+func (t *ActivityLog) ListEntriesForInvitation(p *ListEntriesForInvitationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`invitationId`, p.InvitationId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+	}
+
+	return t.restClient.Get(
+		`/v2/ActivityLog/UseCase/ListEntriesForInvitation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+// POST: Commands
+// @param string EventId
+// @param string Action
+// @param string ActionValue
+// @param int ActionTime
+// @param string|null InvitationId
+// @param string|null UserId
+// @param string|null ActionUserId
+// @param string|null ActivityLogId
+
+type CreateActivityLogParameters struct {
+	EventId       string
+	Action        string
+	ActionValue   string
+	ActionTime    int
+	InvitationId  *string
+	UserId        *string
+	ActionUserId  *string
+	ActivityLogId *string
+}
+
+func (t *ActivityLog) CreateActivityLog(p *CreateActivityLogParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`action`, p.Action)
+	queryParameters.Add(`actionValue`, p.ActionValue)
+	queryParameters.Add(`actionTime`, strconv.Itoa(p.ActionTime))
+	if p.InvitationId != nil {
+		queryParameters.Add(`invitationId`, *p.InvitationId)
+	}
+	if p.UserId != nil {
+		queryParameters.Add(`userId`, *p.UserId)
+	}
+	if p.ActionUserId != nil {
+		queryParameters.Add(`actionUserId`, *p.ActionUserId)
+	}
+	if p.ActivityLogId != nil {
+		queryParameters.Add(`activityLogId`, *p.ActivityLogId)
+	}
+
+	return t.restClient.Post(
+		`/v2/ActivityLog/UseCase/CreateActivityLog`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+// @param string EventId
+// @param string Action
+// @param string ActionValue
+// @param int ActionTime
+// @param string Content
+// @param string|null InvitationId
+// @param string|null UserId
+// @param string|null ActionUserId
+// @param string|null ActivityLogId
+// @param string|null ActivityDetailId
+
+type CreateActivityLogAndDetailParameters struct {
+	EventId          string
+	Action           string
+	ActionValue      string
+	ActionTime       int
+	Content          string
+	InvitationId     *string
+	UserId           *string
+	ActionUserId     *string
+	ActivityLogId    *string
+	ActivityDetailId *string
+}
+
+func (t *ActivityLog) CreateActivityLogAndDetail(p *CreateActivityLogAndDetailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`action`, p.Action)
+	queryParameters.Add(`actionValue`, p.ActionValue)
+	queryParameters.Add(`actionTime`, strconv.Itoa(p.ActionTime))
+	queryParameters.Add(`content`, p.Content)
+	if p.InvitationId != nil {
+		queryParameters.Add(`invitationId`, *p.InvitationId)
+	}
+	if p.UserId != nil {
+		queryParameters.Add(`userId`, *p.UserId)
+	}
+	if p.ActionUserId != nil {
+		queryParameters.Add(`actionUserId`, *p.ActionUserId)
+	}
+	if p.ActivityLogId != nil {
+		queryParameters.Add(`activityLogId`, *p.ActivityLogId)
+	}
+	if p.ActivityDetailId != nil {
+		queryParameters.Add(`activityDetailId`, *p.ActivityDetailId)
+	}
+
+	return t.restClient.Post(
+		`/v2/ActivityLog/UseCase/CreateActivityLogAndDetail`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}

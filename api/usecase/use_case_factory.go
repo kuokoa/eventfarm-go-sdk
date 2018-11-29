@@ -14,6 +14,10 @@ func NewUseCaseFactory(restClient rest.RestClientInterface) *Factory {
 	return &Factory{restClient}
 }
 
+func (f *Factory) ActivityLog() *ActivityLog {
+	return NewActivityLog(f.restClient)
+}
+
 func (f *Factory) Allotment() *Allotment {
 	return NewAllotment(f.restClient)
 }
@@ -88,10 +92,6 @@ func (f *Factory) IntegrationFieldMapping() *IntegrationFieldMapping {
 
 func (f *Factory) IntegrationStatusMapping() *IntegrationStatusMapping {
 	return NewIntegrationStatusMapping(f.restClient)
-}
-
-func (f *Factory) Interaction() *Interaction {
-	return NewInteraction(f.restClient)
 }
 
 func (f *Factory) Invitation() *Invitation {

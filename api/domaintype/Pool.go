@@ -53,6 +53,7 @@ type PoolContractType struct {
 	IsPremier     bool
 	IsPremierPlus bool
 	IsCustom      bool
+	IsInternal    bool
 }
 
 type PoolWebhookType struct {
@@ -232,6 +233,7 @@ func (f *Pool) ListPoolContractTypes() []PoolContractType {
 			IsPremier:     false,
 			IsPremierPlus: false,
 			IsCustom:      false,
+			IsInternal:    false,
 		},
 		{
 			Slug:          `intro`,
@@ -244,6 +246,7 @@ func (f *Pool) ListPoolContractTypes() []PoolContractType {
 			IsPremier:     false,
 			IsPremierPlus: false,
 			IsCustom:      false,
+			IsInternal:    false,
 		},
 		{
 			Slug:          `trial`,
@@ -256,6 +259,7 @@ func (f *Pool) ListPoolContractTypes() []PoolContractType {
 			IsPremier:     false,
 			IsPremierPlus: false,
 			IsCustom:      false,
+			IsInternal:    false,
 		},
 		{
 			Slug:          `pro`,
@@ -268,6 +272,7 @@ func (f *Pool) ListPoolContractTypes() []PoolContractType {
 			IsPremier:     false,
 			IsPremierPlus: false,
 			IsCustom:      false,
+			IsInternal:    false,
 		},
 		{
 			Slug:          `premier`,
@@ -280,6 +285,7 @@ func (f *Pool) ListPoolContractTypes() []PoolContractType {
 			IsPremier:     true,
 			IsPremierPlus: false,
 			IsCustom:      false,
+			IsInternal:    false,
 		},
 		{
 			Slug:          `premierPlus`,
@@ -292,6 +298,7 @@ func (f *Pool) ListPoolContractTypes() []PoolContractType {
 			IsPremier:     false,
 			IsPremierPlus: true,
 			IsCustom:      false,
+			IsInternal:    false,
 		},
 		{
 			Slug:          `custom`,
@@ -304,6 +311,20 @@ func (f *Pool) ListPoolContractTypes() []PoolContractType {
 			IsPremier:     false,
 			IsPremierPlus: false,
 			IsCustom:      true,
+			IsInternal:    false,
+		},
+		{
+			Slug:          `internal`,
+			Name:          `Internal`,
+			Description:   ``,
+			IsCIO:         false,
+			IsIntro:       false,
+			IsTrial:       false,
+			IsPro:         false,
+			IsPremier:     false,
+			IsPremierPlus: false,
+			IsCustom:      false,
+			IsInternal:    true,
 		},
 	}
 }
