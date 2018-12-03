@@ -109,8 +109,8 @@ func (t *Queue) GetQueueTask(p *GetQueueTaskParameters) (r *http.Response, err e
 
 type ListQueueCommandsForUserParameters struct {
 	UserId       string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 	IsFinished   *bool
 	IsSuccess    *bool
 }
@@ -119,10 +119,10 @@ func (t *Queue) ListQueueCommandsForUser(p *ListQueueCommandsForUserParameters) 
 	queryParameters := url.Values{}
 	queryParameters.Add(`userId`, p.UserId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 	if p.IsFinished != nil {
 		queryParameters.Add(`isFinished`, strconv.FormatBool(*p.IsFinished))

@@ -27,18 +27,18 @@ func NewRegion(restClient rest.RestClientInterface) *Region {
 
 type ListTimezonesForRegionParameters struct {
 	Query        string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *Region) ListTimezonesForRegion(p *ListTimezonesForRegionParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`query`, p.Query)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(

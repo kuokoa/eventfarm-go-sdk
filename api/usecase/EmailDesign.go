@@ -63,18 +63,18 @@ func (t *EmailDesign) GetEmailDesignImage(p *GetEmailDesignImageParameters) (r *
 
 type ListEmailDesignsByEventParameters struct {
 	EventId      string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *EmailDesign) ListEmailDesignsByEvent(p *ListEmailDesignsByEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(

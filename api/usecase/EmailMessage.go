@@ -81,18 +81,18 @@ func (t *EmailMessage) GetScheduledEmailMessage(p *GetScheduledEmailMessageParam
 
 type ListOutboxEmailMessagesByEventParameters struct {
 	EventId      string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *EmailMessage) ListOutboxEmailMessagesByEvent(p *ListOutboxEmailMessagesByEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -109,18 +109,18 @@ func (t *EmailMessage) ListOutboxEmailMessagesByEvent(p *ListOutboxEmailMessages
 
 type ListScheduledBatchEmailMessagesByEventParameters struct {
 	EventId      string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *EmailMessage) ListScheduledBatchEmailMessagesByEvent(p *ListScheduledBatchEmailMessagesByEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -137,18 +137,18 @@ func (t *EmailMessage) ListScheduledBatchEmailMessagesByEvent(p *ListScheduledBa
 
 type ListScheduledEmailMessagesByEventParameters struct {
 	EventId      string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *EmailMessage) ListScheduledEmailMessagesByEvent(p *ListScheduledEmailMessagesByEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -165,18 +165,18 @@ func (t *EmailMessage) ListScheduledEmailMessagesByEvent(p *ListScheduledEmailMe
 
 type ListSentEmailMessagesByEventParameters struct {
 	EventId      string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *EmailMessage) ListSentEmailMessagesByEvent(p *ListSentEmailMessagesByEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(

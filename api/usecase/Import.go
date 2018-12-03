@@ -81,7 +81,7 @@ type PostProcessAndImportInvitationsParameters struct {
 	UserImportId           string
 	EventId                string
 	StackId                *string
-	GuestsPerInvitation    *int
+	GuestsPerInvitation    *int64
 	InvitationCreationType *string
 	GroupName              *string
 	GroupId                *string
@@ -96,7 +96,7 @@ func (t *Import) PostProcessAndImportInvitations(p *PostProcessAndImportInvitati
 		queryParameters.Add(`stackId`, *p.StackId)
 	}
 	if p.GuestsPerInvitation != nil {
-		queryParameters.Add(`guestsPerInvitation`, strconv.Itoa(*p.GuestsPerInvitation))
+		queryParameters.Add(`guestsPerInvitation`, strconv.FormatInt(*p.GuestsPerInvitation, 10))
 	}
 	if p.InvitationCreationType != nil {
 		queryParameters.Add(`invitationCreationType`, *p.InvitationCreationType)

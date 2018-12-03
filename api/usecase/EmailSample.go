@@ -143,7 +143,7 @@ type CreateEmailSpamResultParameters struct {
 	SpamClient        string
 	TestType          string
 	TestDetails       string
-	IsSpam            int
+	IsSpam            int64
 	EmailSampleId     string
 	EmailSpamResultId *string
 }
@@ -153,7 +153,7 @@ func (t *EmailSample) CreateEmailSpamResult(p *CreateEmailSpamResultParameters) 
 	queryParameters.Add(`spamClient`, p.SpamClient)
 	queryParameters.Add(`testType`, p.TestType)
 	queryParameters.Add(`testDetails`, p.TestDetails)
-	queryParameters.Add(`isSpam`, strconv.Itoa(p.IsSpam))
+	queryParameters.Add(`isSpam`, strconv.FormatInt(p.IsSpam, 10))
 	queryParameters.Add(`emailSampleId`, p.EmailSampleId)
 	if p.EmailSpamResultId != nil {
 		queryParameters.Add(`emailSpamResultId`, *p.EmailSpamResultId)

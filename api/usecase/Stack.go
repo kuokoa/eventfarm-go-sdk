@@ -65,8 +65,8 @@ type ListStacksForEventParameters struct {
 	Query                    *string
 	SortBy                   *string
 	SortDirection            *string
-	Page                     *int
-	ItemsPerPage             *int
+	Page                     *int64
+	ItemsPerPage             *int64
 }
 
 func (t *Stack) ListStacksForEvent(p *ListStacksForEventParameters) (r *http.Response, err error) {
@@ -95,10 +95,10 @@ func (t *Stack) ListStacksForEvent(p *ListStacksForEventParameters) (r *http.Res
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -127,8 +127,8 @@ type ListStacksForPromotionParameters struct {
 	Query                    *string
 	SortBy                   *string
 	SortDirection            *string
-	Page                     *int
-	ItemsPerPage             *int
+	Page                     *int64
+	ItemsPerPage             *int64
 }
 
 func (t *Stack) ListStacksForPromotion(p *ListStacksForPromotionParameters) (r *http.Response, err error) {
@@ -157,10 +157,10 @@ func (t *Stack) ListStacksForPromotion(p *ListStacksForPromotionParameters) (r *
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -177,18 +177,18 @@ func (t *Stack) ListStacksForPromotion(p *ListStacksForPromotionParameters) (r *
 
 type ListStacksForTicketTypeParameters struct {
 	TicketTypeId string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *Stack) ListStacksForTicketType(p *ListStacksForTicketTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -242,12 +242,12 @@ type CreateStackParameters struct {
 	EventId         string
 	TicketTypeId    string
 	MethodId        string
-	Quantity        int
-	MaxQty          int
+	Quantity        int64
+	MaxQty          int64
 	Price           *float64
 	ServiceFee      *float64
-	OpeningTime     *int
-	ClosingTime     *int
+	OpeningTime     *int64
+	ClosingTime     *int64
 	Transferable    *bool
 	InviteDesignId  *string
 	ConfirmDesignId *string
@@ -260,8 +260,8 @@ func (t *Stack) CreateStack(p *CreateStackParameters) (r *http.Response, err err
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
 	queryParameters.Add(`methodId`, p.MethodId)
-	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
-	queryParameters.Add(`maxQty`, strconv.Itoa(p.MaxQty))
+	queryParameters.Add(`quantity`, strconv.FormatInt(p.Quantity, 10))
+	queryParameters.Add(`maxQty`, strconv.FormatInt(p.MaxQty, 10))
 	if p.Price != nil {
 		queryParameters.Add(`price`, fmt.Sprintf("%f", *p.Price))
 	}
@@ -269,10 +269,10 @@ func (t *Stack) CreateStack(p *CreateStackParameters) (r *http.Response, err err
 		queryParameters.Add(`serviceFee`, fmt.Sprintf("%f", *p.ServiceFee))
 	}
 	if p.OpeningTime != nil {
-		queryParameters.Add(`openingTime`, strconv.Itoa(*p.OpeningTime))
+		queryParameters.Add(`openingTime`, strconv.FormatInt(*p.OpeningTime, 10))
 	}
 	if p.ClosingTime != nil {
-		queryParameters.Add(`closingTime`, strconv.Itoa(*p.ClosingTime))
+		queryParameters.Add(`closingTime`, strconv.FormatInt(*p.ClosingTime, 10))
 	}
 	if p.Transferable != nil {
 		queryParameters.Add(`transferable`, strconv.FormatBool(*p.Transferable))
@@ -319,12 +319,12 @@ type CreateStackFromSettingsParameters struct {
 	TicketTypeId    string
 	PrivateInvite   bool
 	Fcfs            bool
-	Quantity        int
-	MaxQty          int
+	Quantity        int64
+	MaxQty          int64
 	Price           *float64
 	ServiceFee      *float64
-	OpeningTime     *int
-	ClosingTime     *int
+	OpeningTime     *int64
+	ClosingTime     *int64
 	Transferable    *bool
 	InviteDesignId  *string
 	ConfirmDesignId *string
@@ -338,8 +338,8 @@ func (t *Stack) CreateStackFromSettings(p *CreateStackFromSettingsParameters) (r
 	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
 	queryParameters.Add(`privateInvite`, strconv.FormatBool(p.PrivateInvite))
 	queryParameters.Add(`fcfs`, strconv.FormatBool(p.Fcfs))
-	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
-	queryParameters.Add(`maxQty`, strconv.Itoa(p.MaxQty))
+	queryParameters.Add(`quantity`, strconv.FormatInt(p.Quantity, 10))
+	queryParameters.Add(`maxQty`, strconv.FormatInt(p.MaxQty, 10))
 	if p.Price != nil {
 		queryParameters.Add(`price`, fmt.Sprintf("%f", *p.Price))
 	}
@@ -347,10 +347,10 @@ func (t *Stack) CreateStackFromSettings(p *CreateStackFromSettingsParameters) (r
 		queryParameters.Add(`serviceFee`, fmt.Sprintf("%f", *p.ServiceFee))
 	}
 	if p.OpeningTime != nil {
-		queryParameters.Add(`openingTime`, strconv.Itoa(*p.OpeningTime))
+		queryParameters.Add(`openingTime`, strconv.FormatInt(*p.OpeningTime, 10))
 	}
 	if p.ClosingTime != nil {
-		queryParameters.Add(`closingTime`, strconv.Itoa(*p.ClosingTime))
+		queryParameters.Add(`closingTime`, strconv.FormatInt(*p.ClosingTime, 10))
 	}
 	if p.Transferable != nil {
 		queryParameters.Add(`transferable`, strconv.FormatBool(*p.Transferable))
@@ -422,13 +422,13 @@ func (t *Stack) RemovePromotionFromStacks(p *RemovePromotionFromStacksParameters
 
 type SetClosingTimeForStackParameters struct {
 	StackId     string
-	ClosingTime int
+	ClosingTime int64
 }
 
 func (t *Stack) SetClosingTimeForStack(p *SetClosingTimeForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`stackId`, p.StackId)
-	queryParameters.Add(`closingTime`, strconv.Itoa(p.ClosingTime))
+	queryParameters.Add(`closingTime`, strconv.FormatInt(p.ClosingTime, 10))
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetClosingTimeForStack`,
@@ -506,13 +506,13 @@ func (t *Stack) SetInviteDesignForStack(p *SetInviteDesignForStackParameters) (r
 
 type SetMaxQuantityForStackParameters struct {
 	StackId     string
-	MaxQuantity int
+	MaxQuantity int64
 }
 
 func (t *Stack) SetMaxQuantityForStack(p *SetMaxQuantityForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`stackId`, p.StackId)
-	queryParameters.Add(`maxQuantity`, strconv.Itoa(p.MaxQuantity))
+	queryParameters.Add(`maxQuantity`, strconv.FormatInt(p.MaxQuantity, 10))
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetMaxQuantityForStack`,
@@ -548,13 +548,13 @@ func (t *Stack) SetMethodForStack(p *SetMethodForStackParameters) (r *http.Respo
 
 type SetOpeningTimeForStackParameters struct {
 	StackId     string
-	OpeningTime int
+	OpeningTime int64
 }
 
 func (t *Stack) SetOpeningTimeForStack(p *SetOpeningTimeForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`stackId`, p.StackId)
-	queryParameters.Add(`openingTime`, strconv.Itoa(p.OpeningTime))
+	queryParameters.Add(`openingTime`, strconv.FormatInt(p.OpeningTime, 10))
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetOpeningTimeForStack`,
@@ -590,13 +590,13 @@ func (t *Stack) SetPriceForStack(p *SetPriceForStackParameters) (r *http.Respons
 
 type SetQuantityForStackParameters struct {
 	StackId  string
-	Quantity int
+	Quantity int64
 }
 
 func (t *Stack) SetQuantityForStack(p *SetQuantityForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`stackId`, p.StackId)
-	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
+	queryParameters.Add(`quantity`, strconv.FormatInt(p.Quantity, 10))
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetQuantityForStack`,
@@ -670,12 +670,12 @@ type UpdateStackFromSettingsParameters struct {
 	TicketTypeId    *string
 	PrivateInvite   *bool
 	Fcfs            *bool
-	Quantity        *int
-	MaxQty          *int
+	Quantity        *int64
+	MaxQty          *int64
 	Price           *float64
 	ServiceFee      *float64
-	OpeningTime     *int
-	ClosingTime     *int
+	OpeningTime     *int64
+	ClosingTime     *int64
 	Transferable    *bool
 	InviteDesignId  *string
 	ConfirmDesignId *string
@@ -698,10 +698,10 @@ func (t *Stack) UpdateStackFromSettings(p *UpdateStackFromSettingsParameters) (r
 		queryParameters.Add(`fcfs`, strconv.FormatBool(*p.Fcfs))
 	}
 	if p.Quantity != nil {
-		queryParameters.Add(`quantity`, strconv.Itoa(*p.Quantity))
+		queryParameters.Add(`quantity`, strconv.FormatInt(*p.Quantity, 10))
 	}
 	if p.MaxQty != nil {
-		queryParameters.Add(`maxQty`, strconv.Itoa(*p.MaxQty))
+		queryParameters.Add(`maxQty`, strconv.FormatInt(*p.MaxQty, 10))
 	}
 	if p.Price != nil {
 		queryParameters.Add(`price`, fmt.Sprintf("%f", *p.Price))
@@ -710,10 +710,10 @@ func (t *Stack) UpdateStackFromSettings(p *UpdateStackFromSettingsParameters) (r
 		queryParameters.Add(`serviceFee`, fmt.Sprintf("%f", *p.ServiceFee))
 	}
 	if p.OpeningTime != nil {
-		queryParameters.Add(`openingTime`, strconv.Itoa(*p.OpeningTime))
+		queryParameters.Add(`openingTime`, strconv.FormatInt(*p.OpeningTime, 10))
 	}
 	if p.ClosingTime != nil {
-		queryParameters.Add(`closingTime`, strconv.Itoa(*p.ClosingTime))
+		queryParameters.Add(`closingTime`, strconv.FormatInt(*p.ClosingTime, 10))
 	}
 	if p.Transferable != nil {
 		queryParameters.Add(`transferable`, strconv.FormatBool(*p.Transferable))

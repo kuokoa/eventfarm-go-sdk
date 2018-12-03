@@ -29,8 +29,8 @@ func NewUserName(restClient rest.RestClientInterface) *UserName {
 type ListNamesForUserParameters struct {
 	PoolId       string
 	UserId       string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *UserName) ListNamesForUser(p *ListNamesForUserParameters) (r *http.Response, err error) {
@@ -38,10 +38,10 @@ func (t *UserName) ListNamesForUser(p *ListNamesForUserParameters) (r *http.Resp
 	queryParameters.Add(`poolId`, p.PoolId)
 	queryParameters.Add(`userId`, p.UserId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(

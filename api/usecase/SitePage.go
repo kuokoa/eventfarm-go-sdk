@@ -45,18 +45,18 @@ func (t *SitePage) GetSitePage(p *GetSitePageParameters) (r *http.Response, err 
 
 type ListSitePagesForEventParameters struct {
 	EventId      string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *SitePage) ListSitePagesForEvent(p *ListSitePagesForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -75,8 +75,8 @@ func (t *SitePage) ListSitePagesForEvent(p *ListSitePagesForEventParameters) (r 
 type ListTemplatesForPoolParameters struct {
 	PoolId                       string
 	ShouldIncludeSharedTemplates *bool
-	Page                         *int
-	ItemsPerPage                 *int
+	Page                         *int64
+	ItemsPerPage                 *int64
 }
 
 func (t *SitePage) ListTemplatesForPool(p *ListTemplatesForPoolParameters) (r *http.Response, err error) {
@@ -86,10 +86,10 @@ func (t *SitePage) ListTemplatesForPool(p *ListTemplatesForPoolParameters) (r *h
 		queryParameters.Add(`shouldIncludeSharedTemplates`, strconv.FormatBool(*p.ShouldIncludeSharedTemplates))
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -114,7 +114,7 @@ type CreateSitePageParameters struct {
 	EventId          string
 	Title            string
 	Content          string
-	DisplayOrder     *int
+	DisplayOrder     *int64
 	SitePageId       *string
 	Styles           *string
 	Scripts          *string
@@ -127,7 +127,7 @@ func (t *SitePage) CreateSitePage(p *CreateSitePageParameters) (r *http.Response
 	queryParameters.Add(`title`, p.Title)
 	queryParameters.Add(`content`, p.Content)
 	if p.DisplayOrder != nil {
-		queryParameters.Add(`displayOrder`, strconv.Itoa(*p.DisplayOrder))
+		queryParameters.Add(`displayOrder`, strconv.FormatInt(*p.DisplayOrder, 10))
 	}
 	if p.SitePageId != nil {
 		queryParameters.Add(`sitePageId`, *p.SitePageId)
@@ -429,7 +429,7 @@ type UpdateSitePageParameters struct {
 	EventId      string
 	Title        string
 	Content      string
-	DisplayOrder *int
+	DisplayOrder *int64
 }
 
 func (t *SitePage) UpdateSitePage(p *UpdateSitePageParameters) (r *http.Response, err error) {
@@ -439,7 +439,7 @@ func (t *SitePage) UpdateSitePage(p *UpdateSitePageParameters) (r *http.Response
 	queryParameters.Add(`title`, p.Title)
 	queryParameters.Add(`content`, p.Content)
 	if p.DisplayOrder != nil {
-		queryParameters.Add(`displayOrder`, strconv.Itoa(*p.DisplayOrder))
+		queryParameters.Add(`displayOrder`, strconv.FormatInt(*p.DisplayOrder, 10))
 	}
 
 	return t.restClient.Post(

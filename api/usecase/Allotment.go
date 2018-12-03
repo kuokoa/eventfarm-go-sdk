@@ -27,18 +27,18 @@ func NewAllotment(restClient rest.RestClientInterface) *Allotment {
 
 type ListAllotmentsForStackParameters struct {
 	StackId      string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *Allotment) ListAllotmentsForStack(p *ListAllotmentsForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`stackId`, p.StackId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -58,7 +58,7 @@ func (t *Allotment) ListAllotmentsForStack(p *ListAllotmentsForStackParameters) 
 type CreateAllotmentParameters struct {
 	TicketBlockId string
 	StackId       string
-	Quantity      int
+	Quantity      int64
 	AllotmentId   *string
 }
 
@@ -66,7 +66,7 @@ func (t *Allotment) CreateAllotment(p *CreateAllotmentParameters) (r *http.Respo
 	queryParameters := url.Values{}
 	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
 	queryParameters.Add(`stackId`, p.StackId)
-	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
+	queryParameters.Add(`quantity`, strconv.FormatInt(p.Quantity, 10))
 	if p.AllotmentId != nil {
 		queryParameters.Add(`allotmentId`, *p.AllotmentId)
 	}
@@ -102,13 +102,13 @@ func (t *Allotment) DeleteAllotment(p *DeleteAllotmentParameters) (r *http.Respo
 
 type SetAllotmentQuantityParameters struct {
 	AllotmentId string
-	Quantity    int
+	Quantity    int64
 }
 
 func (t *Allotment) SetAllotmentQuantity(p *SetAllotmentQuantityParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`allotmentId`, p.AllotmentId)
-	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
+	queryParameters.Add(`quantity`, strconv.FormatInt(p.Quantity, 10))
 
 	return t.restClient.Post(
 		`/v2/Allotment/UseCase/SetAllotmentQuantity`,

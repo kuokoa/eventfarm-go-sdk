@@ -58,8 +58,8 @@ type ListGroupMembershipForUserParameters struct {
 	PoolId           string
 	UserId           string
 	GroupOwnerUserId *string
-	Page             *int
-	ItemsPerPage     *int
+	Page             *int64
+	ItemsPerPage     *int64
 	SortBy           *string
 	SortDirection    *string
 }
@@ -72,10 +72,10 @@ func (t *Group) ListGroupMembershipForUser(p *ListGroupMembershipForUserParamete
 		queryParameters.Add(`groupOwnerUserId`, *p.GroupOwnerUserId)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 	if p.SortBy != nil {
 		queryParameters.Add(`sortBy`, *p.SortBy)
@@ -102,8 +102,8 @@ func (t *Group) ListGroupMembershipForUser(p *ListGroupMembershipForUserParamete
 type ListGroupsOwnedByUserParameters struct {
 	UserId        string
 	Query         *string
-	Page          *int
-	ItemsPerPage  *int
+	Page          *int64
+	ItemsPerPage  *int64
 	SortBy        *string
 	SortDirection *string
 }
@@ -115,10 +115,10 @@ func (t *Group) ListGroupsOwnedByUser(p *ListGroupsOwnedByUserParameters) (r *ht
 		queryParameters.Add(`query`, *p.Query)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 	if p.SortBy != nil {
 		queryParameters.Add(`sortBy`, *p.SortBy)

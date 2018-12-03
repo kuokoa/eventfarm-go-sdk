@@ -37,8 +37,8 @@ type ListQuestionsForEventParameters struct {
 	Query             *string
 	SortBy            *string
 	SortDirection     *string
-	Page              *int
-	ItemsPerPage      *int
+	Page              *int64
+	ItemsPerPage      *int64
 }
 
 func (t *Question) ListQuestionsForEvent(p *ListQuestionsForEventParameters) (r *http.Response, err error) {
@@ -62,10 +62,10 @@ func (t *Question) ListQuestionsForEvent(p *ListQuestionsForEventParameters) (r 
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(

@@ -231,12 +231,12 @@ type ListInvitationsForEventParameters struct {
 	WithUserAttributes    *[]string
 	Query                 *string
 	StatusFilter          *[]string
-	LastModifiedTimestamp *int
+	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
 	SortDirection         *string
-	Page                  *int
-	ItemsPerPage          *int
+	Page                  *int64
+	ItemsPerPage          *int64
 }
 
 func (t *Invitation) ListInvitationsForEvent(p *ListInvitationsForEventParameters) (r *http.Response, err error) {
@@ -261,7 +261,7 @@ func (t *Invitation) ListInvitationsForEvent(p *ListInvitationsForEventParameter
 		}
 	}
 	if p.LastModifiedTimestamp != nil {
-		queryParameters.Add(`lastModifiedTimestamp`, strconv.Itoa(*p.LastModifiedTimestamp))
+		queryParameters.Add(`lastModifiedTimestamp`, strconv.FormatInt(*p.LastModifiedTimestamp, 10))
 	}
 	if p.IsCheckedIn != nil {
 		queryParameters.Add(`isCheckedIn`, strconv.FormatBool(*p.IsCheckedIn))
@@ -273,10 +273,10 @@ func (t *Invitation) ListInvitationsForEvent(p *ListInvitationsForEventParameter
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -307,12 +307,12 @@ type ListInvitationsForStackParameters struct {
 	WithUserAttributes    *[]string
 	Query                 *string
 	StatusFilter          *[]string
-	LastModifiedTimestamp *int
+	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
 	SortDirection         *string
-	Page                  *int
-	ItemsPerPage          *int
+	Page                  *int64
+	ItemsPerPage          *int64
 }
 
 func (t *Invitation) ListInvitationsForStack(p *ListInvitationsForStackParameters) (r *http.Response, err error) {
@@ -338,7 +338,7 @@ func (t *Invitation) ListInvitationsForStack(p *ListInvitationsForStackParameter
 		}
 	}
 	if p.LastModifiedTimestamp != nil {
-		queryParameters.Add(`lastModifiedTimestamp`, strconv.Itoa(*p.LastModifiedTimestamp))
+		queryParameters.Add(`lastModifiedTimestamp`, strconv.FormatInt(*p.LastModifiedTimestamp, 10))
 	}
 	if p.IsCheckedIn != nil {
 		queryParameters.Add(`isCheckedIn`, strconv.FormatBool(*p.IsCheckedIn))
@@ -350,10 +350,10 @@ func (t *Invitation) ListInvitationsForStack(p *ListInvitationsForStackParameter
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -382,12 +382,12 @@ type ListInvitationsForTicketBlockParameters struct {
 	WithUserAttributes    *[]string
 	Query                 *string
 	StatusFilter          *[]string
-	LastModifiedTimestamp *int
+	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
 	SortDirection         *string
-	Page                  *int
-	ItemsPerPage          *int
+	Page                  *int64
+	ItemsPerPage          *int64
 }
 
 func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBlockParameters) (r *http.Response, err error) {
@@ -412,7 +412,7 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 		}
 	}
 	if p.LastModifiedTimestamp != nil {
-		queryParameters.Add(`lastModifiedTimestamp`, strconv.Itoa(*p.LastModifiedTimestamp))
+		queryParameters.Add(`lastModifiedTimestamp`, strconv.FormatInt(*p.LastModifiedTimestamp, 10))
 	}
 	if p.IsCheckedIn != nil {
 		queryParameters.Add(`isCheckedIn`, strconv.FormatBool(*p.IsCheckedIn))
@@ -424,10 +424,10 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -452,8 +452,8 @@ type ListInvitationsForUserParameters struct {
 	UserId              string
 	PoolId              *string
 	EventId             *string
-	Page                *int
-	ItemsPerPage        *int
+	Page                *int64
+	ItemsPerPage        *int64
 	EventDateFilterType *string
 	SortDirection       *string
 	WithData            *[]string
@@ -470,10 +470,10 @@ func (t *Invitation) ListInvitationsForUser(p *ListInvitationsForUserParameters)
 		queryParameters.Add(`eventId`, *p.EventId)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 	if p.EventDateFilterType != nil {
 		queryParameters.Add(`eventDateFilterType`, *p.EventDateFilterType)
@@ -514,8 +514,8 @@ type ListInvitationsForUserByEmailParameters struct {
 	Email               string
 	PoolId              *string
 	EventId             *string
-	Page                *int
-	ItemsPerPage        *int
+	Page                *int64
+	ItemsPerPage        *int64
 	EventDateFilterType *string
 	SortDirection       *string
 	WithData            *[]string
@@ -532,10 +532,10 @@ func (t *Invitation) ListInvitationsForUserByEmail(p *ListInvitationsForUserByEm
 		queryParameters.Add(`eventId`, *p.EventId)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 	if p.EventDateFilterType != nil {
 		queryParameters.Add(`eventDateFilterType`, *p.EventDateFilterType)
@@ -576,8 +576,8 @@ type ListInvitationsForUserForParentParameters struct {
 	UserId              string
 	ParentEventId       string
 	PoolId              *string
-	Page                *int
-	ItemsPerPage        *int
+	Page                *int64
+	ItemsPerPage        *int64
 	EventDateFilterType *string
 	SortDirection       *string
 	WithData            *[]string
@@ -592,10 +592,10 @@ func (t *Invitation) ListInvitationsForUserForParent(p *ListInvitationsForUserFo
 		queryParameters.Add(`poolId`, *p.PoolId)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 	if p.EventDateFilterType != nil {
 		queryParameters.Add(`eventDateFilterType`, *p.EventDateFilterType)
@@ -638,12 +638,12 @@ type ListWaitlistForEventParameters struct {
 	WithData              *[]string
 	WithUserAttributes    *[]string
 	Query                 *string
-	LastModifiedTimestamp *int
+	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
 	SortDirection         *string
-	Page                  *int
-	ItemsPerPage          *int
+	Page                  *int64
+	ItemsPerPage          *int64
 }
 
 func (t *Invitation) ListWaitlistForEvent(p *ListWaitlistForEventParameters) (r *http.Response, err error) {
@@ -663,7 +663,7 @@ func (t *Invitation) ListWaitlistForEvent(p *ListWaitlistForEventParameters) (r 
 		queryParameters.Add(`query`, *p.Query)
 	}
 	if p.LastModifiedTimestamp != nil {
-		queryParameters.Add(`lastModifiedTimestamp`, strconv.Itoa(*p.LastModifiedTimestamp))
+		queryParameters.Add(`lastModifiedTimestamp`, strconv.FormatInt(*p.LastModifiedTimestamp, 10))
 	}
 	if p.IsCheckedIn != nil {
 		queryParameters.Add(`isCheckedIn`, strconv.FormatBool(*p.IsCheckedIn))
@@ -675,10 +675,10 @@ func (t *Invitation) ListWaitlistForEvent(p *ListWaitlistForEventParameters) (r 
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -709,12 +709,12 @@ type ListWaitlistForStackParameters struct {
 	WithUserAttributes    *[]string
 	Query                 *string
 	StatusFilter          *[]string
-	LastModifiedTimestamp *int
+	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
 	SortDirection         *string
-	Page                  *int
-	ItemsPerPage          *int
+	Page                  *int64
+	ItemsPerPage          *int64
 }
 
 func (t *Invitation) ListWaitlistForStack(p *ListWaitlistForStackParameters) (r *http.Response, err error) {
@@ -740,7 +740,7 @@ func (t *Invitation) ListWaitlistForStack(p *ListWaitlistForStackParameters) (r 
 		}
 	}
 	if p.LastModifiedTimestamp != nil {
-		queryParameters.Add(`lastModifiedTimestamp`, strconv.Itoa(*p.LastModifiedTimestamp))
+		queryParameters.Add(`lastModifiedTimestamp`, strconv.FormatInt(*p.LastModifiedTimestamp, 10))
 	}
 	if p.IsCheckedIn != nil {
 		queryParameters.Add(`isCheckedIn`, strconv.FormatBool(*p.IsCheckedIn))
@@ -752,10 +752,10 @@ func (t *Invitation) ListWaitlistForStack(p *ListWaitlistForStackParameters) (r 
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -811,14 +811,14 @@ func (t *Invitation) ChangeInvitationStatus(p *ChangeInvitationStatusParameters)
 
 type ChangeInviteCountParameters struct {
 	InvitationId string
-	InviteCount  *int
+	InviteCount  *int64
 }
 
 func (t *Invitation) ChangeInviteCount(p *ChangeInviteCountParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`invitationId`, p.InvitationId)
 	if p.InviteCount != nil {
-		queryParameters.Add(`inviteCount`, strconv.Itoa(*p.InviteCount))
+		queryParameters.Add(`inviteCount`, strconv.FormatInt(*p.InviteCount, 10))
 	}
 
 	return t.restClient.Post(
@@ -834,14 +834,14 @@ func (t *Invitation) ChangeInviteCount(p *ChangeInviteCountParameters) (r *http.
 
 type CheckInParameters struct {
 	InvitationId string
-	CheckInAt    *int
+	CheckInAt    *int64
 }
 
 func (t *Invitation) CheckIn(p *CheckInParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`invitationId`, p.InvitationId)
 	if p.CheckInAt != nil {
-		queryParameters.Add(`checkInAt`, strconv.Itoa(*p.CheckInAt))
+		queryParameters.Add(`checkInAt`, strconv.FormatInt(*p.CheckInAt, 10))
 	}
 
 	return t.restClient.Post(
@@ -877,7 +877,7 @@ type CreateInvitationParameters struct {
 	InvitationStatus     string
 	InviteSource         string
 	IsCheckedIn          bool
-	InviteCount          int
+	InviteCount          int64
 	Email                *string
 	FirstName            *string
 	LastName             *string
@@ -899,7 +899,7 @@ func (t *Invitation) CreateInvitation(p *CreateInvitationParameters) (r *http.Re
 	queryParameters.Add(`invitationStatus`, p.InvitationStatus)
 	queryParameters.Add(`inviteSource`, p.InviteSource)
 	queryParameters.Add(`isCheckedIn`, strconv.FormatBool(p.IsCheckedIn))
-	queryParameters.Add(`inviteCount`, strconv.Itoa(p.InviteCount))
+	queryParameters.Add(`inviteCount`, strconv.FormatInt(p.InviteCount, 10))
 	if p.Email != nil {
 		queryParameters.Add(`email`, *p.Email)
 	}
@@ -972,7 +972,7 @@ type CreateInvitationForTicketBlockParameters struct {
 	InvitationStatus     string
 	InviteSource         string
 	IsCheckedIn          bool
-	InviteCount          int
+	InviteCount          int64
 	Email                *string
 	FirstName            *string
 	LastName             *string
@@ -995,7 +995,7 @@ func (t *Invitation) CreateInvitationForTicketBlock(p *CreateInvitationForTicket
 	queryParameters.Add(`invitationStatus`, p.InvitationStatus)
 	queryParameters.Add(`inviteSource`, p.InviteSource)
 	queryParameters.Add(`isCheckedIn`, strconv.FormatBool(p.IsCheckedIn))
-	queryParameters.Add(`inviteCount`, strconv.Itoa(p.InviteCount))
+	queryParameters.Add(`inviteCount`, strconv.FormatInt(p.InviteCount, 10))
 	if p.Email != nil {
 		queryParameters.Add(`email`, *p.Email)
 	}
@@ -1049,7 +1049,7 @@ func (t *Invitation) CreateInvitationForTicketBlock(p *CreateInvitationForTicket
 type CreateInvitationsFromGroupParameters struct {
 	GroupId                string
 	StackId                string
-	GuestsPerInvitation    int
+	GuestsPerInvitation    int64
 	InvitationCreationType string
 }
 
@@ -1057,7 +1057,7 @@ func (t *Invitation) CreateInvitationsFromGroup(p *CreateInvitationsFromGroupPar
 	queryParameters := url.Values{}
 	queryParameters.Add(`groupId`, p.GroupId)
 	queryParameters.Add(`stackId`, p.StackId)
-	queryParameters.Add(`guestsPerInvitation`, strconv.Itoa(p.GuestsPerInvitation))
+	queryParameters.Add(`guestsPerInvitation`, strconv.FormatInt(p.GuestsPerInvitation, 10))
 	queryParameters.Add(`invitationCreationType`, p.InvitationCreationType)
 
 	return t.restClient.Post(
@@ -1076,7 +1076,7 @@ func (t *Invitation) CreateInvitationsFromGroup(p *CreateInvitationsFromGroupPar
 type CreateInvitationsFromGroupForCIOEventParameters struct {
 	EventId             string
 	GroupId             string
-	GuestsPerInvitation int
+	GuestsPerInvitation int64
 	StackId             *string
 }
 
@@ -1084,7 +1084,7 @@ func (t *Invitation) CreateInvitationsFromGroupForCIOEvent(p *CreateInvitationsF
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`groupId`, p.GroupId)
-	queryParameters.Add(`guestsPerInvitation`, strconv.Itoa(p.GuestsPerInvitation))
+	queryParameters.Add(`guestsPerInvitation`, strconv.FormatInt(p.GuestsPerInvitation, 10))
 	if p.StackId != nil {
 		queryParameters.Add(`stackId`, *p.StackId)
 	}
@@ -1107,7 +1107,7 @@ type CreateInvitationsFromGroupForTicketBlockParameters struct {
 	GroupId                string
 	TicketBlockId          string
 	StackId                string
-	GuestsPerInvitation    int
+	GuestsPerInvitation    int64
 	InvitationCreationType string
 }
 
@@ -1116,7 +1116,7 @@ func (t *Invitation) CreateInvitationsFromGroupForTicketBlock(p *CreateInvitatio
 	queryParameters.Add(`groupId`, p.GroupId)
 	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
 	queryParameters.Add(`stackId`, p.StackId)
-	queryParameters.Add(`guestsPerInvitation`, strconv.Itoa(p.GuestsPerInvitation))
+	queryParameters.Add(`guestsPerInvitation`, strconv.FormatInt(p.GuestsPerInvitation, 10))
 	queryParameters.Add(`invitationCreationType`, p.InvitationCreationType)
 
 	return t.restClient.Post(

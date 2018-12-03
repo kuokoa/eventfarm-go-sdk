@@ -210,8 +210,8 @@ type ListUsersForPoolsParameters struct {
 	Query         *string
 	SortBy        *string
 	SortDirection *string
-	Page          *int
-	ItemsPerPage  *int
+	Page          *int64
+	ItemsPerPage  *int64
 }
 
 func (t *User) ListUsersForPools(p *ListUsersForPoolsParameters) (r *http.Response, err error) {
@@ -234,10 +234,10 @@ func (t *User) ListUsersForPools(p *ListUsersForPoolsParameters) (r *http.Respon
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -262,8 +262,8 @@ type ListUsersForTicketBlockParameters struct {
 	Query         *string
 	SortBy        *string
 	SortDirection *string
-	Page          *int
-	ItemsPerPage  *int
+	Page          *int64
+	ItemsPerPage  *int64
 }
 
 func (t *User) ListUsersForTicketBlock(p *ListUsersForTicketBlockParameters) (r *http.Response, err error) {
@@ -284,10 +284,10 @@ func (t *User) ListUsersForTicketBlock(p *ListUsersForTicketBlockParameters) (r 
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -314,8 +314,8 @@ type ListUsersInGroupParameters struct {
 	Query         *string
 	SortBy        *string
 	SortDirection *string
-	Page          *int
-	ItemsPerPage  *int
+	Page          *int64
+	ItemsPerPage  *int64
 }
 
 func (t *User) ListUsersInGroup(p *ListUsersInGroupParameters) (r *http.Response, err error) {
@@ -337,10 +337,10 @@ func (t *User) ListUsersInGroup(p *ListUsersInGroupParameters) (r *http.Response
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -365,8 +365,8 @@ type ListUsersWithRolesForEventParameters struct {
 	Query         *string
 	SortBy        *string
 	SortDirection *string
-	Page          *int
-	ItemsPerPage  *int
+	Page          *int64
+	ItemsPerPage  *int64
 }
 
 func (t *User) ListUsersWithRolesForEvent(p *ListUsersWithRolesForEventParameters) (r *http.Response, err error) {
@@ -387,10 +387,10 @@ func (t *User) ListUsersWithRolesForEvent(p *ListUsersWithRolesForEventParameter
 		queryParameters.Add(`sortDirection`, *p.SortDirection)
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(

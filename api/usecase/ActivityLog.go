@@ -27,18 +27,18 @@ func NewActivityLog(restClient rest.RestClientInterface) *ActivityLog {
 
 type ListEntriesForEventParameters struct {
 	EventId      string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *ActivityLog) ListEntriesForEvent(p *ListEntriesForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -55,18 +55,18 @@ func (t *ActivityLog) ListEntriesForEvent(p *ListEntriesForEventParameters) (r *
 
 type ListEntriesForInvitationParameters struct {
 	InvitationId string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *ActivityLog) ListEntriesForInvitation(p *ListEntriesForInvitationParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`invitationId`, p.InvitationId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -91,7 +91,7 @@ type CreateActivityLogParameters struct {
 	EventId       string
 	Action        string
 	ActionValue   string
-	ActionTime    int
+	ActionTime    int64
 	InvitationId  *string
 	UserId        *string
 	ActionUserId  *string
@@ -103,7 +103,7 @@ func (t *ActivityLog) CreateActivityLog(p *CreateActivityLogParameters) (r *http
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`action`, p.Action)
 	queryParameters.Add(`actionValue`, p.ActionValue)
-	queryParameters.Add(`actionTime`, strconv.Itoa(p.ActionTime))
+	queryParameters.Add(`actionTime`, strconv.FormatInt(p.ActionTime, 10))
 	if p.InvitationId != nil {
 		queryParameters.Add(`invitationId`, *p.InvitationId)
 	}
@@ -140,7 +140,7 @@ type CreateActivityLogAndDetailParameters struct {
 	EventId          string
 	Action           string
 	ActionValue      string
-	ActionTime       int
+	ActionTime       int64
 	Content          string
 	InvitationId     *string
 	UserId           *string
@@ -154,7 +154,7 @@ func (t *ActivityLog) CreateActivityLogAndDetail(p *CreateActivityLogAndDetailPa
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`action`, p.Action)
 	queryParameters.Add(`actionValue`, p.ActionValue)
-	queryParameters.Add(`actionTime`, strconv.Itoa(p.ActionTime))
+	queryParameters.Add(`actionTime`, strconv.FormatInt(p.ActionTime, 10))
 	queryParameters.Add(`content`, p.Content)
 	if p.InvitationId != nil {
 		queryParameters.Add(`invitationId`, *p.InvitationId)

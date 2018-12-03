@@ -25,14 +25,14 @@ func NewReport(restClient rest.RestClientInterface) *Report {
 // @param int EndTime
 
 type ReportTotalEventsRunningBetweenDatesParameters struct {
-	StartTime int
-	EndTime   int
+	StartTime int64
+	EndTime   int64
 }
 
 func (t *Report) ReportTotalEventsRunningBetweenDates(p *ReportTotalEventsRunningBetweenDatesParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
-	queryParameters.Add(`startTime`, strconv.Itoa(p.StartTime))
-	queryParameters.Add(`endTime`, strconv.Itoa(p.EndTime))
+	queryParameters.Add(`startTime`, strconv.FormatInt(p.StartTime, 10))
+	queryParameters.Add(`endTime`, strconv.FormatInt(p.EndTime, 10))
 
 	return t.restClient.Get(
 		`/v2/Report/UseCase/ReportTotalEventsRunningBetweenDates`,

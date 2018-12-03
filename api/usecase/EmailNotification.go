@@ -49,7 +49,7 @@ func (t *EmailNotification) GetOpenActionsForEventOverLastMonth(p *GetOpenAction
 type CreateSparkpostNotificationParameters struct {
 	EmailMessageId      string
 	Type                string
-	CreatedAt           int
+	CreatedAt           int64
 	EventId             *string
 	EmailNotificationId *string
 }
@@ -58,7 +58,7 @@ func (t *EmailNotification) CreateSparkpostNotification(p *CreateSparkpostNotifi
 	queryParameters := url.Values{}
 	queryParameters.Add(`emailMessageId`, p.EmailMessageId)
 	queryParameters.Add(`type`, p.Type)
-	queryParameters.Add(`createdAt`, strconv.Itoa(p.CreatedAt))
+	queryParameters.Add(`createdAt`, strconv.FormatInt(p.CreatedAt, 10))
 	if p.EventId != nil {
 		queryParameters.Add(`eventId`, *p.EventId)
 	}
@@ -79,14 +79,14 @@ func (t *EmailNotification) CreateSparkpostNotification(p *CreateSparkpostNotifi
 
 type SimulateEmailNotificationsForEventParameters struct {
 	EventId      string
-	TotalRecords *int
+	TotalRecords *int64
 }
 
 func (t *EmailNotification) SimulateEmailNotificationsForEvent(p *SimulateEmailNotificationsForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	if p.TotalRecords != nil {
-		queryParameters.Add(`totalRecords`, strconv.Itoa(*p.TotalRecords))
+		queryParameters.Add(`totalRecords`, strconv.FormatInt(*p.TotalRecords, 10))
 	}
 
 	return t.restClient.Post(

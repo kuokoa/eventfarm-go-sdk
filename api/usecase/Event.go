@@ -94,14 +94,14 @@ func (t *Event) GetEvent(p *GetEventParameters) (r *http.Response, err error) {
 
 type GetEventCountsForPoolParameters struct {
 	PoolId            string
-	EarliestStartDate *int
+	EarliestStartDate *int64
 }
 
 func (t *Event) GetEventCountsForPool(p *GetEventCountsForPoolParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`poolId`, p.PoolId)
 	if p.EarliestStartDate != nil {
-		queryParameters.Add(`earliestStartDate`, strconv.Itoa(*p.EarliestStartDate))
+		queryParameters.Add(`earliestStartDate`, strconv.FormatInt(*p.EarliestStartDate, 10))
 	}
 
 	return t.restClient.Get(
@@ -152,8 +152,8 @@ type ListChildrenForEventParameters struct {
 	ParentEventId       string
 	Query               *string
 	WithData            *[]string
-	Page                *int
-	ItemsPerPage        *int
+	Page                *int64
+	ItemsPerPage        *int64
 	SortBy              *string
 	SortDirection       *string
 	EventDateFilterType *string
@@ -173,10 +173,10 @@ func (t *Event) ListChildrenForEvent(p *ListChildrenForEventParameters) (r *http
 		}
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 	if p.SortBy != nil {
 		queryParameters.Add(`sortBy`, *p.SortBy)
@@ -221,8 +221,8 @@ type ListChildrenForEventForUserParameters struct {
 	UserId              string
 	Query               *string
 	WithData            *[]string
-	Page                *int
-	ItemsPerPage        *int
+	Page                *int64
+	ItemsPerPage        *int64
 	SortBy              *string
 	SortDirection       *string
 	EventDateFilterType *string
@@ -243,10 +243,10 @@ func (t *Event) ListChildrenForEventForUser(p *ListChildrenForEventForUserParame
 		}
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 	if p.SortBy != nil {
 		queryParameters.Add(`sortBy`, *p.SortBy)
@@ -295,15 +295,15 @@ type ListEventsForUserParameters struct {
 	AttributesFilter        *[]string
 	AttributesExcludeFilter *[]string
 	WithData                *[]string
-	LastModifiedTimestamp   *int
-	Page                    *int
-	ItemsPerPage            *int
+	LastModifiedTimestamp   *int64
+	Page                    *int64
+	ItemsPerPage            *int64
 	SortBy                  *string
 	SortDirection           *string
 	EventDateFilterType     *string
 	PoolId                  *string
 	Tags                    *[]string
-	EarliestStartTimestamp  *int
+	EarliestStartTimestamp  *int64
 }
 
 func (t *Event) ListEventsForUser(p *ListEventsForUserParameters) (r *http.Response, err error) {
@@ -328,13 +328,13 @@ func (t *Event) ListEventsForUser(p *ListEventsForUserParameters) (r *http.Respo
 		}
 	}
 	if p.LastModifiedTimestamp != nil {
-		queryParameters.Add(`lastModifiedTimestamp`, strconv.Itoa(*p.LastModifiedTimestamp))
+		queryParameters.Add(`lastModifiedTimestamp`, strconv.FormatInt(*p.LastModifiedTimestamp, 10))
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 	if p.SortBy != nil {
 		queryParameters.Add(`sortBy`, *p.SortBy)
@@ -354,7 +354,7 @@ func (t *Event) ListEventsForUser(p *ListEventsForUserParameters) (r *http.Respo
 		}
 	}
 	if p.EarliestStartTimestamp != nil {
-		queryParameters.Add(`earliestStartTimestamp`, strconv.Itoa(*p.EarliestStartTimestamp))
+		queryParameters.Add(`earliestStartTimestamp`, strconv.FormatInt(*p.EarliestStartTimestamp, 10))
 	}
 
 	return t.restClient.Get(
@@ -579,7 +579,7 @@ func (t *Event) CopyExistingEventConfiguration(p *CopyExistingEventConfiguration
 type CreateAnswerParameters struct {
 	QuestionId string
 	Text       string
-	SortOrder  *int
+	SortOrder  *int64
 	IsDefault  *bool
 	AnswerId   *string
 }
@@ -589,7 +589,7 @@ func (t *Event) CreateAnswer(p *CreateAnswerParameters) (r *http.Response, err e
 	queryParameters.Add(`questionId`, p.QuestionId)
 	queryParameters.Add(`text`, p.Text)
 	if p.SortOrder != nil {
-		queryParameters.Add(`sortOrder`, strconv.Itoa(*p.SortOrder))
+		queryParameters.Add(`sortOrder`, strconv.FormatInt(*p.SortOrder, 10))
 	}
 	if p.IsDefault != nil {
 		queryParameters.Add(`isDefault`, strconv.FormatBool(*p.IsDefault))
@@ -718,7 +718,7 @@ type CreateQuestionParameters struct {
 	EventId              string
 	Text                 string
 	QuestionType         string
-	SortOrder            *int
+	SortOrder            *int64
 	IsRequired           *bool
 	IsIndividual         *bool
 	TicketTypeId         *string
@@ -732,7 +732,7 @@ func (t *Event) CreateQuestion(p *CreateQuestionParameters) (r *http.Response, e
 	queryParameters.Add(`text`, p.Text)
 	queryParameters.Add(`questionType`, p.QuestionType)
 	if p.SortOrder != nil {
-		queryParameters.Add(`sortOrder`, strconv.Itoa(*p.SortOrder))
+		queryParameters.Add(`sortOrder`, strconv.FormatInt(*p.SortOrder, 10))
 	}
 	if p.IsRequired != nil {
 		queryParameters.Add(`isRequired`, strconv.FormatBool(*p.IsRequired))
@@ -1429,13 +1429,13 @@ func (t *Event) SetAltKeywordForEvent(p *SetAltKeywordForEventParameters) (r *ht
 
 type SetAnswerSortOrderParameters struct {
 	AnswerId  string
-	SortOrder int
+	SortOrder int64
 }
 
 func (t *Event) SetAnswerSortOrder(p *SetAnswerSortOrderParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`answerId`, p.AnswerId)
-	queryParameters.Add(`sortOrder`, strconv.Itoa(p.SortOrder))
+	queryParameters.Add(`sortOrder`, strconv.FormatInt(p.SortOrder, 10))
 
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetAnswerSortOrder`,
@@ -1471,13 +1471,13 @@ func (t *Event) SetDefaultSitePageForEvent(p *SetDefaultSitePageForEventParamete
 
 type SetQuestionSortOrderParameters struct {
 	QuestionId string
-	SortOrder  int
+	SortOrder  int64
 }
 
 func (t *Event) SetQuestionSortOrder(p *SetQuestionSortOrderParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`questionId`, p.QuestionId)
-	queryParameters.Add(`sortOrder`, strconv.Itoa(p.SortOrder))
+	queryParameters.Add(`sortOrder`, strconv.FormatInt(p.SortOrder, 10))
 
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetQuestionSortOrder`,

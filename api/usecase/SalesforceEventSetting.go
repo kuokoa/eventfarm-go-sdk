@@ -159,13 +159,13 @@ func (t *SalesforceEventSetting) SetCampaignForSalesforceEventSetting(p *SetCamp
 
 type SetInvitationCountForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
-	InvitationCount          int
+	InvitationCount          int64
 }
 
 func (t *SalesforceEventSetting) SetInvitationCountForSalesforceEventSetting(p *SetInvitationCountForSalesforceEventSettingParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`salesforceEventSettingId`, p.SalesforceEventSettingId)
-	queryParameters.Add(`invitationCount`, strconv.Itoa(p.InvitationCount))
+	queryParameters.Add(`invitationCount`, strconv.FormatInt(p.InvitationCount, 10))
 
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/SetInvitationCountForSalesforceEventSetting`,

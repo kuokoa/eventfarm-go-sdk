@@ -50,17 +50,17 @@ func (t *BugReport) GetBugReport(p *GetBugReportParameters) (r *http.Response, e
 // @param int|null ItemsPerPage 1-500
 
 type ListBugReportsParameters struct {
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *BugReport) ListBugReports(p *ListBugReportsParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(

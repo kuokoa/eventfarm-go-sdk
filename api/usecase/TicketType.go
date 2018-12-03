@@ -58,8 +58,8 @@ type CreateTicketTypeParameters struct {
 	EventId      string
 	Name         string
 	Code         string
-	Quantity     int
-	SortOrder    int
+	Quantity     int64
+	SortOrder    int64
 	IsDeleted    *bool
 	Description  *string
 	TicketTypeId *string
@@ -70,8 +70,8 @@ func (t *TicketType) CreateTicketType(p *CreateTicketTypeParameters) (r *http.Re
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`name`, p.Name)
 	queryParameters.Add(`code`, p.Code)
-	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
-	queryParameters.Add(`sortOrder`, strconv.Itoa(p.SortOrder))
+	queryParameters.Add(`quantity`, strconv.FormatInt(p.Quantity, 10))
+	queryParameters.Add(`sortOrder`, strconv.FormatInt(p.SortOrder, 10))
 	if p.IsDeleted != nil {
 		queryParameters.Add(`isDeleted`, strconv.FormatBool(*p.IsDeleted))
 	}
@@ -134,13 +134,13 @@ func (t *TicketType) SetDescriptionForTicketType(p *SetDescriptionForTicketTypeP
 
 type SetDisplayOrderForTicketTypeParameters struct {
 	TicketTypeId string
-	DisplayOrder int
+	DisplayOrder int64
 }
 
 func (t *TicketType) SetDisplayOrderForTicketType(p *SetDisplayOrderForTicketTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
-	queryParameters.Add(`displayOrder`, strconv.Itoa(p.DisplayOrder))
+	queryParameters.Add(`displayOrder`, strconv.FormatInt(p.DisplayOrder, 10))
 
 	return t.restClient.Post(
 		`/v2/TicketType/UseCase/SetDisplayOrderForTicketType`,
@@ -176,13 +176,13 @@ func (t *TicketType) SetNameForTicketType(p *SetNameForTicketTypeParameters) (r 
 
 type SetQuantityForTicketTypeParameters struct {
 	TicketTypeId string
-	Quantity     int
+	Quantity     int64
 }
 
 func (t *TicketType) SetQuantityForTicketType(p *SetQuantityForTicketTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
-	queryParameters.Add(`quantity`, strconv.Itoa(p.Quantity))
+	queryParameters.Add(`quantity`, strconv.FormatInt(p.Quantity, 10))
 
 	return t.restClient.Post(
 		`/v2/TicketType/UseCase/SetQuantityForTicketType`,

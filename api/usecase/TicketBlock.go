@@ -60,8 +60,8 @@ type ListTicketBlocksForEventParameters struct {
 	EventId             string
 	Query               *string
 	WithData            *[]string
-	Page                *int
-	ItemsPerPage        *int
+	Page                *int64
+	ItemsPerPage        *int64
 	SortBy              *string
 	SortDirection       *string
 	EventDateFilterType *string
@@ -80,10 +80,10 @@ func (t *TicketBlock) ListTicketBlocksForEvent(p *ListTicketBlocksForEventParame
 		}
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 	if p.SortBy != nil {
 		queryParameters.Add(`sortBy`, *p.SortBy)
@@ -120,8 +120,8 @@ type ListTicketBlocksForUserParameters struct {
 	UserId              string
 	Query               *string
 	WithData            *[]string
-	Page                *int
-	ItemsPerPage        *int
+	Page                *int64
+	ItemsPerPage        *int64
 	SortBy              *string
 	SortDirection       *string
 	EventDateFilterType *string
@@ -140,10 +140,10 @@ func (t *TicketBlock) ListTicketBlocksForUser(p *ListTicketBlocksForUserParamete
 		}
 	}
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 	if p.SortBy != nil {
 		queryParameters.Add(`sortBy`, *p.SortBy)

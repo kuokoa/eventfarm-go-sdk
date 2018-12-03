@@ -29,8 +29,8 @@ func NewUserAttribute(restClient rest.RestClientInterface) *UserAttribute {
 type ListCustomAttributesForUserParameters struct {
 	PoolId       string
 	UserId       string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *UserAttribute) ListCustomAttributesForUser(p *ListCustomAttributesForUserParameters) (r *http.Response, err error) {
@@ -38,10 +38,10 @@ func (t *UserAttribute) ListCustomAttributesForUser(p *ListCustomAttributesForUs
 	queryParameters.Add(`poolId`, p.PoolId)
 	queryParameters.Add(`userId`, p.UserId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(
@@ -60,8 +60,8 @@ func (t *UserAttribute) ListCustomAttributesForUser(p *ListCustomAttributesForUs
 type ListInfoAttributesForUserParameters struct {
 	PoolId       string
 	UserId       string
-	Page         *int
-	ItemsPerPage *int
+	Page         *int64
+	ItemsPerPage *int64
 }
 
 func (t *UserAttribute) ListInfoAttributesForUser(p *ListInfoAttributesForUserParameters) (r *http.Response, err error) {
@@ -69,10 +69,10 @@ func (t *UserAttribute) ListInfoAttributesForUser(p *ListInfoAttributesForUserPa
 	queryParameters.Add(`poolId`, p.PoolId)
 	queryParameters.Add(`userId`, p.UserId)
 	if p.Page != nil {
-		queryParameters.Add(`page`, strconv.Itoa(*p.Page))
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
 	}
 	if p.ItemsPerPage != nil {
-		queryParameters.Add(`itemsPerPage`, strconv.Itoa(*p.ItemsPerPage))
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
 	}
 
 	return t.restClient.Get(

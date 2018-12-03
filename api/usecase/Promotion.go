@@ -40,11 +40,11 @@ type CreatePromotionParameters struct {
 	EventId       string
 	PromotionType string
 	Code          string
-	StartTime     int
-	EndTime       int
+	StartTime     int64
+	EndTime       int64
 	Amount        float64
-	Used          int
-	Maximum       int
+	Used          int64
+	Maximum       int64
 	Message       string
 	IsEnabled     *bool
 	PromotionId   *string
@@ -55,11 +55,11 @@ func (t *Promotion) CreatePromotion(p *CreatePromotionParameters) (r *http.Respo
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`promotionType`, p.PromotionType)
 	queryParameters.Add(`code`, p.Code)
-	queryParameters.Add(`startTime`, strconv.Itoa(p.StartTime))
-	queryParameters.Add(`endTime`, strconv.Itoa(p.EndTime))
+	queryParameters.Add(`startTime`, strconv.FormatInt(p.StartTime, 10))
+	queryParameters.Add(`endTime`, strconv.FormatInt(p.EndTime, 10))
 	queryParameters.Add(`amount`, fmt.Sprintf("%f", p.Amount))
-	queryParameters.Add(`used`, strconv.Itoa(p.Used))
-	queryParameters.Add(`maximum`, strconv.Itoa(p.Maximum))
+	queryParameters.Add(`used`, strconv.FormatInt(p.Used, 10))
+	queryParameters.Add(`maximum`, strconv.FormatInt(p.Maximum, 10))
 	queryParameters.Add(`message`, p.Message)
 	if p.IsEnabled != nil {
 		queryParameters.Add(`isEnabled`, strconv.FormatBool(*p.IsEnabled))
@@ -177,13 +177,13 @@ func (t *Promotion) SetCode(p *SetCodeParameters) (r *http.Response, err error) 
 
 type SetEndTimeParameters struct {
 	PromotionId string
-	EndTime     int
+	EndTime     int64
 }
 
 func (t *Promotion) SetEndTime(p *SetEndTimeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`promotionId`, p.PromotionId)
-	queryParameters.Add(`endTime`, strconv.Itoa(p.EndTime))
+	queryParameters.Add(`endTime`, strconv.FormatInt(p.EndTime, 10))
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetEndTime`,
@@ -198,13 +198,13 @@ func (t *Promotion) SetEndTime(p *SetEndTimeParameters) (r *http.Response, err e
 
 type SetMaximumParameters struct {
 	PromotionId string
-	Maximum     int
+	Maximum     int64
 }
 
 func (t *Promotion) SetMaximum(p *SetMaximumParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`promotionId`, p.PromotionId)
-	queryParameters.Add(`maximum`, strconv.Itoa(p.Maximum))
+	queryParameters.Add(`maximum`, strconv.FormatInt(p.Maximum, 10))
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetMaximum`,
@@ -261,13 +261,13 @@ func (t *Promotion) SetPromotionType(p *SetPromotionTypeParameters) (r *http.Res
 
 type SetStartTimeParameters struct {
 	PromotionId string
-	StartTime   int
+	StartTime   int64
 }
 
 func (t *Promotion) SetStartTime(p *SetStartTimeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`promotionId`, p.PromotionId)
-	queryParameters.Add(`startTime`, strconv.Itoa(p.StartTime))
+	queryParameters.Add(`startTime`, strconv.FormatInt(p.StartTime, 10))
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetStartTime`,
