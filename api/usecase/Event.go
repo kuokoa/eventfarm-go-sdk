@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Event struct {
@@ -65,7 +65,7 @@ func (t *Event) GetAllQuestionsForEvent(p *GetAllQuestionsForEventParameters) (r
 }
 
 // @param string EventId
-// @param array|null WithData Pool|Stacks|StacksWithAvailabilityCounts|Tags|EventTexts|TicketTypes|TicketBlocks|TicketBlocksWithAllotmentCounts|QuestionsAndAnswers|QuestionContext|AllQuestions|ParentEvent
+// @param array|null WithData Pool|Stacks|StacksWithAvailabilityCounts|Tags|EventTexts|TicketTypes|TicketBlocks|TicketBlocksWithAllotmentCounts|QuestionsAndAnswers|QuestionContext|AllQuestions|ParentEvent|PoolFeatures
 
 type GetEventParameters struct {
 	EventId  string
@@ -268,6 +268,92 @@ func (t *Event) ListChildrenForEventForUser(p *ListChildrenForEventForUserParame
 
 	return t.restClient.Get(
 		`/v2/Event/UseCase/ListChildrenForEventForUser`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+// @param string PoolId
+// @param string|null Query
+// @param array|null AttributesFilter distribute|donate|fee|editname|reveal|allow-notes|duplicate-emails|navigation|social-media|social-media-bar|map-location|show-description|ipad-purchase|simple-layout|label-print|skip-event-allocate-display|geo-restrict|visa-checkout|archived|guest-can-change-response|efx-enabled|show-calendar
+// @param array|null AttributesExcludeFilter distribute|donate|fee|editname|reveal|allow-notes|duplicate-emails|navigation|social-media|social-media-bar|map-location|show-description|ipad-purchase|simple-layout|label-print|skip-event-allocate-display|geo-restrict|visa-checkout|archived|guest-can-change-response|efx-enabled|show-calendar
+// @param array|null WithData Pool|Stacks|Tags|TicketTypes|TicketBlocks|QuestionsAndAnswers|ThumbnailUrl
+// @param int|null LastModifiedTimestamp
+// @param int|null Page >= 1
+// @param int|null ItemsPerPage 1-500
+// @param string|null SortBy event-start|event-end|name|event-created
+// @param string|null SortDirection ascending|descending
+// @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
+// @param array|null Tags
+// @param int|null EarliestStartTimestamp >= 0
+
+type ListEventsForPoolParameters struct {
+	PoolId                  string
+	Query                   *string
+	AttributesFilter        *[]string
+	AttributesExcludeFilter *[]string
+	WithData                *[]string
+	LastModifiedTimestamp   *int64
+	Page                    *int64
+	ItemsPerPage            *int64
+	SortBy                  *string
+	SortDirection           *string
+	EventDateFilterType     *string
+	Tags                    *[]string
+	EarliestStartTimestamp  *int64
+}
+
+func (t *Event) ListEventsForPool(p *ListEventsForPoolParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`poolId`, p.PoolId)
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
+	}
+	if p.AttributesFilter != nil {
+		for i := range *p.AttributesFilter {
+			queryParameters.Add(`attributesFilter[]`, (*p.AttributesFilter)[i])
+		}
+	}
+	if p.AttributesExcludeFilter != nil {
+		for i := range *p.AttributesExcludeFilter {
+			queryParameters.Add(`attributesExcludeFilter[]`, (*p.AttributesExcludeFilter)[i])
+		}
+	}
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.LastModifiedTimestamp != nil {
+		queryParameters.Add(`lastModifiedTimestamp`, strconv.FormatInt(*p.LastModifiedTimestamp, 10))
+	}
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.EventDateFilterType != nil {
+		queryParameters.Add(`eventDateFilterType`, *p.EventDateFilterType)
+	}
+	if p.Tags != nil {
+		for i := range *p.Tags {
+			queryParameters.Add(`tags[]`, (*p.Tags)[i])
+		}
+	}
+	if p.EarliestStartTimestamp != nil {
+		queryParameters.Add(`earliestStartTimestamp`, strconv.FormatInt(*p.EarliestStartTimestamp, 10))
+	}
+
+	return t.restClient.Get(
+		`/v2/Event/UseCase/ListEventsForPool`,
 		&queryParameters,
 		nil,
 		nil,
@@ -1460,6 +1546,48 @@ func (t *Event) SetDefaultSitePageForEvent(p *SetDefaultSitePageForEventParamete
 
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetDefaultSitePageForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+// @param string EventId
+// @param int EventMaxInvitationCount
+
+type SetEventMaxInvitationCountParameters struct {
+	EventId                 string
+	EventMaxInvitationCount int64
+}
+
+func (t *Event) SetEventMaxInvitationCount(p *SetEventMaxInvitationCountParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`eventMaxInvitationCount`, strconv.FormatInt(p.EventMaxInvitationCount, 10))
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetEventMaxInvitationCount`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+// @param string EventId
+// @param int EventMinInvitationCount
+
+type SetEventMinInvitationCountParameters struct {
+	EventId                 string
+	EventMinInvitationCount int64
+}
+
+func (t *Event) SetEventMinInvitationCount(p *SetEventMinInvitationCountParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`eventMinInvitationCount`, strconv.FormatInt(p.EventMinInvitationCount, 10))
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetEventMinInvitationCount`,
 		&queryParameters,
 		nil,
 		nil,

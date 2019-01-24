@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type TicketType struct {
@@ -109,17 +109,19 @@ func (t *TicketType) DeleteTicketType(p *DeleteTicketTypeParameters) (r *http.Re
 }
 
 // @param string TicketTypeId
-// @param string Description
+// @param string|null Description
 
 type SetDescriptionForTicketTypeParameters struct {
 	TicketTypeId string
-	Description  string
+	Description  *string
 }
 
 func (t *TicketType) SetDescriptionForTicketType(p *SetDescriptionForTicketTypeParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`ticketTypeId`, p.TicketTypeId)
-	queryParameters.Add(`description`, p.Description)
+	if p.Description != nil {
+		queryParameters.Add(`description`, *p.Description)
+	}
 
 	return t.restClient.Post(
 		`/v2/TicketType/UseCase/SetDescriptionForTicketType`,

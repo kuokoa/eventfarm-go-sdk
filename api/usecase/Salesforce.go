@@ -5,10 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
-
-	"github.com/eventfarm/go-sdk/rest"
+	"strconv"
 )
 
 type Salesforce struct {

@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type User struct {
@@ -512,6 +512,8 @@ func (t *User) CreateAuthUser(p *CreateAuthUserParameters) (r *http.Response, er
 // @param string|null Phone
 // @param string|null Title
 // @param string|null Other
+// @param string|null UserId
+// @param string|null PoolId
 
 type CreateCIOAccountParameters struct {
 	Email     *string
@@ -522,6 +524,8 @@ type CreateCIOAccountParameters struct {
 	Phone     *string
 	Title     *string
 	Other     *string
+	UserId    *string
+	PoolId    *string
 }
 
 func (t *User) CreateCIOAccount(p *CreateCIOAccountParameters) (r *http.Response, err error) {
@@ -549,6 +553,12 @@ func (t *User) CreateCIOAccount(p *CreateCIOAccountParameters) (r *http.Response
 	}
 	if p.Other != nil {
 		queryParameters.Add(`other`, *p.Other)
+	}
+	if p.UserId != nil {
+		queryParameters.Add(`userId`, *p.UserId)
+	}
+	if p.PoolId != nil {
+		queryParameters.Add(`poolId`, *p.PoolId)
 	}
 
 	return t.restClient.Post(

@@ -6,11 +6,10 @@ package usecase
 
 import (
 	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Stack struct {
@@ -642,6 +641,54 @@ func (t *Stack) SetTransferableForStack(p *SetTransferableForStackParameters) (r
 
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetTransferableForStack`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+// @param string StackId
+// @param string|null MethodSlug
+// @param float|null Price
+// @param float|null ServiceFee
+// @param int|null Quantity
+// @param int|null MaxQuantity
+// @param bool|null Transferable true|false
+
+type UpdateStackParameters struct {
+	StackId      string
+	MethodSlug   *string
+	Price        *float64
+	ServiceFee   *float64
+	Quantity     *int64
+	MaxQuantity  *int64
+	Transferable *bool
+}
+
+func (t *Stack) UpdateStack(p *UpdateStackParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`stackId`, p.StackId)
+	if p.MethodSlug != nil {
+		queryParameters.Add(`methodSlug`, *p.MethodSlug)
+	}
+	if p.Price != nil {
+		queryParameters.Add(`price`, fmt.Sprintf("%f", *p.Price))
+	}
+	if p.ServiceFee != nil {
+		queryParameters.Add(`serviceFee`, fmt.Sprintf("%f", *p.ServiceFee))
+	}
+	if p.Quantity != nil {
+		queryParameters.Add(`quantity`, strconv.FormatInt(*p.Quantity, 10))
+	}
+	if p.MaxQuantity != nil {
+		queryParameters.Add(`maxQuantity`, strconv.FormatInt(*p.MaxQuantity, 10))
+	}
+	if p.Transferable != nil {
+		queryParameters.Add(`transferable`, strconv.FormatBool(*p.Transferable))
+	}
+
+	return t.restClient.Post(
+		`/v2/Stack/UseCase/UpdateStack`,
 		&queryParameters,
 		nil,
 		nil,
