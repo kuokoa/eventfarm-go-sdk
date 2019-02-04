@@ -21,6 +21,16 @@ type ReportFormatType struct {
 	IsZip       bool
 }
 
+type ReportStatusType struct {
+	Slug        string
+	Name        string
+	Description string
+	IsNew       bool
+	IsPending   bool
+	IsDone      bool
+	IsError     bool
+}
+
 type ReportType struct {
 	Slug                  string
 	Name                  string
@@ -36,6 +46,7 @@ type ReportType struct {
 	IsEmailDeliverability bool
 	IsSentEmails          bool
 	IsWaiver              bool
+	IsActivityLog         bool
 	IsAdminEvents         bool
 }
 
@@ -80,6 +91,47 @@ func (f *Report) ListReportFormatTypes() []ReportFormatType {
 	}
 }
 
+func (f *Report) ListReportStatusTypes() []ReportStatusType {
+	return []ReportStatusType{
+		{
+			Slug:        `new`,
+			Name:        `New`,
+			Description: ``,
+			IsNew:       true,
+			IsPending:   false,
+			IsDone:      false,
+			IsError:     false,
+		},
+		{
+			Slug:        `pending`,
+			Name:        `Pending`,
+			Description: ``,
+			IsNew:       false,
+			IsPending:   true,
+			IsDone:      false,
+			IsError:     false,
+		},
+		{
+			Slug:        `done`,
+			Name:        `Done`,
+			Description: ``,
+			IsNew:       false,
+			IsPending:   false,
+			IsDone:      true,
+			IsError:     false,
+		},
+		{
+			Slug:        `error`,
+			Name:        `Error`,
+			Description: ``,
+			IsNew:       false,
+			IsPending:   false,
+			IsDone:      false,
+			IsError:     true,
+		},
+	}
+}
+
 func (f *Report) ListReportTypes() []ReportType {
 	return []ReportType{
 		{
@@ -97,6 +149,7 @@ func (f *Report) ListReportTypes() []ReportType {
 			IsEmailDeliverability: false,
 			IsSentEmails:          false,
 			IsWaiver:              false,
+			IsActivityLog:         false,
 			IsAdminEvents:         false,
 		},
 		{
@@ -114,6 +167,7 @@ func (f *Report) ListReportTypes() []ReportType {
 			IsEmailDeliverability: false,
 			IsSentEmails:          false,
 			IsWaiver:              false,
+			IsActivityLog:         false,
 			IsAdminEvents:         false,
 		},
 		{
@@ -131,6 +185,7 @@ func (f *Report) ListReportTypes() []ReportType {
 			IsEmailDeliverability: false,
 			IsSentEmails:          false,
 			IsWaiver:              false,
+			IsActivityLog:         false,
 			IsAdminEvents:         false,
 		},
 		{
@@ -148,6 +203,7 @@ func (f *Report) ListReportTypes() []ReportType {
 			IsEmailDeliverability: false,
 			IsSentEmails:          false,
 			IsWaiver:              false,
+			IsActivityLog:         false,
 			IsAdminEvents:         false,
 		},
 		{
@@ -165,6 +221,7 @@ func (f *Report) ListReportTypes() []ReportType {
 			IsEmailDeliverability: false,
 			IsSentEmails:          false,
 			IsWaiver:              false,
+			IsActivityLog:         false,
 			IsAdminEvents:         false,
 		},
 		{
@@ -182,6 +239,7 @@ func (f *Report) ListReportTypes() []ReportType {
 			IsEmailDeliverability: false,
 			IsSentEmails:          false,
 			IsWaiver:              false,
+			IsActivityLog:         false,
 			IsAdminEvents:         false,
 		},
 		{
@@ -199,6 +257,7 @@ func (f *Report) ListReportTypes() []ReportType {
 			IsEmailDeliverability: false,
 			IsSentEmails:          false,
 			IsWaiver:              false,
+			IsActivityLog:         false,
 			IsAdminEvents:         false,
 		},
 		{
@@ -216,6 +275,7 @@ func (f *Report) ListReportTypes() []ReportType {
 			IsEmailDeliverability: false,
 			IsSentEmails:          false,
 			IsWaiver:              false,
+			IsActivityLog:         false,
 			IsAdminEvents:         false,
 		},
 		{
@@ -231,14 +291,15 @@ func (f *Report) ListReportTypes() []ReportType {
 			IsTransfer:            false,
 			IsTicketblockUsers:    false,
 			IsEmailDeliverability: true,
-			IsSentEmails:          true,
+			IsSentEmails:          false,
 			IsWaiver:              false,
+			IsActivityLog:         false,
 			IsAdminEvents:         false,
 		},
 		{
-			Slug:                  `email`,
-			Name:                  `Email Deliverability`,
-			Description:           `Email Deliverability Report`,
+			Slug:                  `sent`,
+			Name:                  `Sent Emails`,
+			Description:           `Event Sent Email Report`,
 			IsInvitation:          false,
 			IsConfirmed:           false,
 			IsUnconfirmed:         false,
@@ -247,9 +308,10 @@ func (f *Report) ListReportTypes() []ReportType {
 			IsCheckin:             false,
 			IsTransfer:            false,
 			IsTicketblockUsers:    false,
-			IsEmailDeliverability: true,
+			IsEmailDeliverability: false,
 			IsSentEmails:          true,
 			IsWaiver:              false,
+			IsActivityLog:         false,
 			IsAdminEvents:         false,
 		},
 		{
@@ -267,6 +329,25 @@ func (f *Report) ListReportTypes() []ReportType {
 			IsEmailDeliverability: false,
 			IsSentEmails:          false,
 			IsWaiver:              true,
+			IsActivityLog:         false,
+			IsAdminEvents:         false,
+		},
+		{
+			Slug:                  `activitylog`,
+			Name:                  `Activity Log`,
+			Description:           `Log of Events Activities`,
+			IsInvitation:          false,
+			IsConfirmed:           false,
+			IsUnconfirmed:         false,
+			IsPurchased:           false,
+			IsWaitlist:            false,
+			IsCheckin:             false,
+			IsTransfer:            false,
+			IsTicketblockUsers:    false,
+			IsEmailDeliverability: false,
+			IsSentEmails:          false,
+			IsWaiver:              false,
+			IsActivityLog:         true,
 			IsAdminEvents:         false,
 		},
 		{
@@ -284,6 +365,7 @@ func (f *Report) ListReportTypes() []ReportType {
 			IsEmailDeliverability: false,
 			IsSentEmails:          false,
 			IsWaiver:              false,
+			IsActivityLog:         false,
 			IsAdminEvents:         true,
 		},
 	}

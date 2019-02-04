@@ -21,6 +21,44 @@ func NewReport(restClient rest.RestClientInterface) *Report {
 }
 
 // GET: Queries
+// @param string EventId
+// @param int|null Page >= 1
+// @param int|null ItemsPerPage 1-100
+// @param string|null SortBy createdAt
+// @param string|null SortDirection ascending|descending
+
+type ListReportsForEventParameters struct {
+	EventId       string
+	Page          *int64
+	ItemsPerPage  *int64
+	SortBy        *string
+	SortDirection *string
+}
+
+func (t *Report) ListReportsForEvent(p *ListReportsForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+
+	return t.restClient.Get(
+		`/v2/Report/UseCase/ListReportsForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 // @param int StartTime
 // @param int EndTime
 
@@ -46,11 +84,44 @@ func (t *Report) ReportTotalEventsRunningBetweenDates(p *ReportTotalEventsRunnin
 // @param string EventId
 // @param string OwnerUserId
 // @param string|null Name
+// @param string|null ReportId
+
+type CreateActivityLogReportParameters struct {
+	EventId     string
+	OwnerUserId string
+	Name        *string
+	ReportId    *string
+}
+
+func (t *Report) CreateActivityLogReport(p *CreateActivityLogReportParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
+	}
+
+	return t.restClient.Post(
+		`/v2/Report/UseCase/CreateActivityLogReport`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+// @param string EventId
+// @param string OwnerUserId
+// @param string|null Name
+// @param string|null ReportId
 
 type CreateAdminEventReportParameters struct {
 	EventId     string
 	OwnerUserId string
 	Name        *string
+	ReportId    *string
 }
 
 func (t *Report) CreateAdminEventReport(p *CreateAdminEventReportParameters) (r *http.Response, err error) {
@@ -59,6 +130,9 @@ func (t *Report) CreateAdminEventReport(p *CreateAdminEventReportParameters) (r 
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
 	if p.Name != nil {
 		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
 	}
 
 	return t.restClient.Post(
@@ -72,11 +146,13 @@ func (t *Report) CreateAdminEventReport(p *CreateAdminEventReportParameters) (r 
 // @param string EventId
 // @param string OwnerUserId
 // @param string|null Name
+// @param string|null ReportId
 
 type CreateConfirmedGuestReportParameters struct {
 	EventId     string
 	OwnerUserId string
 	Name        *string
+	ReportId    *string
 }
 
 func (t *Report) CreateConfirmedGuestReport(p *CreateConfirmedGuestReportParameters) (r *http.Response, err error) {
@@ -85,6 +161,9 @@ func (t *Report) CreateConfirmedGuestReport(p *CreateConfirmedGuestReportParamet
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
 	if p.Name != nil {
 		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
 	}
 
 	return t.restClient.Post(
@@ -97,19 +176,26 @@ func (t *Report) CreateConfirmedGuestReport(p *CreateConfirmedGuestReportParamet
 
 // @param string EventId
 // @param string OwnerUserId
-// @param string Name
+// @param string|null Name
+// @param string|null ReportId
 
 type CreateEmailDeliverabilityReportParameters struct {
 	EventId     string
 	OwnerUserId string
-	Name        string
+	Name        *string
+	ReportId    *string
 }
 
 func (t *Report) CreateEmailDeliverabilityReport(p *CreateEmailDeliverabilityReportParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
-	queryParameters.Add(`name`, p.Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
+	}
 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateEmailDeliverabilityReport`,
@@ -121,19 +207,26 @@ func (t *Report) CreateEmailDeliverabilityReport(p *CreateEmailDeliverabilityRep
 
 // @param string EventId
 // @param string OwnerUserId
-// @param string Name
+// @param string|null Name
+// @param string|null ReportId
 
 type CreateGraphicalCheckinReportParameters struct {
 	EventId     string
 	OwnerUserId string
-	Name        string
+	Name        *string
+	ReportId    *string
 }
 
 func (t *Report) CreateGraphicalCheckinReport(p *CreateGraphicalCheckinReportParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
-	queryParameters.Add(`name`, p.Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
+	}
 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateGraphicalCheckinReport`,
@@ -145,19 +238,26 @@ func (t *Report) CreateGraphicalCheckinReport(p *CreateGraphicalCheckinReportPar
 
 // @param string EventId
 // @param string OwnerUserId
-// @param string Name
+// @param string|null Name
+// @param string|null ReportId
 
 type CreateGuestSummaryReportParameters struct {
 	EventId     string
 	OwnerUserId string
-	Name        string
+	Name        *string
+	ReportId    *string
 }
 
 func (t *Report) CreateGuestSummaryReport(p *CreateGuestSummaryReportParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
-	queryParameters.Add(`name`, p.Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
+	}
 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateGuestSummaryReport`,
@@ -169,19 +269,26 @@ func (t *Report) CreateGuestSummaryReport(p *CreateGuestSummaryReportParameters)
 
 // @param string EventId
 // @param string OwnerUserId
-// @param string Name
+// @param string|null Name
+// @param string|null ReportId
 
 type CreatePurchasedReportParameters struct {
 	EventId     string
 	OwnerUserId string
-	Name        string
+	Name        *string
+	ReportId    *string
 }
 
 func (t *Report) CreatePurchasedReport(p *CreatePurchasedReportParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
-	queryParameters.Add(`name`, p.Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
+	}
 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreatePurchasedReport`,
@@ -193,19 +300,26 @@ func (t *Report) CreatePurchasedReport(p *CreatePurchasedReportParameters) (r *h
 
 // @param string EventId
 // @param string OwnerUserId
-// @param string Name
+// @param string|null Name
+// @param string|null ReportId
 
 type CreateSentEmailReportParameters struct {
 	EventId     string
 	OwnerUserId string
-	Name        string
+	Name        *string
+	ReportId    *string
 }
 
 func (t *Report) CreateSentEmailReport(p *CreateSentEmailReportParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
-	queryParameters.Add(`name`, p.Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
+	}
 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateSentEmailReport`,
@@ -218,13 +332,15 @@ func (t *Report) CreateSentEmailReport(p *CreateSentEmailReportParameters) (r *h
 // @param string EventId
 // @param string OwnerUserId
 // @param string TicketBlockId
-// @param string Name
+// @param string|null Name
+// @param string|null ReportId
 
 type CreateTicketBlockSummaryReportParameters struct {
 	EventId       string
 	OwnerUserId   string
 	TicketBlockId string
-	Name          string
+	Name          *string
+	ReportId      *string
 }
 
 func (t *Report) CreateTicketBlockSummaryReport(p *CreateTicketBlockSummaryReportParameters) (r *http.Response, err error) {
@@ -232,7 +348,12 @@ func (t *Report) CreateTicketBlockSummaryReport(p *CreateTicketBlockSummaryRepor
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
 	queryParameters.Add(`ticketBlockId`, p.TicketBlockId)
-	queryParameters.Add(`name`, p.Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
+	}
 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateTicketBlockSummaryReport`,
@@ -244,19 +365,26 @@ func (t *Report) CreateTicketBlockSummaryReport(p *CreateTicketBlockSummaryRepor
 
 // @param string EventId
 // @param string OwnerUserId
-// @param string Name
+// @param string|null Name
+// @param string|null ReportId
 
 type CreateTicketBlockUserReportParameters struct {
 	EventId     string
 	OwnerUserId string
-	Name        string
+	Name        *string
+	ReportId    *string
 }
 
 func (t *Report) CreateTicketBlockUserReport(p *CreateTicketBlockUserReportParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
-	queryParameters.Add(`name`, p.Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
+	}
 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateTicketBlockUserReport`,
@@ -268,19 +396,26 @@ func (t *Report) CreateTicketBlockUserReport(p *CreateTicketBlockUserReportParam
 
 // @param string EventId
 // @param string OwnerUserId
-// @param string Name
+// @param string|null Name
+// @param string|null ReportId
 
 type CreateTransferReportParameters struct {
 	EventId     string
 	OwnerUserId string
-	Name        string
+	Name        *string
+	ReportId    *string
 }
 
 func (t *Report) CreateTransferReport(p *CreateTransferReportParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
-	queryParameters.Add(`name`, p.Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
+	}
 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateTransferReport`,
@@ -292,19 +427,26 @@ func (t *Report) CreateTransferReport(p *CreateTransferReportParameters) (r *htt
 
 // @param string EventId
 // @param string OwnerUserId
-// @param string Name
+// @param string|null Name
+// @param string|null ReportId
 
 type CreateUnconfirmedGuestReportParameters struct {
 	EventId     string
 	OwnerUserId string
-	Name        string
+	Name        *string
+	ReportId    *string
 }
 
 func (t *Report) CreateUnconfirmedGuestReport(p *CreateUnconfirmedGuestReportParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
-	queryParameters.Add(`name`, p.Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
+	}
 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateUnconfirmedGuestReport`,
@@ -316,19 +458,26 @@ func (t *Report) CreateUnconfirmedGuestReport(p *CreateUnconfirmedGuestReportPar
 
 // @param string EventId
 // @param string OwnerUserId
-// @param string Name
+// @param string|null Name
+// @param string|null ReportId
 
 type CreateWaitListReportParameters struct {
 	EventId     string
 	OwnerUserId string
-	Name        string
+	Name        *string
+	ReportId    *string
 }
 
 func (t *Report) CreateWaitListReport(p *CreateWaitListReportParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
-	queryParameters.Add(`name`, p.Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
+	}
 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateWaitListReport`,
@@ -340,19 +489,26 @@ func (t *Report) CreateWaitListReport(p *CreateWaitListReportParameters) (r *htt
 
 // @param string EventId
 // @param string OwnerUserId
-// @param string Name
+// @param string|null Name
+// @param string|null ReportId
 
 type CreateWaiverReportParameters struct {
 	EventId     string
 	OwnerUserId string
-	Name        string
+	Name        *string
+	ReportId    *string
 }
 
 func (t *Report) CreateWaiverReport(p *CreateWaiverReportParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`ownerUserId`, p.OwnerUserId)
-	queryParameters.Add(`name`, p.Name)
+	if p.Name != nil {
+		queryParameters.Add(`name`, *p.Name)
+	}
+	if p.ReportId != nil {
+		queryParameters.Add(`reportId`, *p.ReportId)
+	}
 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateWaiverReport`,
