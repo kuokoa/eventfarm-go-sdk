@@ -21,7 +21,6 @@ func NewEmailDesign(restClient rest.RestClientInterface) *EmailDesign {
 }
 
 // GET: Queries
-// @param string EmailDesignId
 
 type GetEmailDesignParameters struct {
 	EmailDesignId string
@@ -39,8 +38,6 @@ func (t *EmailDesign) GetEmailDesign(p *GetEmailDesignParameters) (r *http.Respo
 	)
 }
 
-// @param string EmailDesignImageId
-
 type GetEmailDesignImageParameters struct {
 	EmailDesignImageId string
 }
@@ -56,10 +53,6 @@ func (t *EmailDesign) GetEmailDesignImage(p *GetEmailDesignImageParameters) (r *
 		nil,
 	)
 }
-
-// @param string EventId
-// @param int|null Page
-// @param int|null ItemsPerPage
 
 type ListEmailDesignsByEventParameters struct {
 	EventId      string
@@ -86,21 +79,6 @@ func (t *EmailDesign) ListEmailDesignsByEvent(p *ListEmailDesignsByEventParamete
 }
 
 // POST: Commands
-// @param string Name
-// @param string Layout
-// @param string FromName
-// @param string Subject
-// @param string Content
-// @param string BackgroundColor
-// @param string EmailDesignTypeId
-// @param string EventId
-// @param string|null FromEmail
-// @param string|null ReplyEmail
-// @param array|null CcEmail
-// @param array|null BccEmail
-// @param string|null DomainMaskId
-// @param string|null DomainMaskEmail
-// @param string|null EmailDesignId
 
 type CreateEmailDesignParameters struct {
 	Name              string
@@ -164,22 +142,6 @@ func (t *EmailDesign) CreateEmailDesign(p *CreateEmailDesignParameters) (r *http
 	)
 }
 
-// @param string Name
-// @param string Layout blank|alt-email-layout
-// @param string FromName
-// @param string Subject
-// @param string BackgroundColor
-// @param string EmailDesignTypeId
-// @param string EventId
-// @param string EmailTemplateType simple-template|simple-header|simple-template-border|default-invite|full-width-header
-// @param string|null FromEmail
-// @param string|null ReplyEmail
-// @param array|null CcEmails
-// @param array|null BccEmails
-// @param string|null DomainMaskId
-// @param string|null DomainMaskEmail
-// @param string|null EmailDesignId
-
 type CreateEmailDesignFromTemplateParameters struct {
 	Name              string
 	Layout            string
@@ -242,10 +204,6 @@ func (t *EmailDesign) CreateEmailDesignFromTemplate(p *CreateEmailDesignFromTemp
 	)
 }
 
-// @param string EventId
-// @param string Image image/jpeg|image/png
-// @param string|null EmailDesignImageId
-
 type CreateEmailDesignImageParameters struct {
 	EventId            string
 	Image              string
@@ -256,10 +214,6 @@ func (t *EmailDesign) CreateEmailDesignImage(p *CreateEmailDesignImageParameters
 	// TODO
 	return
 }
-
-// @param string OriginalEmailDesignId
-// @param string|null DuplicateEventId
-// @param string|null DuplicateEmailDesignId
 
 type DuplicateEmailDesignParameters struct {
 	OriginalEmailDesignId  string
@@ -285,8 +239,6 @@ func (t *EmailDesign) DuplicateEmailDesign(p *DuplicateEmailDesignParameters) (r
 	)
 }
 
-// @param string EmailDesignId
-
 type RemoveEmailDesignParameters struct {
 	EmailDesignId string
 }
@@ -302,22 +254,6 @@ func (t *EmailDesign) RemoveEmailDesign(p *RemoveEmailDesignParameters) (r *http
 		nil,
 	)
 }
-
-// @param string EmailDesignId
-// @param string Name
-// @param string Layout
-// @param string FromName
-// @param string Subject
-// @param string Content
-// @param string BackgroundColor
-// @param string EmailDesignTypeId
-// @param string EventId
-// @param string|null FromEmail
-// @param string|null ReplyEmail
-// @param array|null CcEmail
-// @param array|null BccEmail
-// @param string|null DomainMaskId
-// @param string|null DomainMaskEmail
 
 type UpdateEmailDesignParameters struct {
 	EmailDesignId     string

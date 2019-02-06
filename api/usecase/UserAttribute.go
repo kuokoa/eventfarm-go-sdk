@@ -21,16 +21,12 @@ func NewUserAttribute(restClient rest.RestClientInterface) *UserAttribute {
 }
 
 // GET: Queries
-// @param string PoolId
-// @param string UserId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
 
 type ListCustomAttributesForUserParameters struct {
 	PoolId       string
 	UserId       string
-	Page         *int64
-	ItemsPerPage *int64
+	Page         *int64 // >= 1
+	ItemsPerPage *int64 // 1-100
 }
 
 func (t *UserAttribute) ListCustomAttributesForUser(p *ListCustomAttributesForUserParameters) (r *http.Response, err error) {
@@ -52,16 +48,11 @@ func (t *UserAttribute) ListCustomAttributesForUser(p *ListCustomAttributesForUs
 	)
 }
 
-// @param string PoolId
-// @param string UserId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
-
 type ListInfoAttributesForUserParameters struct {
 	PoolId       string
 	UserId       string
-	Page         *int64
-	ItemsPerPage *int64
+	Page         *int64 // >= 1
+	ItemsPerPage *int64 // 1-100
 }
 
 func (t *UserAttribute) ListInfoAttributesForUser(p *ListInfoAttributesForUserParameters) (r *http.Response, err error) {
@@ -84,7 +75,6 @@ func (t *UserAttribute) ListInfoAttributesForUser(p *ListInfoAttributesForUserPa
 }
 
 // POST: Commands
-// @param string UserAttributeId
 
 type RemoveUserAttributeParameters struct {
 	UserAttributeId string
@@ -101,11 +91,6 @@ func (t *UserAttribute) RemoveUserAttribute(p *RemoveUserAttributeParameters) (r
 		nil,
 	)
 }
-
-// @param string PoolId
-// @param string UserId
-// @param string AttributeKey
-// @param string AttributeValue
 
 type SetCustomUserAttributeParameters struct {
 	PoolId         string
@@ -128,11 +113,6 @@ func (t *UserAttribute) SetCustomUserAttribute(p *SetCustomUserAttributeParamete
 		nil,
 	)
 }
-
-// @param string PoolId
-// @param string UserId
-// @param string AttributeKey company|position|title|telephone
-// @param string AttributeValue
 
 type SetInfoUserAttributeParameters struct {
 	PoolId         string

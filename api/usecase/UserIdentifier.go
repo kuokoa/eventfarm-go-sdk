@@ -22,9 +22,6 @@ func NewUserIdentifier(restClient rest.RestClientInterface) *UserIdentifier {
 // GET: Queries
 
 // POST: Commands
-// @param string UserIdentifierId
-// @param string Identifier
-// @param string|null PoolId
 
 type SetUserIdentifierParameters struct {
 	UserIdentifierId string

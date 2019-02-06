@@ -20,7 +20,6 @@ func NewSalesforcePoolSetting(restClient rest.RestClientInterface) *SalesforcePo
 }
 
 // GET: Queries
-// @param string PoolId
 
 type GetSalesforcePoolSettingParameters struct {
 	PoolId string
@@ -39,10 +38,6 @@ func (t *SalesforcePoolSetting) GetSalesforcePoolSetting(p *GetSalesforcePoolSet
 }
 
 // POST: Commands
-// @param string PoolId
-// @param string|null SyncUserId
-// @param string|null DefaultLeadCompany
-// @param string|null DefaultLeadSource
 
 type CreateSalesforcePoolSettingParameters struct {
 	PoolId             string
@@ -72,8 +67,6 @@ func (t *SalesforcePoolSetting) CreateSalesforcePoolSetting(p *CreateSalesforceP
 	)
 }
 
-// @param string PoolId
-
 type RemoveSyncUserForPoolParameters struct {
 	PoolId string
 }
@@ -89,9 +82,6 @@ func (t *SalesforcePoolSetting) RemoveSyncUserForPool(p *RemoveSyncUserForPoolPa
 		nil,
 	)
 }
-
-// @param string PoolId
-// @param string LeadCompany
 
 type SetLeadCompanyForPoolParameters struct {
 	PoolId      string
@@ -111,9 +101,6 @@ func (t *SalesforcePoolSetting) SetLeadCompanyForPool(p *SetLeadCompanyForPoolPa
 	)
 }
 
-// @param string PoolId
-// @param string LeadSource
-
 type SetLeadSourceForPoolParameters struct {
 	PoolId     string
 	LeadSource string
@@ -131,9 +118,6 @@ func (t *SalesforcePoolSetting) SetLeadSourceForPool(p *SetLeadSourceForPoolPara
 		nil,
 	)
 }
-
-// @param string PoolId
-// @param string SyncUserId
 
 type SetSyncUserForPoolParameters struct {
 	PoolId     string

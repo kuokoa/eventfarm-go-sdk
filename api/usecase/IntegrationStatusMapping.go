@@ -20,8 +20,6 @@ func NewIntegrationStatusMapping(restClient rest.RestClientInterface) *Integrati
 }
 
 // GET: Queries
-// @param string SalesforceEventSettingId
-// @param string|null StatusMappingType salesforce-campaign-member
 
 type ListStatusMappingsForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
@@ -44,11 +42,6 @@ func (t *IntegrationStatusMapping) ListStatusMappingsForSalesforceEventSetting(p
 }
 
 // POST: Commands
-// @param string StatusMappingType salesforce-campaign-member
-// @param string IntegrationSettingType salesforce|marketo
-// @param string IntegrationSettingId
-// @param string StatusId assigned|purchased|confirmed-by-rsvp|declined-by-rsvp|left-behind|not-yet-purchased|registered|unconfirmed|recycled|not-yet-registered|waitlisted|checked-in
-// @param string IntegrationStatusName
 
 type CreateIntegrationStatusMappingParameters struct {
 	StatusMappingType      string
@@ -74,9 +67,6 @@ func (t *IntegrationStatusMapping) CreateIntegrationStatusMapping(p *CreateInteg
 	)
 }
 
-// @param string IntegrationStatusMappingId
-// @param string StatusId assigned|purchased|confirmed-by-rsvp|declined-by-rsvp|left-behind|not-yet-purchased|registered|unconfirmed|recycled|not-yet-registered|waitlisted|checked-in
-
 type SetIntegrationStatusMappingStatusIdParameters struct {
 	IntegrationStatusMappingId string
 	StatusId                   string
@@ -94,9 +84,6 @@ func (t *IntegrationStatusMapping) SetIntegrationStatusMappingStatusId(p *SetInt
 		nil,
 	)
 }
-
-// @param string IntegrationStatusMappingId
-// @param string IntegrationStatusValue
 
 type SetIntegrationStatusMappingValueParameters struct {
 	IntegrationStatusMappingId string

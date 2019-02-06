@@ -21,7 +21,6 @@ func NewIntegrationFieldMapping(restClient rest.RestClientInterface) *Integratio
 }
 
 // GET: Queries
-// @param string IntegrationFieldMappingId
 
 type GetIntegrationFieldMappingParameters struct {
 	IntegrationFieldMappingId string
@@ -38,9 +37,6 @@ func (t *IntegrationFieldMapping) GetIntegrationFieldMapping(p *GetIntegrationFi
 		nil,
 	)
 }
-
-// @param string SalesforceEventSettingId
-// @param string|null FieldMappingType
 
 type ListFieldMappingsForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
@@ -63,17 +59,6 @@ func (t *IntegrationFieldMapping) ListFieldMappingsForSalesforceEventSetting(p *
 }
 
 // POST: Commands
-// @param string FieldMappingType salesforce-import-lead|salesforce-import-contact|salesforce-export-lead|salesforce-export-contact|marketo-field-mapping
-// @param string IntegrationSettingType
-// @param string IntegrationSettingId
-// @param string FieldType question|user-attribute|user-name|user-identifier
-// @param string FieldId
-// @param string IntegrationFieldValue
-// @param bool CanUpdateEventFarmField true|false
-// @param bool CanUpdateIntegrationField true|false
-// @param bool CanDeleteMapping true|false
-// @param string|null UpdateRule never|different|blank
-// @param string|null FieldName
 
 type CreateIntegrationFieldMappingParameters struct {
 	FieldMappingType          string
@@ -115,8 +100,6 @@ func (t *IntegrationFieldMapping) CreateIntegrationFieldMapping(p *CreateIntegra
 	)
 }
 
-// @param string IntegrationFieldMappingId
-
 type DeleteIntegrationFieldMappingParameters struct {
 	IntegrationFieldMappingId string
 }
@@ -132,11 +115,6 @@ func (t *IntegrationFieldMapping) DeleteIntegrationFieldMapping(p *DeleteIntegra
 		nil,
 	)
 }
-
-// @param string IntegrationFieldMappingId
-// @param string FieldType question|user-attribute|user-name|user-identifier
-// @param string FieldId
-// @param string|null FieldName
 
 type SetIntegrationFieldMappingFieldsParameters struct {
 	IntegrationFieldMappingId string
@@ -162,9 +140,6 @@ func (t *IntegrationFieldMapping) SetIntegrationFieldMappingFields(p *SetIntegra
 	)
 }
 
-// @param string IntegrationFieldMappingId
-// @param string IntegrationFieldName
-
 type SetIntegrationFieldMappingNameParameters struct {
 	IntegrationFieldMappingId string
 	IntegrationFieldName      string
@@ -182,9 +157,6 @@ func (t *IntegrationFieldMapping) SetIntegrationFieldMappingName(p *SetIntegrati
 		nil,
 	)
 }
-
-// @param string IntegrationFieldMappingId
-// @param string UpdateRule never|different|blank
 
 type SetIntegrationFieldMappingUpdateRuleParameters struct {
 	IntegrationFieldMappingId string

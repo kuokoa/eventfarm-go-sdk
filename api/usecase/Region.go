@@ -21,14 +21,11 @@ func NewRegion(restClient rest.RestClientInterface) *Region {
 }
 
 // GET: Queries
-// @param string Query
-// @param int|null Page
-// @param int|null ItemsPerPage 1-200
 
 type ListTimezonesForRegionParameters struct {
 	Query        string
 	Page         *int64
-	ItemsPerPage *int64
+	ItemsPerPage *int64 // 1-200
 }
 
 func (t *Region) ListTimezonesForRegion(p *ListTimezonesForRegionParameters) (r *http.Response, err error) {

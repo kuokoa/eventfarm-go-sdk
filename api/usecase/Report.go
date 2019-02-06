@@ -21,16 +21,11 @@ func NewReport(restClient rest.RestClientInterface) *Report {
 }
 
 // GET: Queries
-// @param string EventId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
-// @param string|null SortBy createdAt
-// @param string|null SortDirection ascending|descending
 
 type ListReportsForEventParameters struct {
 	EventId       string
-	Page          *int64
-	ItemsPerPage  *int64
+	Page          *int64 // >= 1
+	ItemsPerPage  *int64 // 1-100
 	SortBy        *string
 	SortDirection *string
 }
@@ -59,9 +54,6 @@ func (t *Report) ListReportsForEvent(p *ListReportsForEventParameters) (r *http.
 	)
 }
 
-// @param int StartTime
-// @param int EndTime
-
 type ReportTotalEventsRunningBetweenDatesParameters struct {
 	StartTime int64
 	EndTime   int64
@@ -81,10 +73,6 @@ func (t *Report) ReportTotalEventsRunningBetweenDates(p *ReportTotalEventsRunnin
 }
 
 // POST: Commands
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
 
 type CreateActivityLogReportParameters struct {
 	EventId     string
@@ -112,11 +100,6 @@ func (t *Report) CreateActivityLogReport(p *CreateActivityLogReportParameters) (
 	)
 }
 
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
-
 type CreateAdminEventReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -142,11 +125,6 @@ func (t *Report) CreateAdminEventReport(p *CreateAdminEventReportParameters) (r 
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
 
 type CreateConfirmedGuestReportParameters struct {
 	EventId     string
@@ -174,11 +152,6 @@ func (t *Report) CreateConfirmedGuestReport(p *CreateConfirmedGuestReportParamet
 	)
 }
 
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
-
 type CreateEmailDeliverabilityReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -204,11 +177,6 @@ func (t *Report) CreateEmailDeliverabilityReport(p *CreateEmailDeliverabilityRep
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
 
 type CreateGraphicalCheckinReportParameters struct {
 	EventId     string
@@ -236,11 +204,6 @@ func (t *Report) CreateGraphicalCheckinReport(p *CreateGraphicalCheckinReportPar
 	)
 }
 
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
-
 type CreateGuestSummaryReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -266,11 +229,6 @@ func (t *Report) CreateGuestSummaryReport(p *CreateGuestSummaryReportParameters)
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
 
 type CreatePurchasedReportParameters struct {
 	EventId     string
@@ -298,11 +256,6 @@ func (t *Report) CreatePurchasedReport(p *CreatePurchasedReportParameters) (r *h
 	)
 }
 
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
-
 type CreateSentEmailReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -328,12 +281,6 @@ func (t *Report) CreateSentEmailReport(p *CreateSentEmailReportParameters) (r *h
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string OwnerUserId
-// @param string TicketBlockId
-// @param string|null Name
-// @param string|null ReportId
 
 type CreateTicketBlockSummaryReportParameters struct {
 	EventId       string
@@ -363,11 +310,6 @@ func (t *Report) CreateTicketBlockSummaryReport(p *CreateTicketBlockSummaryRepor
 	)
 }
 
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
-
 type CreateTicketBlockUserReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -393,11 +335,6 @@ func (t *Report) CreateTicketBlockUserReport(p *CreateTicketBlockUserReportParam
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
 
 type CreateTransferReportParameters struct {
 	EventId     string
@@ -425,11 +362,6 @@ func (t *Report) CreateTransferReport(p *CreateTransferReportParameters) (r *htt
 	)
 }
 
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
-
 type CreateUnconfirmedGuestReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -456,11 +388,6 @@ func (t *Report) CreateUnconfirmedGuestReport(p *CreateUnconfirmedGuestReportPar
 	)
 }
 
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
-
 type CreateWaitListReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -486,11 +413,6 @@ func (t *Report) CreateWaitListReport(p *CreateWaitListReportParameters) (r *htt
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string OwnerUserId
-// @param string|null Name
-// @param string|null ReportId
 
 type CreateWaiverReportParameters struct {
 	EventId     string

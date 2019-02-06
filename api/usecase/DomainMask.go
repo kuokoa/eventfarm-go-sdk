@@ -20,7 +20,6 @@ func NewDomainMask(restClient rest.RestClientInterface) *DomainMask {
 }
 
 // GET: Queries
-// @param string PoolId
 
 type GetAllDomainMasksByPoolParameters struct {
 	PoolId string
@@ -37,8 +36,6 @@ func (t *DomainMask) GetAllDomainMasksByPool(p *GetAllDomainMasksByPoolParameter
 		nil,
 	)
 }
-
-// @param string DomainMaskId
 
 type GetDomainMaskParameters struct {
 	DomainMaskId string
@@ -57,8 +54,6 @@ func (t *DomainMask) GetDomainMask(p *GetDomainMaskParameters) (r *http.Response
 }
 
 // POST: Commands
-// @param string PoolId
-// @param string Domain
 
 type CreateDomainMaskParameters struct {
 	PoolId string
@@ -77,8 +72,6 @@ func (t *DomainMask) CreateDomainMask(p *CreateDomainMaskParameters) (r *http.Re
 		nil,
 	)
 }
-
-// @param string DomainMaskId
 
 type RemoveDomainMaskParameters struct {
 	DomainMaskId string

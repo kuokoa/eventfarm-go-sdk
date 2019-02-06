@@ -21,7 +21,6 @@ func NewSitePage(restClient rest.RestClientInterface) *SitePage {
 }
 
 // GET: Queries
-// @param string SitePageId
 
 type GetSitePageParameters struct {
 	SitePageId string
@@ -39,14 +38,10 @@ func (t *SitePage) GetSitePage(p *GetSitePageParameters) (r *http.Response, err 
 	)
 }
 
-// @param string EventId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
-
 type ListSitePagesForEventParameters struct {
 	EventId      string
-	Page         *int64
-	ItemsPerPage *int64
+	Page         *int64 // >= 1
+	ItemsPerPage *int64 // 1-100
 }
 
 func (t *SitePage) ListSitePagesForEvent(p *ListSitePagesForEventParameters) (r *http.Response, err error) {
@@ -67,16 +62,11 @@ func (t *SitePage) ListSitePagesForEvent(p *ListSitePagesForEventParameters) (r 
 	)
 }
 
-// @param string PoolId
-// @param bool|null ShouldIncludeSharedTemplates true|false
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-500
-
 type ListTemplatesForPoolParameters struct {
 	PoolId                       string
 	ShouldIncludeSharedTemplates *bool
-	Page                         *int64
-	ItemsPerPage                 *int64
+	Page                         *int64 // >= 1
+	ItemsPerPage                 *int64 // 1-500
 }
 
 func (t *SitePage) ListTemplatesForPool(p *ListTemplatesForPoolParameters) (r *http.Response, err error) {
@@ -101,14 +91,6 @@ func (t *SitePage) ListTemplatesForPool(p *ListTemplatesForPoolParameters) (r *h
 }
 
 // POST: Commands
-// @param string EventId
-// @param string Title
-// @param string Content
-// @param int|null DisplayOrder
-// @param string|null SitePageId
-// @param string|null Styles
-// @param string|null Scripts
-// @param string|null SourceTemplateId
 
 type CreateSitePageParameters struct {
 	EventId          string
@@ -150,15 +132,6 @@ func (t *SitePage) CreateSitePage(p *CreateSitePageParameters) (r *http.Response
 	)
 }
 
-// @param string Name
-// @param string Content
-// @param string Difficulty custom|beginner|intermediate|advanced|expert
-// @param string|null PoolId
-// @param string|null Styles
-// @param string|null Scripts
-// @param string|null Description
-// @param string|null TemplateId
-
 type CreateTemplateParameters struct {
 	Name        string
 	Content     string
@@ -199,10 +172,6 @@ func (t *SitePage) CreateTemplate(p *CreateTemplateParameters) (r *http.Response
 	)
 }
 
-// @param string SitePageId
-// @param string|null NewSitePageId
-// @param string|null ToEventId
-
 type DuplicateSitePageParameters struct {
 	SitePageId    string
 	NewSitePageId *string
@@ -226,10 +195,6 @@ func (t *SitePage) DuplicateSitePage(p *DuplicateSitePageParameters) (r *http.Re
 		nil,
 	)
 }
-
-// @param string TemplateId
-// @param string|null NewTemplateId
-// @param string|null ToPoolId
 
 type DuplicateTemplateParameters struct {
 	TemplateId    string
@@ -266,8 +231,6 @@ func (t *SitePage) GenerateSitePageTemplates() (r *http.Response, err error) {
 	)
 }
 
-// @param string SitePageId
-
 type RemoveSitePageParameters struct {
 	SitePageId string
 }
@@ -284,8 +247,6 @@ func (t *SitePage) RemoveSitePage(p *RemoveSitePageParameters) (r *http.Response
 	)
 }
 
-// @param string SitePageTemplateId
-
 type RemoveTemplateParameters struct {
 	SitePageTemplateId string
 }
@@ -301,11 +262,6 @@ func (t *SitePage) RemoveTemplate(p *RemoveTemplateParameters) (r *http.Response
 		nil,
 	)
 }
-
-// @param string SitePageId
-// @param string Content
-// @param string|null Styles
-// @param string|null Scripts
 
 type SetContentForSitePageParameters struct {
 	SitePageId string
@@ -333,9 +289,6 @@ func (t *SitePage) SetContentForSitePage(p *SetContentForSitePageParameters) (r 
 	)
 }
 
-// @param string SitePageId
-// @param string DisplayOrder
-
 type SetDisplayOrderForSitePageParameters struct {
 	SitePageId   string
 	DisplayOrder string
@@ -353,13 +306,6 @@ func (t *SitePage) SetDisplayOrderForSitePage(p *SetDisplayOrderForSitePageParam
 		nil,
 	)
 }
-
-// @param string SitePageId
-// @param string|null Title
-// @param string|null Description
-// @param string|null Keywords
-// @param string|null ImageUrl
-// @param string|null Name
 
 type SetMetaInfoForSitePageParameters struct {
 	SitePageId  string
@@ -397,9 +343,6 @@ func (t *SitePage) SetMetaInfoForSitePage(p *SetMetaInfoForSitePageParameters) (
 	)
 }
 
-// @param string SitePageId
-// @param string Title
-
 type SetTitleForSitePageParameters struct {
 	SitePageId string
 	Title      string
@@ -417,12 +360,6 @@ func (t *SitePage) SetTitleForSitePage(p *SetTitleForSitePageParameters) (r *htt
 		nil,
 	)
 }
-
-// @param string SitePageId
-// @param string EventId
-// @param string Title
-// @param string Content
-// @param int|null DisplayOrder
 
 type UpdateSitePageParameters struct {
 	SitePageId   string
@@ -449,13 +386,6 @@ func (t *SitePage) UpdateSitePage(p *UpdateSitePageParameters) (r *http.Response
 		nil,
 	)
 }
-
-// @param string TemplateId
-// @param string|null Name
-// @param string|null Content
-// @param string|null PoolId
-// @param string|null Styles
-// @param string|null Scripts
 
 type UpdateTemplateParameters struct {
 	TemplateId string

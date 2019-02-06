@@ -21,7 +21,6 @@ func NewInvitation(restClient rest.RestClientInterface) *Invitation {
 }
 
 // GET: Queries
-// @param string StackMethodType public-registration|public-purchase|invite-to-register|invite-to-purchase|invite-to-rsvp|invite-to-register-fcfs|invite-to-purchase-fcfs|invite-to-rsvp-fcfs
 
 type GetAllInvitationStatusTypesForStackMethodTypeParameters struct {
 	StackMethodType string
@@ -39,8 +38,6 @@ func (t *Invitation) GetAllInvitationStatusTypesForStackMethodType(p *GetAllInvi
 	)
 }
 
-// @param string EventId
-
 type GetCheckInCountsForEventParameters struct {
 	EventId string
 }
@@ -56,8 +53,6 @@ func (t *Invitation) GetCheckInCountsForEvent(p *GetCheckInCountsForEventParamet
 		nil,
 	)
 }
-
-// @param string TicketBlockId
 
 type GetCheckInCountsForTicketBlockParameters struct {
 	TicketBlockId string
@@ -75,12 +70,9 @@ func (t *Invitation) GetCheckInCountsForTicketBlock(p *GetCheckInCountsForTicket
 	)
 }
 
-// @param string InvitationId
-// @param array|null WithData Event|UserName|User|UserIdentifier|Stack|TicketType|QuestionResponse|Answer
-
 type GetInvitationParameters struct {
 	InvitationId string
-	WithData     *[]string
+	WithData     *[]string // Event | UserName | User | UserIdentifier | Stack | TicketType | QuestionResponse | Answer
 }
 
 func (t *Invitation) GetInvitation(p *GetInvitationParameters) (r *http.Response, err error) {
@@ -100,8 +92,6 @@ func (t *Invitation) GetInvitation(p *GetInvitationParameters) (r *http.Response
 	)
 }
 
-// @param string EventId
-
 type GetInvitationCountsForEventParameters struct {
 	EventId string
 }
@@ -118,8 +108,6 @@ func (t *Invitation) GetInvitationCountsForEvent(p *GetInvitationCountsForEventP
 	)
 }
 
-// @param string TicketBlockId
-
 type GetInvitationCountsForTicketBlockParameters struct {
 	TicketBlockId string
 }
@@ -135,9 +123,6 @@ func (t *Invitation) GetInvitationCountsForTicketBlock(p *GetInvitationCountsFor
 		nil,
 	)
 }
-
-// @param string UserId
-// @param string|null PoolId
 
 type GetInvitationCountsForUserParameters struct {
 	UserId string
@@ -159,8 +144,6 @@ func (t *Invitation) GetInvitationCountsForUser(p *GetInvitationCountsForUserPar
 	)
 }
 
-// @param string EventId
-
 type GetInvitationLastActionCountsForEventParameters struct {
 	EventId string
 }
@@ -176,8 +159,6 @@ func (t *Invitation) GetInvitationLastActionCountsForEvent(p *GetInvitationLastA
 		nil,
 	)
 }
-
-// @param string EventId
 
 type GetInvitationStatusTypeCountsForEventParameters struct {
 	EventId string
@@ -195,8 +176,6 @@ func (t *Invitation) GetInvitationStatusTypeCountsForEvent(p *GetInvitationStatu
 	)
 }
 
-// @param string TicketBlockId
-
 type GetInvitationStatusTypeCountsForTicketBlockParameters struct {
 	TicketBlockId string
 }
@@ -213,30 +192,18 @@ func (t *Invitation) GetInvitationStatusTypeCountsForTicketBlock(p *GetInvitatio
 	)
 }
 
-// @param string EventId
-// @param array|null WithData UserIdentifiers|StackAndTicketType|QuestionResponses|maxLastModifiedAt
-// @param array|null WithUserAttributes internal|info|hover|facebook|linked-in|salesforce|twitter|convio|google|custom
-// @param string|null Query
-// @param array|null StatusFilter assigned|purchased|confirmed-by-rsvp|declined-by-rsvp|left-behind|not-yet-purchased|registered|unconfirmed|recycled|not-yet-registered|waitlisted
-// @param int|null LastModifiedTimestamp
-// @param bool|null IsCheckedIn true|false
-// @param string|null SortBy name|last-action|last-notified|created-at|modified-at|checked-in-at
-// @param string|null SortDirection ascending|descending
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-250
-
 type ListInvitationsForEventParameters struct {
 	EventId               string
-	WithData              *[]string
-	WithUserAttributes    *[]string
+	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 	Query                 *string
-	StatusFilter          *[]string
+	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
 	SortDirection         *string
-	Page                  *int64
-	ItemsPerPage          *int64
+	Page                  *int64 // >= 1
+	ItemsPerPage          *int64 // 1-250
 }
 
 func (t *Invitation) ListInvitationsForEvent(p *ListInvitationsForEventParameters) (r *http.Response, err error) {
@@ -287,32 +254,19 @@ func (t *Invitation) ListInvitationsForEvent(p *ListInvitationsForEventParameter
 	)
 }
 
-// @param string EventId
-// @param string StackId
-// @param array|null WithData UserIdentifiers|StackAndTicketType|QuestionResponses|maxLastModifiedAt
-// @param array|null WithUserAttributes internal|info|hover|facebook|linked-in|salesforce|twitter|convio|google|custom
-// @param string|null Query
-// @param array|null StatusFilter assigned|purchased|confirmed-by-rsvp|declined-by-rsvp|left-behind|not-yet-purchased|registered|unconfirmed|recycled|not-yet-registered|waitlisted
-// @param int|null LastModifiedTimestamp
-// @param bool|null IsCheckedIn true|false
-// @param string|null SortBy name|last-action|last-notified|created-at|modified-at|checked-in-at
-// @param string|null SortDirection ascending|descending
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-250
-
 type ListInvitationsForStackParameters struct {
 	EventId               string
 	StackId               string
-	WithData              *[]string
-	WithUserAttributes    *[]string
+	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 	Query                 *string
-	StatusFilter          *[]string
+	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
 	SortDirection         *string
-	Page                  *int64
-	ItemsPerPage          *int64
+	Page                  *int64 // >= 1
+	ItemsPerPage          *int64 // 1-250
 }
 
 func (t *Invitation) ListInvitationsForStack(p *ListInvitationsForStackParameters) (r *http.Response, err error) {
@@ -364,30 +318,18 @@ func (t *Invitation) ListInvitationsForStack(p *ListInvitationsForStackParameter
 	)
 }
 
-// @param string TicketBlockId
-// @param array|null WithData UserIdentifiers|StackAndTicketType|QuestionResponses|maxLastModifiedAt
-// @param array|null WithUserAttributes internal|info|hover|facebook|linked-in|salesforce|twitter|convio|google|custom
-// @param string|null Query
-// @param array|null StatusFilter assigned|purchased|confirmed-by-rsvp|declined-by-rsvp|left-behind|not-yet-purchased|registered|unconfirmed|recycled|not-yet-registered|waitlisted
-// @param int|null LastModifiedTimestamp
-// @param bool|null IsCheckedIn true|false
-// @param string|null SortBy name|last-action|last-notified|created-at|modified-at|checked-in-at
-// @param string|null SortDirection ascending|descending
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-250
-
 type ListInvitationsForTicketBlockParameters struct {
 	TicketBlockId         string
-	WithData              *[]string
-	WithUserAttributes    *[]string
+	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 	Query                 *string
-	StatusFilter          *[]string
+	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
 	SortDirection         *string
-	Page                  *int64
-	ItemsPerPage          *int64
+	Page                  *int64 // >= 1
+	ItemsPerPage          *int64 // 1-250
 }
 
 func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBlockParameters) (r *http.Response, err error) {
@@ -438,25 +380,15 @@ func (t *Invitation) ListInvitationsForTicketBlock(p *ListInvitationsForTicketBl
 	)
 }
 
-// @param string UserId
-// @param string|null PoolId
-// @param string|null EventId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-250
-// @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
-// @param string|null SortDirection
-// @param array|null WithData Event|Stack|StackAndTicketType
-// @param array|null StatusFilter
-
 type ListInvitationsForUserParameters struct {
 	UserId              string
 	PoolId              *string
 	EventId             *string
-	Page                *int64
-	ItemsPerPage        *int64
+	Page                *int64 // >= 1
+	ItemsPerPage        *int64 // 1-250
 	EventDateFilterType *string
 	SortDirection       *string
-	WithData            *[]string
+	WithData            *[]string // Event | Stack | StackAndTicketType
 	StatusFilter        *[]string
 }
 
@@ -500,25 +432,15 @@ func (t *Invitation) ListInvitationsForUser(p *ListInvitationsForUserParameters)
 	)
 }
 
-// @param string Email
-// @param string|null PoolId
-// @param string|null EventId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-250
-// @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
-// @param string|null SortDirection
-// @param array|null WithData Event|Stack|StackAndTicketType
-// @param array|null StatusFilter
-
 type ListInvitationsForUserByEmailParameters struct {
 	Email               string
 	PoolId              *string
 	EventId             *string
-	Page                *int64
-	ItemsPerPage        *int64
+	Page                *int64 // >= 1
+	ItemsPerPage        *int64 // 1-250
 	EventDateFilterType *string
 	SortDirection       *string
-	WithData            *[]string
+	WithData            *[]string // Event | Stack | StackAndTicketType
 	StatusFilter        *[]string
 }
 
@@ -562,25 +484,15 @@ func (t *Invitation) ListInvitationsForUserByEmail(p *ListInvitationsForUserByEm
 	)
 }
 
-// @param string UserId
-// @param string ParentEventId
-// @param string|null PoolId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
-// @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
-// @param string|null SortDirection
-// @param array|null WithData Event|Stack
-// @param array|null StatusFilter
-
 type ListInvitationsForUserForParentParameters struct {
 	UserId              string
 	ParentEventId       string
 	PoolId              *string
-	Page                *int64
-	ItemsPerPage        *int64
+	Page                *int64 // >= 1
+	ItemsPerPage        *int64 // 1-100
 	EventDateFilterType *string
 	SortDirection       *string
-	WithData            *[]string
+	WithData            *[]string // Event | Stack
 	StatusFilter        *[]string
 }
 
@@ -622,28 +534,17 @@ func (t *Invitation) ListInvitationsForUserForParent(p *ListInvitationsForUserFo
 	)
 }
 
-// @param string EventId
-// @param array|null WithData UserIdentifiers|StackAndTicketType|QuestionResponses|maxLastModifiedAt
-// @param array|null WithUserAttributes internal|info|hover|facebook|linked-in|salesforce|twitter|convio|google|custom
-// @param string|null Query
-// @param int|null LastModifiedTimestamp
-// @param bool|null IsCheckedIn true|false
-// @param string|null SortBy name|last-action|last-notified|created-at|modified-at|checked-in-at
-// @param string|null SortDirection ascending|descending
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
-
 type ListWaitlistForEventParameters struct {
 	EventId               string
-	WithData              *[]string
-	WithUserAttributes    *[]string
+	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 	Query                 *string
 	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
 	SortDirection         *string
-	Page                  *int64
-	ItemsPerPage          *int64
+	Page                  *int64 // >= 1
+	ItemsPerPage          *int64 // 1-100
 }
 
 func (t *Invitation) ListWaitlistForEvent(p *ListWaitlistForEventParameters) (r *http.Response, err error) {
@@ -689,32 +590,19 @@ func (t *Invitation) ListWaitlistForEvent(p *ListWaitlistForEventParameters) (r 
 	)
 }
 
-// @param string EventId
-// @param string StackId
-// @param array|null WithData UserIdentifiers|StackAndTicketType|QuestionResponses|maxLastModifiedAt
-// @param array|null WithUserAttributes internal|info|hover|facebook|linked-in|salesforce|twitter|convio|google|custom
-// @param string|null Query
-// @param array|null StatusFilter assigned|purchased|confirmed-by-rsvp|declined-by-rsvp|left-behind|not-yet-purchased|registered|unconfirmed|recycled|not-yet-registered|waitlisted
-// @param int|null LastModifiedTimestamp
-// @param bool|null IsCheckedIn true|false
-// @param string|null SortBy name|last-action|last-notified|created-at|modified-at|checked-in-at
-// @param string|null SortDirection ascending|descending
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
-
 type ListWaitlistForStackParameters struct {
 	EventId               string
 	StackId               string
-	WithData              *[]string
-	WithUserAttributes    *[]string
+	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 	Query                 *string
-	StatusFilter          *[]string
+	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
 	SortDirection         *string
-	Page                  *int64
-	ItemsPerPage          *int64
+	Page                  *int64 // >= 1
+	ItemsPerPage          *int64 // 1-100
 }
 
 func (t *Invitation) ListWaitlistForStack(p *ListWaitlistForStackParameters) (r *http.Response, err error) {
@@ -767,7 +655,6 @@ func (t *Invitation) ListWaitlistForStack(p *ListWaitlistForStackParameters) (r 
 }
 
 // POST: Commands
-// @param string InvitationId
 
 type AddInvitationToWaitlistParameters struct {
 	InvitationId string
@@ -784,9 +671,6 @@ func (t *Invitation) AddInvitationToWaitlist(p *AddInvitationToWaitlistParameter
 		nil,
 	)
 }
-
-// @param string InvitationId
-// @param string InvitationStatus assigned|purchased|confirmed-by-rsvp|declined-by-rsvp|left-behind|not-yet-purchased|registered|unconfirmed|recycled|not-yet-registered|waitlisted
 
 type ChangeInvitationStatusParameters struct {
 	InvitationId     string
@@ -805,9 +689,6 @@ func (t *Invitation) ChangeInvitationStatus(p *ChangeInvitationStatusParameters)
 		nil,
 	)
 }
-
-// @param string InvitationId
-// @param int|null InviteCount
 
 type ChangeInviteCountParameters struct {
 	InvitationId string
@@ -829,9 +710,6 @@ func (t *Invitation) ChangeInviteCount(p *ChangeInviteCountParameters) (r *http.
 	)
 }
 
-// @param string InvitationId
-// @param int|null CheckInAt
-
 type CheckInParameters struct {
 	InvitationId string
 	CheckInAt    *int64
@@ -852,32 +730,13 @@ func (t *Invitation) CheckIn(p *CheckInParameters) (r *http.Response, err error)
 	)
 }
 
-// @param string EventId
-// @param string StackId
-// @param string InvitationStatus assigned|purchased|confirmed-by-rsvp|declined-by-rsvp|left-behind|not-yet-purchased|registered|unconfirmed|recycled|not-yet-registered|waitlisted
-// @param string InviteSource direct-invite|api-addition|distribution|event-invite|group-invite|import|ios-leave-behind|leave-behind|mobile-leave-behind|mobile-purchase|outside-purchase|public-interface|transferred|import-salesforce|import-marketo
-// @param bool IsCheckedIn true|false
-// @param int InviteCount >= 1
-// @param string|null Email
-// @param string|null FirstName
-// @param string|null LastName
-// @param string|null Company
-// @param string|null Position
-// @param string|null CheckInNotes
-// @param string|null InvitationId
-// @param bool|null ShouldSendInvitation true|false
-// @param string|null InvitationNotes
-// @param string|null Title
-// @param string|null Telephone
-// @param string|null Other
-
 type CreateInvitationParameters struct {
 	EventId              string
 	StackId              string
 	InvitationStatus     string
 	InviteSource         string
 	IsCheckedIn          bool
-	InviteCount          int64
+	InviteCount          int64 // >= 1
 	Email                *string
 	FirstName            *string
 	LastName             *string
@@ -945,26 +804,6 @@ func (t *Invitation) CreateInvitation(p *CreateInvitationParameters) (r *http.Re
 	)
 }
 
-// @param string EventId
-// @param string StackId
-// @param string TicketBlockId
-// @param string InvitationStatus assigned|purchased|confirmed-by-rsvp|declined-by-rsvp|left-behind|not-yet-purchased|registered|unconfirmed|recycled|not-yet-registered|waitlisted
-// @param string InviteSource direct-invite|api-addition|distribution|event-invite|group-invite|import|ios-leave-behind|leave-behind|mobile-leave-behind|mobile-purchase|outside-purchase|public-interface|transferred|import-salesforce|import-marketo
-// @param bool IsCheckedIn true|false
-// @param int InviteCount >= 1
-// @param string|null Email
-// @param string|null FirstName
-// @param string|null LastName
-// @param string|null Company
-// @param string|null Position
-// @param string|null CheckInNotes
-// @param string|null InvitationId
-// @param bool|null ShouldSendInvitation true|false
-// @param string|null InvitationNotes
-// @param string|null Title
-// @param string|null Telephone
-// @param string|null Other
-
 type CreateInvitationForTicketBlockParameters struct {
 	EventId              string
 	StackId              string
@@ -972,7 +811,7 @@ type CreateInvitationForTicketBlockParameters struct {
 	InvitationStatus     string
 	InviteSource         string
 	IsCheckedIn          bool
-	InviteCount          int64
+	InviteCount          int64 // >= 1
 	Email                *string
 	FirstName            *string
 	LastName             *string
@@ -1041,15 +880,10 @@ func (t *Invitation) CreateInvitationForTicketBlock(p *CreateInvitationForTicket
 	)
 }
 
-// @param string GroupId
-// @param string StackId
-// @param int GuestsPerInvitation >= 1
-// @param string InvitationCreationType unconfirmed-no-email|confirmed-no-email|send-email
-
 type CreateInvitationsFromGroupParameters struct {
 	GroupId                string
 	StackId                string
-	GuestsPerInvitation    int64
+	GuestsPerInvitation    int64 // >= 1
 	InvitationCreationType string
 }
 
@@ -1068,15 +902,10 @@ func (t *Invitation) CreateInvitationsFromGroup(p *CreateInvitationsFromGroupPar
 	)
 }
 
-// @param string EventId
-// @param string GroupId
-// @param int GuestsPerInvitation >= 1
-// @param string|null StackId
-
 type CreateInvitationsFromGroupForCIOEventParameters struct {
 	EventId             string
 	GroupId             string
-	GuestsPerInvitation int64
+	GuestsPerInvitation int64 // >= 1
 	StackId             *string
 }
 
@@ -1097,17 +926,11 @@ func (t *Invitation) CreateInvitationsFromGroupForCIOEvent(p *CreateInvitationsF
 	)
 }
 
-// @param string GroupId
-// @param string TicketBlockId
-// @param string StackId
-// @param int GuestsPerInvitation >= 1
-// @param string InvitationCreationType unconfirmed-no-email|confirmed-no-email|send-email
-
 type CreateInvitationsFromGroupForTicketBlockParameters struct {
 	GroupId                string
 	TicketBlockId          string
 	StackId                string
-	GuestsPerInvitation    int64
+	GuestsPerInvitation    int64 // >= 1
 	InvitationCreationType string
 }
 
@@ -1126,11 +949,6 @@ func (t *Invitation) CreateInvitationsFromGroupForTicketBlock(p *CreateInvitatio
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string WebhookType
-// @param string WebhookMethod
-// @param string Url
 
 type CreateWebhookParameters struct {
 	EventId       string
@@ -1154,8 +972,6 @@ func (t *Invitation) CreateWebhook(p *CreateWebhookParameters) (r *http.Response
 	)
 }
 
-// @param string WebhookId
-
 type DeleteWebhookParameters struct {
 	WebhookId string
 }
@@ -1172,8 +988,6 @@ func (t *Invitation) DeleteWebhook(p *DeleteWebhookParameters) (r *http.Response
 	)
 }
 
-// @param string InvitationId
-
 type DisableArrivalAlertParameters struct {
 	InvitationId string
 }
@@ -1189,10 +1003,6 @@ func (t *Invitation) DisableArrivalAlert(p *DisableArrivalAlertParameters) (r *h
 		nil,
 	)
 }
-
-// @param array InvitationIds
-// @param string NewInvitationStatus
-// @param bool|null ShouldSendEmail true|false
 
 type PromoteInvitationsFromWaitlistParameters struct {
 	InvitationIds       []string
@@ -1218,10 +1028,6 @@ func (t *Invitation) PromoteInvitationsFromWaitlist(p *PromoteInvitationsFromWai
 	)
 }
 
-// @param string InvitationId
-// @param string QuestionId
-// @param string QuestionResponseIdsWithAnswersJson
-
 type SetAllQuestionResponsesParameters struct {
 	InvitationId                       string
 	QuestionId                         string
@@ -1241,11 +1047,6 @@ func (t *Invitation) SetAllQuestionResponses(p *SetAllQuestionResponsesParameter
 		nil,
 	)
 }
-
-// @param string InvitationId
-// @param string ToEmail
-// @param array|null CcEmails
-// @param bool|null ShouldSendArrivalAlert true|false
 
 type SetArrivalAlertEmailParameters struct {
 	InvitationId           string
@@ -1275,9 +1076,6 @@ func (t *Invitation) SetArrivalAlertEmail(p *SetArrivalAlertEmailParameters) (r 
 	)
 }
 
-// @param string InvitationId
-// @param string|null CheckInNotes
-
 type SetCheckInNotesParameters struct {
 	InvitationId string
 	CheckInNotes *string
@@ -1298,9 +1096,6 @@ func (t *Invitation) SetCheckInNotes(p *SetCheckInNotesParameters) (r *http.Resp
 	)
 }
 
-// @param string InvitationId
-// @param string|null InvitationNotes
-
 type SetInvitationNotesParameters struct {
 	InvitationId    string
 	InvitationNotes *string
@@ -1320,11 +1115,6 @@ func (t *Invitation) SetInvitationNotes(p *SetInvitationNotesParameters) (r *htt
 		nil,
 	)
 }
-
-// @param string InvitationId
-// @param string QuestionId
-// @param array|null AnswerIds
-// @param string|null Text
 
 type SetQuestionResponseParameters struct {
 	InvitationId string
@@ -1354,8 +1144,6 @@ func (t *Invitation) SetQuestionResponse(p *SetQuestionResponseParameters) (r *h
 	)
 }
 
-// @param string InvitationId
-
 type UndoCheckInParameters struct {
 	InvitationId string
 }
@@ -1371,17 +1159,6 @@ func (t *Invitation) UndoCheckIn(p *UndoCheckInParameters) (r *http.Response, er
 		nil,
 	)
 }
-
-// @param string InvitationId
-// @param string StackId
-// @param string InvitationStatus assigned|purchased|confirmed-by-rsvp|declined-by-rsvp|left-behind|not-yet-purchased|registered|unconfirmed|recycled|not-yet-registered|waitlisted
-// @param string|null Company
-// @param string|null Position
-// @param string|null Email
-// @param string|null FirstName
-// @param string|null LastName
-// @param string|null Other
-// @param string|null Telephone
 
 type UpdateInvitationParameters struct {
 	InvitationId     string

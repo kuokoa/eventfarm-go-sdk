@@ -22,10 +22,6 @@ func NewOAuth2(restClient rest.RestClientInterface) *OAuth2 {
 // GET: Queries
 
 // POST: Commands
-// @param string Name
-// @param array RedirectUrls
-// @param string|null Identifier
-// @param string|null Secret
 
 type CreateOAuthClientParameters struct {
 	Name         string
@@ -55,8 +51,6 @@ func (t *OAuth2) CreateOAuthClient(p *CreateOAuthClientParameters) (r *http.Resp
 	)
 }
 
-// @param string Identifier
-
 type RevokeAccessTokenParameters struct {
 	Identifier string
 }
@@ -72,9 +66,6 @@ func (t *OAuth2) RevokeAccessToken(p *RevokeAccessTokenParameters) (r *http.Resp
 		nil,
 	)
 }
-
-// @param string Identifier
-// @param array RedirectUrls
 
 type SetRedirectUrlsForOAuthClientParameters struct {
 	Identifier   string

@@ -20,8 +20,6 @@ func NewFeatureToggle(restClient rest.RestClientInterface) *FeatureToggle {
 }
 
 // GET: Queries
-// @param string FeatureName
-// @param string|null UserId
 
 type GetFeatureGrantParameters struct {
 	FeatureName string

@@ -21,18 +21,10 @@ func NewQuestion(restClient rest.RestClientInterface) *Question {
 }
 
 // GET: Queries
-// @param string EventId
-// @param array|null WithData TicketType|Answers
-// @param bool|null ShouldHideDeleted true|false
-// @param string|null Query
-// @param string|null SortBy
-// @param string|null SortDirection
-// @param int|null Page
-// @param int|null ItemsPerPage
 
 type ListQuestionsForEventParameters struct {
 	EventId           string
-	WithData          *[]string
+	WithData          *[]string // TicketType | Answers
 	ShouldHideDeleted *bool
 	Query             *string
 	SortBy            *string

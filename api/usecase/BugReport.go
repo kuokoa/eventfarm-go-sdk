@@ -21,12 +21,10 @@ func NewBugReport(restClient rest.RestClientInterface) *BugReport {
 }
 
 // GET: Queries
-// @param string BugReportId
-// @param array|null WithData User
 
 type GetBugReportParameters struct {
 	BugReportId string
-	WithData    *[]string
+	WithData    *[]string // User
 }
 
 func (t *BugReport) GetBugReport(p *GetBugReportParameters) (r *http.Response, err error) {
@@ -46,12 +44,9 @@ func (t *BugReport) GetBugReport(p *GetBugReportParameters) (r *http.Response, e
 	)
 }
 
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-500
-
 type ListBugReportsParameters struct {
-	Page         *int64
-	ItemsPerPage *int64
+	Page         *int64 // >= 1
+	ItemsPerPage *int64 // 1-500
 }
 
 func (t *BugReport) ListBugReports(p *ListBugReportsParameters) (r *http.Response, err error) {
@@ -72,12 +67,6 @@ func (t *BugReport) ListBugReports(p *ListBugReportsParameters) (r *http.Respons
 }
 
 // POST: Commands
-// @param string UserId
-// @param string Action
-// @param string Message
-// @param string Request
-// @param string Response
-// @param string|null BugReportId
 
 type CreateBugReportParameters struct {
 	UserId      string

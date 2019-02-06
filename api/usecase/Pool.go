@@ -21,7 +21,6 @@ func NewPool(restClient rest.RestClientInterface) *Pool {
 }
 
 // GET: Queries
-// @param string PoolId
 
 type GetPoolParameters struct {
 	PoolId string
@@ -39,8 +38,6 @@ func (t *Pool) GetPool(p *GetPoolParameters) (r *http.Response, err error) {
 	)
 }
 
-// @param string PoolId
-
 type GetPoolContractParameters struct {
 	PoolId string
 }
@@ -57,16 +54,10 @@ func (t *Pool) GetPoolContract(p *GetPoolContractParameters) (r *http.Response, 
 	)
 }
 
-// @param string UserId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-500
-// @param string|null SortBy
-// @param string|null SortDirection ascending|descending
-
 type ListAccessiblePoolsForUserParameters struct {
 	UserId        string
-	Page          *int64
-	ItemsPerPage  *int64
+	Page          *int64 // >= 1
+	ItemsPerPage  *int64 // 1-500
 	SortBy        *string
 	SortDirection *string
 }
@@ -95,18 +86,12 @@ func (t *Pool) ListAccessiblePoolsForUser(p *ListAccessiblePoolsForUserParameter
 	)
 }
 
-// @param string PoolId
-// @param string|null SortBy name
-// @param string|null SortDirection ascending|descending
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
-
 type ListPoolAllotmentsForPoolParameters struct {
 	PoolId        string
 	SortBy        *string
 	SortDirection *string
-	Page          *int64
-	ItemsPerPage  *int64
+	Page          *int64 // >= 1
+	ItemsPerPage  *int64 // 1-100
 }
 
 func (t *Pool) ListPoolAllotmentsForPool(p *ListPoolAllotmentsForPoolParameters) (r *http.Response, err error) {
@@ -133,14 +118,10 @@ func (t *Pool) ListPoolAllotmentsForPool(p *ListPoolAllotmentsForPoolParameters)
 	)
 }
 
-// @param string PoolId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-500
-
 type ListPoolContactsByPoolIdParameters struct {
 	PoolId       string
-	Page         *int64
-	ItemsPerPage *int64
+	Page         *int64 // >= 1
+	ItemsPerPage *int64 // 1-500
 }
 
 func (t *Pool) ListPoolContactsByPoolId(p *ListPoolContactsByPoolIdParameters) (r *http.Response, err error) {
@@ -161,18 +142,12 @@ func (t *Pool) ListPoolContactsByPoolId(p *ListPoolContactsByPoolIdParameters) (
 	)
 }
 
-// @param string|null Name
-// @param string|null SortBy name
-// @param string|null SortDirection ascending|descending
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
-
 type ListPoolsParameters struct {
 	Name          *string
 	SortBy        *string
 	SortDirection *string
-	Page          *int64
-	ItemsPerPage  *int64
+	Page          *int64 // >= 1
+	ItemsPerPage  *int64 // 1-100
 }
 
 func (t *Pool) ListPools(p *ListPoolsParameters) (r *http.Response, err error) {
@@ -201,18 +176,12 @@ func (t *Pool) ListPools(p *ListPoolsParameters) (r *http.Response, err error) {
 	)
 }
 
-// @param string PoolId
-// @param string|null SortBy name|slug
-// @param string|null SortDirection ascending|descending
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-500
-
 type ListTagsForPoolParameters struct {
 	PoolId        string
 	SortBy        *string
 	SortDirection *string
-	Page          *int64
-	ItemsPerPage  *int64
+	Page          *int64 // >= 1
+	ItemsPerPage  *int64 // 1-500
 }
 
 func (t *Pool) ListTagsForPool(p *ListTagsForPoolParameters) (r *http.Response, err error) {
@@ -240,11 +209,6 @@ func (t *Pool) ListTagsForPool(p *ListTagsForPoolParameters) (r *http.Response, 
 }
 
 // POST: Commands
-// @param string PoolId
-// @param string PoolContractType cio|intro|trial|pro|premier|premierPlus|custom|internal
-// @param int StartDate
-// @param int EndDate
-// @param string|null PoolContractId
 
 type CreatePoolContractParameters struct {
 	PoolId           string
@@ -272,10 +236,6 @@ func (t *Pool) CreatePoolContract(p *CreatePoolContractParameters) (r *http.Resp
 	)
 }
 
-// @param string PoolId
-// @param string PoolWebhookType
-// @param string Url
-
 type CreatePoolWebhookParameters struct {
 	PoolId          string
 	PoolWebhookType string
@@ -296,8 +256,6 @@ func (t *Pool) CreatePoolWebhook(p *CreatePoolWebhookParameters) (r *http.Respon
 	)
 }
 
-// @param string PoolId
-
 type RemoveCustomerDisplayNameForPoolParameters struct {
 	PoolId string
 }
@@ -314,8 +272,6 @@ func (t *Pool) RemoveCustomerDisplayNameForPool(p *RemoveCustomerDisplayNameForP
 	)
 }
 
-// @param string PoolId
-
 type RemovePrivacyPolicyLinkForPoolParameters struct {
 	PoolId string
 }
@@ -331,12 +287,6 @@ func (t *Pool) RemovePrivacyPolicyLinkForPool(p *RemovePrivacyPolicyLinkForPoolP
 		nil,
 	)
 }
-
-// @param string PoolId
-// @param string UserId
-// @param string|null SlackUserId
-// @param array|null RequestedFeatureSlugs
-// @param string|null Other
 
 type SendUpgradeRequestToCsmParameters struct {
 	PoolId                string
@@ -370,9 +320,6 @@ func (t *Pool) SendUpgradeRequestToCsm(p *SendUpgradeRequestToCsmParameters) (r 
 	)
 }
 
-// @param string PoolId
-// @param string CustomerDisplayName
-
 type SetCustomerDisplayNameForPoolParameters struct {
 	PoolId              string
 	CustomerDisplayName string
@@ -391,9 +338,6 @@ func (t *Pool) SetCustomerDisplayNameForPool(p *SetCustomerDisplayNameForPoolPar
 	)
 }
 
-// @param string PoolId
-// @param string PrivacyPolicyLink
-
 type SetPrivacyPolicyLinkForPoolParameters struct {
 	PoolId            string
 	PrivacyPolicyLink string
@@ -411,11 +355,6 @@ func (t *Pool) SetPrivacyPolicyLinkForPool(p *SetPrivacyPolicyLinkForPoolParamet
 		nil,
 	)
 }
-
-// @param string PoolContractId
-// @param string|null PoolContractType cio|intro|trial|pro|premier|premierPlus|custom|internal
-// @param int|null StartDate
-// @param int|null EndDate
 
 type UpdatePoolContractParameters struct {
 	PoolContractId   string

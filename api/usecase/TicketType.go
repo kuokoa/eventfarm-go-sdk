@@ -21,8 +21,6 @@ func NewTicketType(restClient rest.RestClientInterface) *TicketType {
 }
 
 // GET: Queries
-// @param string EventId
-// @param bool|null ShouldHideDeleted true|false
 
 type ListTicketTypesForEventParameters struct {
 	EventId           string
@@ -45,14 +43,6 @@ func (t *TicketType) ListTicketTypesForEvent(p *ListTicketTypesForEventParameter
 }
 
 // POST: Commands
-// @param string EventId
-// @param string Name
-// @param string Code
-// @param int Quantity
-// @param int SortOrder
-// @param bool|null IsDeleted true|false
-// @param string|null Description
-// @param string|null TicketTypeId
 
 type CreateTicketTypeParameters struct {
 	EventId      string
@@ -90,8 +80,6 @@ func (t *TicketType) CreateTicketType(p *CreateTicketTypeParameters) (r *http.Re
 	)
 }
 
-// @param string TicketTypeId
-
 type DeleteTicketTypeParameters struct {
 	TicketTypeId string
 }
@@ -107,9 +95,6 @@ func (t *TicketType) DeleteTicketType(p *DeleteTicketTypeParameters) (r *http.Re
 		nil,
 	)
 }
-
-// @param string TicketTypeId
-// @param string|null Description
 
 type SetDescriptionForTicketTypeParameters struct {
 	TicketTypeId string
@@ -131,9 +116,6 @@ func (t *TicketType) SetDescriptionForTicketType(p *SetDescriptionForTicketTypeP
 	)
 }
 
-// @param string TicketTypeId
-// @param int DisplayOrder
-
 type SetDisplayOrderForTicketTypeParameters struct {
 	TicketTypeId string
 	DisplayOrder int64
@@ -152,9 +134,6 @@ func (t *TicketType) SetDisplayOrderForTicketType(p *SetDisplayOrderForTicketTyp
 	)
 }
 
-// @param string TicketTypeId
-// @param string Name
-
 type SetNameForTicketTypeParameters struct {
 	TicketTypeId string
 	Name         string
@@ -172,9 +151,6 @@ func (t *TicketType) SetNameForTicketType(p *SetNameForTicketTypeParameters) (r 
 		nil,
 	)
 }
-
-// @param string TicketTypeId
-// @param int Quantity
 
 type SetQuantityForTicketTypeParameters struct {
 	TicketTypeId string

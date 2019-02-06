@@ -21,12 +21,10 @@ func NewGroup(restClient rest.RestClientInterface) *Group {
 }
 
 // GET: Queries
-// @param string GroupId
-// @param array|null WithData totalUsersInGroup|creatorUser
 
 type GetGroupParameters struct {
 	GroupId  string
-	WithData *[]string
+	WithData *[]string // totalUsersInGroup | creatorUser
 }
 
 func (t *Group) GetGroup(p *GetGroupParameters) (r *http.Response, err error) {
@@ -46,20 +44,12 @@ func (t *Group) GetGroup(p *GetGroupParameters) (r *http.Response, err error) {
 	)
 }
 
-// @param string PoolId
-// @param string UserId
-// @param string|null GroupOwnerUserId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-500
-// @param string|null SortBy
-// @param string|null SortDirection ascending|descending
-
 type ListGroupMembershipForUserParameters struct {
 	PoolId           string
 	UserId           string
 	GroupOwnerUserId *string
-	Page             *int64
-	ItemsPerPage     *int64
+	Page             *int64 // >= 1
+	ItemsPerPage     *int64 // 1-500
 	SortBy           *string
 	SortDirection    *string
 }
@@ -92,18 +82,11 @@ func (t *Group) ListGroupMembershipForUser(p *ListGroupMembershipForUserParamete
 	)
 }
 
-// @param string UserId
-// @param string|null Query
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-500
-// @param string|null SortBy
-// @param string|null SortDirection ascending|descending
-
 type ListGroupsOwnedByUserParameters struct {
 	UserId        string
 	Query         *string
-	Page          *int64
-	ItemsPerPage  *int64
+	Page          *int64 // >= 1
+	ItemsPerPage  *int64 // 1-500
 	SortBy        *string
 	SortDirection *string
 }
@@ -136,8 +119,6 @@ func (t *Group) ListGroupsOwnedByUser(p *ListGroupsOwnedByUserParameters) (r *ht
 }
 
 // POST: Commands
-// @param string GroupId
-// @param array UserIds
 
 type AddUsersToGroupParameters struct {
 	GroupId string
@@ -158,10 +139,6 @@ func (t *Group) AddUsersToGroup(p *AddUsersToGroupParameters) (r *http.Response,
 		nil,
 	)
 }
-
-// @param string UserId
-// @param string GroupName
-// @param string|null GroupId
 
 type CreateGroupForUserParameters struct {
 	UserId    string
@@ -185,8 +162,6 @@ func (t *Group) CreateGroupForUser(p *CreateGroupForUserParameters) (r *http.Res
 	)
 }
 
-// @param string GroupId
-
 type DeleteGroupParameters struct {
 	GroupId string
 }
@@ -202,9 +177,6 @@ func (t *Group) DeleteGroup(p *DeleteGroupParameters) (r *http.Response, err err
 		nil,
 	)
 }
-
-// @param string DestinationGroupId
-// @param array FromGroupIds
 
 type MergeGroupsParameters struct {
 	DestinationGroupId string
@@ -226,9 +198,6 @@ func (t *Group) MergeGroups(p *MergeGroupsParameters) (r *http.Response, err err
 	)
 }
 
-// @param string GroupId
-// @param array UserIds
-
 type RemoveUsersFromGroupParameters struct {
 	GroupId string
 	UserIds []string
@@ -248,10 +217,6 @@ func (t *Group) RemoveUsersFromGroup(p *RemoveUsersFromGroupParameters) (r *http
 		nil,
 	)
 }
-
-// @param string GroupId
-// @param string UserId
-// @param string GroupName
 
 type SetGroupNameParameters struct {
 	GroupId   string

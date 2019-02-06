@@ -20,7 +20,6 @@ func NewSalesforce(restClient rest.RestClientInterface) *Salesforce {
 }
 
 // GET: Queries
-// @param string PoolId
 
 type GetSalesforceLimitsForPoolParameters struct {
 	PoolId string
@@ -38,8 +37,6 @@ func (t *Salesforce) GetSalesforceLimitsForPool(p *GetSalesforceLimitsForPoolPar
 	)
 }
 
-// @param string EventId
-
 type GetSalesforceStatusForEventParameters struct {
 	EventId string
 }
@@ -55,8 +52,6 @@ func (t *Salesforce) GetSalesforceStatusForEvent(p *GetSalesforceStatusForEventP
 		nil,
 	)
 }
-
-// @param string PoolId
 
 type GetSalesforceSyncUserInfoForPoolParameters struct {
 	PoolId string
@@ -74,8 +69,6 @@ func (t *Salesforce) GetSalesforceSyncUserInfoForPool(p *GetSalesforceSyncUserIn
 	)
 }
 
-// @param string PoolId
-
 type ListSalesforceCampaignsForPoolParameters struct {
 	PoolId string
 }
@@ -91,8 +84,6 @@ func (t *Salesforce) ListSalesforceCampaignsForPool(p *ListSalesforceCampaignsFo
 		nil,
 	)
 }
-
-// @param string PoolId
 
 type ListSalesforceContactFieldsForPoolParameters struct {
 	PoolId string
@@ -110,8 +101,6 @@ func (t *Salesforce) ListSalesforceContactFieldsForPool(p *ListSalesforceContact
 	)
 }
 
-// @param string PoolId
-
 type ListSalesforceLeadFieldsForPoolParameters struct {
 	PoolId string
 }
@@ -127,9 +116,6 @@ func (t *Salesforce) ListSalesforceLeadFieldsForPool(p *ListSalesforceLeadFields
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string CampaignId
 
 type ListSalesforceStatusNamesForEventParameters struct {
 	EventId    string
@@ -150,7 +136,6 @@ func (t *Salesforce) ListSalesforceStatusNamesForEvent(p *ListSalesforceStatusNa
 }
 
 // POST: Commands
-// @param string EventId
 
 type ExportEventToSalesforceParameters struct {
 	EventId string
@@ -168,8 +153,6 @@ func (t *Salesforce) ExportEventToSalesforce(p *ExportEventToSalesforceParameter
 	)
 }
 
-// @param string InvitationId
-
 type ExportInvitationToSalesforceParameters struct {
 	InvitationId string
 }
@@ -185,9 +168,6 @@ func (t *Salesforce) ExportInvitationToSalesforce(p *ExportInvitationToSalesforc
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string|null UserId
 
 type ImportCampaignMembersForEventParameters struct {
 	EventId string
@@ -208,9 +188,6 @@ func (t *Salesforce) ImportCampaignMembersForEvent(p *ImportCampaignMembersForEv
 		nil,
 	)
 }
-
-// @param string SalesforceEventSettingId
-// @param string|null UserId
 
 type ImportCampaignMembersForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string

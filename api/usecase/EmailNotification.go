@@ -21,7 +21,6 @@ func NewEmailNotification(restClient rest.RestClientInterface) *EmailNotificatio
 }
 
 // GET: Queries
-// @param string EventId
 
 type GetOpenActionsForEventOverLastMonthParameters struct {
 	EventId string
@@ -40,11 +39,6 @@ func (t *EmailNotification) GetOpenActionsForEventOverLastMonth(p *GetOpenAction
 }
 
 // POST: Commands
-// @param string EmailMessageId
-// @param string Type
-// @param int CreatedAt
-// @param string|null EventId
-// @param string|null EmailNotificationId
 
 type CreateSparkpostNotificationParameters struct {
 	EmailMessageId      string
@@ -73,9 +67,6 @@ func (t *EmailNotification) CreateSparkpostNotification(p *CreateSparkpostNotifi
 		nil,
 	)
 }
-
-// @param string EventId
-// @param int|null TotalRecords
 
 type SimulateEmailNotificationsForEventParameters struct {
 	EventId      string

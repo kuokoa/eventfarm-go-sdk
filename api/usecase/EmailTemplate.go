@@ -20,7 +20,6 @@ func NewEmailTemplate(restClient rest.RestClientInterface) *EmailTemplate {
 }
 
 // GET: Queries
-// @param string EmailTemplateType simple-template|simple-header|simple-template-border|default-invite|full-width-header
 
 type GetEmailTemplateByTypeParameters struct {
 	EmailTemplateType string

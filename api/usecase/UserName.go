@@ -21,16 +21,12 @@ func NewUserName(restClient rest.RestClientInterface) *UserName {
 }
 
 // GET: Queries
-// @param string PoolId
-// @param string UserId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
 
 type ListNamesForUserParameters struct {
 	PoolId       string
 	UserId       string
-	Page         *int64
-	ItemsPerPage *int64
+	Page         *int64 // >= 1
+	ItemsPerPage *int64 // 1-100
 }
 
 func (t *UserName) ListNamesForUser(p *ListNamesForUserParameters) (r *http.Response, err error) {
@@ -53,11 +49,6 @@ func (t *UserName) ListNamesForUser(p *ListNamesForUserParameters) (r *http.Resp
 }
 
 // POST: Commands
-// @param string PoolId
-// @param string UserId
-// @param string|null FirstName
-// @param string|null LastName
-// @param string|null UserNameId
 
 type AddUserNameParameters struct {
 	PoolId     string
@@ -89,8 +80,6 @@ func (t *UserName) AddUserName(p *AddUserNameParameters) (r *http.Response, err 
 	)
 }
 
-// @param string UserNameId
-
 type RemoveUserNameParameters struct {
 	UserNameId string
 }
@@ -106,10 +95,6 @@ func (t *UserName) RemoveUserName(p *RemoveUserNameParameters) (r *http.Response
 		nil,
 	)
 }
-
-// @param string UserNameId
-// @param string|null FirstName
-// @param string|null LastName
 
 type SetUserNameParameters struct {
 	UserNameId string

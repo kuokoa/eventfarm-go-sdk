@@ -21,12 +21,10 @@ func NewTicketBlock(restClient rest.RestClientInterface) *TicketBlock {
 }
 
 // GET: Queries
-// @param string TicketBlockId
-// @param array|null WithData Event|Allotments|AllotmentsAndStack|AllotmentCounts
 
 type GetTicketBlockParameters struct {
 	TicketBlockId string
-	WithData      *[]string
+	WithData      *[]string // Event | Allotments | AllotmentsAndStack | AllotmentCounts
 }
 
 func (t *TicketBlock) GetTicketBlock(p *GetTicketBlockParameters) (r *http.Response, err error) {
@@ -46,22 +44,12 @@ func (t *TicketBlock) GetTicketBlock(p *GetTicketBlockParameters) (r *http.Respo
 	)
 }
 
-// @param string EventId
-// @param string|null Query
-// @param array|null WithData Event|Allotments|AllotmentsAndStack|AllotmentCounts
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-50
-// @param string|null SortBy name
-// @param string|null SortDirection ascending|descending
-// @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
-// @param bool|null ShouldHideDeleted true|false
-
 type ListTicketBlocksForEventParameters struct {
 	EventId             string
 	Query               *string
-	WithData            *[]string
-	Page                *int64
-	ItemsPerPage        *int64
+	WithData            *[]string // Event | Allotments | AllotmentsAndStack | AllotmentCounts
+	Page                *int64    // >= 1
+	ItemsPerPage        *int64    // 1-50
 	SortBy              *string
 	SortDirection       *string
 	EventDateFilterType *string
@@ -106,22 +94,12 @@ func (t *TicketBlock) ListTicketBlocksForEvent(p *ListTicketBlocksForEventParame
 	)
 }
 
-// @param string UserId
-// @param string|null Query
-// @param array|null WithData Event
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-500
-// @param string|null SortBy event-start|event-end
-// @param string|null SortDirection ascending|descending
-// @param string|null EventDateFilterType current-future|past-all|past-3-months|past-3-months-and-future|past-6-months
-// @param string|null PoolId
-
 type ListTicketBlocksForUserParameters struct {
 	UserId              string
 	Query               *string
-	WithData            *[]string
-	Page                *int64
-	ItemsPerPage        *int64
+	WithData            *[]string // Event
+	Page                *int64    // >= 1
+	ItemsPerPage        *int64    // 1-500
 	SortBy              *string
 	SortDirection       *string
 	EventDateFilterType *string
@@ -167,11 +145,6 @@ func (t *TicketBlock) ListTicketBlocksForUser(p *ListTicketBlocksForUserParamete
 }
 
 // POST: Commands
-// @param string TicketBlockId
-// @param string Email
-// @param string FirstName
-// @param string LastName
-// @param string|null AuthenticatedUserId
 
 type AddUserRoleToTicketBlockParameters struct {
 	TicketBlockId       string
@@ -198,12 +171,6 @@ func (t *TicketBlock) AddUserRoleToTicketBlock(p *AddUserRoleToTicketBlockParame
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string Name
-// @param bool|null IsBlacklistEnabled true|false
-// @param string|null EmailText
-// @param string|null TicketBlockId
 
 type CreateTicketBlockParameters struct {
 	EventId            string
@@ -235,8 +202,6 @@ func (t *TicketBlock) CreateTicketBlock(p *CreateTicketBlockParameters) (r *http
 	)
 }
 
-// @param string TicketBlockId
-
 type DisableTicketBlockBlacklistParameters struct {
 	TicketBlockId string
 }
@@ -253,8 +218,6 @@ func (t *TicketBlock) DisableTicketBlockBlacklist(p *DisableTicketBlockBlacklist
 	)
 }
 
-// @param string TicketBlockId
-
 type EnableTicketBlockBlacklistParameters struct {
 	TicketBlockId string
 }
@@ -270,9 +233,6 @@ func (t *TicketBlock) EnableTicketBlockBlacklist(p *EnableTicketBlockBlacklistPa
 		nil,
 	)
 }
-
-// @param string UserId
-// @param string TicketBlockId
 
 type RemoveAllUserRolesFromTicketBlockParameters struct {
 	UserId        string
@@ -292,8 +252,6 @@ func (t *TicketBlock) RemoveAllUserRolesFromTicketBlock(p *RemoveAllUserRolesFro
 	)
 }
 
-// @param string TicketBlockId
-
 type RemoveTicketBlockParameters struct {
 	TicketBlockId string
 }
@@ -309,9 +267,6 @@ func (t *TicketBlock) RemoveTicketBlock(p *RemoveTicketBlockParameters) (r *http
 		nil,
 	)
 }
-
-// @param string TicketBlockId
-// @param string EmailText
 
 type SetTicketBlockEmailTextParameters struct {
 	TicketBlockId string
@@ -330,9 +285,6 @@ func (t *TicketBlock) SetTicketBlockEmailText(p *SetTicketBlockEmailTextParamete
 		nil,
 	)
 }
-
-// @param string TicketBlockId
-// @param string Name
 
 type SetTicketBlockNameParameters struct {
 	TicketBlockId string

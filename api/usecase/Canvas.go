@@ -22,7 +22,6 @@ func NewCanvas(restClient rest.RestClientInterface) *Canvas {
 // GET: Queries
 
 // POST: Commands
-// @param string EventId
 
 type EnableCanvasForEventParameters struct {
 	EventId string

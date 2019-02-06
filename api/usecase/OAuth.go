@@ -20,7 +20,6 @@ func NewOAuth(restClient rest.RestClientInterface) *OAuth {
 }
 
 // GET: Queries
-// @param string OauthAccessTokenId
 
 type GetOAuthAccessTokenParameters struct {
 	OauthAccessTokenId string
@@ -39,7 +38,6 @@ func (t *OAuth) GetOAuthAccessToken(p *GetOAuthAccessTokenParameters) (r *http.R
 }
 
 // POST: Commands
-// @param string Email
 
 type CreateGhostAccessTokenParameters struct {
 	Email string

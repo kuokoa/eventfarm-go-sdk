@@ -22,7 +22,6 @@ func NewIntegration(restClient rest.RestClientInterface) *Integration {
 // GET: Queries
 
 // POST: Commands
-// @param string EventId
 
 type InitializeSalesforceIntegrationsForEventParameters struct {
 	EventId string

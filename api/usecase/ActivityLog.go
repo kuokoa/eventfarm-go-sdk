@@ -21,14 +21,11 @@ func NewActivityLog(restClient rest.RestClientInterface) *ActivityLog {
 }
 
 // GET: Queries
-// @param string EventId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
 
 type ListEntriesForEventParameters struct {
 	EventId      string
-	Page         *int64
-	ItemsPerPage *int64
+	Page         *int64 // >= 1
+	ItemsPerPage *int64 // 1-100
 }
 
 func (t *ActivityLog) ListEntriesForEvent(p *ListEntriesForEventParameters) (r *http.Response, err error) {
@@ -49,14 +46,10 @@ func (t *ActivityLog) ListEntriesForEvent(p *ListEntriesForEventParameters) (r *
 	)
 }
 
-// @param string InvitationId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
-
 type ListEntriesForInvitationParameters struct {
 	InvitationId string
-	Page         *int64
-	ItemsPerPage *int64
+	Page         *int64 // >= 1
+	ItemsPerPage *int64 // 1-100
 }
 
 func (t *ActivityLog) ListEntriesForInvitation(p *ListEntriesForInvitationParameters) (r *http.Response, err error) {
@@ -78,14 +71,6 @@ func (t *ActivityLog) ListEntriesForInvitation(p *ListEntriesForInvitationParame
 }
 
 // POST: Commands
-// @param string EventId
-// @param string Action
-// @param string ActionValue
-// @param int ActionTime
-// @param string|null InvitationId
-// @param string|null UserId
-// @param string|null ActionUserId
-// @param string|null ActivityLogId
 
 type CreateActivityLogParameters struct {
 	EventId       string
@@ -124,17 +109,6 @@ func (t *ActivityLog) CreateActivityLog(p *CreateActivityLogParameters) (r *http
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string Action
-// @param string ActionValue
-// @param int ActionTime
-// @param string Content
-// @param string|null InvitationId
-// @param string|null UserId
-// @param string|null ActionUserId
-// @param string|null ActivityLogId
-// @param string|null ActivityDetailId
 
 type CreateActivityLogAndDetailParameters struct {
 	EventId          string

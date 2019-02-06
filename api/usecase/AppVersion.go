@@ -20,7 +20,6 @@ func NewAppVersion(restClient rest.RestClientInterface) *AppVersion {
 }
 
 // GET: Queries
-// @param string AppVersionId
 
 type GetAppVersionParameters struct {
 	AppVersionId string
@@ -37,8 +36,6 @@ func (t *AppVersion) GetAppVersion(p *GetAppVersionParameters) (r *http.Response
 		nil,
 	)
 }
-
-// @param string AppVersionType check-in-ios|check-in-android|ticket-block-mgmt-ios|ticket-block-mgmt-android
 
 type GetAppVersionByTypeParameters struct {
 	AppVersionType string
@@ -79,9 +76,6 @@ func (t *AppVersion) ListAppVersions() (r *http.Response, err error) {
 }
 
 // POST: Commands
-// @param string AppVersionType check-in-ios|check-in-android|ticket-block-mgmt-ios|ticket-block-mgmt-android
-// @param string SoftVersion
-// @param string HardVersion
 
 type SetAppVersionNumberByTypeParameters struct {
 	AppVersionType string

@@ -20,10 +20,9 @@ func NewSalutation(restClient rest.RestClientInterface) *Salutation {
 }
 
 // GET: Queries
-// @param array|null Locales english|german|french|hebrew|polish|portuguese|spanish|spanish-south-america|thai|italian|chinese-traditional|chinese-mandarin|japanese|korean
 
 type GetAllSalutationsParameters struct {
-	Locales *[]string
+	Locales *[]string // english | german | french | hebrew | polish | portuguese | spanish | spanish-south-america | thai | italian | chinese-traditional | chinese-mandarin | japanese | korean
 }
 
 func (t *Salutation) GetAllSalutations(p *GetAllSalutationsParameters) (r *http.Response, err error) {

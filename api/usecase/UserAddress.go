@@ -21,16 +21,12 @@ func NewUserAddress(restClient rest.RestClientInterface) *UserAddress {
 }
 
 // GET: Queries
-// @param string PoolId
-// @param string UserId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
 
 type ListAddressesForUserParameters struct {
 	PoolId       string
 	UserId       string
-	Page         *int64
-	ItemsPerPage *int64
+	Page         *int64 // >= 1
+	ItemsPerPage *int64 // 1-100
 }
 
 func (t *UserAddress) ListAddressesForUser(p *ListAddressesForUserParameters) (r *http.Response, err error) {
@@ -53,15 +49,6 @@ func (t *UserAddress) ListAddressesForUser(p *ListAddressesForUserParameters) (r
 }
 
 // POST: Commands
-// @param string PoolId
-// @param string UserId
-// @param string|null Address1
-// @param string|null City
-// @param string|null State
-// @param string|null PostalCode
-// @param string|null Country
-// @param string|null Address2
-// @param string|null UserAddressId
 
 type AddUserAddressParameters struct {
 	PoolId        string
@@ -109,8 +96,6 @@ func (t *UserAddress) AddUserAddress(p *AddUserAddressParameters) (r *http.Respo
 	)
 }
 
-// @param string UserAddressId
-
 type RemoveUserAddressParameters struct {
 	UserAddressId string
 }
@@ -126,14 +111,6 @@ func (t *UserAddress) RemoveUserAddress(p *RemoveUserAddressParameters) (r *http
 		nil,
 	)
 }
-
-// @param string UserAddressId
-// @param string|null Address1
-// @param string|null City
-// @param string|null State
-// @param string|null PostalCode
-// @param string|null Country
-// @param string|null Address2
 
 type SetUserAddressParameters struct {
 	UserAddressId string

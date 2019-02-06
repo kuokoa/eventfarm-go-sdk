@@ -21,12 +21,10 @@ func NewImport(restClient rest.RestClientInterface) *Import {
 }
 
 // GET: Queries
-// @param string UserImportId
-// @param array|null WithData GoodRecords|DuplicateRecords|ErrorRecords|ImportFailureRecords
 
 type GetUserImportParameters struct {
 	UserImportId string
-	WithData     *[]string
+	WithData     *[]string // GoodRecords | DuplicateRecords | ErrorRecords | ImportFailureRecords
 }
 
 func (t *Import) GetUserImport(p *GetUserImportParameters) (r *http.Response, err error) {
@@ -45,9 +43,6 @@ func (t *Import) GetUserImport(p *GetUserImportParameters) (r *http.Response, er
 		nil,
 	)
 }
-
-// @param string UserImportId
-// @param string FileId
 
 type GetUserImportFileParameters struct {
 	UserImportId string
@@ -68,20 +63,12 @@ func (t *Import) GetUserImportFile(p *GetUserImportFileParameters) (r *http.Resp
 }
 
 // POST: Commands
-// @param string UserImportId
-// @param string EventId
-// @param string|null StackId
-// @param int|null GuestsPerInvitation >= 1
-// @param string|null InvitationCreationType unconfirmed-no-email|confirmed-no-email|send-email
-// @param string|null GroupName
-// @param string|null GroupId
-// @param string|null RedirectUrl
 
 type PostProcessAndImportInvitationsParameters struct {
 	UserImportId           string
 	EventId                string
 	StackId                *string
-	GuestsPerInvitation    *int64
+	GuestsPerInvitation    *int64 // >= 1
 	InvitationCreationType *string
 	GroupName              *string
 	GroupId                *string
@@ -119,11 +106,6 @@ func (t *Import) PostProcessAndImportInvitations(p *PostProcessAndImportInvitati
 	)
 }
 
-// @param string UserImportId
-// @param string|null GroupName
-// @param string|null GroupId
-// @param string|null RedirectUrl
-
 type PostProcessAndImportUsersParameters struct {
 	UserImportId string
 	GroupName    *string
@@ -151,10 +133,6 @@ func (t *Import) PostProcessAndImportUsers(p *PostProcessAndImportUsersParameter
 		nil,
 	)
 }
-
-// @param string UserId
-// @param string PoolId
-// @param string Spreadsheet
 
 type PreProcessSpreadsheetForUserImportParameters struct {
 	UserId      string

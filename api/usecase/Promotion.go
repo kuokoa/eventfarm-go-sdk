@@ -24,17 +24,6 @@ func NewPromotion(restClient rest.RestClientInterface) *Promotion {
 // GET: Queries
 
 // POST: Commands
-// @param string EventId
-// @param string PromotionType
-// @param string Code
-// @param int StartTime
-// @param int EndTime
-// @param float Amount
-// @param int Used
-// @param int Maximum
-// @param string Message
-// @param bool|null IsEnabled true|false
-// @param string|null PromotionId
 
 type CreatePromotionParameters struct {
 	EventId       string
@@ -76,8 +65,6 @@ func (t *Promotion) CreatePromotion(p *CreatePromotionParameters) (r *http.Respo
 	)
 }
 
-// @param string PromotionId
-
 type DisablePromotionParameters struct {
 	PromotionId string
 }
@@ -93,8 +80,6 @@ func (t *Promotion) DisablePromotion(p *DisablePromotionParameters) (r *http.Res
 		nil,
 	)
 }
-
-// @param string PromotionId
 
 type EnablePromotionParameters struct {
 	PromotionId string
@@ -112,8 +97,6 @@ func (t *Promotion) EnablePromotion(p *EnablePromotionParameters) (r *http.Respo
 	)
 }
 
-// @param string PromotionId
-
 type RemovePromotionParameters struct {
 	PromotionId string
 }
@@ -129,9 +112,6 @@ func (t *Promotion) RemovePromotion(p *RemovePromotionParameters) (r *http.Respo
 		nil,
 	)
 }
-
-// @param string PromotionId
-// @param float Amount
 
 type SetAmountParameters struct {
 	PromotionId string
@@ -151,9 +131,6 @@ func (t *Promotion) SetAmount(p *SetAmountParameters) (r *http.Response, err err
 	)
 }
 
-// @param string PromotionId
-// @param string Code
-
 type SetCodeParameters struct {
 	PromotionId string
 	Code        string
@@ -171,9 +148,6 @@ func (t *Promotion) SetCode(p *SetCodeParameters) (r *http.Response, err error) 
 		nil,
 	)
 }
-
-// @param string PromotionId
-// @param int EndTime
 
 type SetEndTimeParameters struct {
 	PromotionId string
@@ -193,9 +167,6 @@ func (t *Promotion) SetEndTime(p *SetEndTimeParameters) (r *http.Response, err e
 	)
 }
 
-// @param string PromotionId
-// @param int Maximum
-
 type SetMaximumParameters struct {
 	PromotionId string
 	Maximum     int64
@@ -213,9 +184,6 @@ func (t *Promotion) SetMaximum(p *SetMaximumParameters) (r *http.Response, err e
 		nil,
 	)
 }
-
-// @param string PromotionId
-// @param string Message
 
 type SetMessageParameters struct {
 	PromotionId string
@@ -235,9 +203,6 @@ func (t *Promotion) SetMessage(p *SetMessageParameters) (r *http.Response, err e
 	)
 }
 
-// @param string PromotionId
-// @param string PromotionType
-
 type SetPromotionTypeParameters struct {
 	PromotionId   string
 	PromotionType string
@@ -255,9 +220,6 @@ func (t *Promotion) SetPromotionType(p *SetPromotionTypeParameters) (r *http.Res
 		nil,
 	)
 }
-
-// @param string PromotionId
-// @param int StartTime
 
 type SetStartTimeParameters struct {
 	PromotionId string

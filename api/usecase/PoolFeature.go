@@ -21,7 +21,6 @@ func NewPoolFeature(restClient rest.RestClientInterface) *PoolFeature {
 }
 
 // GET: Queries
-// @param string PoolId
 
 type ListFeaturesForPoolParameters struct {
 	PoolId string
@@ -40,9 +39,6 @@ func (t *PoolFeature) ListFeaturesForPool(p *ListFeaturesForPoolParameters) (r *
 }
 
 // POST: Commands
-// @param string PoolId
-// @param string FeatureId
-// @param bool|null Enabled true|false
 
 type AddFeatureForPoolParameters struct {
 	PoolId    string
@@ -66,9 +62,6 @@ func (t *PoolFeature) AddFeatureForPool(p *AddFeatureForPoolParameters) (r *http
 	)
 }
 
-// @param string PoolId
-// @param string FeatureId
-
 type DisableFeatureForPoolParameters struct {
 	PoolId    string
 	FeatureId string
@@ -87,9 +80,6 @@ func (t *PoolFeature) DisableFeatureForPool(p *DisableFeatureForPoolParameters) 
 	)
 }
 
-// @param string PoolId
-// @param string FeatureId
-
 type EnableFeatureForPoolParameters struct {
 	PoolId    string
 	FeatureId string
@@ -107,9 +97,6 @@ func (t *PoolFeature) EnableFeatureForPool(p *EnableFeatureForPoolParameters) (r
 		nil,
 	)
 }
-
-// @param string PoolId
-// @param string FeatureId
 
 type RemoveFeatureForPoolParameters struct {
 	PoolId    string

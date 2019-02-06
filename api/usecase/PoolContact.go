@@ -20,9 +20,6 @@ func NewPoolContact(restClient rest.RestClientInterface) *PoolContact {
 }
 
 // GET: Queries
-// @param string UserId
-// @param string|null PoolId
-// @param string|null PoolContactType full|create
 
 type ListPoolContactsForUserParameters struct {
 	UserId          string

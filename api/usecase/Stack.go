@@ -22,12 +22,10 @@ func NewStack(restClient rest.RestClientInterface) *Stack {
 }
 
 // GET: Queries
-// @param string StackId
-// @param array|null WithData Event|TicketType|AvailabilityCounts
 
 type GetStackParameters struct {
 	StackId  string
-	WithData *[]string
+	WithData *[]string // Event | TicketType | AvailabilityCounts
 }
 
 func (t *Stack) GetStack(p *GetStackParameters) (r *http.Response, err error) {
@@ -47,19 +45,9 @@ func (t *Stack) GetStack(p *GetStackParameters) (r *http.Response, err error) {
 	)
 }
 
-// @param string EventId
-// @param array|null WithData TicketType|Event|availibilityCounts
-// @param array|null ExcludeStackMethodFilter
-// @param bool|null ShouldHideDeleted true|false
-// @param string|null Query
-// @param string|null SortBy
-// @param string|null SortDirection
-// @param int|null Page
-// @param int|null ItemsPerPage
-
 type ListStacksForEventParameters struct {
 	EventId                  string
-	WithData                 *[]string
+	WithData                 *[]string // TicketType | Event | availibilityCounts
 	ExcludeStackMethodFilter *[]string
 	ShouldHideDeleted        *bool
 	Query                    *string
@@ -109,19 +97,9 @@ func (t *Stack) ListStacksForEvent(p *ListStacksForEventParameters) (r *http.Res
 	)
 }
 
-// @param string PromotionId
-// @param array|null WithData TicketType|Event
-// @param array|null ExcludeStackMethodFilter
-// @param bool|null ShouldHideDeleted true|false
-// @param string|null Query
-// @param string|null SortBy
-// @param string|null SortDirection
-// @param int|null Page
-// @param int|null ItemsPerPage
-
 type ListStacksForPromotionParameters struct {
 	PromotionId              string
-	WithData                 *[]string
+	WithData                 *[]string // TicketType | Event
 	ExcludeStackMethodFilter *[]string
 	ShouldHideDeleted        *bool
 	Query                    *string
@@ -171,10 +149,6 @@ func (t *Stack) ListStacksForPromotion(p *ListStacksForPromotionParameters) (r *
 	)
 }
 
-// @param string TicketTypeId
-// @param int|null Page
-// @param int|null ItemsPerPage
-
 type ListStacksForTicketTypeParameters struct {
 	TicketTypeId string
 	Page         *int64
@@ -200,8 +174,6 @@ func (t *Stack) ListStacksForTicketType(p *ListStacksForTicketTypeParameters) (r
 }
 
 // POST: Commands
-// @param string PromotionId
-// @param array StackIds
 
 type AddPromotionToStacksParameters struct {
 	PromotionId string
@@ -222,21 +194,6 @@ func (t *Stack) AddPromotionToStacks(p *AddPromotionToStacksParameters) (r *http
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string TicketTypeId
-// @param string MethodId
-// @param int Quantity
-// @param int MaxQty
-// @param float|null Price
-// @param float|null ServiceFee
-// @param int|null OpeningTime
-// @param int|null ClosingTime
-// @param bool|null Transferable true|false
-// @param string|null InviteDesignId
-// @param string|null ConfirmDesignId
-// @param string|null DeclineDesignId
-// @param string|null StackId
 
 type CreateStackParameters struct {
 	EventId         string
@@ -297,22 +254,6 @@ func (t *Stack) CreateStack(p *CreateStackParameters) (r *http.Response, err err
 		nil,
 	)
 }
-
-// @param string EventId
-// @param string TicketTypeId
-// @param bool PrivateInvite true|false
-// @param bool Fcfs true|false
-// @param int Quantity
-// @param int MaxQty
-// @param float|null Price
-// @param float|null ServiceFee
-// @param int|null OpeningTime
-// @param int|null ClosingTime
-// @param bool|null Transferable true|false
-// @param string|null InviteDesignId
-// @param string|null ConfirmDesignId
-// @param string|null DeclineDesignId
-// @param string|null StackId
 
 type CreateStackFromSettingsParameters struct {
 	EventId         string
@@ -376,8 +317,6 @@ func (t *Stack) CreateStackFromSettings(p *CreateStackFromSettingsParameters) (r
 	)
 }
 
-// @param string StackId
-
 type DeleteStackParameters struct {
 	StackId string
 }
@@ -393,9 +332,6 @@ func (t *Stack) DeleteStack(p *DeleteStackParameters) (r *http.Response, err err
 		nil,
 	)
 }
-
-// @param string PromotionId
-// @param array StackIds
 
 type RemovePromotionFromStacksParameters struct {
 	PromotionId string
@@ -417,9 +353,6 @@ func (t *Stack) RemovePromotionFromStacks(p *RemovePromotionFromStacksParameters
 	)
 }
 
-// @param string StackId
-// @param int ClosingTime
-
 type SetClosingTimeForStackParameters struct {
 	StackId     string
 	ClosingTime int64
@@ -437,9 +370,6 @@ func (t *Stack) SetClosingTimeForStack(p *SetClosingTimeForStackParameters) (r *
 		nil,
 	)
 }
-
-// @param string StackId
-// @param string ConfirmDesignId
 
 type SetConfirmDesignForStackParameters struct {
 	StackId         string
@@ -459,9 +389,6 @@ func (t *Stack) SetConfirmDesignForStack(p *SetConfirmDesignForStackParameters) 
 	)
 }
 
-// @param string StackId
-// @param string DeclineDesignId
-
 type SetDeclineDesignForStackParameters struct {
 	StackId         string
 	DeclineDesignId string
@@ -479,9 +406,6 @@ func (t *Stack) SetDeclineDesignForStack(p *SetDeclineDesignForStackParameters) 
 		nil,
 	)
 }
-
-// @param string StackId
-// @param string InviteDesignId
 
 type SetInviteDesignForStackParameters struct {
 	StackId        string
@@ -501,9 +425,6 @@ func (t *Stack) SetInviteDesignForStack(p *SetInviteDesignForStackParameters) (r
 	)
 }
 
-// @param string StackId
-// @param int MaxQuantity
-
 type SetMaxQuantityForStackParameters struct {
 	StackId     string
 	MaxQuantity int64
@@ -521,9 +442,6 @@ func (t *Stack) SetMaxQuantityForStack(p *SetMaxQuantityForStackParameters) (r *
 		nil,
 	)
 }
-
-// @param string StackId
-// @param string MethodSlug
 
 type SetMethodForStackParameters struct {
 	StackId    string
@@ -543,9 +461,6 @@ func (t *Stack) SetMethodForStack(p *SetMethodForStackParameters) (r *http.Respo
 	)
 }
 
-// @param string StackId
-// @param int OpeningTime
-
 type SetOpeningTimeForStackParameters struct {
 	StackId     string
 	OpeningTime int64
@@ -563,9 +478,6 @@ func (t *Stack) SetOpeningTimeForStack(p *SetOpeningTimeForStackParameters) (r *
 		nil,
 	)
 }
-
-// @param string StackId
-// @param float Price
 
 type SetPriceForStackParameters struct {
 	StackId string
@@ -585,9 +497,6 @@ func (t *Stack) SetPriceForStack(p *SetPriceForStackParameters) (r *http.Respons
 	)
 }
 
-// @param string StackId
-// @param int Quantity
-
 type SetQuantityForStackParameters struct {
 	StackId  string
 	Quantity int64
@@ -605,9 +514,6 @@ func (t *Stack) SetQuantityForStack(p *SetQuantityForStackParameters) (r *http.R
 		nil,
 	)
 }
-
-// @param string StackId
-// @param float ServiceFee
 
 type SetServiceFeeForStackParameters struct {
 	StackId    string
@@ -627,9 +533,6 @@ func (t *Stack) SetServiceFeeForStack(p *SetServiceFeeForStackParameters) (r *ht
 	)
 }
 
-// @param string StackId
-// @param bool Transferable true|false
-
 type SetTransferableForStackParameters struct {
 	StackId      string
 	Transferable bool
@@ -647,14 +550,6 @@ func (t *Stack) SetTransferableForStack(p *SetTransferableForStackParameters) (r
 		nil,
 	)
 }
-
-// @param string StackId
-// @param string|null MethodSlug
-// @param float|null Price
-// @param float|null ServiceFee
-// @param int|null Quantity
-// @param int|null MaxQuantity
-// @param bool|null Transferable true|false
 
 type UpdateStackParameters struct {
 	StackId      string
@@ -695,22 +590,6 @@ func (t *Stack) UpdateStack(p *UpdateStackParameters) (r *http.Response, err err
 		nil,
 	)
 }
-
-// @param string StackId
-// @param string|null EventId
-// @param string|null TicketTypeId
-// @param bool|null PrivateInvite true|false
-// @param bool|null Fcfs true|false
-// @param int|null Quantity
-// @param int|null MaxQty
-// @param float|null Price
-// @param float|null ServiceFee
-// @param int|null OpeningTime
-// @param int|null ClosingTime
-// @param bool|null Transferable true|false
-// @param string|null InviteDesignId
-// @param string|null ConfirmDesignId
-// @param string|null DeclineDesignId
 
 type UpdateStackFromSettingsParameters struct {
 	StackId         string

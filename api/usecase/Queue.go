@@ -33,8 +33,6 @@ func (t *Queue) GetAllJobs() (r *http.Response, err error) {
 	)
 }
 
-// @param string JobId
-
 type GetJobParameters struct {
 	JobId string
 }
@@ -51,12 +49,9 @@ func (t *Queue) GetJob(p *GetJobParameters) (r *http.Response, err error) {
 	)
 }
 
-// @param string CommandId
-// @param array|null WithData QueueCommandErrors|QueueCommandMessages
-
 type GetQueueCommandParameters struct {
 	CommandId string
-	WithData  *[]string
+	WithData  *[]string // QueueCommandErrors | QueueCommandMessages
 }
 
 func (t *Queue) GetQueueCommand(p *GetQueueCommandParameters) (r *http.Response, err error) {
@@ -76,12 +71,9 @@ func (t *Queue) GetQueueCommand(p *GetQueueCommandParameters) (r *http.Response,
 	)
 }
 
-// @param string QueueTaskId
-// @param array|null WithData QueueTaskErrors|QueueTaskMessages
-
 type GetQueueTaskParameters struct {
 	QueueTaskId string
-	WithData    *[]string
+	WithData    *[]string // QueueTaskErrors | QueueTaskMessages
 }
 
 func (t *Queue) GetQueueTask(p *GetQueueTaskParameters) (r *http.Response, err error) {
@@ -101,16 +93,10 @@ func (t *Queue) GetQueueTask(p *GetQueueTaskParameters) (r *http.Response, err e
 	)
 }
 
-// @param string UserId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
-// @param bool|null IsFinished true|false
-// @param bool|null IsSuccess true|false
-
 type ListQueueCommandsForUserParameters struct {
 	UserId       string
-	Page         *int64
-	ItemsPerPage *int64
+	Page         *int64 // >= 1
+	ItemsPerPage *int64 // 1-100
 	IsFinished   *bool
 	IsSuccess    *bool
 }
@@ -140,7 +126,6 @@ func (t *Queue) ListQueueCommandsForUser(p *ListQueueCommandsForUserParameters) 
 }
 
 // POST: Commands
-// @param string JobId
 
 type DeleteJobParameters struct {
 	JobId string

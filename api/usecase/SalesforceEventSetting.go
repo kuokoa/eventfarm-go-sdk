@@ -21,7 +21,6 @@ func NewSalesforceEventSetting(restClient rest.RestClientInterface) *SalesforceE
 }
 
 // GET: Queries
-// @param string SalesforceEventSettingId
 
 type GetSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
@@ -38,8 +37,6 @@ func (t *SalesforceEventSetting) GetSalesforceEventSetting(p *GetSalesforceEvent
 		nil,
 	)
 }
-
-// @param string EventId
 
 type ListSalesforceEventSettingsForEventParameters struct {
 	EventId string
@@ -58,7 +55,6 @@ func (t *SalesforceEventSetting) ListSalesforceEventSettingsForEvent(p *ListSale
 }
 
 // POST: Commands
-// @param string SalesforceEventSettingId
 
 type DisableExportForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
@@ -76,8 +72,6 @@ func (t *SalesforceEventSetting) DisableExportForSalesforceEventSetting(p *Disab
 	)
 }
 
-// @param string SalesforceEventSettingId
-
 type DisableImportForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
 }
@@ -93,8 +87,6 @@ func (t *SalesforceEventSetting) DisableImportForSalesforceEventSetting(p *Disab
 		nil,
 	)
 }
-
-// @param string SalesforceEventSettingId
 
 type EnableExportForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
@@ -112,8 +104,6 @@ func (t *SalesforceEventSetting) EnableExportForSalesforceEventSetting(p *Enable
 	)
 }
 
-// @param string SalesforceEventSettingId
-
 type EnableImportForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
 }
@@ -129,10 +119,6 @@ func (t *SalesforceEventSetting) EnableImportForSalesforceEventSetting(p *Enable
 		nil,
 	)
 }
-
-// @param string SalesforceEventSettingId
-// @param string CampaignId
-// @param string CampaignName
 
 type SetCampaignForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
@@ -154,12 +140,9 @@ func (t *SalesforceEventSetting) SetCampaignForSalesforceEventSetting(p *SetCamp
 	)
 }
 
-// @param string SalesforceEventSettingId
-// @param int InvitationCount 1-100
-
 type SetInvitationCountForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
-	InvitationCount          int64
+	InvitationCount          int64 // 1-100
 }
 
 func (t *SalesforceEventSetting) SetInvitationCountForSalesforceEventSetting(p *SetInvitationCountForSalesforceEventSettingParameters) (r *http.Response, err error) {
@@ -174,9 +157,6 @@ func (t *SalesforceEventSetting) SetInvitationCountForSalesforceEventSetting(p *
 		nil,
 	)
 }
-
-// @param string SalesforceEventSettingId
-// @param string InvitationCreationType unconfirmed-no-email|confirmed-no-email
 
 type SetInvitationCreationTypeForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
@@ -196,9 +176,6 @@ func (t *SalesforceEventSetting) SetInvitationCreationTypeForSalesforceEventSett
 	)
 }
 
-// @param string SalesforceEventSettingId
-// @param string NewContactRule do-nothing|create-contact|create-lead
-
 type SetNewContactRuleForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
 	NewContactRule           string
@@ -216,9 +193,6 @@ func (t *SalesforceEventSetting) SetNewContactRuleForSalesforceEventSetting(p *S
 		nil,
 	)
 }
-
-// @param string SalesforceEventSettingId
-// @param string StackId
 
 type SetStackForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string

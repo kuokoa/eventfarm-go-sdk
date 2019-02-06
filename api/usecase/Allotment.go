@@ -21,14 +21,11 @@ func NewAllotment(restClient rest.RestClientInterface) *Allotment {
 }
 
 // GET: Queries
-// @param string StackId
-// @param int|null Page >= 1
-// @param int|null ItemsPerPage 1-100
 
 type ListAllotmentsForStackParameters struct {
 	StackId      string
-	Page         *int64
-	ItemsPerPage *int64
+	Page         *int64 // >= 1
+	ItemsPerPage *int64 // 1-100
 }
 
 func (t *Allotment) ListAllotmentsForStack(p *ListAllotmentsForStackParameters) (r *http.Response, err error) {
@@ -50,10 +47,6 @@ func (t *Allotment) ListAllotmentsForStack(p *ListAllotmentsForStackParameters) 
 }
 
 // POST: Commands
-// @param string TicketBlockId
-// @param string StackId
-// @param int Quantity
-// @param string|null AllotmentId
 
 type CreateAllotmentParameters struct {
 	TicketBlockId string
@@ -79,8 +72,6 @@ func (t *Allotment) CreateAllotment(p *CreateAllotmentParameters) (r *http.Respo
 	)
 }
 
-// @param string AllotmentId
-
 type DeleteAllotmentParameters struct {
 	AllotmentId string
 }
@@ -97,12 +88,9 @@ func (t *Allotment) DeleteAllotment(p *DeleteAllotmentParameters) (r *http.Respo
 	)
 }
 
-// @param string AllotmentId
-// @param int Quantity >= 1
-
 type SetAllotmentQuantityParameters struct {
 	AllotmentId string
-	Quantity    int64
+	Quantity    int64 // >= 1
 }
 
 func (t *Allotment) SetAllotmentQuantity(p *SetAllotmentQuantityParameters) (r *http.Response, err error) {

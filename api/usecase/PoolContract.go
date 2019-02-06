@@ -20,7 +20,6 @@ func NewPoolContract(restClient rest.RestClientInterface) *PoolContract {
 }
 
 // GET: Queries
-// @param string PoolId
 
 type CountPoolContractUsersParameters struct {
 	PoolId string
@@ -37,8 +36,6 @@ func (t *PoolContract) CountPoolContractUsers(p *CountPoolContractUsersParameter
 		nil,
 	)
 }
-
-// @param string PoolId
 
 type GetEmailCountsForPoolContractParameters struct {
 	PoolId string

@@ -21,7 +21,6 @@ func NewEmailSample(restClient rest.RestClientInterface) *EmailSample {
 }
 
 // GET: Queries
-// @param string EmailDesignId
 
 type GetEmailThumbnailUrlParameters struct {
 	EmailDesignId string
@@ -39,12 +38,9 @@ func (t *EmailSample) GetEmailThumbnailUrl(p *GetEmailThumbnailUrlParameters) (r
 	)
 }
 
-// @param string EmailDesignId
-// @param array|null WithData EmailPreview|EmailSpamResult
-
 type GetLatestEmailSampleForDesignParameters struct {
 	EmailDesignId string
-	WithData      *[]string
+	WithData      *[]string // EmailPreview | EmailSpamResult
 }
 
 func (t *EmailSample) GetLatestEmailSampleForDesign(p *GetLatestEmailSampleForDesignParameters) (r *http.Response, err error) {
@@ -65,13 +61,6 @@ func (t *EmailSample) GetLatestEmailSampleForDesign(p *GetLatestEmailSampleForDe
 }
 
 // POST: Commands
-// @param string PreviewUrl
-// @param string PreviewClient
-// @param string OperatingSystem
-// @param string DisplayName
-// @param string ThumbnailUrl
-// @param string EmailSampleId
-// @param string|null EmailPreviewId
 
 type CreateEmailPreviewParameters struct {
 	PreviewUrl      string
@@ -103,11 +92,6 @@ func (t *EmailSample) CreateEmailPreview(p *CreateEmailPreviewParameters) (r *ht
 	)
 }
 
-// @param string HtmlContent
-// @param string EmailDesignId
-// @param bool OverrideMinimumInterval true|false
-// @param string|null EmailSampleId
-
 type CreateEmailSampleParameters struct {
 	HtmlContent             string
 	EmailDesignId           string
@@ -131,13 +115,6 @@ func (t *EmailSample) CreateEmailSample(p *CreateEmailSampleParameters) (r *http
 		nil,
 	)
 }
-
-// @param string SpamClient
-// @param string TestType
-// @param string TestDetails
-// @param int IsSpam
-// @param string EmailSampleId
-// @param string|null EmailSpamResultId
 
 type CreateEmailSpamResultParameters struct {
 	SpamClient        string
