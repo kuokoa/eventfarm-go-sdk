@@ -38,6 +38,10 @@ func (f *Factory) DomainMask() *DomainMask {
 	return NewDomainMask(f.restClient)
 }
 
+func (f *Factory) EFx() *EFx {
+	return NewEFx(f.restClient)
+}
+
 func (f *Factory) EmailDesign() *EmailDesign {
 	return NewEmailDesign(f.restClient)
 }

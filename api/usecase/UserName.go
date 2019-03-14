@@ -22,6 +22,22 @@ func NewUserName(restClient rest.RestClientInterface) *UserName {
 
 // GET: Queries
 
+type GetUserNameParameters struct {
+	UserNameId string
+}
+
+func (t *UserName) GetUserName(p *GetUserNameParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`userNameId`, p.UserNameId)
+
+	return t.restClient.Get(
+		`/v2/UserName/UseCase/GetUserName`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type ListNamesForUserParameters struct {
 	PoolId       string
 	UserId       string

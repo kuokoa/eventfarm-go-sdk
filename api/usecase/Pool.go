@@ -208,6 +208,22 @@ func (t *Pool) ListTagsForPool(p *ListTagsForPoolParameters) (r *http.Response, 
 	)
 }
 
+type ListUniqueTagNamesForPoolParameters struct {
+	PoolId string
+}
+
+func (t *Pool) ListUniqueTagNamesForPool(p *ListUniqueTagNamesForPoolParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`poolId`, p.PoolId)
+
+	return t.restClient.Get(
+		`/v2/Pool/UseCase/ListUniqueTagNamesForPool`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 // POST: Commands
 
 type CreatePoolContractParameters struct {

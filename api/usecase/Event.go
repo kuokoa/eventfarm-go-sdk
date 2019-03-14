@@ -446,6 +446,24 @@ func (t *Event) AddParentToEvent(p *AddParentToEventParameters) (r *http.Respons
 	)
 }
 
+type AddTagToEventParameters struct {
+	EventId string
+	TagName string
+}
+
+func (t *Event) AddTagToEvent(p *AddTagToEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`tagName`, p.TagName)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/AddTagToEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type AddUserRoleToEventParameters struct {
 	EventId             string
 	Email               string
@@ -1270,6 +1288,24 @@ func (t *Event) RemoveParentFromEvent(p *RemoveParentFromEventParameters) (r *ht
 	)
 }
 
+type RemoveTagFromEventParameters struct {
+	EventId string
+	TagSlug string
+}
+
+func (t *Event) RemoveTagFromEvent(p *RemoveTagFromEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`tagSlug`, p.TagSlug)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/RemoveTagFromEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 func (t *Event) SendMessageToGuestList() (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
@@ -1317,6 +1353,24 @@ func (t *Event) SetAnswerSortOrder(p *SetAnswerSortOrderParameters) (r *http.Res
 	)
 }
 
+type SetContactEmailForEventParameters struct {
+	EventId      string
+	ContactEmail string
+}
+
+func (t *Event) SetContactEmailForEvent(p *SetContactEmailForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`contactEmail`, p.ContactEmail)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetContactEmailForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type SetDefaultSitePageForEventParameters struct {
 	EventId    string
 	SitePageId string
@@ -1335,36 +1389,144 @@ func (t *Event) SetDefaultSitePageForEvent(p *SetDefaultSitePageForEventParamete
 	)
 }
 
-type SetEventMaxInvitationCountParameters struct {
-	EventId                 string
-	EventMaxInvitationCount int64
+type SetDescriptionForEventParameters struct {
+	EventId     string
+	Description string
 }
 
-func (t *Event) SetEventMaxInvitationCount(p *SetEventMaxInvitationCountParameters) (r *http.Response, err error) {
+func (t *Event) SetDescriptionForEvent(p *SetDescriptionForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
-	queryParameters.Add(`eventMaxInvitationCount`, strconv.FormatInt(p.EventMaxInvitationCount, 10))
+	queryParameters.Add(`description`, p.Description)
 
 	return t.restClient.Post(
-		`/v2/Event/UseCase/SetEventMaxInvitationCount`,
+		`/v2/Event/UseCase/SetDescriptionForEvent`,
 		&queryParameters,
 		nil,
 		nil,
 	)
 }
 
-type SetEventMinInvitationCountParameters struct {
-	EventId                 string
-	EventMinInvitationCount int64
+type SetFacebookHandleForEventParameters struct {
+	EventId        string
+	FacebookHandle string
 }
 
-func (t *Event) SetEventMinInvitationCount(p *SetEventMinInvitationCountParameters) (r *http.Response, err error) {
+func (t *Event) SetFacebookHandleForEvent(p *SetFacebookHandleForEventParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`eventId`, p.EventId)
-	queryParameters.Add(`eventMinInvitationCount`, strconv.FormatInt(p.EventMinInvitationCount, 10))
+	queryParameters.Add(`facebookHandle`, p.FacebookHandle)
 
 	return t.restClient.Post(
-		`/v2/Event/UseCase/SetEventMinInvitationCount`,
+		`/v2/Event/UseCase/SetFacebookHandleForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type SetInstagramHandleForEventParameters struct {
+	EventId         string
+	InstagramHandle string
+}
+
+func (t *Event) SetInstagramHandleForEvent(p *SetInstagramHandleForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`instagramHandle`, p.InstagramHandle)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetInstagramHandleForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type SetLanguageForEventParameters struct {
+	EventId  string
+	Language string
+}
+
+func (t *Event) SetLanguageForEvent(p *SetLanguageForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`language`, p.Language)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetLanguageForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type SetMapSourceForEventParameters struct {
+	EventId   string
+	MapSource string
+}
+
+func (t *Event) SetMapSourceForEvent(p *SetMapSourceForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`mapSource`, p.MapSource)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetMapSourceForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type SetMaxInvitationCountForEventParameters struct {
+	EventId            string
+	MaxInvitationCount int64
+}
+
+func (t *Event) SetMaxInvitationCountForEvent(p *SetMaxInvitationCountForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`maxInvitationCount`, strconv.FormatInt(p.MaxInvitationCount, 10))
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetMaxInvitationCountForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type SetMinInvitationCountForEventParameters struct {
+	EventId            string
+	MinInvitationCount int64
+}
+
+func (t *Event) SetMinInvitationCountForEvent(p *SetMinInvitationCountForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`minInvitationCount`, strconv.FormatInt(p.MinInvitationCount, 10))
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetMinInvitationCountForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type SetNameForEventParameters struct {
+	EventId string
+	Name    string
+}
+
+func (t *Event) SetNameForEvent(p *SetNameForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`name`, p.Name)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetNameForEvent`,
 		&queryParameters,
 		nil,
 		nil,
@@ -1383,6 +1545,66 @@ func (t *Event) SetQuestionSortOrder(p *SetQuestionSortOrderParameters) (r *http
 
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetQuestionSortOrder`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type SetTimeForEventParameters struct {
+	EventId   string
+	StartTime string
+	EndTime   string
+	Timezone  string
+}
+
+func (t *Event) SetTimeForEvent(p *SetTimeForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`startTime`, p.StartTime)
+	queryParameters.Add(`endTime`, p.EndTime)
+	queryParameters.Add(`timezone`, p.Timezone)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetTimeForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type SetTwitterHandleForEventParameters struct {
+	EventId       string
+	TwitterHandle string
+}
+
+func (t *Event) SetTwitterHandleForEvent(p *SetTwitterHandleForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`twitterHandle`, p.TwitterHandle)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetTwitterHandleForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type SetVenueForEventParameters struct {
+	EventId      string
+	VenueName    string
+	VenueAddress string
+}
+
+func (t *Event) SetVenueForEvent(p *SetVenueForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`venueName`, p.VenueName)
+	queryParameters.Add(`venueAddress`, p.VenueAddress)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetVenueForEvent`,
 		&queryParameters,
 		nil,
 		nil,

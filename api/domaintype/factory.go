@@ -15,6 +15,10 @@ func (f *Factory) AppVersion() *AppVersion {
 	return NewAppVersion()
 }
 
+func (f *Factory) EFx() *EFx {
+	return NewEFx()
+}
+
 func (f *Factory) EmailDesign() *EmailDesign {
 	return NewEmailDesign()
 }

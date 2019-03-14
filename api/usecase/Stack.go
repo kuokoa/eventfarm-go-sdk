@@ -25,7 +25,7 @@ func NewStack(restClient rest.RestClientInterface) *Stack {
 
 type GetStackParameters struct {
 	StackId  string
-	WithData *[]string // Event | TicketType | AvailabilityCounts
+	WithData *[]string // Event | TicketType | availabilityCounts | AvailabilityCounts
 }
 
 func (t *Stack) GetStack(p *GetStackParameters) (r *http.Response, err error) {
@@ -47,14 +47,14 @@ func (t *Stack) GetStack(p *GetStackParameters) (r *http.Response, err error) {
 
 type ListStacksForEventParameters struct {
 	EventId                  string
-	WithData                 *[]string // TicketType | Event | availibilityCounts
+	WithData                 *[]string // TicketType | Event | availabilityCounts | AvailabilityCounts | availibilityCounts
 	ExcludeStackMethodFilter *[]string
 	ShouldHideDeleted        *bool
 	Query                    *string
 	SortBy                   *string
 	SortDirection            *string
 	Page                     *int64
-	ItemsPerPage             *int64
+	ItemsPerPage             *int64 // 1-200
 }
 
 func (t *Stack) ListStacksForEvent(p *ListStacksForEventParameters) (r *http.Response, err error) {
@@ -97,16 +97,70 @@ func (t *Stack) ListStacksForEvent(p *ListStacksForEventParameters) (r *http.Res
 	)
 }
 
-type ListStacksForPromotionParameters struct {
-	PromotionId              string
-	WithData                 *[]string // TicketType | Event
+type ListStacksForEventsParameters struct {
+	EventIds                 []string
+	WithData                 *[]string // TicketType | Event | availabilityCounts | AvailabilityCounts | availibilityCounts
 	ExcludeStackMethodFilter *[]string
 	ShouldHideDeleted        *bool
 	Query                    *string
 	SortBy                   *string
 	SortDirection            *string
 	Page                     *int64
-	ItemsPerPage             *int64
+	ItemsPerPage             *int64 // 1-200
+}
+
+func (t *Stack) ListStacksForEvents(p *ListStacksForEventsParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	for i := range p.EventIds {
+		queryParameters.Add(`eventIds[]`, p.EventIds[i])
+	}
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.ExcludeStackMethodFilter != nil {
+		for i := range *p.ExcludeStackMethodFilter {
+			queryParameters.Add(`excludeStackMethodFilter[]`, (*p.ExcludeStackMethodFilter)[i])
+		}
+	}
+	if p.ShouldHideDeleted != nil {
+		queryParameters.Add(`shouldHideDeleted`, strconv.FormatBool(*p.ShouldHideDeleted))
+	}
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
+	}
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+
+	return t.restClient.Get(
+		`/v2/Stack/UseCase/ListStacksForEvents`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type ListStacksForPromotionParameters struct {
+	PromotionId              string
+	WithData                 *[]string // TicketType | Event | availabilityCounts | AvailabilityCounts | availibilityCounts
+	ExcludeStackMethodFilter *[]string
+	ShouldHideDeleted        *bool
+	Query                    *string
+	SortBy                   *string
+	SortDirection            *string
+	Page                     *int64
+	ItemsPerPage             *int64 // 1-200
 }
 
 func (t *Stack) ListStacksForPromotion(p *ListStacksForPromotionParameters) (r *http.Response, err error) {
@@ -264,8 +318,8 @@ type CreateStackFromSettingsParameters struct {
 	MaxQty          int64
 	Price           *float64
 	ServiceFee      *float64
-	OpeningTime     *int64
-	ClosingTime     *int64
+	OpeningTime     *string
+	ClosingTime     *string
 	Transferable    *bool
 	InviteDesignId  *string
 	ConfirmDesignId *string
@@ -288,10 +342,10 @@ func (t *Stack) CreateStackFromSettings(p *CreateStackFromSettingsParameters) (r
 		queryParameters.Add(`serviceFee`, fmt.Sprintf("%f", *p.ServiceFee))
 	}
 	if p.OpeningTime != nil {
-		queryParameters.Add(`openingTime`, strconv.FormatInt(*p.OpeningTime, 10))
+		queryParameters.Add(`openingTime`, *p.OpeningTime)
 	}
 	if p.ClosingTime != nil {
-		queryParameters.Add(`closingTime`, strconv.FormatInt(*p.ClosingTime, 10))
+		queryParameters.Add(`closingTime`, *p.ClosingTime)
 	}
 	if p.Transferable != nil {
 		queryParameters.Add(`transferable`, strconv.FormatBool(*p.Transferable))
@@ -371,54 +425,28 @@ func (t *Stack) SetClosingTimeForStack(p *SetClosingTimeForStackParameters) (r *
 	)
 }
 
-type SetConfirmDesignForStackParameters struct {
+type SetEmailDesignsForStackParameters struct {
 	StackId         string
-	ConfirmDesignId string
+	InviteDesignId  *string
+	ConfirmDesignId *string
+	DeclineDesignId *string
 }
 
-func (t *Stack) SetConfirmDesignForStack(p *SetConfirmDesignForStackParameters) (r *http.Response, err error) {
+func (t *Stack) SetEmailDesignsForStack(p *SetEmailDesignsForStackParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`stackId`, p.StackId)
-	queryParameters.Add(`confirmDesignId`, p.ConfirmDesignId)
+	if p.InviteDesignId != nil {
+		queryParameters.Add(`inviteDesignId`, *p.InviteDesignId)
+	}
+	if p.ConfirmDesignId != nil {
+		queryParameters.Add(`confirmDesignId`, *p.ConfirmDesignId)
+	}
+	if p.DeclineDesignId != nil {
+		queryParameters.Add(`declineDesignId`, *p.DeclineDesignId)
+	}
 
 	return t.restClient.Post(
-		`/v2/Stack/UseCase/SetConfirmDesignForStack`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-type SetDeclineDesignForStackParameters struct {
-	StackId         string
-	DeclineDesignId string
-}
-
-func (t *Stack) SetDeclineDesignForStack(p *SetDeclineDesignForStackParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, p.StackId)
-	queryParameters.Add(`declineDesignId`, p.DeclineDesignId)
-
-	return t.restClient.Post(
-		`/v2/Stack/UseCase/SetDeclineDesignForStack`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}
-
-type SetInviteDesignForStackParameters struct {
-	StackId        string
-	InviteDesignId string
-}
-
-func (t *Stack) SetInviteDesignForStack(p *SetInviteDesignForStackParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`stackId`, p.StackId)
-	queryParameters.Add(`inviteDesignId`, p.InviteDesignId)
-
-	return t.restClient.Post(
-		`/v2/Stack/UseCase/SetInviteDesignForStack`,
+		`/v2/Stack/UseCase/SetEmailDesignsForStack`,
 		&queryParameters,
 		nil,
 		nil,
@@ -601,8 +629,8 @@ type UpdateStackFromSettingsParameters struct {
 	MaxQty          *int64
 	Price           *float64
 	ServiceFee      *float64
-	OpeningTime     *int64
-	ClosingTime     *int64
+	OpeningTime     *string
+	ClosingTime     *string
 	Transferable    *bool
 	InviteDesignId  *string
 	ConfirmDesignId *string
@@ -637,10 +665,10 @@ func (t *Stack) UpdateStackFromSettings(p *UpdateStackFromSettingsParameters) (r
 		queryParameters.Add(`serviceFee`, fmt.Sprintf("%f", *p.ServiceFee))
 	}
 	if p.OpeningTime != nil {
-		queryParameters.Add(`openingTime`, strconv.FormatInt(*p.OpeningTime, 10))
+		queryParameters.Add(`openingTime`, *p.OpeningTime)
 	}
 	if p.ClosingTime != nil {
-		queryParameters.Add(`closingTime`, strconv.FormatInt(*p.ClosingTime, 10))
+		queryParameters.Add(`closingTime`, *p.ClosingTime)
 	}
 	if p.Transferable != nil {
 		queryParameters.Add(`transferable`, strconv.FormatBool(*p.Transferable))

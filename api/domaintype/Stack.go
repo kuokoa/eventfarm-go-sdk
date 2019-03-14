@@ -11,6 +11,15 @@ func NewStack() *Stack {
 	return &Stack{}
 }
 
+type EmailSendType struct {
+	Slug        string
+	Name        string
+	Description string
+	IsConfirm   bool
+	IsDecline   bool
+	IsInvite    bool
+}
+
 type StackMethodType struct {
 	Slug                   string
 	Name                   string
@@ -28,6 +37,35 @@ type StackMethodType struct {
 	IsAnyInviteToPurchase  bool
 	IsAnyInviteToRegister  bool
 	IsAnyInviteToRSVP      bool
+}
+
+func (f *Stack) ListEmailSendTypes() []EmailSendType {
+	return []EmailSendType{
+		{
+			Slug:        `confirm`,
+			Name:        `Confirmation Email`,
+			Description: ``,
+			IsConfirm:   true,
+			IsDecline:   false,
+			IsInvite:    false,
+		},
+		{
+			Slug:        `decline`,
+			Name:        `Declination Email`,
+			Description: ``,
+			IsConfirm:   false,
+			IsDecline:   true,
+			IsInvite:    false,
+		},
+		{
+			Slug:        `invite`,
+			Name:        `Invitation Email`,
+			Description: ``,
+			IsConfirm:   false,
+			IsDecline:   false,
+			IsInvite:    true,
+		},
+	}
 }
 
 func (f *Stack) ListStackMethodTypes() []StackMethodType {
