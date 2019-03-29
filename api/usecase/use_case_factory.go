@@ -138,6 +138,10 @@ func (f *Factory) Queue() *Queue {
 	return NewQueue(f.restClient)
 }
 
+func (f *Factory) Refund() *Refund {
+	return NewRefund(f.restClient)
+}
+
 func (f *Factory) Region() *Region {
 	return NewRegion(f.restClient)
 }
@@ -178,6 +182,14 @@ func (f *Factory) TicketType() *TicketType {
 	return NewTicketType(f.restClient)
 }
 
+func (f *Factory) Transaction() *Transaction {
+	return NewTransaction(f.restClient)
+}
+
+func (f *Factory) Transfer() *Transfer {
+	return NewTransfer(f.restClient)
+}
+
 func (f *Factory) User() *User {
 	return NewUser(f.restClient)
 }
@@ -196,4 +208,8 @@ func (f *Factory) UserIdentifier() *UserIdentifier {
 
 func (f *Factory) UserName() *UserName {
 	return NewUserName(f.restClient)
+}
+
+func (f *Factory) Withdrawal() *Withdrawal {
+	return NewWithdrawal(f.restClient)
 }
