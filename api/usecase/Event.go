@@ -1272,6 +1272,24 @@ func (t *Event) RemoveChildEvent(p *RemoveChildEventParameters) (r *http.Respons
 	)
 }
 
+type RemoveMessageForEventParameters struct {
+	EventId     string
+	MessageType string
+}
+
+func (t *Event) RemoveMessageForEvent(p *RemoveMessageForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`messageType`, p.MessageType)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/RemoveMessageForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type RemoveParentFromEventParameters struct {
 	EventId string
 }
@@ -1300,6 +1318,24 @@ func (t *Event) RemoveTagFromEvent(p *RemoveTagFromEventParameters) (r *http.Res
 
 	return t.restClient.Post(
 		`/v2/Event/UseCase/RemoveTagFromEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type RemoveTrackingScriptForEventParameters struct {
+	EventId            string
+	TrackingScriptType string
+}
+
+func (t *Event) RemoveTrackingScriptForEvent(p *RemoveTrackingScriptForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`trackingScriptType`, p.TrackingScriptType)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/RemoveTrackingScriptForEvent`,
 		&queryParameters,
 		nil,
 		nil,
@@ -1497,6 +1533,26 @@ func (t *Event) SetMaxInvitationCountForEvent(p *SetMaxInvitationCountForEventPa
 	)
 }
 
+type SetMessageForEventParameters struct {
+	EventId     string
+	MessageType string
+	Message     string
+}
+
+func (t *Event) SetMessageForEvent(p *SetMessageForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`messageType`, p.MessageType)
+	queryParameters.Add(`message`, p.Message)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetMessageForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type SetMinInvitationCountForEventParameters struct {
 	EventId            string
 	MinInvitationCount int64
@@ -1567,6 +1623,26 @@ func (t *Event) SetTimeForEvent(p *SetTimeForEventParameters) (r *http.Response,
 
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetTimeForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type SetTrackingScriptForEventParameters struct {
+	EventId            string
+	TrackingScriptType string
+	TrackingScript     string
+}
+
+func (t *Event) SetTrackingScriptForEvent(p *SetTrackingScriptForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`trackingScriptType`, p.TrackingScriptType)
+	queryParameters.Add(`trackingScript`, p.TrackingScript)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SetTrackingScriptForEvent`,
 		&queryParameters,
 		nil,
 		nil,

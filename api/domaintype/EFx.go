@@ -356,7 +356,7 @@ func (f *EFx) ListEFxModuleTypes() []EFxModuleType {
 			Id:                    `Teams`,
 			Slug:                  `teams`,
 			Name:                  `Teams `,
-			Description:           `Build attendee teams for competition; track scores on the leaderboard`,
+			Description:           `Build attendee teams for competition, collaboration, and networking; track scores on the leaderboard`,
 			IsAccessControl:       false,
 			IsActivation:          false,
 			IsConcierge:           false,

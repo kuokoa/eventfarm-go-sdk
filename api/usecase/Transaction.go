@@ -276,27 +276,3 @@ func (t *Transaction) DeleteTransaction(p *DeleteTransactionParameters) (r *http
 		nil,
 	)
 }
-
-type ProcessTransactionParameters struct {
-	EventId     string
-	GuestsJson  []string
-	PaymentJson []string
-}
-
-func (t *Transaction) ProcessTransaction(p *ProcessTransactionParameters) (r *http.Response, err error) {
-	queryParameters := url.Values{}
-	queryParameters.Add(`eventId`, p.EventId)
-	for i := range p.GuestsJson {
-		queryParameters.Add(`guestsJson[]`, p.GuestsJson[i])
-	}
-	for i := range p.PaymentJson {
-		queryParameters.Add(`paymentJson[]`, p.PaymentJson[i])
-	}
-
-	return t.restClient.Post(
-		`/v2/Transaction/UseCase/ProcessTransaction`,
-		&queryParameters,
-		nil,
-		nil,
-	)
-}

@@ -56,6 +56,21 @@ type EventDateFilterType struct {
 	IsPast6Months          bool
 }
 
+type EventMessageType struct {
+	Slug                  string
+	Name                  string
+	Description           string
+	IsDescription         bool
+	IsOpening             bool
+	IsClosing             bool
+	IsConfirmation        bool
+	IsDeclination         bool
+	IsSoldOut             bool
+	IsReveal              bool
+	IsDisclaimer          bool
+	IsResponseRestriction bool
+}
+
 type EventType struct {
 	Slug        string
 	Name        string
@@ -97,6 +112,14 @@ type QuestionType struct {
 	IsSelect    bool
 	IsDate      bool
 	IsWaiver    bool
+}
+
+type TrackingScriptType struct {
+	Slug           string
+	Name           string
+	Description    string
+	IsRegistration bool
+	IsConfirmation bool
 }
 
 func (f *Event) ListCIOMarketingEventCountTypes() []CIOMarketingEventCountType {
@@ -354,6 +377,137 @@ func (f *Event) ListEventDateFilterTypes() []EventDateFilterType {
 	}
 }
 
+func (f *Event) ListEventMessageTypes() []EventMessageType {
+	return []EventMessageType{
+		{
+			Slug:                  `introduction`,
+			Name:                  `Registration Introduction`,
+			Description:           `The Introduction Message is displayed to the user at the beginning of the purchase/registration/RSVP process.`,
+			IsDescription:         true,
+			IsOpening:             false,
+			IsClosing:             false,
+			IsConfirmation:        false,
+			IsDeclination:         false,
+			IsSoldOut:             false,
+			IsReveal:              false,
+			IsDisclaimer:          false,
+			IsResponseRestriction: false,
+		},
+		{
+			Slug:                  `before-opening`,
+			Name:                  `Prior To Opening`,
+			Description:           `The Prior to Opening Message is displayed as a placeholder for the registration or purchase form before the event goes live and tickets become available.`,
+			IsDescription:         false,
+			IsOpening:             true,
+			IsClosing:             false,
+			IsConfirmation:        false,
+			IsDeclination:         false,
+			IsSoldOut:             false,
+			IsReveal:              false,
+			IsDisclaimer:          false,
+			IsResponseRestriction: false,
+		},
+		{
+			Slug:                  `after-closing`,
+			Name:                  `After Closing`,
+			Description:           `The After Closing Message is displayed as a placeholder for the registration or purchase form once registration has closed for an event.`,
+			IsDescription:         false,
+			IsOpening:             false,
+			IsClosing:             true,
+			IsConfirmation:        false,
+			IsDeclination:         false,
+			IsSoldOut:             false,
+			IsReveal:              false,
+			IsDisclaimer:          false,
+			IsResponseRestriction: false,
+		},
+		{
+			Slug:                  `confirmation`,
+			Name:                  `Confirmation`,
+			Description:           `This message will display on the confirmation screen after a successful purchase, registration or RSVP.`,
+			IsDescription:         false,
+			IsOpening:             false,
+			IsClosing:             false,
+			IsConfirmation:        true,
+			IsDeclination:         false,
+			IsSoldOut:             false,
+			IsReveal:              false,
+			IsDisclaimer:          false,
+			IsResponseRestriction: false,
+		},
+		{
+			Slug:                  `declination`,
+			Name:                  `Declination`,
+			Description:           `This message will display on the confirmation screen after a guest declines their RSVP.`,
+			IsDescription:         false,
+			IsOpening:             false,
+			IsClosing:             false,
+			IsConfirmation:        false,
+			IsDeclination:         true,
+			IsSoldOut:             false,
+			IsReveal:              false,
+			IsDisclaimer:          false,
+			IsResponseRestriction: false,
+		},
+		{
+			Slug:                  `sold-out`,
+			Name:                  `Sold-Out`,
+			Description:           `The Sold-Out Message is displayed when the specific ticket stack or ticket type is no longer available (either sold out or at capacity).`,
+			IsDescription:         false,
+			IsOpening:             false,
+			IsClosing:             false,
+			IsConfirmation:        false,
+			IsDeclination:         false,
+			IsSoldOut:             true,
+			IsReveal:              false,
+			IsDisclaimer:          false,
+			IsResponseRestriction: false,
+		},
+		{
+			Slug:                  `reveal`,
+			Name:                  `Reveal`,
+			Description:           `If Invitation Reveal is enabled, the &quot;Reveal Message&quot; will display when a guest begins the registration process.`,
+			IsDescription:         false,
+			IsOpening:             false,
+			IsClosing:             false,
+			IsConfirmation:        false,
+			IsDeclination:         false,
+			IsSoldOut:             false,
+			IsReveal:              true,
+			IsDisclaimer:          false,
+			IsResponseRestriction: false,
+		},
+		{
+			Slug:                  `disclaimer`,
+			Name:                  `Disclaimer`,
+			Description:           `If you have created a Waiver question, the Disclaimer Message will display as part of the purchase, registration, and RSVP process. Guest must check the disclaimer box to complete registration.`,
+			IsDescription:         false,
+			IsOpening:             false,
+			IsClosing:             false,
+			IsConfirmation:        false,
+			IsDeclination:         false,
+			IsSoldOut:             false,
+			IsReveal:              false,
+			IsDisclaimer:          true,
+			IsResponseRestriction: false,
+		},
+		{
+			Slug:                  `response-restriction`,
+			Name:                  `Response Restriction`,
+			Description:           `If the Event Setting “Guest can change response” is “NO”, this message will display for any registered guest who clicks the invitation link again.`,
+			IsDescription:         false,
+			IsOpening:             false,
+			IsClosing:             false,
+			IsConfirmation:        false,
+			IsDeclination:         false,
+			IsSoldOut:             false,
+			IsReveal:              false,
+			IsDisclaimer:          false,
+			IsResponseRestriction: true,
+		},
+	}
+}
+
 func (f *Event) ListEventTypes() []EventType {
 	return []EventType{
 		{
@@ -576,6 +730,25 @@ func (f *Event) ListQuestionTypes() []QuestionType {
 			IsSelect:    false,
 			IsDate:      false,
 			IsWaiver:    true,
+		},
+	}
+}
+
+func (f *Event) ListTrackingScriptTypes() []TrackingScriptType {
+	return []TrackingScriptType{
+		{
+			Slug:           `registration`,
+			Name:           `Registration Tracking Script`,
+			Description:    ``,
+			IsRegistration: true,
+			IsConfirmation: false,
+		},
+		{
+			Slug:           `confirmation`,
+			Name:           `Confirmation Tracking Script`,
+			Description:    ``,
+			IsRegistration: false,
+			IsConfirmation: true,
 		},
 	}
 }

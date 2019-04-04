@@ -123,14 +123,18 @@ func (t *Transfer) ListTransfersForInvitation(p *ListTransfersForInvitationParam
 // POST: Commands
 
 type ConfirmTransferParameters struct {
-	TransferId string
-	Code       string
+	TransferId      string
+	Code            string
+	ShouldSendEmail *bool
 }
 
 func (t *Transfer) ConfirmTransfer(p *ConfirmTransferParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`transferId`, p.TransferId)
 	queryParameters.Add(`code`, p.Code)
+	if p.ShouldSendEmail != nil {
+		queryParameters.Add(`shouldSendEmail`, strconv.FormatBool(*p.ShouldSendEmail))
+	}
 
 	return t.restClient.Post(
 		`/v2/Transfer/UseCase/ConfirmTransfer`,
@@ -141,13 +145,14 @@ func (t *Transfer) ConfirmTransfer(p *ConfirmTransferParameters) (r *http.Respon
 }
 
 type CreateTransferParameters struct {
-	EventId     string
-	SenderId    string
-	FirstName   string
-	LastName    string
-	Email       string
-	TransferQty int64
-	TransferId  *string
+	EventId         string
+	SenderId        string
+	FirstName       string
+	LastName        string
+	Email           string
+	TransferQty     int64
+	ShouldSendEmail *bool
+	TransferId      *string
 }
 
 func (t *Transfer) CreateTransfer(p *CreateTransferParameters) (r *http.Response, err error) {
@@ -158,6 +163,9 @@ func (t *Transfer) CreateTransfer(p *CreateTransferParameters) (r *http.Response
 	queryParameters.Add(`lastName`, p.LastName)
 	queryParameters.Add(`email`, p.Email)
 	queryParameters.Add(`transferQty`, strconv.FormatInt(p.TransferQty, 10))
+	if p.ShouldSendEmail != nil {
+		queryParameters.Add(`shouldSendEmail`, strconv.FormatBool(*p.ShouldSendEmail))
+	}
 	if p.TransferId != nil {
 		queryParameters.Add(`transferId`, *p.TransferId)
 	}
@@ -187,12 +195,16 @@ func (t *Transfer) DeleteTransfer(p *DeleteTransferParameters) (r *http.Response
 }
 
 type ForceTransferParameters struct {
-	TransferId string
+	TransferId      string
+	ShouldSendEmail *bool
 }
 
 func (t *Transfer) ForceTransfer(p *ForceTransferParameters) (r *http.Response, err error) {
 	queryParameters := url.Values{}
 	queryParameters.Add(`transferId`, p.TransferId)
+	if p.ShouldSendEmail != nil {
+		queryParameters.Add(`shouldSendEmail`, strconv.FormatBool(*p.ShouldSendEmail))
+	}
 
 	return t.restClient.Post(
 		`/v2/Transfer/UseCase/ForceTransfer`,
