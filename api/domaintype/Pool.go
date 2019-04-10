@@ -23,6 +23,7 @@ type FeatureType struct {
 	IsAgents        bool
 	IsVisaCheckout  bool
 	IsCanvas        bool
+	IsHarvesterPPP  bool
 }
 
 type PoolAllotmentType struct {
@@ -77,6 +78,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsAgents:        false,
 			IsVisaCheckout:  false,
 			IsCanvas:        false,
+			IsHarvesterPPP:  false,
 		},
 		{
 			Slug:            `apiaccess`,
@@ -90,6 +92,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsAgents:        false,
 			IsVisaCheckout:  false,
 			IsCanvas:        false,
+			IsHarvesterPPP:  false,
 		},
 		{
 			Slug:            `marketo`,
@@ -103,6 +106,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsAgents:        false,
 			IsVisaCheckout:  false,
 			IsCanvas:        false,
+			IsHarvesterPPP:  false,
 		},
 		{
 			Slug:            `emailmasking`,
@@ -116,6 +120,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsAgents:        false,
 			IsVisaCheckout:  false,
 			IsCanvas:        false,
+			IsHarvesterPPP:  false,
 		},
 		{
 			Slug:            `whitelabeling`,
@@ -129,6 +134,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsAgents:        false,
 			IsVisaCheckout:  false,
 			IsCanvas:        false,
+			IsHarvesterPPP:  false,
 		},
 		{
 			Slug:            `agents`,
@@ -142,6 +148,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsAgents:        true,
 			IsVisaCheckout:  false,
 			IsCanvas:        false,
+			IsHarvesterPPP:  false,
 		},
 		{
 			Slug:            `visacheckout`,
@@ -155,6 +162,7 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsAgents:        false,
 			IsVisaCheckout:  true,
 			IsCanvas:        false,
+			IsHarvesterPPP:  false,
 		},
 		{
 			Slug:            `canvas`,
@@ -168,6 +176,21 @@ func (f *Pool) ListFeatureTypes() []FeatureType {
 			IsAgents:        false,
 			IsVisaCheckout:  false,
 			IsCanvas:        true,
+			IsHarvesterPPP:  false,
+		},
+		{
+			Slug:            `harvester`,
+			Name:            `Harvester (PPP)`,
+			Description:     ``,
+			IsSalesforce:    false,
+			IsApiAccess:     false,
+			IsMarketo:       false,
+			IsEmailMasking:  false,
+			IsWhiteLabeling: false,
+			IsAgents:        false,
+			IsVisaCheckout:  false,
+			IsCanvas:        false,
+			IsHarvesterPPP:  true,
 		},
 	}
 }

@@ -731,24 +731,25 @@ func (t *Invitation) CheckIn(p *CheckInParameters) (r *http.Response, err error)
 }
 
 type CreateInvitationParameters struct {
-	EventId              string
-	StackId              string
-	InvitationStatus     string
-	InviteSource         string
-	IsCheckedIn          bool
-	InviteCount          int64 // >= 1
-	Email                *string
-	FirstName            *string
-	LastName             *string
-	Company              *string
-	Position             *string
-	CheckInNotes         *string
-	InvitationId         *string
-	ShouldSendInvitation *bool
-	InvitationNotes      *string
-	Title                *string
-	Telephone            *string
-	Other                *string
+	EventId                   string
+	StackId                   string
+	InvitationStatus          string
+	InviteSource              string
+	IsCheckedIn               bool
+	InviteCount               int64 // >= 1
+	Email                     *string
+	FirstName                 *string
+	LastName                  *string
+	Company                   *string
+	Position                  *string
+	CheckInNotes              *string
+	InvitationId              *string
+	ShouldSendInvitation      *bool
+	InvitationNotes           *string
+	Title                     *string
+	Telephone                 *string
+	Other                     *string
+	ForceDuplicateInvitations *bool
 }
 
 func (t *Invitation) CreateInvitation(p *CreateInvitationParameters) (r *http.Response, err error) {
@@ -794,6 +795,9 @@ func (t *Invitation) CreateInvitation(p *CreateInvitationParameters) (r *http.Re
 	}
 	if p.Other != nil {
 		queryParameters.Add(`other`, *p.Other)
+	}
+	if p.ForceDuplicateInvitations != nil {
+		queryParameters.Add(`forceDuplicateInvitations`, strconv.FormatBool(*p.ForceDuplicateInvitations))
 	}
 
 	return t.restClient.Post(
@@ -1161,16 +1165,17 @@ func (t *Invitation) UndoCheckIn(p *UndoCheckInParameters) (r *http.Response, er
 }
 
 type UpdateInvitationParameters struct {
-	InvitationId     string
-	StackId          string
-	InvitationStatus string
-	Company          *string
-	Position         *string
-	Email            *string
-	FirstName        *string
-	LastName         *string
-	Other            *string
-	Telephone        *string
+	InvitationId              string
+	StackId                   string
+	InvitationStatus          string
+	Company                   *string
+	Position                  *string
+	Email                     *string
+	FirstName                 *string
+	LastName                  *string
+	Other                     *string
+	Telephone                 *string
+	ForceDuplicateInvitations *bool
 }
 
 func (t *Invitation) UpdateInvitation(p *UpdateInvitationParameters) (r *http.Response, err error) {
@@ -1198,6 +1203,9 @@ func (t *Invitation) UpdateInvitation(p *UpdateInvitationParameters) (r *http.Re
 	}
 	if p.Telephone != nil {
 		queryParameters.Add(`telephone`, *p.Telephone)
+	}
+	if p.ForceDuplicateInvitations != nil {
+		queryParameters.Add(`forceDuplicateInvitations`, strconv.FormatBool(*p.ForceDuplicateInvitations))
 	}
 
 	return t.restClient.Post(

@@ -12,7 +12,7 @@ func NewEFx() *EFx {
 }
 
 type EFxModuleType struct {
-	Id                    bool
+	Id                    string
 	Slug                  string
 	Name                  string
 	Description           string
@@ -31,7 +31,7 @@ type EFxModuleType struct {
 	IsSmsQuiz             bool
 	IsTeams               bool
 	IsAdminOnly           bool
-	IconURL               bool
+	IconURL               string
 	DependencyNFC         bool
 	DependencySMS         bool
 	CompatibilityNFC      bool
