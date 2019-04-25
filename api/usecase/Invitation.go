@@ -749,6 +749,7 @@ type CreateInvitationParameters struct {
 	Title                     *string
 	Telephone                 *string
 	Other                     *string
+	CreatedTime               *int64
 	ForceDuplicateInvitations *bool
 }
 
@@ -795,6 +796,9 @@ func (t *Invitation) CreateInvitation(p *CreateInvitationParameters) (r *http.Re
 	}
 	if p.Other != nil {
 		queryParameters.Add(`other`, *p.Other)
+	}
+	if p.CreatedTime != nil {
+		queryParameters.Add(`createdTime`, strconv.FormatInt(*p.CreatedTime, 10))
 	}
 	if p.ForceDuplicateInvitations != nil {
 		queryParameters.Add(`forceDuplicateInvitations`, strconv.FormatBool(*p.ForceDuplicateInvitations))
@@ -1175,6 +1179,7 @@ type UpdateInvitationParameters struct {
 	LastName                  *string
 	Other                     *string
 	Telephone                 *string
+	UpdatedTime               *int64
 	ForceDuplicateInvitations *bool
 }
 
@@ -1203,6 +1208,9 @@ func (t *Invitation) UpdateInvitation(p *UpdateInvitationParameters) (r *http.Re
 	}
 	if p.Telephone != nil {
 		queryParameters.Add(`telephone`, *p.Telephone)
+	}
+	if p.UpdatedTime != nil {
+		queryParameters.Add(`updatedTime`, strconv.FormatInt(*p.UpdatedTime, 10))
 	}
 	if p.ForceDuplicateInvitations != nil {
 		queryParameters.Add(`forceDuplicateInvitations`, strconv.FormatBool(*p.ForceDuplicateInvitations))

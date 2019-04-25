@@ -70,6 +70,10 @@ func (f *Factory) Event() *Event {
 	return NewEvent(f.restClient)
 }
 
+func (f *Factory) EventTheme() *EventTheme {
+	return NewEventTheme(f.restClient)
+}
+
 func (f *Factory) Feature() *Feature {
 	return NewFeature(f.restClient)
 }
