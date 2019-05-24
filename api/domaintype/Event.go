@@ -102,8 +102,8 @@ type EventMessageType struct {
 	IsReveal              bool
 	IsDisclaimer          bool
 	IsResponseRestriction bool
-	DefaultValue          bool
-	Value                 bool
+	DefaultValue          string
+	Value                 string
 }
 
 type EventType struct {
@@ -180,7 +180,7 @@ type TrackingScriptType struct {
 	Description    string
 	IsRegistration bool
 	IsConfirmation bool
-	Value          bool
+	Value          string
 }
 
 func (f *Event) ListCIOMarketingEventCountTypes() []CIOMarketingEventCountType {
