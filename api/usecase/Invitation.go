@@ -1036,6 +1036,38 @@ func (t *Invitation) PromoteInvitationsFromWaitlist(p *PromoteInvitationsFromWai
 	)
 }
 
+type ResendConfirmationEmailParameters struct {
+	InvitationId string
+}
+
+func (t *Invitation) ResendConfirmationEmail(p *ResendConfirmationEmailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`invitationId`, p.InvitationId)
+
+	return t.restClient.Post(
+		`/v2/Invitation/UseCase/ResendConfirmationEmail`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type ResendInvitationEmailParameters struct {
+	InvitationId string
+}
+
+func (t *Invitation) ResendInvitationEmail(p *ResendInvitationEmailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`invitationId`, p.InvitationId)
+
+	return t.restClient.Post(
+		`/v2/Invitation/UseCase/ResendInvitationEmail`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type SetAllQuestionResponsesParameters struct {
 	InvitationId                       string
 	QuestionId                         string

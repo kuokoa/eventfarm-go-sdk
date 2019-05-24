@@ -23,20 +23,59 @@ func NewPromotion(restClient rest.RestClientInterface) *Promotion {
 
 // GET: Queries
 
+type ListPromotionsForEventParameters struct {
+	EventId       string
+	WithData      *[]string // StackAndTicketType
+	SortBy        *string
+	SortDirection *string
+	Page          *int64 // >= 1
+	ItemsPerPage  *int64 // 1-100
+}
+
+func (t *Promotion) ListPromotionsForEvent(p *ListPromotionsForEventParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+	if p.SortBy != nil {
+		queryParameters.Add(`sortBy`, *p.SortBy)
+	}
+	if p.SortDirection != nil {
+		queryParameters.Add(`sortDirection`, *p.SortDirection)
+	}
+	if p.Page != nil {
+		queryParameters.Add(`page`, strconv.FormatInt(*p.Page, 10))
+	}
+	if p.ItemsPerPage != nil {
+		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+
+	return t.restClient.Get(
+		`/v2/Promotion/UseCase/ListPromotionsForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 // POST: Commands
 
 type CreatePromotionParameters struct {
 	EventId       string
 	PromotionType string
 	Code          string
-	StartTime     int64
-	EndTime       int64
+	StartTime     string
+	EndTime       string
 	Amount        float64
 	Used          int64
-	Maximum       int64
 	Message       string
+	Maximum       *int64
 	IsEnabled     *bool
 	PromotionId   *string
+	IsDeleted     *bool
 }
 
 func (t *Promotion) CreatePromotion(p *CreatePromotionParameters) (r *http.Response, err error) {
@@ -44,17 +83,22 @@ func (t *Promotion) CreatePromotion(p *CreatePromotionParameters) (r *http.Respo
 	queryParameters.Add(`eventId`, p.EventId)
 	queryParameters.Add(`promotionType`, p.PromotionType)
 	queryParameters.Add(`code`, p.Code)
-	queryParameters.Add(`startTime`, strconv.FormatInt(p.StartTime, 10))
-	queryParameters.Add(`endTime`, strconv.FormatInt(p.EndTime, 10))
+	queryParameters.Add(`startTime`, p.StartTime)
+	queryParameters.Add(`endTime`, p.EndTime)
 	queryParameters.Add(`amount`, fmt.Sprintf("%f", p.Amount))
 	queryParameters.Add(`used`, strconv.FormatInt(p.Used, 10))
-	queryParameters.Add(`maximum`, strconv.FormatInt(p.Maximum, 10))
 	queryParameters.Add(`message`, p.Message)
+	if p.Maximum != nil {
+		queryParameters.Add(`maximum`, strconv.FormatInt(*p.Maximum, 10))
+	}
 	if p.IsEnabled != nil {
 		queryParameters.Add(`isEnabled`, strconv.FormatBool(*p.IsEnabled))
 	}
 	if p.PromotionId != nil {
 		queryParameters.Add(`promotionId`, *p.PromotionId)
+	}
+	if p.IsDeleted != nil {
+		queryParameters.Add(`isDeleted`, strconv.FormatBool(*p.IsDeleted))
 	}
 
 	return t.restClient.Post(
@@ -221,6 +265,26 @@ func (t *Promotion) SetPromotionType(p *SetPromotionTypeParameters) (r *http.Res
 	)
 }
 
+type SetStacksForPromotionParameters struct {
+	PromotionId string
+	StackIds    []string
+}
+
+func (t *Promotion) SetStacksForPromotion(p *SetStacksForPromotionParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`promotionId`, p.PromotionId)
+	for i := range p.StackIds {
+		queryParameters.Add(`stackIds[]`, p.StackIds[i])
+	}
+
+	return t.restClient.Post(
+		`/v2/Promotion/UseCase/SetStacksForPromotion`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type SetStartTimeParameters struct {
 	PromotionId string
 	StartTime   int64
@@ -233,6 +297,58 @@ func (t *Promotion) SetStartTime(p *SetStartTimeParameters) (r *http.Response, e
 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetStartTime`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type UpdatePromotionParameters struct {
+	PromotionId   string
+	PromotionType *string
+	Code          *string
+	StartTime     *string
+	EndTime       *string
+	Amount        *float64
+	Used          *int64
+	Message       *string
+	Maximum       *int64
+	IsEnabled     *bool
+}
+
+func (t *Promotion) UpdatePromotion(p *UpdatePromotionParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`promotionId`, p.PromotionId)
+	if p.PromotionType != nil {
+		queryParameters.Add(`promotionType`, *p.PromotionType)
+	}
+	if p.Code != nil {
+		queryParameters.Add(`code`, *p.Code)
+	}
+	if p.StartTime != nil {
+		queryParameters.Add(`startTime`, *p.StartTime)
+	}
+	if p.EndTime != nil {
+		queryParameters.Add(`endTime`, *p.EndTime)
+	}
+	if p.Amount != nil {
+		queryParameters.Add(`amount`, fmt.Sprintf("%f", *p.Amount))
+	}
+	if p.Used != nil {
+		queryParameters.Add(`used`, strconv.FormatInt(*p.Used, 10))
+	}
+	if p.Message != nil {
+		queryParameters.Add(`message`, *p.Message)
+	}
+	if p.Maximum != nil {
+		queryParameters.Add(`maximum`, strconv.FormatInt(*p.Maximum, 10))
+	}
+	if p.IsEnabled != nil {
+		queryParameters.Add(`isEnabled`, strconv.FormatBool(*p.IsEnabled))
+	}
+
+	return t.restClient.Post(
+		`/v2/Promotion/UseCase/UpdatePromotion`,
 		&queryParameters,
 		nil,
 		nil,

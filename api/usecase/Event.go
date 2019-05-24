@@ -82,6 +82,28 @@ func (t *Event) GetEvent(p *GetEventParameters) (r *http.Response, err error) {
 	)
 }
 
+type GetEventByAltKeywordParameters struct {
+	AltKeyword string
+	WithData   *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | EventTexts | TicketTypes | TicketBlocks | TicketBlocksWithAllotmentCounts | QuestionsAndAnswers | QuestionContext | AllQuestions | ParentEvent | PoolFeatures | EventTheme
+}
+
+func (t *Event) GetEventByAltKeyword(p *GetEventByAltKeywordParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`altKeyword`, p.AltKeyword)
+	if p.WithData != nil {
+		for i := range *p.WithData {
+			queryParameters.Add(`withData[]`, (*p.WithData)[i])
+		}
+	}
+
+	return t.restClient.Get(
+		`/v2/Event/UseCase/GetEventByAltKeyword`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type GetEventCountsForPoolParameters struct {
 	PoolId            string
 	EarliestStartDate *int64

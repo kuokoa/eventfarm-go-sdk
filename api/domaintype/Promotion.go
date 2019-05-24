@@ -27,7 +27,7 @@ func (f *Promotion) ListPromotionTypes() []PromotionType {
 		{
 			Slug:         `discount`,
 			Name:         `Discount`,
-			Description:  ``,
+			Description:  `$ Off`,
 			IsDiscount:   true,
 			IsOffer:      false,
 			IsPercentage: false,
@@ -37,7 +37,7 @@ func (f *Promotion) ListPromotionTypes() []PromotionType {
 		{
 			Slug:         `offer`,
 			Name:         `Offer`,
-			Description:  ``,
+			Description:  `Reveal Access Types`,
 			IsDiscount:   false,
 			IsOffer:      true,
 			IsPercentage: false,
@@ -47,7 +47,7 @@ func (f *Promotion) ListPromotionTypes() []PromotionType {
 		{
 			Slug:         `percentage`,
 			Name:         `Percentage`,
-			Description:  ``,
+			Description:  `% Off`,
 			IsDiscount:   false,
 			IsOffer:      false,
 			IsPercentage: true,
@@ -57,7 +57,7 @@ func (f *Promotion) ListPromotionTypes() []PromotionType {
 		{
 			Slug:         `quantity`,
 			Name:         `Quantity`,
-			Description:  ``,
+			Description:  `Free Tickets`,
 			IsDiscount:   false,
 			IsOffer:      false,
 			IsPercentage: false,

@@ -152,6 +152,7 @@ type CreateTransferParameters struct {
 	Email           string
 	TransferQty     int64
 	ShouldSendEmail *bool
+	ForceTransfer   *bool
 	TransferId      *string
 }
 
@@ -165,6 +166,9 @@ func (t *Transfer) CreateTransfer(p *CreateTransferParameters) (r *http.Response
 	queryParameters.Add(`transferQty`, strconv.FormatInt(p.TransferQty, 10))
 	if p.ShouldSendEmail != nil {
 		queryParameters.Add(`shouldSendEmail`, strconv.FormatBool(*p.ShouldSendEmail))
+	}
+	if p.ForceTransfer != nil {
+		queryParameters.Add(`forceTransfer`, strconv.FormatBool(*p.ForceTransfer))
 	}
 	if p.TransferId != nil {
 		queryParameters.Add(`transferId`, *p.TransferId)
