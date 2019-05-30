@@ -66,6 +66,7 @@ type ListTransactionsForEventParameters struct {
 	WithData      *[]string
 	Page          *int64 // >= 1
 	ItemsPerPage  *int64 // 1-100
+	Query         *string
 	SortBy        *string
 	SortDirection *string
 }
@@ -83,6 +84,9 @@ func (t *Transaction) ListTransactionsForEvent(p *ListTransactionsForEventParame
 	}
 	if p.ItemsPerPage != nil {
 		queryParameters.Add(`itemsPerPage`, strconv.FormatInt(*p.ItemsPerPage, 10))
+	}
+	if p.Query != nil {
+		queryParameters.Add(`query`, *p.Query)
 	}
 	if p.SortBy != nil {
 		queryParameters.Add(`sortBy`, *p.SortBy)

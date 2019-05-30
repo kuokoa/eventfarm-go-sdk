@@ -263,8 +263,8 @@ func (t *Event) ListChildrenForEventForUser(p *ListChildrenForEventForUserParame
 type ListEventsForPoolParameters struct {
 	PoolId                  string
 	Query                   *string
-	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar
-	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar
+	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation
+	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation
 	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
 	LastModifiedTimestamp   *int64
 	Page                    *int64 // >= 1
@@ -335,8 +335,8 @@ func (t *Event) ListEventsForPool(p *ListEventsForPoolParameters) (r *http.Respo
 type ListEventsForUserParameters struct {
 	UserId                  string
 	Query                   *string
-	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar
-	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar
+	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation
+	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation
 	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
 	LastModifiedTimestamp   *int64
 	Page                    *int64 // >= 1
@@ -964,6 +964,22 @@ func (t *Event) DisableMastercardCard(p *DisableMastercardCardParameters) (r *ht
 	)
 }
 
+type DisableQRCodeConfirmationParameters struct {
+	EventId string
+}
+
+func (t *Event) DisableQRCodeConfirmation(p *DisableQRCodeConfirmationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/DisableQRCodeConfirmation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type DisableQuestionParameters struct {
 	QuestionId string
 }
@@ -1190,6 +1206,22 @@ func (t *Event) EnableMastercardCard(p *EnableMastercardCardParameters) (r *http
 	)
 }
 
+type EnableQRCodeConfirmationParameters struct {
+	EventId string
+}
+
+func (t *Event) EnableQRCodeConfirmation(p *EnableQRCodeConfirmationParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/EnableQRCodeConfirmation`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type EnableQuestionParameters struct {
 	QuestionId string
 }
@@ -1358,6 +1390,30 @@ func (t *Event) RemoveTrackingScriptForEvent(p *RemoveTrackingScriptForEventPara
 
 	return t.restClient.Post(
 		`/v2/Event/UseCase/RemoveTrackingScriptForEvent`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type SendContactEmailParameters struct {
+	EventId      string
+	FromName     string
+	FromEmail    string
+	EmailSubject string
+	EmailBody    string
+}
+
+func (t *Event) SendContactEmail(p *SendContactEmailParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+	queryParameters.Add(`fromName`, p.FromName)
+	queryParameters.Add(`fromEmail`, p.FromEmail)
+	queryParameters.Add(`emailSubject`, p.EmailSubject)
+	queryParameters.Add(`emailBody`, p.EmailBody)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/SendContactEmail`,
 		&queryParameters,
 		nil,
 		nil,
