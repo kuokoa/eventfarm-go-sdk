@@ -27,7 +27,7 @@ func (f *Promotion) ListPromotionTypes() []PromotionType {
 		{
 			Slug:         `discount`,
 			Name:         `Discount`,
-			Description:  `$ Off`,
+			Description:  `Amount Off`,
 			IsDiscount:   true,
 			IsOffer:      false,
 			IsPercentage: false,

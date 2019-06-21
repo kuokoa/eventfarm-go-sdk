@@ -347,6 +347,8 @@ type ListEventsForUserParameters struct {
 	PoolId                  *string
 	Tags                    *[]string
 	EarliestStartTimestamp  *int64 // >= 0
+	OrganizerOnly           *bool
+	ParentEventsOnly        *bool
 }
 
 func (t *Event) ListEventsForUser(p *ListEventsForUserParameters) (r *http.Response, err error) {
@@ -398,6 +400,12 @@ func (t *Event) ListEventsForUser(p *ListEventsForUserParameters) (r *http.Respo
 	}
 	if p.EarliestStartTimestamp != nil {
 		queryParameters.Add(`earliestStartTimestamp`, strconv.FormatInt(*p.EarliestStartTimestamp, 10))
+	}
+	if p.OrganizerOnly != nil {
+		queryParameters.Add(`organizerOnly`, strconv.FormatBool(*p.OrganizerOnly))
+	}
+	if p.ParentEventsOnly != nil {
+		queryParameters.Add(`parentEventsOnly`, strconv.FormatBool(*p.ParentEventsOnly))
 	}
 
 	return t.restClient.Get(

@@ -1013,9 +1013,9 @@ func (t *Invitation) DisableArrivalAlert(p *DisableArrivalAlertParameters) (r *h
 }
 
 type PromoteInvitationsFromWaitlistParameters struct {
-	InvitationIds       []string
-	NewInvitationStatus string
-	ShouldSendEmail     *bool
+	InvitationIds   []string
+	IsConfirmed     bool
+	ShouldSendEmail *bool
 }
 
 func (t *Invitation) PromoteInvitationsFromWaitlist(p *PromoteInvitationsFromWaitlistParameters) (r *http.Response, err error) {
@@ -1023,7 +1023,7 @@ func (t *Invitation) PromoteInvitationsFromWaitlist(p *PromoteInvitationsFromWai
 	for i := range p.InvitationIds {
 		queryParameters.Add(`invitationIds[]`, p.InvitationIds[i])
 	}
-	queryParameters.Add(`newInvitationStatus`, p.NewInvitationStatus)
+	queryParameters.Add(`isConfirmed`, strconv.FormatBool(p.IsConfirmed))
 	if p.ShouldSendEmail != nil {
 		queryParameters.Add(`shouldSendEmail`, strconv.FormatBool(*p.ShouldSendEmail))
 	}
