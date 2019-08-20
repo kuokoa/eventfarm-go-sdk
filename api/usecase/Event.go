@@ -147,16 +147,18 @@ func (t *Event) GetQuestion(p *GetQuestionParameters) (r *http.Response, err err
 }
 
 type ListChildrenForEventParameters struct {
-	ParentEventId       string
-	Query               *string
-	WithData            *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | EventTexts | QuestionsAndAnswers | ThumbnailUrl
-	Page                *int64    // >= 1
-	ItemsPerPage        *int64    // 1-100
-	SortBy              *string
-	SortDirection       *string
-	EventDateFilterType *string
-	PoolId              *string
-	Tags                *[]string
+	ParentEventId           string
+	Query                   *string
+	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | EventTexts | QuestionsAndAnswers | ThumbnailUrl
+	Page                    *int64    // >= 1
+	ItemsPerPage            *int64    // 1-100
+	SortBy                  *string
+	SortDirection           *string
+	EventDateFilterType     *string
+	PoolId                  *string
+	Tags                    *[]string
+	AttributesFilter        *[]string
+	AttributesExcludeFilter *[]string
 }
 
 func (t *Event) ListChildrenForEvent(p *ListChildrenForEventParameters) (r *http.Response, err error) {
@@ -191,6 +193,16 @@ func (t *Event) ListChildrenForEvent(p *ListChildrenForEventParameters) (r *http
 	if p.Tags != nil {
 		for i := range *p.Tags {
 			queryParameters.Add(`tags[]`, (*p.Tags)[i])
+		}
+	}
+	if p.AttributesFilter != nil {
+		for i := range *p.AttributesFilter {
+			queryParameters.Add(`attributesFilter[]`, (*p.AttributesFilter)[i])
+		}
+	}
+	if p.AttributesExcludeFilter != nil {
+		for i := range *p.AttributesExcludeFilter {
+			queryParameters.Add(`attributesExcludeFilter[]`, (*p.AttributesExcludeFilter)[i])
 		}
 	}
 
@@ -263,8 +275,8 @@ func (t *Event) ListChildrenForEventForUser(p *ListChildrenForEventForUserParame
 type ListEventsForPoolParameters struct {
 	PoolId                  string
 	Query                   *string
-	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation
-	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation
+	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled
+	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled
 	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
 	LastModifiedTimestamp   *int64
 	Page                    *int64 // >= 1
@@ -335,8 +347,8 @@ func (t *Event) ListEventsForPool(p *ListEventsForPoolParameters) (r *http.Respo
 type ListEventsForUserParameters struct {
 	UserId                  string
 	Query                   *string
-	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation
-	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation
+	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled
+	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled
 	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
 	LastModifiedTimestamp   *int64
 	Page                    *int64 // >= 1
@@ -924,6 +936,22 @@ func (t *Event) DisableEfx(p *DisableEfxParameters) (r *http.Response, err error
 	)
 }
 
+type DisableEventAppParameters struct {
+	EventId string
+}
+
+func (t *Event) DisableEventApp(p *DisableEventAppParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/DisableEventApp`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
 type DisableGuestCanChangeResponseParameters struct {
 	EventId string
 }
@@ -1160,6 +1188,22 @@ func (t *Event) EnableEfx(p *EnableEfxParameters) (r *http.Response, err error) 
 
 	return t.restClient.Post(
 		`/v2/Event/UseCase/EnableEfx`,
+		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+type EnableEventAppParameters struct {
+	EventId string
+}
+
+func (t *Event) EnableEventApp(p *EnableEventAppParameters) (r *http.Response, err error) {
+	queryParameters := url.Values{}
+	queryParameters.Add(`eventId`, p.EventId)
+
+	return t.restClient.Post(
+		`/v2/Event/UseCase/EnableEventApp`,
 		&queryParameters,
 		nil,
 		nil,
