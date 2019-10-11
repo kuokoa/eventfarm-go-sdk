@@ -25,7 +25,7 @@ func NewPromotion(restClient rest.RestClientInterface) *Promotion {
 
 type ListPromotionsForEventParameters struct {
 	EventId       string
-	WithData      *[]interface{} // StackAndTicketType
+	WithData      *[]string // StackAndTicketType
 	SortBy        *string
 	SortDirection *string
 	Page          *int64 // >= 1
@@ -267,7 +267,7 @@ func (t *Promotion) SetPromotionType(p *SetPromotionTypeParameters) (r *http.Res
 
 type SetStacksForPromotionParameters struct {
 	PromotionId string
-	StackIds    []interface{}
+	StackIds    []string
 }
 
 func (t *Promotion) SetStacksForPromotion(p *SetStacksForPromotionParameters) (r *http.Response, err error) {

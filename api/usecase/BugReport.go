@@ -24,7 +24,7 @@ func NewBugReport(restClient rest.RestClientInterface) *BugReport {
 
 type GetBugReportParameters struct {
 	BugReportId string
-	WithData    *[]interface{} // User
+	WithData    *[]string // User
 }
 
 func (t *BugReport) GetBugReport(p *GetBugReportParameters) (r *http.Response, err error) {

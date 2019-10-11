@@ -25,7 +25,7 @@ func NewRefund(restClient rest.RestClientInterface) *Refund {
 
 type GetRefundParameters struct {
 	RefundId string
-	WithData *[]interface{}
+	WithData *[]string
 }
 
 func (t *Refund) GetRefund(p *GetRefundParameters) (r *http.Response, err error) {
@@ -47,7 +47,7 @@ func (t *Refund) GetRefund(p *GetRefundParameters) (r *http.Response, err error)
 
 type ListRefundsForPaymentParameters struct {
 	PaymentId     string
-	WithData      *[]interface{}
+	WithData      *[]string
 	Page          *int64 // >= 1
 	ItemsPerPage  *int64 // 1-100
 	SortBy        *string

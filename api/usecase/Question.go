@@ -24,7 +24,7 @@ func NewQuestion(restClient rest.RestClientInterface) *Question {
 
 type ListQuestionsForEventParameters struct {
 	EventId           string
-	WithData          *[]interface{} // TicketType | Answers
+	WithData          *[]string // TicketType | Answers
 	ShouldHideDeleted *bool
 	Query             *string
 	SortBy            *string

@@ -40,7 +40,7 @@ func (t *EmailSample) GetEmailThumbnailUrl(p *GetEmailThumbnailUrlParameters) (r
 
 type GetLatestEmailSampleForDesignParameters struct {
 	EmailDesignId string
-	WithData      *[]interface{} // EmailPreview | EmailSpamResult
+	WithData      *[]string // EmailPreview | EmailSpamResult
 }
 
 func (t *EmailSample) GetLatestEmailSampleForDesign(p *GetLatestEmailSampleForDesignParameters) (r *http.Response, err error) {

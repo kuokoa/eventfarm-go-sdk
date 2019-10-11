@@ -25,7 +25,7 @@ func NewWithdrawal(restClient rest.RestClientInterface) *Withdrawal {
 
 type GetWithdrawalParameters struct {
 	WithdrawalId string
-	WithData     *[]interface{}
+	WithData     *[]string
 }
 
 func (t *Withdrawal) GetWithdrawal(p *GetWithdrawalParameters) (r *http.Response, err error) {

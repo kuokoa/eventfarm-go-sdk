@@ -24,7 +24,7 @@ func NewImport(restClient rest.RestClientInterface) *Import {
 
 type GetUserImportParameters struct {
 	UserImportId string
-	WithData     *[]interface{} // GoodRecords | DuplicateRecords | ErrorRecords | ImportFailureRecords
+	WithData     *[]string // GoodRecords | DuplicateRecords | ErrorRecords | ImportFailureRecords
 }
 
 func (t *Import) GetUserImport(p *GetUserImportParameters) (r *http.Response, err error) {

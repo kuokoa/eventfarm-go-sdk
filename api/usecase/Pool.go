@@ -308,7 +308,7 @@ type SendUpgradeRequestToCsmParameters struct {
 	PoolId                string
 	UserId                string
 	SlackUserId           *string
-	RequestedFeatureSlugs *[]interface{}
+	RequestedFeatureSlugs *[]string
 	Other                 *string
 }
 

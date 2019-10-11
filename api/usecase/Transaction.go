@@ -23,7 +23,7 @@ func NewTransaction(restClient rest.RestClientInterface) *Transaction {
 
 type GetTransactionParameters struct {
 	TransactionId string
-	WithData      *[]interface{} // Invitation | ActivityLog
+	WithData      *[]string // Invitation | ActivityLog
 }
 
 func (t *Transaction) GetTransaction(p *GetTransactionParameters) (r *http.Response, err error) {
@@ -48,7 +48,7 @@ func (t *Transaction) GetTransaction(p *GetTransactionParameters) (r *http.Respo
 type AddInvitationToTransactionParameters struct {
 	TransactionId string
 	InvitationId  string
-	Invitations   *[]interface{}
+	Invitations   *[]string
 }
 
 func (t *Transaction) AddInvitationToTransaction(p *AddInvitationToTransactionParameters) (r *http.Response, err error) {
@@ -72,8 +72,8 @@ func (t *Transaction) AddInvitationToTransaction(p *AddInvitationToTransactionPa
 type CreateTransactionParameters struct {
 	PoolId        string
 	TransactionId *string
-	Invitations   *[]interface{}
-	Payment       *[]interface{}
+	Invitations   *[]string
+	Payment       *[]string
 }
 
 func (t *Transaction) CreateTransaction(p *CreateTransactionParameters) (r *http.Response, err error) {

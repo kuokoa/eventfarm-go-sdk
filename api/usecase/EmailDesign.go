@@ -91,8 +91,8 @@ type CreateEmailDesignParameters struct {
 	EventId           string
 	FromEmail         *string
 	ReplyEmail        *string
-	CcEmail           *[]interface{}
-	BccEmail          *[]interface{}
+	CcEmail           *[]string
+	BccEmail          *[]string
 	DomainMaskId      *string
 	DomainMaskEmail   *string
 	EmailDesignId     *string
@@ -153,8 +153,8 @@ type CreateEmailDesignFromTemplateParameters struct {
 	EmailTemplateType string
 	FromEmail         *string
 	ReplyEmail        *string
-	CcEmails          *[]interface{}
-	BccEmails         *[]interface{}
+	CcEmails          *[]string
+	BccEmails         *[]string
 	DomainMaskId      *string
 	DomainMaskEmail   *string
 	EmailDesignId     *string
@@ -267,8 +267,8 @@ type UpdateEmailDesignParameters struct {
 	EventId           string
 	FromEmail         *string
 	ReplyEmail        *string
-	CcEmail           *[]interface{}
-	BccEmail          *[]interface{}
+	CcEmail           *[]string
+	BccEmail          *[]string
 	DomainMaskId      *string
 	DomainMaskEmail   *string
 }

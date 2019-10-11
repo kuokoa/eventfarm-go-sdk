@@ -24,7 +24,7 @@ func NewGroup(restClient rest.RestClientInterface) *Group {
 
 type GetGroupParameters struct {
 	GroupId  string
-	WithData *[]interface{} // totalUsersInGroup | creatorUser
+	WithData *[]string // totalUsersInGroup | creatorUser
 }
 
 func (t *Group) GetGroup(p *GetGroupParameters) (r *http.Response, err error) {
@@ -122,7 +122,7 @@ func (t *Group) ListGroupsOwnedByUser(p *ListGroupsOwnedByUserParameters) (r *ht
 
 type AddUsersToGroupParameters struct {
 	GroupId string
-	UserIds []interface{}
+	UserIds []string
 }
 
 func (t *Group) AddUsersToGroup(p *AddUsersToGroupParameters) (r *http.Response, err error) {
@@ -180,7 +180,7 @@ func (t *Group) DeleteGroup(p *DeleteGroupParameters) (r *http.Response, err err
 
 type MergeGroupsParameters struct {
 	DestinationGroupId string
-	FromGroupIds       []interface{}
+	FromGroupIds       []string
 }
 
 func (t *Group) MergeGroups(p *MergeGroupsParameters) (r *http.Response, err error) {
@@ -200,7 +200,7 @@ func (t *Group) MergeGroups(p *MergeGroupsParameters) (r *http.Response, err err
 
 type RemoveUsersFromGroupParameters struct {
 	GroupId string
-	UserIds []interface{}
+	UserIds []string
 }
 
 func (t *Group) RemoveUsersFromGroup(p *RemoveUsersFromGroupParameters) (r *http.Response, err error) {

@@ -172,7 +172,7 @@ type CreatePreviewEmailMessageParameters struct {
 	EventId         string
 	OwnerUserId     string
 	MessageContent  string
-	ToEmails        []interface{}
+	ToEmails        []string
 	FromName        string
 	Subject         string
 	LayoutType      string
@@ -219,7 +219,7 @@ type CreateScheduledBatchEmailMessageParameters struct {
 	OwnerUserId     string
 	EmailDesignId   string
 	Type            string
-	Targets         []interface{} // confirmed | purchased | assigned | unconfirmed | attended
+	Targets         []string // confirmed | purchased | assigned | unconfirmed | attended
 	MessageSendTime string
 	Timezone        string
 }
@@ -307,8 +307,8 @@ type SendAMessageToAllCheckedInGuestsParameters struct {
 	Subject                string
 	FromName               string
 	ReplyEmail             *string
-	CcEmails               *[]interface{}
-	BccEmails              *[]interface{}
+	CcEmails               *[]string
+	BccEmails              *[]string
 	UseEventSpecificLayout *bool
 	BackgroundColor        *string
 	DomainMaskEmail        *string
@@ -359,8 +359,8 @@ type SendAMessageToEventWaitListParameters struct {
 	Subject                string
 	FromName               string
 	ReplyEmail             *string
-	CcEmails               *[]interface{}
-	BccEmails              *[]interface{}
+	CcEmails               *[]string
+	BccEmails              *[]string
 	UseEventSpecificLayout *bool
 	BackgroundColor        *string
 	DomainMaskEmail        *string
@@ -412,8 +412,8 @@ type SendAMessageToGroupParameters struct {
 	Subject                string
 	FromName               string
 	ReplyEmail             *string
-	CcEmails               *[]interface{}
-	BccEmails              *[]interface{}
+	CcEmails               *[]string
+	BccEmails              *[]string
 	UseEventSpecificLayout *bool
 	BackgroundColor        *string
 	DomainMaskEmail        *string
@@ -465,8 +465,8 @@ type SendAMessageToNoShowsParameters struct {
 	Subject                string
 	FromName               string
 	ReplyEmail             *string
-	CcEmails               *[]interface{}
-	BccEmails              *[]interface{}
+	CcEmails               *[]string
+	BccEmails              *[]string
 	UseEventSpecificLayout *bool
 	BackgroundColor        *string
 	DomainMaskEmail        *string
@@ -512,15 +512,15 @@ func (t *EmailMessage) SendAMessageToNoShows(p *SendAMessageToNoShowsParameters)
 
 type SendAMessageToTicketTypesParameters struct {
 	EventId                string
-	TicketTypeIds          []interface{}
-	InvitationStatusTypes  []interface{} // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
+	TicketTypeIds          []string
+	InvitationStatusTypes  []string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	OwnerUserId            string
 	MessageContents        string
 	Subject                string
 	FromName               string
 	ReplyEmail             *string
-	CcEmails               *[]interface{}
-	BccEmails              *[]interface{}
+	CcEmails               *[]string
+	BccEmails              *[]string
 	UseEventSpecificLayout *bool
 	BackgroundColor        *string
 	DomainMaskEmail        *string
@@ -589,7 +589,7 @@ func (t *EmailMessage) SimulateEmailMessageStatsForEvent(p *SimulateEmailMessage
 type UpdateScheduledBatchEmailMessageParameters struct {
 	MongoQueueId    string
 	EmailDesignId   string
-	Targets         []interface{} // confirmed | purchased | assigned | unconfirmed | attended
+	Targets         []string // confirmed | purchased | assigned | unconfirmed | attended
 	MessageSendTime string
 	Timezone        string
 }

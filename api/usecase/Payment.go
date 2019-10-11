@@ -25,7 +25,7 @@ func NewPayment(restClient rest.RestClientInterface) *Payment {
 
 type GetPaymentParameters struct {
 	PaymentId string
-	WithData  *[]interface{}
+	WithData  *[]string
 }
 
 func (t *Payment) GetPayment(p *GetPaymentParameters) (r *http.Response, err error) {
@@ -63,7 +63,7 @@ func (t *Payment) GetPaymentTotalsForEvent(p *GetPaymentTotalsForEventParameters
 
 type ListPaymentsForEventParameters struct {
 	EventId       string
-	WithData      *[]interface{}
+	WithData      *[]string
 	Page          *int64 // >= 1
 	ItemsPerPage  *int64 // 1-100
 	Query         *string

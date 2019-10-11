@@ -51,7 +51,7 @@ func (t *Queue) GetJob(p *GetJobParameters) (r *http.Response, err error) {
 
 type GetQueueCommandParameters struct {
 	CommandId string
-	WithData  *[]interface{} // QueueCommandErrors | QueueCommandMessages
+	WithData  *[]string // QueueCommandErrors | QueueCommandMessages
 }
 
 func (t *Queue) GetQueueCommand(p *GetQueueCommandParameters) (r *http.Response, err error) {
@@ -73,7 +73,7 @@ func (t *Queue) GetQueueCommand(p *GetQueueCommandParameters) (r *http.Response,
 
 type GetQueueTaskParameters struct {
 	QueueTaskId string
-	WithData    *[]interface{} // QueueTaskErrors | QueueTaskMessages
+	WithData    *[]string // QueueTaskErrors | QueueTaskMessages
 }
 
 func (t *Queue) GetQueueTask(p *GetQueueTaskParameters) (r *http.Response, err error) {

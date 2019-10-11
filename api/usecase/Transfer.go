@@ -24,7 +24,7 @@ func NewTransfer(restClient rest.RestClientInterface) *Transfer {
 
 type GetTransferParameters struct {
 	TransferId string
-	WithData   *[]interface{}
+	WithData   *[]string
 }
 
 func (t *Transfer) GetTransfer(p *GetTransferParameters) (r *http.Response, err error) {
@@ -46,7 +46,7 @@ func (t *Transfer) GetTransfer(p *GetTransferParameters) (r *http.Response, err 
 
 type ListTransfersForEventParameters struct {
 	EventId       string
-	WithData      *[]interface{}
+	WithData      *[]string
 	Page          *int64 // >= 1
 	ItemsPerPage  *int64 // 1-100
 	SortBy        *string
@@ -84,7 +84,7 @@ func (t *Transfer) ListTransfersForEvent(p *ListTransfersForEventParameters) (r 
 
 type ListTransfersForInvitationParameters struct {
 	InvitationId  string
-	WithData      *[]interface{}
+	WithData      *[]string
 	Page          *int64 // >= 1
 	ItemsPerPage  *int64 // 1-100
 	SortBy        *string

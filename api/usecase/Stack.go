@@ -25,7 +25,7 @@ func NewStack(restClient rest.RestClientInterface) *Stack {
 
 type GetStackParameters struct {
 	StackId  string
-	WithData *[]interface{} // Event | TicketType | availabilityCounts | AvailabilityCounts
+	WithData *[]string // Event | TicketType | availabilityCounts | AvailabilityCounts
 }
 
 func (t *Stack) GetStack(p *GetStackParameters) (r *http.Response, err error) {
@@ -47,8 +47,8 @@ func (t *Stack) GetStack(p *GetStackParameters) (r *http.Response, err error) {
 
 type ListStacksForEventParameters struct {
 	EventId                  string
-	WithData                 *[]interface{} // TicketType | Event | availabilityCounts | AvailabilityCounts | availibilityCounts
-	ExcludeStackMethodFilter *[]interface{}
+	WithData                 *[]string // TicketType | Event | availabilityCounts | AvailabilityCounts | availibilityCounts
+	ExcludeStackMethodFilter *[]string
 	ShouldHideDeleted        *bool
 	Query                    *string
 	SortBy                   *string
@@ -98,9 +98,9 @@ func (t *Stack) ListStacksForEvent(p *ListStacksForEventParameters) (r *http.Res
 }
 
 type ListStacksForEventsParameters struct {
-	EventIds                 []interface{}
-	WithData                 *[]interface{} // TicketType | Event | availabilityCounts | AvailabilityCounts | availibilityCounts
-	ExcludeStackMethodFilter *[]interface{}
+	EventIds                 []string
+	WithData                 *[]string // TicketType | Event | availabilityCounts | AvailabilityCounts | availibilityCounts
+	ExcludeStackMethodFilter *[]string
 	ShouldHideDeleted        *bool
 	Query                    *string
 	SortBy                   *string
@@ -153,8 +153,8 @@ func (t *Stack) ListStacksForEvents(p *ListStacksForEventsParameters) (r *http.R
 
 type ListStacksForPromotionParameters struct {
 	PromotionId              string
-	WithData                 *[]interface{} // TicketType | Event | availabilityCounts | AvailabilityCounts | availibilityCounts
-	ExcludeStackMethodFilter *[]interface{}
+	WithData                 *[]string // TicketType | Event | availabilityCounts | AvailabilityCounts | availibilityCounts
+	ExcludeStackMethodFilter *[]string
 	ShouldHideDeleted        *bool
 	Query                    *string
 	SortBy                   *string
@@ -231,7 +231,7 @@ func (t *Stack) ListStacksForTicketType(p *ListStacksForTicketTypeParameters) (r
 
 type AddPromotionToStacksParameters struct {
 	PromotionId string
-	StackIds    []interface{}
+	StackIds    []string
 }
 
 func (t *Stack) AddPromotionToStacks(p *AddPromotionToStacksParameters) (r *http.Response, err error) {
@@ -389,7 +389,7 @@ func (t *Stack) DeleteStack(p *DeleteStackParameters) (r *http.Response, err err
 
 type RemovePromotionFromStacksParameters struct {
 	PromotionId string
-	StackIds    []interface{}
+	StackIds    []string
 }
 
 func (t *Stack) RemovePromotionFromStacks(p *RemovePromotionFromStacksParameters) (r *http.Response, err error) {

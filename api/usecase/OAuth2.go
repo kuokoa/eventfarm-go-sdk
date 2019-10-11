@@ -25,7 +25,7 @@ func NewOAuth2(restClient rest.RestClientInterface) *OAuth2 {
 
 type CreateOAuthClientParameters struct {
 	Name         string
-	RedirectUrls []interface{}
+	RedirectUrls []string
 	Identifier   *string
 	Secret       *string
 }
@@ -69,7 +69,7 @@ func (t *OAuth2) RevokeAccessToken(p *RevokeAccessTokenParameters) (r *http.Resp
 
 type SetRedirectUrlsForOAuthClientParameters struct {
 	Identifier   string
-	RedirectUrls []interface{}
+	RedirectUrls []string
 }
 
 func (t *OAuth2) SetRedirectUrlsForOAuthClient(p *SetRedirectUrlsForOAuthClientParameters) (r *http.Response, err error) {

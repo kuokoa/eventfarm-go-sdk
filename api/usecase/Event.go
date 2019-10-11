@@ -40,7 +40,7 @@ func (t *Event) CheckAltKeywordAvailability(p *CheckAltKeywordAvailabilityParame
 
 type GetAllQuestionsForEventParameters struct {
 	EventId  string
-	WithData *[]interface{} // Answers | TicketType | QuestionContexts
+	WithData *[]string // Answers | TicketType | QuestionContexts
 }
 
 func (t *Event) GetAllQuestionsForEvent(p *GetAllQuestionsForEventParameters) (r *http.Response, err error) {
@@ -62,7 +62,7 @@ func (t *Event) GetAllQuestionsForEvent(p *GetAllQuestionsForEventParameters) (r
 
 type GetEventParameters struct {
 	EventId  string
-	WithData *[]interface{} // Pool | Stacks | StacksWithAvailabilityCounts | Tags | EventTexts | TicketTypes | TicketBlocks | TicketBlocksWithAllotmentCounts | QuestionsAndAnswers | QuestionContext | AllQuestions | ParentEvent | PoolFeatures | EventTheme
+	WithData *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | EventTexts | TicketTypes | TicketBlocks | TicketBlocksWithAllotmentCounts | QuestionsAndAnswers | QuestionContext | AllQuestions | ParentEvent | PoolFeatures | EventTheme
 }
 
 func (t *Event) GetEvent(p *GetEventParameters) (r *http.Response, err error) {
@@ -84,7 +84,7 @@ func (t *Event) GetEvent(p *GetEventParameters) (r *http.Response, err error) {
 
 type GetEventByAltKeywordParameters struct {
 	AltKeyword string
-	WithData   *[]interface{} // Pool | Stacks | StacksWithAvailabilityCounts | Tags | EventTexts | TicketTypes | TicketBlocks | TicketBlocksWithAllotmentCounts | QuestionsAndAnswers | QuestionContext | AllQuestions | ParentEvent | PoolFeatures | EventTheme
+	WithData   *[]string // Pool | Stacks | StacksWithAvailabilityCounts | Tags | EventTexts | TicketTypes | TicketBlocks | TicketBlocksWithAllotmentCounts | QuestionsAndAnswers | QuestionContext | AllQuestions | ParentEvent | PoolFeatures | EventTheme
 }
 
 func (t *Event) GetEventByAltKeyword(p *GetEventByAltKeywordParameters) (r *http.Response, err error) {
@@ -126,7 +126,7 @@ func (t *Event) GetEventCountsForPool(p *GetEventCountsForPoolParameters) (r *ht
 
 type GetQuestionParameters struct {
 	QuestionId string
-	WithData   *[]interface{} // Answers | TicketType | QuestionResponseCounts | AnswerQuestionResponseCounts | QuestionContexts
+	WithData   *[]string // Answers | TicketType | QuestionResponseCounts | AnswerQuestionResponseCounts | QuestionContexts
 }
 
 func (t *Event) GetQuestion(p *GetQuestionParameters) (r *http.Response, err error) {
@@ -149,16 +149,16 @@ func (t *Event) GetQuestion(p *GetQuestionParameters) (r *http.Response, err err
 type ListChildrenForEventParameters struct {
 	ParentEventId           string
 	Query                   *string
-	WithData                *[]interface{} // Pool | Stacks | Tags | TicketTypes | TicketBlocks | EventTexts | QuestionsAndAnswers | ThumbnailUrl
-	Page                    *int64         // >= 1
-	ItemsPerPage            *int64         // 1-100
+	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | EventTexts | QuestionsAndAnswers | ThumbnailUrl
+	Page                    *int64    // >= 1
+	ItemsPerPage            *int64    // 1-100
 	SortBy                  *string
 	SortDirection           *string
 	EventDateFilterType     *string
 	PoolId                  *string
-	Tags                    *[]interface{}
-	AttributesFilter        *[]interface{}
-	AttributesExcludeFilter *[]interface{}
+	Tags                    *[]string
+	AttributesFilter        *[]string
+	AttributesExcludeFilter *[]string
 }
 
 func (t *Event) ListChildrenForEvent(p *ListChildrenForEventParameters) (r *http.Response, err error) {
@@ -218,14 +218,14 @@ type ListChildrenForEventForUserParameters struct {
 	ParentEventId       string
 	UserId              string
 	Query               *string
-	WithData            *[]interface{} // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
-	Page                *int64         // >= 1
-	ItemsPerPage        *int64         // 1-100
+	WithData            *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
+	Page                *int64    // >= 1
+	ItemsPerPage        *int64    // 1-100
 	SortBy              *string
 	SortDirection       *string
 	EventDateFilterType *string
 	PoolId              *string
-	Tags                *[]interface{}
+	Tags                *[]string
 }
 
 func (t *Event) ListChildrenForEventForUser(p *ListChildrenForEventForUserParameters) (r *http.Response, err error) {
@@ -275,16 +275,16 @@ func (t *Event) ListChildrenForEventForUser(p *ListChildrenForEventForUserParame
 type ListEventsForPoolParameters struct {
 	PoolId                  string
 	Query                   *string
-	AttributesFilter        *[]interface{} // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled
-	AttributesExcludeFilter *[]interface{} // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled
-	WithData                *[]interface{} // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
+	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled
+	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled
+	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
 	LastModifiedTimestamp   *int64
 	Page                    *int64 // >= 1
 	ItemsPerPage            *int64 // 1-500
 	SortBy                  *string
 	SortDirection           *string
 	EventDateFilterType     *string
-	Tags                    *[]interface{}
+	Tags                    *[]string
 	EarliestStartTimestamp  *int64 // >= 0
 }
 
@@ -347,9 +347,9 @@ func (t *Event) ListEventsForPool(p *ListEventsForPoolParameters) (r *http.Respo
 type ListEventsForUserParameters struct {
 	UserId                  string
 	Query                   *string
-	AttributesFilter        *[]interface{} // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled
-	AttributesExcludeFilter *[]interface{} // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled
-	WithData                *[]interface{} // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
+	AttributesFilter        *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled
+	AttributesExcludeFilter *[]string // distribute | donate | fee | editname | reveal | allow-notes | duplicate-emails | navigation | social-media | social-media-bar | map-location | show-description | ipad-purchase | simple-layout | label-print | skip-event-allocate-display | geo-restrict | visa-checkout | archived | guest-can-change-response | efx-enabled | show-calendar | show-qr-confirmation | event-app-enabled | child-events-enabled
+	WithData                *[]string // Pool | Stacks | Tags | TicketTypes | TicketBlocks | QuestionsAndAnswers | ThumbnailUrl
 	LastModifiedTimestamp   *int64
 	Page                    *int64 // >= 1
 	ItemsPerPage            *int64 // 1-500
@@ -357,7 +357,7 @@ type ListEventsForUserParameters struct {
 	SortDirection           *string
 	EventDateFilterType     *string
 	PoolId                  *string
-	Tags                    *[]interface{}
+	Tags                    *[]string
 	EarliestStartTimestamp  *int64 // >= 0
 	OrganizerOnly           *bool
 	ParentEventsOnly        *bool
@@ -430,7 +430,7 @@ func (t *Event) ListEventsForUser(p *ListEventsForUserParameters) (r *http.Respo
 
 type ListQuestionsByEventAndContextParameters struct {
 	EventId              string
-	QuestionContextTypes *[]interface{} // registration | lead
+	QuestionContextTypes *[]string // registration | lead
 }
 
 func (t *Event) ListQuestionsByEventAndContext(p *ListQuestionsByEventAndContextParameters) (r *http.Response, err error) {
@@ -739,7 +739,7 @@ type CreateQuestionParameters struct {
 	IsIndividual         *bool
 	TicketTypeId         *string
 	QuestionId           *string
-	QuestionContextTypes *[]interface{} // registration | lead
+	QuestionContextTypes *[]string // registration | lead
 }
 
 func (t *Event) CreateQuestion(p *CreateQuestionParameters) (r *http.Response, err error) {
@@ -1334,7 +1334,7 @@ type IncrementCIOAndMessageCSMParameters struct {
 	PhoneNumber   string
 	HowManyEvents string
 	Industry      string
-	TypeOfEvents  []interface{} // brand-awareness-events | trade-shows | conferences | roadshows | internal-meetings | recruiting-events | fundraising-events
+	TypeOfEvents  []string // brand-awareness-events | trade-shows | conferences | roadshows | internal-meetings | recruiting-events | fundraising-events
 }
 
 func (t *Event) IncrementCIOAndMessageCSM(p *IncrementCIOAndMessageCSMParameters) (r *http.Response, err error) {
@@ -1859,7 +1859,7 @@ type UpdateQuestionParameters struct {
 	QuestionId           string
 	Text                 string
 	QuestionType         string
-	QuestionContextTypes *[]interface{} // registration | lead
+	QuestionContextTypes *[]string // registration | lead
 	IsRequired           *bool
 	IsIndividual         *bool
 	TicketTypeId         *string
