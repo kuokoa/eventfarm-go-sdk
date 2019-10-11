@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Group struct {
@@ -140,6 +140,15 @@ func (t *Group) AddUsersToGroup(p *AddUsersToGroupParameters) (r *http.Response,
 	)
 }
 
+func (t *Group) AddUsersToGroupWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Group/UseCase/AddUsersToGroup`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateGroupForUserParameters struct {
 	UserId    string
 	GroupName string
@@ -162,6 +171,15 @@ func (t *Group) CreateGroupForUser(p *CreateGroupForUserParameters) (r *http.Res
 	)
 }
 
+func (t *Group) CreateGroupForUserWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Group/UseCase/CreateGroupForUser`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DeleteGroupParameters struct {
 	GroupId string
 }
@@ -173,6 +191,15 @@ func (t *Group) DeleteGroup(p *DeleteGroupParameters) (r *http.Response, err err
 	return t.restClient.Post(
 		`/v2/Group/UseCase/DeleteGroup`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Group) DeleteGroupWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Group/UseCase/DeleteGroup`,
+		data,
 		nil,
 		nil,
 	)
@@ -198,6 +225,15 @@ func (t *Group) MergeGroups(p *MergeGroupsParameters) (r *http.Response, err err
 	)
 }
 
+func (t *Group) MergeGroupsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Group/UseCase/MergeGroups`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveUsersFromGroupParameters struct {
 	GroupId string
 	UserIds []string
@@ -218,6 +254,15 @@ func (t *Group) RemoveUsersFromGroup(p *RemoveUsersFromGroupParameters) (r *http
 	)
 }
 
+func (t *Group) RemoveUsersFromGroupWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Group/UseCase/RemoveUsersFromGroup`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetGroupNameParameters struct {
 	GroupId   string
 	UserId    string
@@ -233,6 +278,15 @@ func (t *Group) SetGroupName(p *SetGroupNameParameters) (r *http.Response, err e
 	return t.restClient.Post(
 		`/v2/Group/UseCase/SetGroupName`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Group) SetGroupNameWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Group/UseCase/SetGroupName`,
+		data,
 		nil,
 		nil,
 	)

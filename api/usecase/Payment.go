@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Payment struct {
@@ -265,6 +265,15 @@ func (t *Payment) CreatePayment(p *CreatePaymentParameters) (r *http.Response, e
 	)
 }
 
+func (t *Payment) CreatePaymentWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Payment/UseCase/CreatePayment`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DeletePaymentParameters struct {
 	PaymentId string
 }
@@ -276,6 +285,15 @@ func (t *Payment) DeletePayment(p *DeletePaymentParameters) (r *http.Response, e
 	return t.restClient.Post(
 		`/v2/Payment/UseCase/DeletePayment`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Payment) DeletePaymentWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Payment/UseCase/DeletePayment`,
+		data,
 		nil,
 		nil,
 	)

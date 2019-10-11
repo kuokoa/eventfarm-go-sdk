@@ -4,7 +4,7 @@
 
 package usecase
 
-import "github.com/eventfarm/go-sdk/rest"
+import "github.com/kuokoa/eventfarm-go-sdk/rest"
 
 type Factory struct {
 	restClient rest.RestClientInterface

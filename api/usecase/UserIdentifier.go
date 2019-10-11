@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type UserIdentifier struct {
@@ -40,6 +40,15 @@ func (t *UserIdentifier) SetUserIdentifier(p *SetUserIdentifierParameters) (r *h
 	return t.restClient.Post(
 		`/v2/UserIdentifier/UseCase/SetUserIdentifier`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *UserIdentifier) SetUserIdentifierWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/UserIdentifier/UseCase/SetUserIdentifier`,
+		data,
 		nil,
 		nil,
 	)

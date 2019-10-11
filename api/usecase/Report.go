@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Report struct {
@@ -100,6 +100,15 @@ func (t *Report) CreateActivityLogReport(p *CreateActivityLogReportParameters) (
 	)
 }
 
+func (t *Report) CreateActivityLogReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateActivityLogReport`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateAdminEventReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -121,6 +130,15 @@ func (t *Report) CreateAdminEventReport(p *CreateAdminEventReportParameters) (r 
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateAdminEventReport`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Report) CreateAdminEventReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateAdminEventReport`,
+		data,
 		nil,
 		nil,
 	)
@@ -152,6 +170,15 @@ func (t *Report) CreateConfirmedGuestReport(p *CreateConfirmedGuestReportParamet
 	)
 }
 
+func (t *Report) CreateConfirmedGuestReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateConfirmedGuestReport`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateEmailDeliverabilityReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -173,6 +200,15 @@ func (t *Report) CreateEmailDeliverabilityReport(p *CreateEmailDeliverabilityRep
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateEmailDeliverabilityReport`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Report) CreateEmailDeliverabilityReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateEmailDeliverabilityReport`,
+		data,
 		nil,
 		nil,
 	)
@@ -204,6 +240,15 @@ func (t *Report) CreateGraphicalCheckinReport(p *CreateGraphicalCheckinReportPar
 	)
 }
 
+func (t *Report) CreateGraphicalCheckinReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateGraphicalCheckinReport`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateGuestSummaryReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -225,6 +270,15 @@ func (t *Report) CreateGuestSummaryReport(p *CreateGuestSummaryReportParameters)
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateGuestSummaryReport`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Report) CreateGuestSummaryReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateGuestSummaryReport`,
+		data,
 		nil,
 		nil,
 	)
@@ -256,6 +310,15 @@ func (t *Report) CreatePurchasedReport(p *CreatePurchasedReportParameters) (r *h
 	)
 }
 
+func (t *Report) CreatePurchasedReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreatePurchasedReport`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateSentEmailReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -277,6 +340,15 @@ func (t *Report) CreateSentEmailReport(p *CreateSentEmailReportParameters) (r *h
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateSentEmailReport`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Report) CreateSentEmailReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateSentEmailReport`,
+		data,
 		nil,
 		nil,
 	)
@@ -310,6 +382,15 @@ func (t *Report) CreateTicketBlockSummaryReport(p *CreateTicketBlockSummaryRepor
 	)
 }
 
+func (t *Report) CreateTicketBlockSummaryReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateTicketBlockSummaryReport`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateTicketBlockUserReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -331,6 +412,15 @@ func (t *Report) CreateTicketBlockUserReport(p *CreateTicketBlockUserReportParam
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateTicketBlockUserReport`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Report) CreateTicketBlockUserReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateTicketBlockUserReport`,
+		data,
 		nil,
 		nil,
 	)
@@ -362,6 +452,15 @@ func (t *Report) CreateTransferReport(p *CreateTransferReportParameters) (r *htt
 	)
 }
 
+func (t *Report) CreateTransferReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateTransferReport`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateUnconfirmedGuestReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -383,6 +482,15 @@ func (t *Report) CreateUnconfirmedGuestReport(p *CreateUnconfirmedGuestReportPar
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateUnconfirmedGuestReport`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Report) CreateUnconfirmedGuestReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateUnconfirmedGuestReport`,
+		data,
 		nil,
 		nil,
 	)
@@ -414,6 +522,15 @@ func (t *Report) CreateWaitListReport(p *CreateWaitListReportParameters) (r *htt
 	)
 }
 
+func (t *Report) CreateWaitListReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateWaitListReport`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateWaiverReportParameters struct {
 	EventId     string
 	OwnerUserId string
@@ -435,6 +552,15 @@ func (t *Report) CreateWaiverReport(p *CreateWaiverReportParameters) (r *http.Re
 	return t.restClient.Post(
 		`/v2/Report/UseCase/CreateWaiverReport`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Report) CreateWaiverReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Report/UseCase/CreateWaiverReport`,
+		data,
 		nil,
 		nil,
 	)

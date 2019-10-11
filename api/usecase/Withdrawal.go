@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Withdrawal struct {
@@ -101,6 +101,15 @@ func (t *Withdrawal) CreateWithdrawal(p *CreateWithdrawalParameters) (r *http.Re
 	)
 }
 
+func (t *Withdrawal) CreateWithdrawalWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Withdrawal/UseCase/CreateWithdrawal`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DeleteWithdrawalParameters struct {
 	WithdrawalId string
 }
@@ -112,6 +121,15 @@ func (t *Withdrawal) DeleteWithdrawal(p *DeleteWithdrawalParameters) (r *http.Re
 	return t.restClient.Post(
 		`/v2/Withdrawal/UseCase/DeleteWithdrawal`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Withdrawal) DeleteWithdrawalWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Withdrawal/UseCase/DeleteWithdrawal`,
+		data,
 		nil,
 		nil,
 	)

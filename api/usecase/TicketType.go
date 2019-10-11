@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type TicketType struct {
@@ -80,6 +80,15 @@ func (t *TicketType) CreateTicketType(p *CreateTicketTypeParameters) (r *http.Re
 	)
 }
 
+func (t *TicketType) CreateTicketTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketType/UseCase/CreateTicketType`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DeleteTicketTypeParameters struct {
 	TicketTypeId string
 }
@@ -91,6 +100,15 @@ func (t *TicketType) DeleteTicketType(p *DeleteTicketTypeParameters) (r *http.Re
 	return t.restClient.Post(
 		`/v2/TicketType/UseCase/DeleteTicketType`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *TicketType) DeleteTicketTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketType/UseCase/DeleteTicketType`,
+		data,
 		nil,
 		nil,
 	)
@@ -116,6 +134,15 @@ func (t *TicketType) SetDescriptionForTicketType(p *SetDescriptionForTicketTypeP
 	)
 }
 
+func (t *TicketType) SetDescriptionForTicketTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketType/UseCase/SetDescriptionForTicketType`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetDisplayOrderForTicketTypeParameters struct {
 	TicketTypeId string
 	DisplayOrder int64
@@ -129,6 +156,15 @@ func (t *TicketType) SetDisplayOrderForTicketType(p *SetDisplayOrderForTicketTyp
 	return t.restClient.Post(
 		`/v2/TicketType/UseCase/SetDisplayOrderForTicketType`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *TicketType) SetDisplayOrderForTicketTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketType/UseCase/SetDisplayOrderForTicketType`,
+		data,
 		nil,
 		nil,
 	)
@@ -152,6 +188,15 @@ func (t *TicketType) SetNameForTicketType(p *SetNameForTicketTypeParameters) (r 
 	)
 }
 
+func (t *TicketType) SetNameForTicketTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketType/UseCase/SetNameForTicketType`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetQuantityForTicketTypeParameters struct {
 	TicketTypeId string
 	Quantity     int64
@@ -165,6 +210,15 @@ func (t *TicketType) SetQuantityForTicketType(p *SetQuantityForTicketTypeParamet
 	return t.restClient.Post(
 		`/v2/TicketType/UseCase/SetQuantityForTicketType`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *TicketType) SetQuantityForTicketTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketType/UseCase/SetQuantityForTicketType`,
+		data,
 		nil,
 		nil,
 	)

@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type EmailNotification struct {
@@ -68,6 +68,15 @@ func (t *EmailNotification) CreateSparkpostNotification(p *CreateSparkpostNotifi
 	)
 }
 
+func (t *EmailNotification) CreateSparkpostNotificationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailNotification/UseCase/CreateSparkpostNotification`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SimulateEmailNotificationsForEventParameters struct {
 	EventId      string
 	TotalRecords *int64
@@ -83,6 +92,15 @@ func (t *EmailNotification) SimulateEmailNotificationsForEvent(p *SimulateEmailN
 	return t.restClient.Post(
 		`/v2/EmailNotification/UseCase/SimulateEmailNotificationsForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailNotification) SimulateEmailNotificationsForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailNotification/UseCase/SimulateEmailNotificationsForEvent`,
+		data,
 		nil,
 		nil,
 	)

@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type IntegrationFieldMapping struct {
@@ -100,6 +100,15 @@ func (t *IntegrationFieldMapping) CreateIntegrationFieldMapping(p *CreateIntegra
 	)
 }
 
+func (t *IntegrationFieldMapping) CreateIntegrationFieldMappingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/IntegrationFieldMapping/UseCase/CreateIntegrationFieldMapping`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DeleteIntegrationFieldMappingParameters struct {
 	IntegrationFieldMappingId string
 }
@@ -111,6 +120,15 @@ func (t *IntegrationFieldMapping) DeleteIntegrationFieldMapping(p *DeleteIntegra
 	return t.restClient.Post(
 		`/v2/IntegrationFieldMapping/UseCase/DeleteIntegrationFieldMapping`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *IntegrationFieldMapping) DeleteIntegrationFieldMappingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/IntegrationFieldMapping/UseCase/DeleteIntegrationFieldMapping`,
+		data,
 		nil,
 		nil,
 	)
@@ -140,6 +158,15 @@ func (t *IntegrationFieldMapping) SetIntegrationFieldMappingFields(p *SetIntegra
 	)
 }
 
+func (t *IntegrationFieldMapping) SetIntegrationFieldMappingFieldsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/IntegrationFieldMapping/UseCase/SetIntegrationFieldMappingFields`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetIntegrationFieldMappingNameParameters struct {
 	IntegrationFieldMappingId string
 	IntegrationFieldName      string
@@ -158,6 +185,15 @@ func (t *IntegrationFieldMapping) SetIntegrationFieldMappingName(p *SetIntegrati
 	)
 }
 
+func (t *IntegrationFieldMapping) SetIntegrationFieldMappingNameWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/IntegrationFieldMapping/UseCase/SetIntegrationFieldMappingName`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetIntegrationFieldMappingUpdateRuleParameters struct {
 	IntegrationFieldMappingId string
 	UpdateRule                string
@@ -171,6 +207,15 @@ func (t *IntegrationFieldMapping) SetIntegrationFieldMappingUpdateRule(p *SetInt
 	return t.restClient.Post(
 		`/v2/IntegrationFieldMapping/UseCase/SetIntegrationFieldMappingUpdateRule`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *IntegrationFieldMapping) SetIntegrationFieldMappingUpdateRuleWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/IntegrationFieldMapping/UseCase/SetIntegrationFieldMappingUpdateRule`,
+		data,
 		nil,
 		nil,
 	)

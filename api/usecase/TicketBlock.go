@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type TicketBlock struct {
@@ -172,6 +172,15 @@ func (t *TicketBlock) AddUserRoleToTicketBlock(p *AddUserRoleToTicketBlockParame
 	)
 }
 
+func (t *TicketBlock) AddUserRoleToTicketBlockWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketBlock/UseCase/AddUserRoleToTicketBlock`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateTicketBlockParameters struct {
 	EventId            string
 	Name               string
@@ -202,6 +211,15 @@ func (t *TicketBlock) CreateTicketBlock(p *CreateTicketBlockParameters) (r *http
 	)
 }
 
+func (t *TicketBlock) CreateTicketBlockWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketBlock/UseCase/CreateTicketBlock`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableTicketBlockBlacklistParameters struct {
 	TicketBlockId string
 }
@@ -218,6 +236,15 @@ func (t *TicketBlock) DisableTicketBlockBlacklist(p *DisableTicketBlockBlacklist
 	)
 }
 
+func (t *TicketBlock) DisableTicketBlockBlacklistWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketBlock/UseCase/DisableTicketBlockBlacklist`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableTicketBlockBlacklistParameters struct {
 	TicketBlockId string
 }
@@ -229,6 +256,15 @@ func (t *TicketBlock) EnableTicketBlockBlacklist(p *EnableTicketBlockBlacklistPa
 	return t.restClient.Post(
 		`/v2/TicketBlock/UseCase/EnableTicketBlockBlacklist`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *TicketBlock) EnableTicketBlockBlacklistWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketBlock/UseCase/EnableTicketBlockBlacklist`,
+		data,
 		nil,
 		nil,
 	)
@@ -252,6 +288,15 @@ func (t *TicketBlock) RemoveAllUserRolesFromTicketBlock(p *RemoveAllUserRolesFro
 	)
 }
 
+func (t *TicketBlock) RemoveAllUserRolesFromTicketBlockWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketBlock/UseCase/RemoveAllUserRolesFromTicketBlock`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveTicketBlockParameters struct {
 	TicketBlockId string
 }
@@ -263,6 +308,15 @@ func (t *TicketBlock) RemoveTicketBlock(p *RemoveTicketBlockParameters) (r *http
 	return t.restClient.Post(
 		`/v2/TicketBlock/UseCase/RemoveTicketBlock`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *TicketBlock) RemoveTicketBlockWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketBlock/UseCase/RemoveTicketBlock`,
+		data,
 		nil,
 		nil,
 	)
@@ -286,6 +340,15 @@ func (t *TicketBlock) SetTicketBlockEmailText(p *SetTicketBlockEmailTextParamete
 	)
 }
 
+func (t *TicketBlock) SetTicketBlockEmailTextWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketBlock/UseCase/SetTicketBlockEmailText`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetTicketBlockNameParameters struct {
 	TicketBlockId string
 	Name          string
@@ -299,6 +362,15 @@ func (t *TicketBlock) SetTicketBlockName(p *SetTicketBlockNameParameters) (r *ht
 	return t.restClient.Post(
 		`/v2/TicketBlock/UseCase/SetTicketBlockName`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *TicketBlock) SetTicketBlockNameWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/TicketBlock/UseCase/SetTicketBlockName`,
+		data,
 		nil,
 		nil,
 	)

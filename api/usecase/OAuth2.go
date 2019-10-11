@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type OAuth2 struct {
@@ -51,6 +51,15 @@ func (t *OAuth2) CreateOAuthClient(p *CreateOAuthClientParameters) (r *http.Resp
 	)
 }
 
+func (t *OAuth2) CreateOAuthClientWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/OAuth2/UseCase/CreateOAuthClient`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RevokeAccessTokenParameters struct {
 	Identifier string
 }
@@ -62,6 +71,15 @@ func (t *OAuth2) RevokeAccessToken(p *RevokeAccessTokenParameters) (r *http.Resp
 	return t.restClient.Post(
 		`/v2/OAuth2/UseCase/RevokeAccessToken`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *OAuth2) RevokeAccessTokenWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/OAuth2/UseCase/RevokeAccessToken`,
+		data,
 		nil,
 		nil,
 	)
@@ -82,6 +100,15 @@ func (t *OAuth2) SetRedirectUrlsForOAuthClient(p *SetRedirectUrlsForOAuthClientP
 	return t.restClient.Post(
 		`/v2/OAuth2/UseCase/SetRedirectUrlsForOAuthClient`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *OAuth2) SetRedirectUrlsForOAuthClientWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/OAuth2/UseCase/SetRedirectUrlsForOAuthClient`,
+		data,
 		nil,
 		nil,
 	)

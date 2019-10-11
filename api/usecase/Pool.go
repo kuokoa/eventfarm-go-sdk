@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Pool struct {
@@ -252,6 +252,15 @@ func (t *Pool) CreatePoolContract(p *CreatePoolContractParameters) (r *http.Resp
 	)
 }
 
+func (t *Pool) CreatePoolContractWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/CreatePoolContract`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreatePoolWebhookParameters struct {
 	PoolId          string
 	PoolWebhookType string
@@ -267,6 +276,15 @@ func (t *Pool) CreatePoolWebhook(p *CreatePoolWebhookParameters) (r *http.Respon
 	return t.restClient.Post(
 		`/v2/Pool/UseCase/CreatePoolWebhook`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Pool) CreatePoolWebhookWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/CreatePoolWebhook`,
+		data,
 		nil,
 		nil,
 	)
@@ -288,6 +306,15 @@ func (t *Pool) RemoveCustomerDisplayNameForPool(p *RemoveCustomerDisplayNameForP
 	)
 }
 
+func (t *Pool) RemoveCustomerDisplayNameForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/RemoveCustomerDisplayNameForPool`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemovePrivacyPolicyLinkForPoolParameters struct {
 	PoolId string
 }
@@ -299,6 +326,15 @@ func (t *Pool) RemovePrivacyPolicyLinkForPool(p *RemovePrivacyPolicyLinkForPoolP
 	return t.restClient.Post(
 		`/v2/Pool/UseCase/RemovePrivacyPolicyLinkForPool`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Pool) RemovePrivacyPolicyLinkForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/RemovePrivacyPolicyLinkForPool`,
+		data,
 		nil,
 		nil,
 	)
@@ -336,6 +372,15 @@ func (t *Pool) SendUpgradeRequestToCsm(p *SendUpgradeRequestToCsmParameters) (r 
 	)
 }
 
+func (t *Pool) SendUpgradeRequestToCsmWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/SendUpgradeRequestToCsm`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetCustomerDisplayNameForPoolParameters struct {
 	PoolId              string
 	CustomerDisplayName string
@@ -354,6 +399,15 @@ func (t *Pool) SetCustomerDisplayNameForPool(p *SetCustomerDisplayNameForPoolPar
 	)
 }
 
+func (t *Pool) SetCustomerDisplayNameForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/SetCustomerDisplayNameForPool`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetPrivacyPolicyLinkForPoolParameters struct {
 	PoolId            string
 	PrivacyPolicyLink string
@@ -367,6 +421,15 @@ func (t *Pool) SetPrivacyPolicyLinkForPool(p *SetPrivacyPolicyLinkForPoolParamet
 	return t.restClient.Post(
 		`/v2/Pool/UseCase/SetPrivacyPolicyLinkForPool`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Pool) SetPrivacyPolicyLinkForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/SetPrivacyPolicyLinkForPool`,
+		data,
 		nil,
 		nil,
 	)
@@ -395,6 +458,15 @@ func (t *Pool) UpdatePoolContract(p *UpdatePoolContractParameters) (r *http.Resp
 	return t.restClient.Post(
 		`/v2/Pool/UseCase/UpdatePoolContract`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Pool) UpdatePoolContractWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Pool/UseCase/UpdatePoolContract`,
+		data,
 		nil,
 		nil,
 	)

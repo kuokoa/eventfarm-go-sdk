@@ -2,6 +2,7 @@ package rest
 
 import (
 	"bytes"
+	"encoding/json"
 	"log"
 	"net/http"
 	"net/http/httputil"
@@ -88,6 +89,48 @@ func (restClient *HttpRestClient) Post(
 
 	req.Header.Add(`User-Agent`, `Core/EventFarm/golang/`+version)
 	req.Header.Add(`Content-Type`, `application/x-www-form-urlencoded;charset=UTF-8)`)
+	//req.Header.Add(`Accept-Encoding`, `gzip`)
+
+	if restClient.EnableLogging {
+		LogRequest(req)
+	}
+
+	client := new(http.Client)
+	client.Timeout = defaultTimeout
+	resp, err = client.Do(req)
+	if err != nil {
+		return
+	}
+
+	if restClient.EnableLogging {
+		LogResponse(resp)
+	}
+
+	return
+}
+
+func (restClient *HttpRestClient) PostJSON(
+	url string,
+	data *map[string]interface{},
+	headers map[string]string,
+	timeout *time.Duration,
+) (resp *http.Response, err error) {
+
+	url = restClient.baseUri + url
+	body := new(bytes.Buffer)
+	json.NewEncoder(body).Encode(data)
+
+	req, err := http.NewRequest(`POST`, url, body)
+	if err != nil {
+		return
+	}
+
+	for k, v := range headers {
+		req.Header.Add(k, v)
+	}
+
+	req.Header.Add(`User-Agent`, `Core/EventFarm/golang/`+version)
+	req.Header.Add(`Content-Type`, `application/json;charset=UTF-8)`)
 	//req.Header.Add(`Accept-Encoding`, `gzip`)
 
 	if restClient.EnableLogging {

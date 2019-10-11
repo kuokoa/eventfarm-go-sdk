@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type EventTheme struct {
@@ -64,6 +64,15 @@ func (t *EventTheme) SetEventTheme(p *SetEventThemeParameters) (r *http.Response
 	return t.restClient.Post(
 		`/v2/EventTheme/UseCase/SetEventTheme`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EventTheme) SetEventThemeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EventTheme/UseCase/SetEventTheme`,
+		data,
 		nil,
 		nil,
 	)

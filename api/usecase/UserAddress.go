@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type UserAddress struct {
@@ -96,6 +96,15 @@ func (t *UserAddress) AddUserAddress(p *AddUserAddressParameters) (r *http.Respo
 	)
 }
 
+func (t *UserAddress) AddUserAddressWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/UserAddress/UseCase/AddUserAddress`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveUserAddressParameters struct {
 	UserAddressId string
 }
@@ -107,6 +116,15 @@ func (t *UserAddress) RemoveUserAddress(p *RemoveUserAddressParameters) (r *http
 	return t.restClient.Post(
 		`/v2/UserAddress/UseCase/RemoveUserAddress`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *UserAddress) RemoveUserAddressWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/UserAddress/UseCase/RemoveUserAddress`,
+		data,
 		nil,
 		nil,
 	)
@@ -147,6 +165,15 @@ func (t *UserAddress) SetUserAddress(p *SetUserAddressParameters) (r *http.Respo
 	return t.restClient.Post(
 		`/v2/UserAddress/UseCase/SetUserAddress`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *UserAddress) SetUserAddressWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/UserAddress/UseCase/SetUserAddress`,
+		data,
 		nil,
 		nil,
 	)

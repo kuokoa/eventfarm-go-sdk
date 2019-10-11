@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Transaction struct {
@@ -69,6 +69,15 @@ func (t *Transaction) AddInvitationToTransaction(p *AddInvitationToTransactionPa
 	)
 }
 
+func (t *Transaction) AddInvitationToTransactionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Transaction/UseCase/AddInvitationToTransaction`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateTransactionParameters struct {
 	PoolId        string
 	TransactionId *string
@@ -96,6 +105,15 @@ func (t *Transaction) CreateTransaction(p *CreateTransactionParameters) (r *http
 	return t.restClient.Post(
 		`/v2/Transaction/UseCase/CreateTransaction`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Transaction) CreateTransactionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Transaction/UseCase/CreateTransaction`,
+		data,
 		nil,
 		nil,
 	)

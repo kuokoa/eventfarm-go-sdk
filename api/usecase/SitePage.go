@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type SitePage struct {
@@ -132,6 +132,15 @@ func (t *SitePage) CreateSitePage(p *CreateSitePageParameters) (r *http.Response
 	)
 }
 
+func (t *SitePage) CreateSitePageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/CreateSitePage`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateTemplateParameters struct {
 	Name        string
 	Content     string
@@ -172,6 +181,15 @@ func (t *SitePage) CreateTemplate(p *CreateTemplateParameters) (r *http.Response
 	)
 }
 
+func (t *SitePage) CreateTemplateWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/CreateTemplate`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DuplicateSitePageParameters struct {
 	SitePageId    string
 	NewSitePageId *string
@@ -191,6 +209,15 @@ func (t *SitePage) DuplicateSitePage(p *DuplicateSitePageParameters) (r *http.Re
 	return t.restClient.Post(
 		`/v2/SitePage/UseCase/DuplicateSitePage`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SitePage) DuplicateSitePageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/DuplicateSitePage`,
+		data,
 		nil,
 		nil,
 	)
@@ -220,12 +247,30 @@ func (t *SitePage) DuplicateTemplate(p *DuplicateTemplateParameters) (r *http.Re
 	)
 }
 
+func (t *SitePage) DuplicateTemplateWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/DuplicateTemplate`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 func (t *SitePage) GenerateSitePageTemplates() (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Post(
 		`/v2/SitePage/UseCase/GenerateSitePageTemplates`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SitePage) GenerateSitePageTemplatesWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/GenerateSitePageTemplates`,
+		data,
 		nil,
 		nil,
 	)
@@ -247,6 +292,15 @@ func (t *SitePage) RemoveSitePage(p *RemoveSitePageParameters) (r *http.Response
 	)
 }
 
+func (t *SitePage) RemoveSitePageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/RemoveSitePage`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveTemplateParameters struct {
 	SitePageTemplateId string
 }
@@ -258,6 +312,15 @@ func (t *SitePage) RemoveTemplate(p *RemoveTemplateParameters) (r *http.Response
 	return t.restClient.Post(
 		`/v2/SitePage/UseCase/RemoveTemplate`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SitePage) RemoveTemplateWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/RemoveTemplate`,
+		data,
 		nil,
 		nil,
 	)
@@ -289,6 +352,15 @@ func (t *SitePage) SetContentForSitePage(p *SetContentForSitePageParameters) (r 
 	)
 }
 
+func (t *SitePage) SetContentForSitePageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/SetContentForSitePage`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetDisplayOrderForSitePageParameters struct {
 	SitePageId   string
 	DisplayOrder string
@@ -302,6 +374,15 @@ func (t *SitePage) SetDisplayOrderForSitePage(p *SetDisplayOrderForSitePageParam
 	return t.restClient.Post(
 		`/v2/SitePage/UseCase/SetDisplayOrderForSitePage`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SitePage) SetDisplayOrderForSitePageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/SetDisplayOrderForSitePage`,
+		data,
 		nil,
 		nil,
 	)
@@ -343,6 +424,15 @@ func (t *SitePage) SetMetaInfoForSitePage(p *SetMetaInfoForSitePageParameters) (
 	)
 }
 
+func (t *SitePage) SetMetaInfoForSitePageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/SetMetaInfoForSitePage`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetTitleForSitePageParameters struct {
 	SitePageId string
 	Title      string
@@ -356,6 +446,15 @@ func (t *SitePage) SetTitleForSitePage(p *SetTitleForSitePageParameters) (r *htt
 	return t.restClient.Post(
 		`/v2/SitePage/UseCase/SetTitleForSitePage`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SitePage) SetTitleForSitePageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/SetTitleForSitePage`,
+		data,
 		nil,
 		nil,
 	)
@@ -382,6 +481,15 @@ func (t *SitePage) UpdateSitePage(p *UpdateSitePageParameters) (r *http.Response
 	return t.restClient.Post(
 		`/v2/SitePage/UseCase/UpdateSitePage`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SitePage) UpdateSitePageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/UpdateSitePage`,
+		data,
 		nil,
 		nil,
 	)
@@ -418,6 +526,15 @@ func (t *SitePage) UpdateTemplate(p *UpdateTemplateParameters) (r *http.Response
 	return t.restClient.Post(
 		`/v2/SitePage/UseCase/UpdateTemplate`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SitePage) UpdateTemplateWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SitePage/UseCase/UpdateTemplate`,
+		data,
 		nil,
 		nil,
 	)

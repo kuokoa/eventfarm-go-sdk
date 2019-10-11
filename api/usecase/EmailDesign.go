@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type EmailDesign struct {
@@ -142,6 +142,15 @@ func (t *EmailDesign) CreateEmailDesign(p *CreateEmailDesignParameters) (r *http
 	)
 }
 
+func (t *EmailDesign) CreateEmailDesignWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailDesign/UseCase/CreateEmailDesign`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateEmailDesignFromTemplateParameters struct {
 	Name              string
 	Layout            string
@@ -204,6 +213,15 @@ func (t *EmailDesign) CreateEmailDesignFromTemplate(p *CreateEmailDesignFromTemp
 	)
 }
 
+func (t *EmailDesign) CreateEmailDesignFromTemplateWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailDesign/UseCase/CreateEmailDesignFromTemplate`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateEmailDesignImageParameters struct {
 	EventId            string
 	Image              string
@@ -213,6 +231,15 @@ type CreateEmailDesignImageParameters struct {
 func (t *EmailDesign) CreateEmailDesignImage(p *CreateEmailDesignImageParameters) (r *http.Response, err error) {
 	// TODO
 	return
+}
+
+func (t *EmailDesign) CreateEmailDesignImageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailDesign/UseCase/CreateEmailDesignImage`,
+		data,
+		nil,
+		nil,
+	)
 }
 
 type DuplicateEmailDesignParameters struct {
@@ -239,6 +266,15 @@ func (t *EmailDesign) DuplicateEmailDesign(p *DuplicateEmailDesignParameters) (r
 	)
 }
 
+func (t *EmailDesign) DuplicateEmailDesignWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailDesign/UseCase/DuplicateEmailDesign`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveEmailDesignParameters struct {
 	EmailDesignId string
 }
@@ -250,6 +286,15 @@ func (t *EmailDesign) RemoveEmailDesign(p *RemoveEmailDesignParameters) (r *http
 	return t.restClient.Post(
 		`/v2/EmailDesign/UseCase/RemoveEmailDesign`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailDesign) RemoveEmailDesignWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailDesign/UseCase/RemoveEmailDesign`,
+		data,
 		nil,
 		nil,
 	)
@@ -310,6 +355,15 @@ func (t *EmailDesign) UpdateEmailDesign(p *UpdateEmailDesignParameters) (r *http
 	return t.restClient.Post(
 		`/v2/EmailDesign/UseCase/UpdateEmailDesign`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailDesign) UpdateEmailDesignWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailDesign/UseCase/UpdateEmailDesign`,
+		data,
 		nil,
 		nil,
 	)

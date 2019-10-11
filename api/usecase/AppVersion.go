@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type AppVersion struct {
@@ -92,6 +92,15 @@ func (t *AppVersion) SetAppVersionNumberByType(p *SetAppVersionNumberByTypeParam
 	return t.restClient.Post(
 		`/v2/AppVersion/UseCase/SetAppVersionNumberByType`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *AppVersion) SetAppVersionNumberByTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/AppVersion/UseCase/SetAppVersionNumberByType`,
+		data,
 		nil,
 		nil,
 	)

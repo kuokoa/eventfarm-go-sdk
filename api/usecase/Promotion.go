@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Promotion struct {
@@ -109,6 +109,15 @@ func (t *Promotion) CreatePromotion(p *CreatePromotionParameters) (r *http.Respo
 	)
 }
 
+func (t *Promotion) CreatePromotionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/CreatePromotion`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisablePromotionParameters struct {
 	PromotionId string
 }
@@ -120,6 +129,15 @@ func (t *Promotion) DisablePromotion(p *DisablePromotionParameters) (r *http.Res
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/DisablePromotion`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Promotion) DisablePromotionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/DisablePromotion`,
+		data,
 		nil,
 		nil,
 	)
@@ -141,6 +159,15 @@ func (t *Promotion) EnablePromotion(p *EnablePromotionParameters) (r *http.Respo
 	)
 }
 
+func (t *Promotion) EnablePromotionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/EnablePromotion`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemovePromotionParameters struct {
 	PromotionId string
 }
@@ -152,6 +179,15 @@ func (t *Promotion) RemovePromotion(p *RemovePromotionParameters) (r *http.Respo
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/RemovePromotion`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Promotion) RemovePromotionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/RemovePromotion`,
+		data,
 		nil,
 		nil,
 	)
@@ -175,6 +211,15 @@ func (t *Promotion) SetAmount(p *SetAmountParameters) (r *http.Response, err err
 	)
 }
 
+func (t *Promotion) SetAmountWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/SetAmount`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetCodeParameters struct {
 	PromotionId string
 	Code        string
@@ -188,6 +233,15 @@ func (t *Promotion) SetCode(p *SetCodeParameters) (r *http.Response, err error) 
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetCode`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Promotion) SetCodeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/SetCode`,
+		data,
 		nil,
 		nil,
 	)
@@ -211,6 +265,15 @@ func (t *Promotion) SetEndTime(p *SetEndTimeParameters) (r *http.Response, err e
 	)
 }
 
+func (t *Promotion) SetEndTimeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/SetEndTime`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetMaximumParameters struct {
 	PromotionId string
 	Maximum     int64
@@ -224,6 +287,15 @@ func (t *Promotion) SetMaximum(p *SetMaximumParameters) (r *http.Response, err e
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetMaximum`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Promotion) SetMaximumWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/SetMaximum`,
+		data,
 		nil,
 		nil,
 	)
@@ -247,6 +319,15 @@ func (t *Promotion) SetMessage(p *SetMessageParameters) (r *http.Response, err e
 	)
 }
 
+func (t *Promotion) SetMessageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/SetMessage`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetPromotionTypeParameters struct {
 	PromotionId   string
 	PromotionType string
@@ -260,6 +341,15 @@ func (t *Promotion) SetPromotionType(p *SetPromotionTypeParameters) (r *http.Res
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetPromotionType`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Promotion) SetPromotionTypeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/SetPromotionType`,
+		data,
 		nil,
 		nil,
 	)
@@ -285,6 +375,15 @@ func (t *Promotion) SetStacksForPromotion(p *SetStacksForPromotionParameters) (r
 	)
 }
 
+func (t *Promotion) SetStacksForPromotionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/SetStacksForPromotion`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetStartTimeParameters struct {
 	PromotionId string
 	StartTime   int64
@@ -298,6 +397,15 @@ func (t *Promotion) SetStartTime(p *SetStartTimeParameters) (r *http.Response, e
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/SetStartTime`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Promotion) SetStartTimeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/SetStartTime`,
+		data,
 		nil,
 		nil,
 	)
@@ -350,6 +458,15 @@ func (t *Promotion) UpdatePromotion(p *UpdatePromotionParameters) (r *http.Respo
 	return t.restClient.Post(
 		`/v2/Promotion/UseCase/UpdatePromotion`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Promotion) UpdatePromotionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Promotion/UseCase/UpdatePromotion`,
+		data,
 		nil,
 		nil,
 	)

@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type User struct {
@@ -364,6 +364,15 @@ func (t *User) AccessUserForgotPasswordToken(p *AccessUserForgotPasswordTokenPar
 	)
 }
 
+func (t *User) AccessUserForgotPasswordTokenWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/AccessUserForgotPasswordToken`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type AddUserAccessToGroupParameters struct {
 	UserId  string
 	GroupId string
@@ -377,6 +386,15 @@ func (t *User) AddUserAccessToGroup(p *AddUserAccessToGroupParameters) (r *http.
 	return t.restClient.Post(
 		`/v2/User/UseCase/AddUserAccessToGroup`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *User) AddUserAccessToGroupWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/AddUserAccessToGroup`,
+		data,
 		nil,
 		nil,
 	)
@@ -427,6 +445,15 @@ func (t *User) CreateAuthUser(p *CreateAuthUserParameters) (r *http.Response, er
 	return t.restClient.Post(
 		`/v2/User/UseCase/CreateAuthUser`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *User) CreateAuthUserWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/CreateAuthUser`,
+		data,
 		nil,
 		nil,
 	)
@@ -486,6 +513,15 @@ func (t *User) CreateCIOAccount(p *CreateCIOAccountParameters) (r *http.Response
 	)
 }
 
+func (t *User) CreateCIOAccountWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/CreateCIOAccount`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateForgotPasswordTokenParameters struct {
 	UserId string
 }
@@ -497,6 +533,15 @@ func (t *User) CreateForgotPasswordToken(p *CreateForgotPasswordTokenParameters)
 	return t.restClient.Post(
 		`/v2/User/UseCase/CreateForgotPasswordToken`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *User) CreateForgotPasswordTokenWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/CreateForgotPasswordToken`,
+		data,
 		nil,
 		nil,
 	)
@@ -552,6 +597,15 @@ func (t *User) CreateUser(p *CreateUserParameters) (r *http.Response, err error)
 	)
 }
 
+func (t *User) CreateUserWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/CreateUser`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateUserContactAgentParameters struct {
 	UserId             string
 	PoolId             string
@@ -576,6 +630,15 @@ func (t *User) CreateUserContactAgent(p *CreateUserContactAgentParameters) (r *h
 	)
 }
 
+func (t *User) CreateUserContactAgentWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/CreateUserContactAgent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveEventRoleForUserParameters struct {
 	UserId  string
 	EventId string
@@ -589,6 +652,15 @@ func (t *User) RemoveEventRoleForUser(p *RemoveEventRoleForUserParameters) (r *h
 	return t.restClient.Post(
 		`/v2/User/UseCase/RemoveEventRoleForUser`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *User) RemoveEventRoleForUserWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/RemoveEventRoleForUser`,
+		data,
 		nil,
 		nil,
 	)
@@ -612,6 +684,15 @@ func (t *User) RemoveUserAccessToGroup(p *RemoveUserAccessToGroupParameters) (r 
 	)
 }
 
+func (t *User) RemoveUserAccessToGroupWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/RemoveUserAccessToGroup`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveUserContactAgentParameters struct {
 	UserContactAgentId string
 }
@@ -623,6 +704,15 @@ func (t *User) RemoveUserContactAgent(p *RemoveUserContactAgentParameters) (r *h
 	return t.restClient.Post(
 		`/v2/User/UseCase/RemoveUserContactAgent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *User) RemoveUserContactAgentWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/RemoveUserContactAgent`,
+		data,
 		nil,
 		nil,
 	)
@@ -650,6 +740,15 @@ func (t *User) RemoveUsersFromPool(p *RemoveUsersFromPoolParameters) (r *http.Re
 	)
 }
 
+func (t *User) RemoveUsersFromPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/RemoveUsersFromPool`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SendForgotPasswordEmailParameters struct {
 	Email   string
 	AppName *string
@@ -670,6 +769,15 @@ func (t *User) SendForgotPasswordEmail(p *SendForgotPasswordEmailParameters) (r 
 	)
 }
 
+func (t *User) SendForgotPasswordEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/SendForgotPasswordEmail`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SendVerificationEmailParameters struct {
 	Email   string
 	AppName *string
@@ -685,6 +793,15 @@ func (t *User) SendVerificationEmail(p *SendVerificationEmailParameters) (r *htt
 	return t.restClient.Post(
 		`/v2/User/UseCase/SendVerificationEmail`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *User) SendVerificationEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/SendVerificationEmail`,
+		data,
 		nil,
 		nil,
 	)
@@ -712,6 +829,15 @@ func (t *User) SetEmailForInvitation(p *SetEmailForInvitationParameters) (r *htt
 	)
 }
 
+func (t *User) SetEmailForInvitationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/SetEmailForInvitation`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetEventRoleForUserParameters struct {
 	UserId              string
 	EventId             string
@@ -734,6 +860,15 @@ func (t *User) SetEventRoleForUser(p *SetEventRoleForUserParameters) (r *http.Re
 	)
 }
 
+func (t *User) SetEventRoleForUserWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/SetEventRoleForUser`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type UpdateUserContactAgentParameters struct {
 	UserContactAgentId string
 	Email              string
@@ -747,6 +882,15 @@ func (t *User) UpdateUserContactAgent(p *UpdateUserContactAgentParameters) (r *h
 	return t.restClient.Post(
 		`/v2/User/UseCase/UpdateUserContactAgent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *User) UpdateUserContactAgentWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/User/UseCase/UpdateUserContactAgent`,
+		data,
 		nil,
 		nil,
 	)

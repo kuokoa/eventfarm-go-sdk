@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type PoolFeature struct {
@@ -62,6 +62,15 @@ func (t *PoolFeature) AddFeatureForPool(p *AddFeatureForPoolParameters) (r *http
 	)
 }
 
+func (t *PoolFeature) AddFeatureForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/PoolFeature/UseCase/AddFeatureForPool`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableFeatureForPoolParameters struct {
 	PoolId    string
 	FeatureId string
@@ -75,6 +84,15 @@ func (t *PoolFeature) DisableFeatureForPool(p *DisableFeatureForPoolParameters) 
 	return t.restClient.Post(
 		`/v2/PoolFeature/UseCase/DisableFeatureForPool`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *PoolFeature) DisableFeatureForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/PoolFeature/UseCase/DisableFeatureForPool`,
+		data,
 		nil,
 		nil,
 	)
@@ -98,6 +116,15 @@ func (t *PoolFeature) EnableFeatureForPool(p *EnableFeatureForPoolParameters) (r
 	)
 }
 
+func (t *PoolFeature) EnableFeatureForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/PoolFeature/UseCase/EnableFeatureForPool`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveFeatureForPoolParameters struct {
 	PoolId    string
 	FeatureId string
@@ -111,6 +138,15 @@ func (t *PoolFeature) RemoveFeatureForPool(p *RemoveFeatureForPoolParameters) (r
 	return t.restClient.Post(
 		`/v2/PoolFeature/UseCase/RemoveFeatureForPool`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *PoolFeature) RemoveFeatureForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/PoolFeature/UseCase/RemoveFeatureForPool`,
+		data,
 		nil,
 		nil,
 	)

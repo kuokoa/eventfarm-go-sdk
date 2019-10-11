@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type UserAttribute struct {
@@ -92,6 +92,15 @@ func (t *UserAttribute) RemoveUserAttribute(p *RemoveUserAttributeParameters) (r
 	)
 }
 
+func (t *UserAttribute) RemoveUserAttributeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/UserAttribute/UseCase/RemoveUserAttribute`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetCustomUserAttributeParameters struct {
 	PoolId         string
 	UserId         string
@@ -114,6 +123,15 @@ func (t *UserAttribute) SetCustomUserAttribute(p *SetCustomUserAttributeParamete
 	)
 }
 
+func (t *UserAttribute) SetCustomUserAttributeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/UserAttribute/UseCase/SetCustomUserAttribute`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetInfoUserAttributeParameters struct {
 	PoolId         string
 	UserId         string
@@ -131,6 +149,15 @@ func (t *UserAttribute) SetInfoUserAttribute(p *SetInfoUserAttributeParameters) 
 	return t.restClient.Post(
 		`/v2/UserAttribute/UseCase/SetInfoUserAttribute`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *UserAttribute) SetInfoUserAttributeWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/UserAttribute/UseCase/SetInfoUserAttribute`,
+		data,
 		nil,
 		nil,
 	)

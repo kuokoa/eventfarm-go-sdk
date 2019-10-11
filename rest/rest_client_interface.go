@@ -21,6 +21,13 @@ type RestClientInterface interface {
 		timeout *time.Duration,
 	) (resp *http.Response, err error)
 
+	PostJSON(
+		url string,
+		data *map[string]interface{},
+		headers map[string]string,
+		timeout *time.Duration,
+	) (resp *http.Response, err error)
+
 	PostMultipart(
 		url string,
 		multipart map[string]string,

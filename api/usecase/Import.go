@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Import struct {
@@ -106,6 +106,15 @@ func (t *Import) PostProcessAndImportInvitations(p *PostProcessAndImportInvitati
 	)
 }
 
+func (t *Import) PostProcessAndImportInvitationsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Import/UseCase/PostProcessAndImportInvitations`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type PostProcessAndImportUsersParameters struct {
 	UserImportId string
 	GroupName    *string
@@ -134,6 +143,15 @@ func (t *Import) PostProcessAndImportUsers(p *PostProcessAndImportUsersParameter
 	)
 }
 
+func (t *Import) PostProcessAndImportUsersWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Import/UseCase/PostProcessAndImportUsers`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type PreProcessSpreadsheetForUserImportParameters struct {
 	UserId      string
 	PoolId      string
@@ -143,4 +161,13 @@ type PreProcessSpreadsheetForUserImportParameters struct {
 func (t *Import) PreProcessSpreadsheetForUserImport(p *PreProcessSpreadsheetForUserImportParameters) (r *http.Response, err error) {
 	// TODO
 	return
+}
+
+func (t *Import) PreProcessSpreadsheetForUserImportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Import/UseCase/PreProcessSpreadsheetForUserImport`,
+		data,
+		nil,
+		nil,
+	)
 }

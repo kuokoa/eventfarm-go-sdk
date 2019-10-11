@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Event struct {
@@ -470,6 +470,15 @@ func (t *Event) AddChildEvent(p *AddChildEventParameters) (r *http.Response, err
 	)
 }
 
+func (t *Event) AddChildEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/AddChildEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type AddParentToEventParameters struct {
 	EventId       string
 	ParentEventId string
@@ -488,6 +497,15 @@ func (t *Event) AddParentToEvent(p *AddParentToEventParameters) (r *http.Respons
 	)
 }
 
+func (t *Event) AddParentToEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/AddParentToEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type AddTagToEventParameters struct {
 	EventId string
 	TagName string
@@ -501,6 +519,15 @@ func (t *Event) AddTagToEvent(p *AddTagToEventParameters) (r *http.Response, err
 	return t.restClient.Post(
 		`/v2/Event/UseCase/AddTagToEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) AddTagToEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/AddTagToEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -534,6 +561,15 @@ func (t *Event) AddUserRoleToEvent(p *AddUserRoleToEventParameters) (r *http.Res
 	)
 }
 
+func (t *Event) AddUserRoleToEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/AddUserRoleToEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type ArchiveEventParameters struct {
 	EventId string
 }
@@ -550,6 +586,15 @@ func (t *Event) ArchiveEvent(p *ArchiveEventParameters) (r *http.Response, err e
 	)
 }
 
+func (t *Event) ArchiveEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/ArchiveEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type ClearDefaultSitePageForEventParameters struct {
 	EventId string
 }
@@ -561,6 +606,15 @@ func (t *Event) ClearDefaultSitePageForEvent(p *ClearDefaultSitePageForEventPara
 	return t.restClient.Post(
 		`/v2/Event/UseCase/ClearDefaultSitePageForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) ClearDefaultSitePageForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/ClearDefaultSitePageForEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -620,6 +674,15 @@ func (t *Event) CopyExistingEventConfiguration(p *CopyExistingEventConfiguration
 	)
 }
 
+func (t *Event) CopyExistingEventConfigurationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/CopyExistingEventConfiguration`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateAnswerParameters struct {
 	QuestionId string
 	Text       string
@@ -645,6 +708,15 @@ func (t *Event) CreateAnswer(p *CreateAnswerParameters) (r *http.Response, err e
 	return t.restClient.Post(
 		`/v2/Event/UseCase/CreateAnswer`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) CreateAnswerWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/CreateAnswer`,
+		data,
 		nil,
 		nil,
 	)
@@ -681,6 +753,15 @@ func (t *Event) CreateCIOEvent(p *CreateCIOEventParameters) (r *http.Response, e
 	return t.restClient.Post(
 		`/v2/Event/UseCase/CreateCIOEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) CreateCIOEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/CreateCIOEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -725,6 +806,15 @@ func (t *Event) CreateEvent(p *CreateEventParameters) (r *http.Response, err err
 	return t.restClient.Post(
 		`/v2/Event/UseCase/CreateEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) CreateEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/CreateEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -776,6 +866,15 @@ func (t *Event) CreateQuestion(p *CreateQuestionParameters) (r *http.Response, e
 	)
 }
 
+func (t *Event) CreateQuestionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/CreateQuestion`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DeleteAnswerParameters struct {
 	AnswerId string
 }
@@ -787,6 +886,15 @@ func (t *Event) DeleteAnswer(p *DeleteAnswerParameters) (r *http.Response, err e
 	return t.restClient.Post(
 		`/v2/Event/UseCase/DeleteAnswer`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) DeleteAnswerWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DeleteAnswer`,
+		data,
 		nil,
 		nil,
 	)
@@ -808,6 +916,15 @@ func (t *Event) DeleteQuestion(p *DeleteQuestionParameters) (r *http.Response, e
 	)
 }
 
+func (t *Event) DeleteQuestionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DeleteQuestion`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableAmexCardParameters struct {
 	EventId string
 }
@@ -819,6 +936,15 @@ func (t *Event) DisableAmexCard(p *DisableAmexCardParameters) (r *http.Response,
 	return t.restClient.Post(
 		`/v2/Event/UseCase/DisableAmexCard`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) DisableAmexCardWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableAmexCard`,
+		data,
 		nil,
 		nil,
 	)
@@ -840,6 +966,15 @@ func (t *Event) DisableCanvas(p *DisableCanvasParameters) (r *http.Response, err
 	)
 }
 
+func (t *Event) DisableCanvasWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableCanvas`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableDiscoverCardParameters struct {
 	EventId string
 }
@@ -851,6 +986,15 @@ func (t *Event) DisableDiscoverCard(p *DisableDiscoverCardParameters) (r *http.R
 	return t.restClient.Post(
 		`/v2/Event/UseCase/DisableDiscoverCard`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) DisableDiscoverCardWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableDiscoverCard`,
+		data,
 		nil,
 		nil,
 	)
@@ -872,6 +1016,15 @@ func (t *Event) DisableDistribution(p *DisableDistributionParameters) (r *http.R
 	)
 }
 
+func (t *Event) DisableDistributionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableDistribution`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableDonationParameters struct {
 	EventId string
 }
@@ -883,6 +1036,15 @@ func (t *Event) DisableDonation(p *DisableDonationParameters) (r *http.Response,
 	return t.restClient.Post(
 		`/v2/Event/UseCase/DisableDonation`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) DisableDonationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableDonation`,
+		data,
 		nil,
 		nil,
 	)
@@ -904,6 +1066,15 @@ func (t *Event) DisableDuplicateEmails(p *DisableDuplicateEmailsParameters) (r *
 	)
 }
 
+func (t *Event) DisableDuplicateEmailsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableDuplicateEmails`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableEditNameParameters struct {
 	EventId string
 }
@@ -915,6 +1086,15 @@ func (t *Event) DisableEditName(p *DisableEditNameParameters) (r *http.Response,
 	return t.restClient.Post(
 		`/v2/Event/UseCase/DisableEditName`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) DisableEditNameWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableEditName`,
+		data,
 		nil,
 		nil,
 	)
@@ -936,6 +1116,15 @@ func (t *Event) DisableEfx(p *DisableEfxParameters) (r *http.Response, err error
 	)
 }
 
+func (t *Event) DisableEfxWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableEfx`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableEventAppParameters struct {
 	EventId string
 }
@@ -947,6 +1136,15 @@ func (t *Event) DisableEventApp(p *DisableEventAppParameters) (r *http.Response,
 	return t.restClient.Post(
 		`/v2/Event/UseCase/DisableEventApp`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) DisableEventAppWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableEventApp`,
+		data,
 		nil,
 		nil,
 	)
@@ -968,6 +1166,15 @@ func (t *Event) DisableGuestCanChangeResponse(p *DisableGuestCanChangeResponsePa
 	)
 }
 
+func (t *Event) DisableGuestCanChangeResponseWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableGuestCanChangeResponse`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableInvitationRevealParameters struct {
 	EventId string
 }
@@ -979,6 +1186,15 @@ func (t *Event) DisableInvitationReveal(p *DisableInvitationRevealParameters) (r
 	return t.restClient.Post(
 		`/v2/Event/UseCase/DisableInvitationReveal`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) DisableInvitationRevealWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableInvitationReveal`,
+		data,
 		nil,
 		nil,
 	)
@@ -1000,6 +1216,15 @@ func (t *Event) DisableMastercardCard(p *DisableMastercardCardParameters) (r *ht
 	)
 }
 
+func (t *Event) DisableMastercardCardWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableMastercardCard`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableQRCodeConfirmationParameters struct {
 	EventId string
 }
@@ -1016,6 +1241,15 @@ func (t *Event) DisableQRCodeConfirmation(p *DisableQRCodeConfirmationParameters
 	)
 }
 
+func (t *Event) DisableQRCodeConfirmationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableQRCodeConfirmation`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableQuestionParameters struct {
 	QuestionId string
 }
@@ -1027,6 +1261,15 @@ func (t *Event) DisableQuestion(p *DisableQuestionParameters) (r *http.Response,
 	return t.restClient.Post(
 		`/v2/Event/UseCase/DisableQuestion`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) DisableQuestionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableQuestion`,
+		data,
 		nil,
 		nil,
 	)
@@ -1050,6 +1293,15 @@ func (t *Event) DisableUserField(p *DisableUserFieldParameters) (r *http.Respons
 	)
 }
 
+func (t *Event) DisableUserFieldWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableUserField`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableVisaCardParameters struct {
 	EventId string
 }
@@ -1061,6 +1313,15 @@ func (t *Event) DisableVisaCard(p *DisableVisaCardParameters) (r *http.Response,
 	return t.restClient.Post(
 		`/v2/Event/UseCase/DisableVisaCard`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) DisableVisaCardWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/DisableVisaCard`,
+		data,
 		nil,
 		nil,
 	)
@@ -1082,6 +1343,15 @@ func (t *Event) EnableAmexCard(p *EnableAmexCardParameters) (r *http.Response, e
 	)
 }
 
+func (t *Event) EnableAmexCardWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableAmexCard`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableCanvasParameters struct {
 	EventId string
 }
@@ -1093,6 +1363,15 @@ func (t *Event) EnableCanvas(p *EnableCanvasParameters) (r *http.Response, err e
 	return t.restClient.Post(
 		`/v2/Event/UseCase/EnableCanvas`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) EnableCanvasWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableCanvas`,
+		data,
 		nil,
 		nil,
 	)
@@ -1114,6 +1393,15 @@ func (t *Event) EnableDiscoverCard(p *EnableDiscoverCardParameters) (r *http.Res
 	)
 }
 
+func (t *Event) EnableDiscoverCardWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableDiscoverCard`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableDistributionParameters struct {
 	EventId string
 }
@@ -1125,6 +1413,15 @@ func (t *Event) EnableDistribution(p *EnableDistributionParameters) (r *http.Res
 	return t.restClient.Post(
 		`/v2/Event/UseCase/EnableDistribution`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) EnableDistributionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableDistribution`,
+		data,
 		nil,
 		nil,
 	)
@@ -1146,6 +1443,15 @@ func (t *Event) EnableDonation(p *EnableDonationParameters) (r *http.Response, e
 	)
 }
 
+func (t *Event) EnableDonationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableDonation`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableDuplicateEmailsParameters struct {
 	EventId string
 }
@@ -1157,6 +1463,15 @@ func (t *Event) EnableDuplicateEmails(p *EnableDuplicateEmailsParameters) (r *ht
 	return t.restClient.Post(
 		`/v2/Event/UseCase/EnableDuplicateEmails`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) EnableDuplicateEmailsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableDuplicateEmails`,
+		data,
 		nil,
 		nil,
 	)
@@ -1178,6 +1493,15 @@ func (t *Event) EnableEditName(p *EnableEditNameParameters) (r *http.Response, e
 	)
 }
 
+func (t *Event) EnableEditNameWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableEditName`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableEfxParameters struct {
 	EventId string
 }
@@ -1189,6 +1513,15 @@ func (t *Event) EnableEfx(p *EnableEfxParameters) (r *http.Response, err error) 
 	return t.restClient.Post(
 		`/v2/Event/UseCase/EnableEfx`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) EnableEfxWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableEfx`,
+		data,
 		nil,
 		nil,
 	)
@@ -1210,6 +1543,15 @@ func (t *Event) EnableEventApp(p *EnableEventAppParameters) (r *http.Response, e
 	)
 }
 
+func (t *Event) EnableEventAppWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableEventApp`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableGuestCanChangeResponseParameters struct {
 	EventId string
 }
@@ -1221,6 +1563,15 @@ func (t *Event) EnableGuestCanChangeResponse(p *EnableGuestCanChangeResponsePara
 	return t.restClient.Post(
 		`/v2/Event/UseCase/EnableGuestCanChangeResponse`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) EnableGuestCanChangeResponseWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableGuestCanChangeResponse`,
+		data,
 		nil,
 		nil,
 	)
@@ -1242,6 +1593,15 @@ func (t *Event) EnableInvitationReveal(p *EnableInvitationRevealParameters) (r *
 	)
 }
 
+func (t *Event) EnableInvitationRevealWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableInvitationReveal`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableMastercardCardParameters struct {
 	EventId string
 }
@@ -1253,6 +1613,15 @@ func (t *Event) EnableMastercardCard(p *EnableMastercardCardParameters) (r *http
 	return t.restClient.Post(
 		`/v2/Event/UseCase/EnableMastercardCard`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) EnableMastercardCardWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableMastercardCard`,
+		data,
 		nil,
 		nil,
 	)
@@ -1274,6 +1643,15 @@ func (t *Event) EnableQRCodeConfirmation(p *EnableQRCodeConfirmationParameters) 
 	)
 }
 
+func (t *Event) EnableQRCodeConfirmationWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableQRCodeConfirmation`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableQuestionParameters struct {
 	QuestionId string
 }
@@ -1285,6 +1663,15 @@ func (t *Event) EnableQuestion(p *EnableQuestionParameters) (r *http.Response, e
 	return t.restClient.Post(
 		`/v2/Event/UseCase/EnableQuestion`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) EnableQuestionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableQuestion`,
+		data,
 		nil,
 		nil,
 	)
@@ -1308,6 +1695,15 @@ func (t *Event) EnableUserField(p *EnableUserFieldParameters) (r *http.Response,
 	)
 }
 
+func (t *Event) EnableUserFieldWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableUserField`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableVisaCardParameters struct {
 	EventId string
 }
@@ -1319,6 +1715,15 @@ func (t *Event) EnableVisaCard(p *EnableVisaCardParameters) (r *http.Response, e
 	return t.restClient.Post(
 		`/v2/Event/UseCase/EnableVisaCard`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) EnableVisaCardWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/EnableVisaCard`,
+		data,
 		nil,
 		nil,
 	)
@@ -1360,6 +1765,15 @@ func (t *Event) IncrementCIOAndMessageCSM(p *IncrementCIOAndMessageCSMParameters
 	)
 }
 
+func (t *Event) IncrementCIOAndMessageCSMWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/IncrementCIOAndMessageCSM`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveChildEventParameters struct {
 	EventId      string
 	ChildEventId string
@@ -1373,6 +1787,15 @@ func (t *Event) RemoveChildEvent(p *RemoveChildEventParameters) (r *http.Respons
 	return t.restClient.Post(
 		`/v2/Event/UseCase/RemoveChildEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) RemoveChildEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/RemoveChildEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -1396,6 +1819,15 @@ func (t *Event) RemoveMessageForEvent(p *RemoveMessageForEventParameters) (r *ht
 	)
 }
 
+func (t *Event) RemoveMessageForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/RemoveMessageForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveParentFromEventParameters struct {
 	EventId string
 }
@@ -1407,6 +1839,15 @@ func (t *Event) RemoveParentFromEvent(p *RemoveParentFromEventParameters) (r *ht
 	return t.restClient.Post(
 		`/v2/Event/UseCase/RemoveParentFromEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) RemoveParentFromEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/RemoveParentFromEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -1430,6 +1871,15 @@ func (t *Event) RemoveTagFromEvent(p *RemoveTagFromEventParameters) (r *http.Res
 	)
 }
 
+func (t *Event) RemoveTagFromEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/RemoveTagFromEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveTrackingScriptForEventParameters struct {
 	EventId            string
 	TrackingScriptType string
@@ -1443,6 +1893,15 @@ func (t *Event) RemoveTrackingScriptForEvent(p *RemoveTrackingScriptForEventPara
 	return t.restClient.Post(
 		`/v2/Event/UseCase/RemoveTrackingScriptForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) RemoveTrackingScriptForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/RemoveTrackingScriptForEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -1472,12 +1931,30 @@ func (t *Event) SendContactEmail(p *SendContactEmailParameters) (r *http.Respons
 	)
 }
 
+func (t *Event) SendContactEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SendContactEmail`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 func (t *Event) SendMessageToGuestList() (r *http.Response, err error) {
 	queryParameters := url.Values{}
 
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SendMessageToGuestList`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SendMessageToGuestListWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SendMessageToGuestList`,
+		data,
 		nil,
 		nil,
 	)
@@ -1501,6 +1978,15 @@ func (t *Event) SetAltKeywordForEvent(p *SetAltKeywordForEventParameters) (r *ht
 	)
 }
 
+func (t *Event) SetAltKeywordForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetAltKeywordForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetAnswerSortOrderParameters struct {
 	AnswerId  string
 	SortOrder int64
@@ -1514,6 +2000,15 @@ func (t *Event) SetAnswerSortOrder(p *SetAnswerSortOrderParameters) (r *http.Res
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetAnswerSortOrder`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetAnswerSortOrderWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetAnswerSortOrder`,
+		data,
 		nil,
 		nil,
 	)
@@ -1537,6 +2032,15 @@ func (t *Event) SetContactEmailForEvent(p *SetContactEmailForEventParameters) (r
 	)
 }
 
+func (t *Event) SetContactEmailForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetContactEmailForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetDefaultSitePageForEventParameters struct {
 	EventId    string
 	SitePageId string
@@ -1550,6 +2054,15 @@ func (t *Event) SetDefaultSitePageForEvent(p *SetDefaultSitePageForEventParamete
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetDefaultSitePageForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetDefaultSitePageForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetDefaultSitePageForEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -1573,6 +2086,15 @@ func (t *Event) SetDescriptionForEvent(p *SetDescriptionForEventParameters) (r *
 	)
 }
 
+func (t *Event) SetDescriptionForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetDescriptionForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetFacebookHandleForEventParameters struct {
 	EventId        string
 	FacebookHandle string
@@ -1586,6 +2108,15 @@ func (t *Event) SetFacebookHandleForEvent(p *SetFacebookHandleForEventParameters
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetFacebookHandleForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetFacebookHandleForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetFacebookHandleForEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -1609,6 +2140,15 @@ func (t *Event) SetInstagramHandleForEvent(p *SetInstagramHandleForEventParamete
 	)
 }
 
+func (t *Event) SetInstagramHandleForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetInstagramHandleForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetLanguageForEventParameters struct {
 	EventId  string
 	Language string
@@ -1622,6 +2162,15 @@ func (t *Event) SetLanguageForEvent(p *SetLanguageForEventParameters) (r *http.R
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetLanguageForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetLanguageForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetLanguageForEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -1645,6 +2194,15 @@ func (t *Event) SetMapSourceForEvent(p *SetMapSourceForEventParameters) (r *http
 	)
 }
 
+func (t *Event) SetMapSourceForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetMapSourceForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetMaxInvitationCountForEventParameters struct {
 	EventId            string
 	MaxInvitationCount int64
@@ -1658,6 +2216,15 @@ func (t *Event) SetMaxInvitationCountForEvent(p *SetMaxInvitationCountForEventPa
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetMaxInvitationCountForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetMaxInvitationCountForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetMaxInvitationCountForEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -1683,6 +2250,15 @@ func (t *Event) SetMessageForEvent(p *SetMessageForEventParameters) (r *http.Res
 	)
 }
 
+func (t *Event) SetMessageForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetMessageForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetMinInvitationCountForEventParameters struct {
 	EventId            string
 	MinInvitationCount int64
@@ -1696,6 +2272,15 @@ func (t *Event) SetMinInvitationCountForEvent(p *SetMinInvitationCountForEventPa
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetMinInvitationCountForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetMinInvitationCountForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetMinInvitationCountForEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -1719,6 +2304,15 @@ func (t *Event) SetNameForEvent(p *SetNameForEventParameters) (r *http.Response,
 	)
 }
 
+func (t *Event) SetNameForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetNameForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetQuestionSortOrderParameters struct {
 	QuestionId string
 	SortOrder  int64
@@ -1732,6 +2326,15 @@ func (t *Event) SetQuestionSortOrder(p *SetQuestionSortOrderParameters) (r *http
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetQuestionSortOrder`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetQuestionSortOrderWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetQuestionSortOrder`,
+		data,
 		nil,
 		nil,
 	)
@@ -1759,6 +2362,15 @@ func (t *Event) SetTimeForEvent(p *SetTimeForEventParameters) (r *http.Response,
 	)
 }
 
+func (t *Event) SetTimeForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetTimeForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetTrackingScriptForEventParameters struct {
 	EventId            string
 	TrackingScriptType string
@@ -1779,6 +2391,15 @@ func (t *Event) SetTrackingScriptForEvent(p *SetTrackingScriptForEventParameters
 	)
 }
 
+func (t *Event) SetTrackingScriptForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetTrackingScriptForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetTwitterHandleForEventParameters struct {
 	EventId       string
 	TwitterHandle string
@@ -1792,6 +2413,15 @@ func (t *Event) SetTwitterHandleForEvent(p *SetTwitterHandleForEventParameters) 
 	return t.restClient.Post(
 		`/v2/Event/UseCase/SetTwitterHandleForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) SetTwitterHandleForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetTwitterHandleForEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -1817,6 +2447,15 @@ func (t *Event) SetVenueForEvent(p *SetVenueForEventParameters) (r *http.Respons
 	)
 }
 
+func (t *Event) SetVenueForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/SetVenueForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type UnarchiveEventParameters struct {
 	EventId string
 }
@@ -1828,6 +2467,15 @@ func (t *Event) UnarchiveEvent(p *UnarchiveEventParameters) (r *http.Response, e
 	return t.restClient.Post(
 		`/v2/Event/UseCase/UnarchiveEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) UnarchiveEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/UnarchiveEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -1850,6 +2498,15 @@ func (t *Event) UpdateAnswer(p *UpdateAnswerParameters) (r *http.Response, err e
 	return t.restClient.Post(
 		`/v2/Event/UseCase/UpdateAnswer`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) UpdateAnswerWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/UpdateAnswer`,
+		data,
 		nil,
 		nil,
 	)
@@ -1888,6 +2545,15 @@ func (t *Event) UpdateQuestion(p *UpdateQuestionParameters) (r *http.Response, e
 	return t.restClient.Post(
 		`/v2/Event/UseCase/UpdateQuestion`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Event) UpdateQuestionWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Event/UseCase/UpdateQuestion`,
+		data,
 		nil,
 		nil,
 	)

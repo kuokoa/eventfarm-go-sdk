@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Stack struct {
@@ -249,6 +249,15 @@ func (t *Stack) AddPromotionToStacks(p *AddPromotionToStacksParameters) (r *http
 	)
 }
 
+func (t *Stack) AddPromotionToStacksWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/AddPromotionToStacks`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateStackParameters struct {
 	EventId         string
 	TicketTypeId    string
@@ -304,6 +313,15 @@ func (t *Stack) CreateStack(p *CreateStackParameters) (r *http.Response, err err
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/CreateStack`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Stack) CreateStackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/CreateStack`,
+		data,
 		nil,
 		nil,
 	)
@@ -371,6 +389,15 @@ func (t *Stack) CreateStackFromSettings(p *CreateStackFromSettingsParameters) (r
 	)
 }
 
+func (t *Stack) CreateStackFromSettingsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/CreateStackFromSettings`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DeleteStackParameters struct {
 	StackId string
 }
@@ -382,6 +409,15 @@ func (t *Stack) DeleteStack(p *DeleteStackParameters) (r *http.Response, err err
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/DeleteStack`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Stack) DeleteStackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/DeleteStack`,
+		data,
 		nil,
 		nil,
 	)
@@ -407,6 +443,15 @@ func (t *Stack) RemovePromotionFromStacks(p *RemovePromotionFromStacksParameters
 	)
 }
 
+func (t *Stack) RemovePromotionFromStacksWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/RemovePromotionFromStacks`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetClosingTimeForStackParameters struct {
 	StackId     string
 	ClosingTime int64
@@ -420,6 +465,15 @@ func (t *Stack) SetClosingTimeForStack(p *SetClosingTimeForStackParameters) (r *
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetClosingTimeForStack`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Stack) SetClosingTimeForStackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/SetClosingTimeForStack`,
+		data,
 		nil,
 		nil,
 	)
@@ -453,6 +507,15 @@ func (t *Stack) SetEmailDesignsForStack(p *SetEmailDesignsForStackParameters) (r
 	)
 }
 
+func (t *Stack) SetEmailDesignsForStackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/SetEmailDesignsForStack`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetMaxQuantityForStackParameters struct {
 	StackId     string
 	MaxQuantity int64
@@ -466,6 +529,15 @@ func (t *Stack) SetMaxQuantityForStack(p *SetMaxQuantityForStackParameters) (r *
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetMaxQuantityForStack`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Stack) SetMaxQuantityForStackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/SetMaxQuantityForStack`,
+		data,
 		nil,
 		nil,
 	)
@@ -489,6 +561,15 @@ func (t *Stack) SetMethodForStack(p *SetMethodForStackParameters) (r *http.Respo
 	)
 }
 
+func (t *Stack) SetMethodForStackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/SetMethodForStack`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetOpeningTimeForStackParameters struct {
 	StackId     string
 	OpeningTime int64
@@ -502,6 +583,15 @@ func (t *Stack) SetOpeningTimeForStack(p *SetOpeningTimeForStackParameters) (r *
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetOpeningTimeForStack`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Stack) SetOpeningTimeForStackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/SetOpeningTimeForStack`,
+		data,
 		nil,
 		nil,
 	)
@@ -525,6 +615,15 @@ func (t *Stack) SetPriceForStack(p *SetPriceForStackParameters) (r *http.Respons
 	)
 }
 
+func (t *Stack) SetPriceForStackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/SetPriceForStack`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetQuantityForStackParameters struct {
 	StackId  string
 	Quantity int64
@@ -538,6 +637,15 @@ func (t *Stack) SetQuantityForStack(p *SetQuantityForStackParameters) (r *http.R
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetQuantityForStack`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Stack) SetQuantityForStackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/SetQuantityForStack`,
+		data,
 		nil,
 		nil,
 	)
@@ -561,6 +669,15 @@ func (t *Stack) SetServiceFeeForStack(p *SetServiceFeeForStackParameters) (r *ht
 	)
 }
 
+func (t *Stack) SetServiceFeeForStackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/SetServiceFeeForStack`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetTransferableForStackParameters struct {
 	StackId      string
 	Transferable bool
@@ -574,6 +691,15 @@ func (t *Stack) SetTransferableForStack(p *SetTransferableForStackParameters) (r
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/SetTransferableForStack`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Stack) SetTransferableForStackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/SetTransferableForStack`,
+		data,
 		nil,
 		nil,
 	)
@@ -614,6 +740,15 @@ func (t *Stack) UpdateStack(p *UpdateStackParameters) (r *http.Response, err err
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/UpdateStack`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Stack) UpdateStackWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/UpdateStack`,
+		data,
 		nil,
 		nil,
 	)
@@ -686,6 +821,15 @@ func (t *Stack) UpdateStackFromSettings(p *UpdateStackFromSettingsParameters) (r
 	return t.restClient.Post(
 		`/v2/Stack/UseCase/UpdateStackFromSettings`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Stack) UpdateStackFromSettingsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Stack/UseCase/UpdateStackFromSettings`,
+		data,
 		nil,
 		nil,
 	)

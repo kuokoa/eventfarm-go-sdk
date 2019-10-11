@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type UserName struct {
@@ -96,6 +96,15 @@ func (t *UserName) AddUserName(p *AddUserNameParameters) (r *http.Response, err 
 	)
 }
 
+func (t *UserName) AddUserNameWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/UserName/UseCase/AddUserName`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveUserNameParameters struct {
 	UserNameId string
 }
@@ -107,6 +116,15 @@ func (t *UserName) RemoveUserName(p *RemoveUserNameParameters) (r *http.Response
 	return t.restClient.Post(
 		`/v2/UserName/UseCase/RemoveUserName`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *UserName) RemoveUserNameWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/UserName/UseCase/RemoveUserName`,
+		data,
 		nil,
 		nil,
 	)
@@ -131,6 +149,15 @@ func (t *UserName) SetUserName(p *SetUserNameParameters) (r *http.Response, err 
 	return t.restClient.Post(
 		`/v2/UserName/UseCase/SetUserName`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *UserName) SetUserNameWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/UserName/UseCase/SetUserName`,
+		data,
 		nil,
 		nil,
 	)

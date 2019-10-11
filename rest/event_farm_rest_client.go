@@ -84,6 +84,26 @@ func (t *EventFarmRestClient) Post(
 	)
 }
 
+func (t *EventFarmRestClient) PostJSON(
+	url string,
+	data *map[string]interface{},
+	headers map[string]string,
+	timeout *time.Duration,
+) (resp *http.Response, err error) {
+
+	newHeaders, err := t.getAuthorizationHeader(headers)
+	if err != nil {
+		return
+	}
+
+	return t.restClient.PostJSON(
+		url,
+		data,
+		newHeaders,
+		timeout,
+	)
+}
+
 func (t *EventFarmRestClient) PostMultipart(
 	url string,
 	multipart map[string]string,

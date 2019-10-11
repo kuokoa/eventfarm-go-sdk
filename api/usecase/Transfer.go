@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Transfer struct {
@@ -144,6 +144,15 @@ func (t *Transfer) ConfirmTransfer(p *ConfirmTransferParameters) (r *http.Respon
 	)
 }
 
+func (t *Transfer) ConfirmTransferWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Transfer/UseCase/ConfirmTransfer`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateTransferParameters struct {
 	EventId         string
 	SenderId        string
@@ -182,6 +191,15 @@ func (t *Transfer) CreateTransfer(p *CreateTransferParameters) (r *http.Response
 	)
 }
 
+func (t *Transfer) CreateTransferWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Transfer/UseCase/CreateTransfer`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DeleteTransferParameters struct {
 	TransferId string
 }
@@ -193,6 +211,15 @@ func (t *Transfer) DeleteTransfer(p *DeleteTransferParameters) (r *http.Response
 	return t.restClient.Post(
 		`/v2/Transfer/UseCase/DeleteTransfer`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Transfer) DeleteTransferWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Transfer/UseCase/DeleteTransfer`,
+		data,
 		nil,
 		nil,
 	)
@@ -218,6 +245,15 @@ func (t *Transfer) ForceTransfer(p *ForceTransferParameters) (r *http.Response, 
 	)
 }
 
+func (t *Transfer) ForceTransferWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Transfer/UseCase/ForceTransfer`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type ResendAuthorizationRequestEmailParameters struct {
 	TransferId string
 }
@@ -229,6 +265,15 @@ func (t *Transfer) ResendAuthorizationRequestEmail(p *ResendAuthorizationRequest
 	return t.restClient.Post(
 		`/v2/Transfer/UseCase/ResendAuthorizationRequestEmail`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Transfer) ResendAuthorizationRequestEmailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Transfer/UseCase/ResendAuthorizationRequestEmail`,
+		data,
 		nil,
 		nil,
 	)

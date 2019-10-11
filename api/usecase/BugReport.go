@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type BugReport struct {
@@ -91,6 +91,15 @@ func (t *BugReport) CreateBugReport(p *CreateBugReportParameters) (r *http.Respo
 	return t.restClient.Post(
 		`/v2/BugReport/UseCase/CreateBugReport`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *BugReport) CreateBugReportWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/BugReport/UseCase/CreateBugReport`,
+		data,
 		nil,
 		nil,
 	)

@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Refund struct {
@@ -109,6 +109,15 @@ func (t *Refund) CreateRefund(p *CreateRefundParameters) (r *http.Response, err 
 	)
 }
 
+func (t *Refund) CreateRefundWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Refund/UseCase/CreateRefund`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DeleteRefundParameters struct {
 	RefundId string
 }
@@ -120,6 +129,15 @@ func (t *Refund) DeleteRefund(p *DeleteRefundParameters) (r *http.Response, err 
 	return t.restClient.Post(
 		`/v2/Refund/UseCase/DeleteRefund`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Refund) DeleteRefundWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Refund/UseCase/DeleteRefund`,
+		data,
 		nil,
 		nil,
 	)

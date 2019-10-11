@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type IntegrationStatusMapping struct {
@@ -67,6 +67,15 @@ func (t *IntegrationStatusMapping) CreateIntegrationStatusMapping(p *CreateInteg
 	)
 }
 
+func (t *IntegrationStatusMapping) CreateIntegrationStatusMappingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/IntegrationStatusMapping/UseCase/CreateIntegrationStatusMapping`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetIntegrationStatusMappingStatusIdParameters struct {
 	IntegrationStatusMappingId string
 	StatusId                   string
@@ -85,6 +94,15 @@ func (t *IntegrationStatusMapping) SetIntegrationStatusMappingStatusId(p *SetInt
 	)
 }
 
+func (t *IntegrationStatusMapping) SetIntegrationStatusMappingStatusIdWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/IntegrationStatusMapping/UseCase/SetIntegrationStatusMappingStatusId`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetIntegrationStatusMappingValueParameters struct {
 	IntegrationStatusMappingId string
 	IntegrationStatusValue     string
@@ -98,6 +116,15 @@ func (t *IntegrationStatusMapping) SetIntegrationStatusMappingValue(p *SetIntegr
 	return t.restClient.Post(
 		`/v2/IntegrationStatusMapping/UseCase/SetIntegrationStatusMappingValue`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *IntegrationStatusMapping) SetIntegrationStatusMappingValueWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/IntegrationStatusMapping/UseCase/SetIntegrationStatusMappingValue`,
+		data,
 		nil,
 		nil,
 	)

@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type SalesforceEventSetting struct {
@@ -72,6 +72,15 @@ func (t *SalesforceEventSetting) DisableExportForSalesforceEventSetting(p *Disab
 	)
 }
 
+func (t *SalesforceEventSetting) DisableExportForSalesforceEventSettingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforceEventSetting/UseCase/DisableExportForSalesforceEventSetting`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableImportForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
 }
@@ -83,6 +92,15 @@ func (t *SalesforceEventSetting) DisableImportForSalesforceEventSetting(p *Disab
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/DisableImportForSalesforceEventSetting`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SalesforceEventSetting) DisableImportForSalesforceEventSettingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforceEventSetting/UseCase/DisableImportForSalesforceEventSetting`,
+		data,
 		nil,
 		nil,
 	)
@@ -104,6 +122,15 @@ func (t *SalesforceEventSetting) EnableExportForSalesforceEventSetting(p *Enable
 	)
 }
 
+func (t *SalesforceEventSetting) EnableExportForSalesforceEventSettingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforceEventSetting/UseCase/EnableExportForSalesforceEventSetting`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableImportForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
 }
@@ -115,6 +142,15 @@ func (t *SalesforceEventSetting) EnableImportForSalesforceEventSetting(p *Enable
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/EnableImportForSalesforceEventSetting`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SalesforceEventSetting) EnableImportForSalesforceEventSettingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforceEventSetting/UseCase/EnableImportForSalesforceEventSetting`,
+		data,
 		nil,
 		nil,
 	)
@@ -140,6 +176,15 @@ func (t *SalesforceEventSetting) SetCampaignForSalesforceEventSetting(p *SetCamp
 	)
 }
 
+func (t *SalesforceEventSetting) SetCampaignForSalesforceEventSettingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforceEventSetting/UseCase/SetCampaignForSalesforceEventSetting`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetInvitationCountForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
 	InvitationCount          int64 // 1-100
@@ -153,6 +198,15 @@ func (t *SalesforceEventSetting) SetInvitationCountForSalesforceEventSetting(p *
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/SetInvitationCountForSalesforceEventSetting`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SalesforceEventSetting) SetInvitationCountForSalesforceEventSettingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforceEventSetting/UseCase/SetInvitationCountForSalesforceEventSetting`,
+		data,
 		nil,
 		nil,
 	)
@@ -176,6 +230,15 @@ func (t *SalesforceEventSetting) SetInvitationCreationTypeForSalesforceEventSett
 	)
 }
 
+func (t *SalesforceEventSetting) SetInvitationCreationTypeForSalesforceEventSettingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforceEventSetting/UseCase/SetInvitationCreationTypeForSalesforceEventSetting`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetNewContactRuleForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
 	NewContactRule           string
@@ -194,6 +257,15 @@ func (t *SalesforceEventSetting) SetNewContactRuleForSalesforceEventSetting(p *S
 	)
 }
 
+func (t *SalesforceEventSetting) SetNewContactRuleForSalesforceEventSettingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforceEventSetting/UseCase/SetNewContactRuleForSalesforceEventSetting`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetStackForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
 	StackId                  string
@@ -207,6 +279,15 @@ func (t *SalesforceEventSetting) SetStackForSalesforceEventSetting(p *SetStackFo
 	return t.restClient.Post(
 		`/v2/SalesforceEventSetting/UseCase/SetStackForSalesforceEventSetting`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SalesforceEventSetting) SetStackForSalesforceEventSettingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforceEventSetting/UseCase/SetStackForSalesforceEventSetting`,
+		data,
 		nil,
 		nil,
 	)

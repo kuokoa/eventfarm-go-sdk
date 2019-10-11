@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type EmailSample struct {
@@ -92,6 +92,15 @@ func (t *EmailSample) CreateEmailPreview(p *CreateEmailPreviewParameters) (r *ht
 	)
 }
 
+func (t *EmailSample) CreateEmailPreviewWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailSample/UseCase/CreateEmailPreview`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateEmailSampleParameters struct {
 	HtmlContent             string
 	EmailDesignId           string
@@ -111,6 +120,15 @@ func (t *EmailSample) CreateEmailSample(p *CreateEmailSampleParameters) (r *http
 	return t.restClient.Post(
 		`/v2/EmailSample/UseCase/CreateEmailSample`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailSample) CreateEmailSampleWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailSample/UseCase/CreateEmailSample`,
+		data,
 		nil,
 		nil,
 	)
@@ -139,6 +157,15 @@ func (t *EmailSample) CreateEmailSpamResult(p *CreateEmailSpamResultParameters) 
 	return t.restClient.Post(
 		`/v2/EmailSample/UseCase/CreateEmailSpamResult`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailSample) CreateEmailSpamResultWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailSample/UseCase/CreateEmailSpamResult`,
+		data,
 		nil,
 		nil,
 	)

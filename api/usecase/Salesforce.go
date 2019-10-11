@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Salesforce struct {
@@ -153,6 +153,15 @@ func (t *Salesforce) ExportEventToSalesforce(p *ExportEventToSalesforceParameter
 	)
 }
 
+func (t *Salesforce) ExportEventToSalesforceWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Salesforce/UseCase/ExportEventToSalesforce`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type ExportInvitationToSalesforceParameters struct {
 	InvitationId string
 }
@@ -164,6 +173,15 @@ func (t *Salesforce) ExportInvitationToSalesforce(p *ExportInvitationToSalesforc
 	return t.restClient.Post(
 		`/v2/Salesforce/UseCase/ExportInvitationToSalesforce`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Salesforce) ExportInvitationToSalesforceWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Salesforce/UseCase/ExportInvitationToSalesforce`,
+		data,
 		nil,
 		nil,
 	)
@@ -189,6 +207,15 @@ func (t *Salesforce) ImportCampaignMembersForEvent(p *ImportCampaignMembersForEv
 	)
 }
 
+func (t *Salesforce) ImportCampaignMembersForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Salesforce/UseCase/ImportCampaignMembersForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type ImportCampaignMembersForSalesforceEventSettingParameters struct {
 	SalesforceEventSettingId string
 	UserId                   *string
@@ -204,6 +231,15 @@ func (t *Salesforce) ImportCampaignMembersForSalesforceEventSetting(p *ImportCam
 	return t.restClient.Post(
 		`/v2/Salesforce/UseCase/ImportCampaignMembersForSalesforceEventSetting`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Salesforce) ImportCampaignMembersForSalesforceEventSettingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Salesforce/UseCase/ImportCampaignMembersForSalesforceEventSetting`,
+		data,
 		nil,
 		nil,
 	)

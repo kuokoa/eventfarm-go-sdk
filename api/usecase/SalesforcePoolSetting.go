@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type SalesforcePoolSetting struct {
@@ -67,6 +67,15 @@ func (t *SalesforcePoolSetting) CreateSalesforcePoolSetting(p *CreateSalesforceP
 	)
 }
 
+func (t *SalesforcePoolSetting) CreateSalesforcePoolSettingWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforcePoolSetting/UseCase/CreateSalesforcePoolSetting`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveSyncUserForPoolParameters struct {
 	PoolId string
 }
@@ -78,6 +87,15 @@ func (t *SalesforcePoolSetting) RemoveSyncUserForPool(p *RemoveSyncUserForPoolPa
 	return t.restClient.Post(
 		`/v2/SalesforcePoolSetting/UseCase/RemoveSyncUserForPool`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SalesforcePoolSetting) RemoveSyncUserForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforcePoolSetting/UseCase/RemoveSyncUserForPool`,
+		data,
 		nil,
 		nil,
 	)
@@ -101,6 +119,15 @@ func (t *SalesforcePoolSetting) SetLeadCompanyForPool(p *SetLeadCompanyForPoolPa
 	)
 }
 
+func (t *SalesforcePoolSetting) SetLeadCompanyForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforcePoolSetting/UseCase/SetLeadCompanyForPool`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetLeadSourceForPoolParameters struct {
 	PoolId     string
 	LeadSource string
@@ -119,6 +146,15 @@ func (t *SalesforcePoolSetting) SetLeadSourceForPool(p *SetLeadSourceForPoolPara
 	)
 }
 
+func (t *SalesforcePoolSetting) SetLeadSourceForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforcePoolSetting/UseCase/SetLeadSourceForPool`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetSyncUserForPoolParameters struct {
 	PoolId     string
 	SyncUserId string
@@ -132,6 +168,15 @@ func (t *SalesforcePoolSetting) SetSyncUserForPool(p *SetSyncUserForPoolParamete
 	return t.restClient.Post(
 		`/v2/SalesforcePoolSetting/UseCase/SetSyncUserForPool`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *SalesforcePoolSetting) SetSyncUserForPoolWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/SalesforcePoolSetting/UseCase/SetSyncUserForPool`,
+		data,
 		nil,
 		nil,
 	)

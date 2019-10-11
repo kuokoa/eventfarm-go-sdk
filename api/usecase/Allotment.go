@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Allotment struct {
@@ -72,6 +72,15 @@ func (t *Allotment) CreateAllotment(p *CreateAllotmentParameters) (r *http.Respo
 	)
 }
 
+func (t *Allotment) CreateAllotmentWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Allotment/UseCase/CreateAllotment`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DeleteAllotmentParameters struct {
 	AllotmentId string
 }
@@ -83,6 +92,15 @@ func (t *Allotment) DeleteAllotment(p *DeleteAllotmentParameters) (r *http.Respo
 	return t.restClient.Post(
 		`/v2/Allotment/UseCase/DeleteAllotment`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Allotment) DeleteAllotmentWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Allotment/UseCase/DeleteAllotment`,
+		data,
 		nil,
 		nil,
 	)
@@ -101,6 +119,15 @@ func (t *Allotment) SetAllotmentQuantity(p *SetAllotmentQuantityParameters) (r *
 	return t.restClient.Post(
 		`/v2/Allotment/UseCase/SetAllotmentQuantity`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Allotment) SetAllotmentQuantityWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Allotment/UseCase/SetAllotmentQuantity`,
+		data,
 		nil,
 		nil,
 	)

@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type ActivityLog struct {
@@ -110,6 +110,15 @@ func (t *ActivityLog) CreateActivityLog(p *CreateActivityLogParameters) (r *http
 	)
 }
 
+func (t *ActivityLog) CreateActivityLogWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/ActivityLog/UseCase/CreateActivityLog`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateActivityLogAndDetailParameters struct {
 	EventId          string
 	Action           string
@@ -149,6 +158,15 @@ func (t *ActivityLog) CreateActivityLogAndDetail(p *CreateActivityLogAndDetailPa
 	return t.restClient.Post(
 		`/v2/ActivityLog/UseCase/CreateActivityLogAndDetail`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *ActivityLog) CreateActivityLogAndDetailWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/ActivityLog/UseCase/CreateActivityLogAndDetail`,
+		data,
 		nil,
 		nil,
 	)

@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type EFx struct {
@@ -76,6 +76,15 @@ func (t *EFx) DisableForEvent(p *DisableForEventParameters) (r *http.Response, e
 	)
 }
 
+func (t *EFx) DisableForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/DisableForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableModuleForEventParameters struct {
 	EventId    string
 	ModuleType string
@@ -89,6 +98,15 @@ func (t *EFx) DisableModuleForEvent(p *DisableModuleForEventParameters) (r *http
 	return t.restClient.Post(
 		`/v2/EFx/UseCase/DisableModuleForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) DisableModuleForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/DisableModuleForEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -110,6 +128,15 @@ func (t *EFx) DisableNFCForEvent(p *DisableNFCForEventParameters) (r *http.Respo
 	)
 }
 
+func (t *EFx) DisableNFCForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/DisableNFCForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type DisableSMSForEventParameters struct {
 	EventId string
 }
@@ -126,6 +153,15 @@ func (t *EFx) DisableSMSForEvent(p *DisableSMSForEventParameters) (r *http.Respo
 	)
 }
 
+func (t *EFx) DisableSMSForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/DisableSMSForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableForEventParameters struct {
 	EventId string
 }
@@ -137,6 +173,15 @@ func (t *EFx) EnableForEvent(p *EnableForEventParameters) (r *http.Response, err
 	return t.restClient.Post(
 		`/v2/EFx/UseCase/EnableForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) EnableForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/EnableForEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -160,6 +205,15 @@ func (t *EFx) EnableModuleForEvent(p *EnableModuleForEventParameters) (r *http.R
 	)
 }
 
+func (t *EFx) EnableModuleForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/EnableModuleForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableNFCForEventParameters struct {
 	EventId string
 }
@@ -176,6 +230,15 @@ func (t *EFx) EnableNFCForEvent(p *EnableNFCForEventParameters) (r *http.Respons
 	)
 }
 
+func (t *EFx) EnableNFCForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/EnableNFCForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type EnableSMSForEventParameters struct {
 	EventId string
 }
@@ -187,6 +250,15 @@ func (t *EFx) EnableSMSForEvent(p *EnableSMSForEventParameters) (r *http.Respons
 	return t.restClient.Post(
 		`/v2/EFx/UseCase/EnableSMSForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) EnableSMSForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/EnableSMSForEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -216,6 +288,15 @@ func (t *EFx) RequestForEvent(p *RequestForEventParameters) (r *http.Response, e
 	)
 }
 
+func (t *EFx) RequestForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/RequestForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SendSMSWithAppLinkParameters struct {
 	PhoneNumber string
 }
@@ -227,6 +308,15 @@ func (t *EFx) SendSMSWithAppLink(p *SendSMSWithAppLinkParameters) (r *http.Respo
 	return t.restClient.Post(
 		`/v2/EFx/UseCase/SendSMSWithAppLink`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) SendSMSWithAppLinkWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/SendSMSWithAppLink`,
+		data,
 		nil,
 		nil,
 	)
@@ -250,6 +340,15 @@ func (t *EFx) SetAdminPinForEvent(p *SetAdminPinForEventParameters) (r *http.Res
 	)
 }
 
+func (t *EFx) SetAdminPinForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/SetAdminPinForEvent`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SetSMSForEventParameters struct {
 	EventId string
 	Message string
@@ -263,6 +362,15 @@ func (t *EFx) SetSMSForEvent(p *SetSMSForEventParameters) (r *http.Response, err
 	return t.restClient.Post(
 		`/v2/EFx/UseCase/SetSMSForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EFx) SetSMSForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EFx/UseCase/SetSMSForEvent`,
+		data,
 		nil,
 		nil,
 	)

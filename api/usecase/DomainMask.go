@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type DomainMask struct {
@@ -73,6 +73,15 @@ func (t *DomainMask) CreateDomainMask(p *CreateDomainMaskParameters) (r *http.Re
 	)
 }
 
+func (t *DomainMask) CreateDomainMaskWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/DomainMask/UseCase/CreateDomainMask`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveDomainMaskParameters struct {
 	DomainMaskId string
 }
@@ -84,6 +93,15 @@ func (t *DomainMask) RemoveDomainMask(p *RemoveDomainMaskParameters) (r *http.Re
 	return t.restClient.Post(
 		`/v2/DomainMask/UseCase/RemoveDomainMask`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *DomainMask) RemoveDomainMaskWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/DomainMask/UseCase/RemoveDomainMask`,
+		data,
 		nil,
 		nil,
 	)

@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type EmailMessage struct {
@@ -214,6 +214,15 @@ func (t *EmailMessage) CreatePreviewEmailMessage(p *CreatePreviewEmailMessagePar
 	)
 }
 
+func (t *EmailMessage) CreatePreviewEmailMessageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/CreatePreviewEmailMessage`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type CreateScheduledBatchEmailMessageParameters struct {
 	EventId         string
 	OwnerUserId     string
@@ -244,6 +253,15 @@ func (t *EmailMessage) CreateScheduledBatchEmailMessage(p *CreateScheduledBatchE
 	)
 }
 
+func (t *EmailMessage) CreateScheduledBatchEmailMessageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/CreateScheduledBatchEmailMessage`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type RemoveScheduledBatchEmailMessageParameters struct {
 	MongoQueueId string
 }
@@ -255,6 +273,15 @@ func (t *EmailMessage) RemoveScheduledBatchEmailMessage(p *RemoveScheduledBatchE
 	return t.restClient.Post(
 		`/v2/EmailMessage/UseCase/RemoveScheduledBatchEmailMessage`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailMessage) RemoveScheduledBatchEmailMessageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/RemoveScheduledBatchEmailMessage`,
+		data,
 		nil,
 		nil,
 	)
@@ -295,6 +322,15 @@ func (t *EmailMessage) SendAMessagePreview(p *SendAMessagePreviewParameters) (r 
 	return t.restClient.Post(
 		`/v2/EmailMessage/UseCase/SendAMessagePreview`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailMessage) SendAMessagePreviewWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/SendAMessagePreview`,
+		data,
 		nil,
 		nil,
 	)
@@ -352,6 +388,15 @@ func (t *EmailMessage) SendAMessageToAllCheckedInGuests(p *SendAMessageToAllChec
 	)
 }
 
+func (t *EmailMessage) SendAMessageToAllCheckedInGuestsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/SendAMessageToAllCheckedInGuests`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SendAMessageToEventWaitListParameters struct {
 	EventId                string
 	OwnerUserId            string
@@ -399,6 +444,15 @@ func (t *EmailMessage) SendAMessageToEventWaitList(p *SendAMessageToEventWaitLis
 	return t.restClient.Post(
 		`/v2/EmailMessage/UseCase/SendAMessageToEventWaitList`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailMessage) SendAMessageToEventWaitListWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/SendAMessageToEventWaitList`,
+		data,
 		nil,
 		nil,
 	)
@@ -458,6 +512,15 @@ func (t *EmailMessage) SendAMessageToGroup(p *SendAMessageToGroupParameters) (r 
 	)
 }
 
+func (t *EmailMessage) SendAMessageToGroupWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/SendAMessageToGroup`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SendAMessageToNoShowsParameters struct {
 	EventId                string
 	OwnerUserId            string
@@ -505,6 +568,15 @@ func (t *EmailMessage) SendAMessageToNoShows(p *SendAMessageToNoShowsParameters)
 	return t.restClient.Post(
 		`/v2/EmailMessage/UseCase/SendAMessageToNoShows`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailMessage) SendAMessageToNoShowsWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/SendAMessageToNoShows`,
+		data,
 		nil,
 		nil,
 	)
@@ -570,6 +642,15 @@ func (t *EmailMessage) SendAMessageToTicketTypes(p *SendAMessageToTicketTypesPar
 	)
 }
 
+func (t *EmailMessage) SendAMessageToTicketTypesWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/SendAMessageToTicketTypes`,
+		data,
+		nil,
+		nil,
+	)
+}
+
 type SimulateEmailMessageStatsForEventParameters struct {
 	EventId string
 }
@@ -581,6 +662,15 @@ func (t *EmailMessage) SimulateEmailMessageStatsForEvent(p *SimulateEmailMessage
 	return t.restClient.Post(
 		`/v2/EmailMessage/UseCase/SimulateEmailMessageStatsForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailMessage) SimulateEmailMessageStatsForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/SimulateEmailMessageStatsForEvent`,
+		data,
 		nil,
 		nil,
 	)
@@ -607,6 +697,15 @@ func (t *EmailMessage) UpdateScheduledBatchEmailMessage(p *UpdateScheduledBatchE
 	return t.restClient.Post(
 		`/v2/EmailMessage/UseCase/UpdateScheduledBatchEmailMessage`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *EmailMessage) UpdateScheduledBatchEmailMessageWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/EmailMessage/UseCase/UpdateScheduledBatchEmailMessage`,
+		data,
 		nil,
 		nil,
 	)

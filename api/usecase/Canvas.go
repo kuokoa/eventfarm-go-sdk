@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Canvas struct {
@@ -34,6 +34,15 @@ func (t *Canvas) EnableCanvasForEvent(p *EnableCanvasForEventParameters) (r *htt
 	return t.restClient.Post(
 		`/v2/Canvas/UseCase/EnableCanvasForEvent`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Canvas) EnableCanvasForEventWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Canvas/UseCase/EnableCanvasForEvent`,
+		data,
 		nil,
 		nil,
 	)

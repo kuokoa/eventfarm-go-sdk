@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/eventfarm/go-sdk/rest"
+	"github.com/kuokoa/eventfarm-go-sdk/rest"
 )
 
 type Queue struct {
@@ -138,6 +138,15 @@ func (t *Queue) DeleteJob(p *DeleteJobParameters) (r *http.Response, err error) 
 	return t.restClient.Post(
 		`/v2/Queue/UseCase/DeleteJob`,
 		&queryParameters,
+		nil,
+		nil,
+	)
+}
+
+func (t *Queue) DeleteJobWithJSON(data *map[string]interface{}) (r *http.Response, err error) {
+	return t.restClient.PostJSON(
+		`/v2/Queue/UseCase/DeleteJob`,
+		data,
 		nil,
 		nil,
 	)
