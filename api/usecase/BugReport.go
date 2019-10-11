@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type BugReport struct {
@@ -24,7 +24,7 @@ func NewBugReport(restClient rest.RestClientInterface) *BugReport {
 
 type GetBugReportParameters struct {
 	BugReportId string
-	WithData    *[]string // User
+	WithData    *[]interface{} // User
 }
 
 func (t *BugReport) GetBugReport(p *GetBugReportParameters) (r *http.Response, err error) {

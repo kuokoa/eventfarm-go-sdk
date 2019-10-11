@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Invitation struct {
@@ -72,7 +72,7 @@ func (t *Invitation) GetCheckInCountsForTicketBlock(p *GetCheckInCountsForTicket
 
 type GetInvitationParameters struct {
 	InvitationId string
-	WithData     *[]string // Event | UserName | User | UserIdentifier | Stack | TicketType | QuestionResponse | Answer
+	WithData     *[]interface{} // Event | UserName | User | UserIdentifier | Stack | TicketType | QuestionResponse | Answer
 }
 
 func (t *Invitation) GetInvitation(p *GetInvitationParameters) (r *http.Response, err error) {
@@ -194,10 +194,10 @@ func (t *Invitation) GetInvitationStatusTypeCountsForTicketBlock(p *GetInvitatio
 
 type ListInvitationsForEventParameters struct {
 	EventId               string
-	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
-	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithData              *[]interface{} // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithUserAttributes    *[]interface{} // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 	Query                 *string
-	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
+	StatusFilter          *[]interface{} // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
@@ -257,10 +257,10 @@ func (t *Invitation) ListInvitationsForEvent(p *ListInvitationsForEventParameter
 type ListInvitationsForStackParameters struct {
 	EventId               string
 	StackId               string
-	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
-	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithData              *[]interface{} // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithUserAttributes    *[]interface{} // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 	Query                 *string
-	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
+	StatusFilter          *[]interface{} // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
@@ -320,10 +320,10 @@ func (t *Invitation) ListInvitationsForStack(p *ListInvitationsForStackParameter
 
 type ListInvitationsForTicketBlockParameters struct {
 	TicketBlockId         string
-	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
-	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithData              *[]interface{} // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithUserAttributes    *[]interface{} // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 	Query                 *string
-	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
+	StatusFilter          *[]interface{} // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
@@ -388,8 +388,8 @@ type ListInvitationsForUserParameters struct {
 	ItemsPerPage        *int64 // 1-250
 	EventDateFilterType *string
 	SortDirection       *string
-	WithData            *[]string // Event | Stack | StackAndTicketType
-	StatusFilter        *[]string
+	WithData            *[]interface{} // Event | Stack | StackAndTicketType
+	StatusFilter        *[]interface{}
 }
 
 func (t *Invitation) ListInvitationsForUser(p *ListInvitationsForUserParameters) (r *http.Response, err error) {
@@ -440,8 +440,8 @@ type ListInvitationsForUserByEmailParameters struct {
 	ItemsPerPage        *int64 // 1-250
 	EventDateFilterType *string
 	SortDirection       *string
-	WithData            *[]string // Event | Stack | StackAndTicketType
-	StatusFilter        *[]string
+	WithData            *[]interface{} // Event | Stack | StackAndTicketType
+	StatusFilter        *[]interface{}
 }
 
 func (t *Invitation) ListInvitationsForUserByEmail(p *ListInvitationsForUserByEmailParameters) (r *http.Response, err error) {
@@ -492,8 +492,8 @@ type ListInvitationsForUserForParentParameters struct {
 	ItemsPerPage        *int64 // 1-100
 	EventDateFilterType *string
 	SortDirection       *string
-	WithData            *[]string // Event | Stack
-	StatusFilter        *[]string
+	WithData            *[]interface{} // Event | Stack
+	StatusFilter        *[]interface{}
 }
 
 func (t *Invitation) ListInvitationsForUserForParent(p *ListInvitationsForUserForParentParameters) (r *http.Response, err error) {
@@ -536,8 +536,8 @@ func (t *Invitation) ListInvitationsForUserForParent(p *ListInvitationsForUserFo
 
 type ListWaitlistForEventParameters struct {
 	EventId               string
-	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
-	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithData              *[]interface{} // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithUserAttributes    *[]interface{} // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 	Query                 *string
 	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
@@ -593,10 +593,10 @@ func (t *Invitation) ListWaitlistForEvent(p *ListWaitlistForEventParameters) (r 
 type ListWaitlistForStackParameters struct {
 	EventId               string
 	StackId               string
-	WithData              *[]string // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
-	WithUserAttributes    *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithData              *[]interface{} // UserIdentifiers | StackAndTicketType | QuestionResponses | maxLastModifiedAt
+	WithUserAttributes    *[]interface{} // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 	Query                 *string
-	StatusFilter          *[]string // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
+	StatusFilter          *[]interface{} // assigned | purchased | confirmed-by-rsvp | declined-by-rsvp | left-behind | not-yet-purchased | registered | unconfirmed | recycled | not-yet-registered | waitlisted
 	LastModifiedTimestamp *int64
 	IsCheckedIn           *bool
 	SortBy                *string
@@ -1013,7 +1013,7 @@ func (t *Invitation) DisableArrivalAlert(p *DisableArrivalAlertParameters) (r *h
 }
 
 type PromoteInvitationsFromWaitlistParameters struct {
-	InvitationIds   []string
+	InvitationIds   []interface{}
 	IsConfirmed     bool
 	ShouldSendEmail *bool
 }
@@ -1091,7 +1091,7 @@ func (t *Invitation) SetAllQuestionResponses(p *SetAllQuestionResponsesParameter
 type SetArrivalAlertEmailParameters struct {
 	InvitationId           string
 	ToEmail                string
-	CcEmails               *[]string
+	CcEmails               *[]interface{}
 	ShouldSendArrivalAlert *bool
 }
 
@@ -1159,7 +1159,7 @@ func (t *Invitation) SetInvitationNotes(p *SetInvitationNotesParameters) (r *htt
 type SetQuestionResponseParameters struct {
 	InvitationId string
 	QuestionId   string
-	AnswerIds    *[]string
+	AnswerIds    *[]interface{}
 	Text         *string
 }
 

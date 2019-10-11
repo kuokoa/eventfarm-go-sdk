@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Pool struct {
@@ -308,7 +308,7 @@ type SendUpgradeRequestToCsmParameters struct {
 	PoolId                string
 	UserId                string
 	SlackUserId           *string
-	RequestedFeatureSlugs *[]string
+	RequestedFeatureSlugs *[]interface{}
 	Other                 *string
 }
 

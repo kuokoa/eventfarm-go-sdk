@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type User struct {
@@ -44,8 +44,8 @@ func (t *User) CheckIfUserCanBeRemovedFromPool(p *CheckIfUserCanBeRemovedFromPoo
 
 type GetUserParameters struct {
 	UserId             string
-	WithData           *[]string // UserName | UserAddress | UserToken | UserIdentifier | isEFAdmin | internalUserName
-	WithUserAttributes *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithData           *[]interface{} // UserName | UserAddress | UserToken | UserIdentifier | isEFAdmin | internalUserName
+	WithUserAttributes *[]interface{} // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 	PoolId             *string
 }
 
@@ -76,8 +76,8 @@ func (t *User) GetUser(p *GetUserParameters) (r *http.Response, err error) {
 
 type GetUserByEmailParameters struct {
 	Email              string
-	WithData           *[]string // UserName | UserAddress | UserToken | isEFAdmin | internalUserName
-	WithUserAttributes *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithData           *[]interface{} // UserName | UserAddress | UserToken | isEFAdmin | internalUserName
+	WithUserAttributes *[]interface{} // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 	PoolId             *string
 }
 
@@ -109,8 +109,8 @@ func (t *User) GetUserByEmail(p *GetUserByEmailParameters) (r *http.Response, er
 type GetUserInPoolParameters struct {
 	PoolId             string
 	UserId             string
-	WithData           *[]string // UserName | UserAddress | UserToken | UserIdentifier | isEFAdmin | internalUserName
-	WithUserAttributes *[]string // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
+	WithData           *[]interface{} // UserName | UserAddress | UserToken | UserIdentifier | isEFAdmin | internalUserName
+	WithUserAttributes *[]interface{} // internal | info | hover | facebook | linked-in | salesforce | twitter | convio | google | custom
 }
 
 func (t *User) GetUserInPool(p *GetUserInPoolParameters) (r *http.Response, err error) {
@@ -173,8 +173,8 @@ func (t *User) GetUserRolesForTicketBlock(p *GetUserRolesForTicketBlockParameter
 }
 
 type ListUsersForPoolsParameters struct {
-	PoolIds       []string
-	WithData      *[]string // UserIdentifiers | UserNames | UserAttributes
+	PoolIds       []interface{}
+	WithData      *[]interface{} // UserIdentifiers | UserNames | UserAttributes
 	Query         *string
 	SortBy        *string
 	SortDirection *string
@@ -218,7 +218,7 @@ func (t *User) ListUsersForPools(p *ListUsersForPoolsParameters) (r *http.Respon
 
 type ListUsersForTicketBlockParameters struct {
 	TicketBlockId string
-	WithData      *[]string // UserIdentifiers | UserNames | UserAttributes
+	WithData      *[]interface{} // UserIdentifiers | UserNames | UserAttributes
 	Query         *string
 	SortBy        *string
 	SortDirection *string
@@ -261,7 +261,7 @@ func (t *User) ListUsersForTicketBlock(p *ListUsersForTicketBlockParameters) (r 
 type ListUsersInGroupParameters struct {
 	GroupId       string
 	PoolId        string
-	WithData      *[]string // UserIdentifiers | UserNames | UserAttributes
+	WithData      *[]interface{} // UserIdentifiers | UserNames | UserAttributes
 	Query         *string
 	SortBy        *string
 	SortDirection *string
@@ -304,7 +304,7 @@ func (t *User) ListUsersInGroup(p *ListUsersInGroupParameters) (r *http.Response
 
 type ListUsersWithRolesForEventParameters struct {
 	EventId       string
-	WithData      *[]string // eventRoles | PoolContacts | UserIdentifiers | UserNames | UserAttributes
+	WithData      *[]interface{} // eventRoles | PoolContacts | UserIdentifiers | UserNames | UserAttributes
 	Query         *string
 	SortBy        *string
 	SortDirection *string
@@ -629,7 +629,7 @@ func (t *User) RemoveUserContactAgent(p *RemoveUserContactAgentParameters) (r *h
 }
 
 type RemoveUsersFromPoolParameters struct {
-	RemoveUserIds []string
+	RemoveUserIds []interface{}
 	RequestUserId string
 	PoolId        string
 }

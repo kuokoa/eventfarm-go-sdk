@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type EmailSample struct {
@@ -40,7 +40,7 @@ func (t *EmailSample) GetEmailThumbnailUrl(p *GetEmailThumbnailUrlParameters) (r
 
 type GetLatestEmailSampleForDesignParameters struct {
 	EmailDesignId string
-	WithData      *[]string // EmailPreview | EmailSpamResult
+	WithData      *[]interface{} // EmailPreview | EmailSpamResult
 }
 
 func (t *EmailSample) GetLatestEmailSampleForDesign(p *GetLatestEmailSampleForDesignParameters) (r *http.Response, err error) {

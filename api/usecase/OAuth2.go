@@ -5,10 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
-
-	"github.com/eventfarm/go-sdk/rest"
+	"strconv"
 )
 
 type OAuth2 struct {
@@ -25,7 +26,7 @@ func NewOAuth2(restClient rest.RestClientInterface) *OAuth2 {
 
 type CreateOAuthClientParameters struct {
 	Name         string
-	RedirectUrls []string
+	RedirectUrls []interface{}
 	Identifier   *string
 	Secret       *string
 }
@@ -69,7 +70,7 @@ func (t *OAuth2) RevokeAccessToken(p *RevokeAccessTokenParameters) (r *http.Resp
 
 type SetRedirectUrlsForOAuthClientParameters struct {
 	Identifier   string
-	RedirectUrls []string
+	RedirectUrls []interface{}
 }
 
 func (t *OAuth2) SetRedirectUrlsForOAuthClient(p *SetRedirectUrlsForOAuthClientParameters) (r *http.Response, err error) {

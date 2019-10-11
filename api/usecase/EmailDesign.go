@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type EmailDesign struct {
@@ -91,8 +91,8 @@ type CreateEmailDesignParameters struct {
 	EventId           string
 	FromEmail         *string
 	ReplyEmail        *string
-	CcEmail           *[]string
-	BccEmail          *[]string
+	CcEmail           *[]interface{}
+	BccEmail          *[]interface{}
 	DomainMaskId      *string
 	DomainMaskEmail   *string
 	EmailDesignId     *string
@@ -153,8 +153,8 @@ type CreateEmailDesignFromTemplateParameters struct {
 	EmailTemplateType string
 	FromEmail         *string
 	ReplyEmail        *string
-	CcEmails          *[]string
-	BccEmails         *[]string
+	CcEmails          *[]interface{}
+	BccEmails         *[]interface{}
 	DomainMaskId      *string
 	DomainMaskEmail   *string
 	EmailDesignId     *string
@@ -267,8 +267,8 @@ type UpdateEmailDesignParameters struct {
 	EventId           string
 	FromEmail         *string
 	ReplyEmail        *string
-	CcEmail           *[]string
-	BccEmail          *[]string
+	CcEmail           *[]interface{}
+	BccEmail          *[]interface{}
 	DomainMaskId      *string
 	DomainMaskEmail   *string
 }

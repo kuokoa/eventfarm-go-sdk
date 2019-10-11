@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Transfer struct {
@@ -24,7 +24,7 @@ func NewTransfer(restClient rest.RestClientInterface) *Transfer {
 
 type GetTransferParameters struct {
 	TransferId string
-	WithData   *[]string
+	WithData   *[]interface{}
 }
 
 func (t *Transfer) GetTransfer(p *GetTransferParameters) (r *http.Response, err error) {
@@ -46,7 +46,7 @@ func (t *Transfer) GetTransfer(p *GetTransferParameters) (r *http.Response, err 
 
 type ListTransfersForEventParameters struct {
 	EventId       string
-	WithData      *[]string
+	WithData      *[]interface{}
 	Page          *int64 // >= 1
 	ItemsPerPage  *int64 // 1-100
 	SortBy        *string
@@ -84,7 +84,7 @@ func (t *Transfer) ListTransfersForEvent(p *ListTransfersForEventParameters) (r 
 
 type ListTransfersForInvitationParameters struct {
 	InvitationId  string
-	WithData      *[]string
+	WithData      *[]interface{}
 	Page          *int64 // >= 1
 	ItemsPerPage  *int64 // 1-100
 	SortBy        *string

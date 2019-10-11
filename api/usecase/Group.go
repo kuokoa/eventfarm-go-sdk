@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Group struct {
@@ -24,7 +24,7 @@ func NewGroup(restClient rest.RestClientInterface) *Group {
 
 type GetGroupParameters struct {
 	GroupId  string
-	WithData *[]string // totalUsersInGroup | creatorUser
+	WithData *[]interface{} // totalUsersInGroup | creatorUser
 }
 
 func (t *Group) GetGroup(p *GetGroupParameters) (r *http.Response, err error) {
@@ -122,7 +122,7 @@ func (t *Group) ListGroupsOwnedByUser(p *ListGroupsOwnedByUserParameters) (r *ht
 
 type AddUsersToGroupParameters struct {
 	GroupId string
-	UserIds []string
+	UserIds []interface{}
 }
 
 func (t *Group) AddUsersToGroup(p *AddUsersToGroupParameters) (r *http.Response, err error) {
@@ -180,7 +180,7 @@ func (t *Group) DeleteGroup(p *DeleteGroupParameters) (r *http.Response, err err
 
 type MergeGroupsParameters struct {
 	DestinationGroupId string
-	FromGroupIds       []string
+	FromGroupIds       []interface{}
 }
 
 func (t *Group) MergeGroups(p *MergeGroupsParameters) (r *http.Response, err error) {
@@ -200,7 +200,7 @@ func (t *Group) MergeGroups(p *MergeGroupsParameters) (r *http.Response, err err
 
 type RemoveUsersFromGroupParameters struct {
 	GroupId string
-	UserIds []string
+	UserIds []interface{}
 }
 
 func (t *Group) RemoveUsersFromGroup(p *RemoveUsersFromGroupParameters) (r *http.Response, err error) {

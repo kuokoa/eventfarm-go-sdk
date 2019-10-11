@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type TicketBlock struct {
@@ -24,7 +24,7 @@ func NewTicketBlock(restClient rest.RestClientInterface) *TicketBlock {
 
 type GetTicketBlockParameters struct {
 	TicketBlockId string
-	WithData      *[]string // Event | Allotments | AllotmentsAndStack | AllotmentCounts
+	WithData      *[]interface{} // Event | Allotments | AllotmentsAndStack | AllotmentCounts
 }
 
 func (t *TicketBlock) GetTicketBlock(p *GetTicketBlockParameters) (r *http.Response, err error) {
@@ -47,9 +47,9 @@ func (t *TicketBlock) GetTicketBlock(p *GetTicketBlockParameters) (r *http.Respo
 type ListTicketBlocksForEventParameters struct {
 	EventId             string
 	Query               *string
-	WithData            *[]string // Event | Allotments | AllotmentsAndStack | AllotmentCounts
-	Page                *int64    // >= 1
-	ItemsPerPage        *int64    // 1-50
+	WithData            *[]interface{} // Event | Allotments | AllotmentsAndStack | AllotmentCounts
+	Page                *int64         // >= 1
+	ItemsPerPage        *int64         // 1-50
 	SortBy              *string
 	SortDirection       *string
 	EventDateFilterType *string
@@ -97,9 +97,9 @@ func (t *TicketBlock) ListTicketBlocksForEvent(p *ListTicketBlocksForEventParame
 type ListTicketBlocksForUserParameters struct {
 	UserId              string
 	Query               *string
-	WithData            *[]string // Event
-	Page                *int64    // >= 1
-	ItemsPerPage        *int64    // 1-500
+	WithData            *[]interface{} // Event
+	Page                *int64         // >= 1
+	ItemsPerPage        *int64         // 1-500
 	SortBy              *string
 	SortDirection       *string
 	EventDateFilterType *string

@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Queue struct {
@@ -51,7 +51,7 @@ func (t *Queue) GetJob(p *GetJobParameters) (r *http.Response, err error) {
 
 type GetQueueCommandParameters struct {
 	CommandId string
-	WithData  *[]string // QueueCommandErrors | QueueCommandMessages
+	WithData  *[]interface{} // QueueCommandErrors | QueueCommandMessages
 }
 
 func (t *Queue) GetQueueCommand(p *GetQueueCommandParameters) (r *http.Response, err error) {
@@ -73,7 +73,7 @@ func (t *Queue) GetQueueCommand(p *GetQueueCommandParameters) (r *http.Response,
 
 type GetQueueTaskParameters struct {
 	QueueTaskId string
-	WithData    *[]string // QueueTaskErrors | QueueTaskMessages
+	WithData    *[]interface{} // QueueTaskErrors | QueueTaskMessages
 }
 
 func (t *Queue) GetQueueTask(p *GetQueueTaskParameters) (r *http.Response, err error) {

@@ -6,11 +6,10 @@ package usecase
 
 import (
 	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Withdrawal struct {
@@ -25,7 +24,7 @@ func NewWithdrawal(restClient rest.RestClientInterface) *Withdrawal {
 
 type GetWithdrawalParameters struct {
 	WithdrawalId string
-	WithData     *[]string
+	WithData     *[]interface{}
 }
 
 func (t *Withdrawal) GetWithdrawal(p *GetWithdrawalParameters) (r *http.Response, err error) {

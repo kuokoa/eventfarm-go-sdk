@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Question struct {
@@ -24,7 +24,7 @@ func NewQuestion(restClient rest.RestClientInterface) *Question {
 
 type ListQuestionsForEventParameters struct {
 	EventId           string
-	WithData          *[]string // TicketType | Answers
+	WithData          *[]interface{} // TicketType | Answers
 	ShouldHideDeleted *bool
 	Query             *string
 	SortBy            *string

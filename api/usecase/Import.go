@@ -5,11 +5,11 @@
 package usecase
 
 import (
+	"fmt"
+	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Import struct {
@@ -24,7 +24,7 @@ func NewImport(restClient rest.RestClientInterface) *Import {
 
 type GetUserImportParameters struct {
 	UserImportId string
-	WithData     *[]string // GoodRecords | DuplicateRecords | ErrorRecords | ImportFailureRecords
+	WithData     *[]interface{} // GoodRecords | DuplicateRecords | ErrorRecords | ImportFailureRecords
 }
 
 func (t *Import) GetUserImport(p *GetUserImportParameters) (r *http.Response, err error) {
