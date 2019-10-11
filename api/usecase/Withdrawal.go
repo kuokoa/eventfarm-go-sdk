@@ -6,10 +6,11 @@ package usecase
 
 import (
 	"fmt"
-	"github.com/eventfarm/go-sdk/rest"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"github.com/eventfarm/go-sdk/rest"
 )
 
 type Withdrawal struct {
