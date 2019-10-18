@@ -56,7 +56,7 @@ func (restClient *HttpRestClient) Get(
 	client := new(http.Client)
 	client.Timeout = restClient.DefaultTimeout
 	if (timeout != nil) {
-		client.Timeout = timeout
+		client.Timeout = *timeout
 	}
 	resp, err = client.Do(req)
 	if err != nil {
@@ -100,7 +100,7 @@ func (restClient *HttpRestClient) Post(
 	client := new(http.Client)
 	client.Timeout = restClient.DefaultTimeout
 	if (timeout != nil) {
-		client.Timeout = timeout
+		client.Timeout = *timeout
 	}
 	resp, err = client.Do(req)
 	if err != nil {
@@ -145,7 +145,7 @@ func (restClient *HttpRestClient) PostJSON(
 	client := new(http.Client)
 	client.Timeout = restClient.DefaultTimeout
 	if (timeout != nil) {
-		client.Timeout = timeout
+		client.Timeout = *timeout
 	}
 	resp, err = client.Do(req)
 	if err != nil {
@@ -188,7 +188,7 @@ func (restClient *HttpRestClient) PostMultipart(
 	client := new(http.Client)
 	client.Timeout = restClient.DefaultTimeout
 	if (timeout != nil) {
-		client.Timeout = timeout
+		client.Timeout = *timeout
 	}
 	resp, err = client.Do(req)
 	if err != nil {
