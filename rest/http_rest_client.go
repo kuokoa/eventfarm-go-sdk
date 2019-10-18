@@ -88,7 +88,7 @@ func (restClient *HttpRestClient) Post(
 	}
 
 	req.Header.Add(`User-Agent`, `Core/EventFarm/golang/`+version)
-	req.Header.Add(`Content-Type`, `application/x-www-form-urlencoded;charset=UTF-8)`)
+	req.Header.Add(`Content-Type`, `application/x-www-form-urlencoded; charset=UTF-8`)
 	//req.Header.Add(`Accept-Encoding`, `gzip`)
 
 	if restClient.EnableLogging {
@@ -130,7 +130,7 @@ func (restClient *HttpRestClient) PostJSON(
 	}
 
 	req.Header.Add(`User-Agent`, `Core/EventFarm/golang/`+version)
-	req.Header.Add(`Content-Type`, `application/json;charset=UTF-8)`)
+	req.Header.Add(`Content-Type`, `application/json; charset=UTF-8`)
 	//req.Header.Add(`Accept-Encoding`, `gzip`)
 
 	if restClient.EnableLogging {
@@ -170,7 +170,7 @@ func (restClient *HttpRestClient) PostMultipart(
 	}
 
 	req.Header.Add(`User-Agent`, `Core/EventFarm/golang/`+version)
-	req.Header.Add(`Content-Type`, `application/x-www-form-urlencoded;charset=UTF-8)`)
+	req.Header.Add(`Content-Type`, `application/x-www-form-urlencoded; charset=UTF-8`)
 	//req.Header.Add(`Accept-Encoding`, `gzip`)
 
 	if restClient.EnableLogging {
