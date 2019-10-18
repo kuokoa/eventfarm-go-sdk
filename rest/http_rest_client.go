@@ -11,17 +11,16 @@ import (
 )
 
 type HttpRestClient struct {
-	timeout       time.Duration
-	baseUri       string
-	EnableLogging bool
+	DefaultTimeout time.Duration
+	BaseUri        string
+	EnableLogging  bool
 }
-
-const defaultTimeout = 20 * time.Second
 
 func NewHttpRestClient(baseUri string) *HttpRestClient {
 	return &HttpRestClient{
-		timeout: defaultTimeout,
-		baseUri: baseUri,
+		DefaultTimeout: 20 * time.Second,
+		BaseUri: baseUri,
+		EnableLogging: false,
 	}
 }
 
@@ -32,7 +31,7 @@ func (restClient *HttpRestClient) Get(
 	timeout *time.Duration,
 ) (resp *http.Response, err error) {
 
-	url = restClient.baseUri + url
+	url = restClient.BaseUri + url
 
 	if queryParameters != nil && len(*queryParameters) > 0 {
 		url += `?` + queryParameters.Encode()
@@ -55,7 +54,10 @@ func (restClient *HttpRestClient) Get(
 	}
 
 	client := new(http.Client)
-	client.Timeout = defaultTimeout
+	client.Timeout = restClient.DefaultTimeout
+	if (timeout != nil) {
+		client.Timeout = timeout
+	}
 	resp, err = client.Do(req)
 	if err != nil {
 		return
@@ -75,7 +77,7 @@ func (restClient *HttpRestClient) Post(
 	timeout *time.Duration,
 ) (resp *http.Response, err error) {
 
-	url = restClient.baseUri + url
+	url = restClient.BaseUri + url
 	body := bytes.NewBufferString(formParameters.Encode())
 
 	req, err := http.NewRequest(`POST`, url, body)
@@ -96,7 +98,10 @@ func (restClient *HttpRestClient) Post(
 	}
 
 	client := new(http.Client)
-	client.Timeout = defaultTimeout
+	client.Timeout = restClient.DefaultTimeout
+	if (timeout != nil) {
+		client.Timeout = timeout
+	}
 	resp, err = client.Do(req)
 	if err != nil {
 		return
@@ -116,7 +121,7 @@ func (restClient *HttpRestClient) PostJSON(
 	timeout *time.Duration,
 ) (resp *http.Response, err error) {
 
-	url = restClient.baseUri + url
+	url = restClient.BaseUri + url
 	body := new(bytes.Buffer)
 	json.NewEncoder(body).Encode(data)
 
@@ -138,7 +143,10 @@ func (restClient *HttpRestClient) PostJSON(
 	}
 
 	client := new(http.Client)
-	client.Timeout = defaultTimeout
+	client.Timeout = restClient.DefaultTimeout
+	if (timeout != nil) {
+		client.Timeout = timeout
+	}
 	resp, err = client.Do(req)
 	if err != nil {
 		return
@@ -158,7 +166,7 @@ func (restClient *HttpRestClient) PostMultipart(
 	timeout *time.Duration,
 ) (resp *http.Response, err error) {
 
-	url = restClient.baseUri + url
+	url = restClient.BaseUri + url
 
 	req, err := http.NewRequest(`POST`, url, nil)
 	if err != nil {
@@ -178,7 +186,10 @@ func (restClient *HttpRestClient) PostMultipart(
 	}
 
 	client := new(http.Client)
-	client.Timeout = defaultTimeout
+	client.Timeout = restClient.DefaultTimeout
+	if (timeout != nil) {
+		client.Timeout = timeout
+	}
 	resp, err = client.Do(req)
 	if err != nil {
 		return
